@@ -1,6 +1,23 @@
-#Directories
-VivadoSynth.cache/
+#== Directories ==
+VivadoKeytar.cache/
+VivadoKeytar.runs/synth_1/
+VivadoKeytar.runs/system_processing_system7_0_0_synth_1/
 
-#File Types
+#== File Types ==
+#reports
+*.log
+*.rpt
+*.vdi
+#metadata
+*.rst
+#output files
+*.pb
+*.dcp
+*.rpx
+#libraryfiles
+*.so
+*.dll
 
-#Files
+
+#== Files ==
+usage_statistics_webtalk*
