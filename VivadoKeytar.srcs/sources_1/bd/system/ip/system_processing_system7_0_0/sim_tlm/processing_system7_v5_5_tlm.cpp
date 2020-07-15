@@ -145,6 +145,7 @@ void add_extensions_to_tlm(const xtlm::aximm_payload* xtlm_pay, tlm::tlm_generic
 processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_name name,
     xsc::common_cpp::properties& _prop): sc_module(name)//registering module name with parent
         ,FCLK_CLK0("FCLK_CLK0")
+        ,FCLK_CLK1("FCLK_CLK1")
         ,MIO("MIO")
         ,DDR_CAS_n("DDR_CAS_n")
         ,DDR_CKE("DDR_CKE")
@@ -166,7 +167,8 @@ processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_n
         ,PS_SRSTB("PS_SRSTB")
         ,PS_CLK("PS_CLK")
         ,PS_PORB("PS_PORB")
-        ,FCLK_CLK0_clk("FCLK_CLK0_clk", sc_time(20000.0,sc_core::SC_PS))//clock period in picoseconds = 1000000/freq(in MZ)
+        ,FCLK_CLK0_clk("FCLK_CLK0_clk", sc_time(1000000.0,sc_core::SC_PS))//clock period in picoseconds = 1000000/freq(in MZ)
+        ,FCLK_CLK1_clk("FCLK_CLK1_clk", sc_time(4000.0,sc_core::SC_PS))//clock period in picoseconds = 1000000/freq(in MZ)
     ,prop(_prop)
     {
         //creating instances of xtlm slave sockets
@@ -204,6 +206,9 @@ processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_n
         SC_METHOD(trigger_FCLK_CLK0_pin);
         sensitive << FCLK_CLK0_clk;
         dont_initialize();
+        SC_METHOD(trigger_FCLK_CLK1_pin);
+        sensitive << FCLK_CLK1_clk;
+        dont_initialize();
         m_zynq_tlm_model->rst(qemu_rst);
     }
 processing_system7_v5_5_tlm :: ~processing_system7_v5_5_tlm() {
@@ -214,6 +219,11 @@ processing_system7_v5_5_tlm :: ~processing_system7_v5_5_tlm() {
     //FCLK_CLK0 pin written based on FCLK_CLK0_clk clock value 
     void processing_system7_v5_5_tlm ::trigger_FCLK_CLK0_pin()    {
         FCLK_CLK0.write(FCLK_CLK0_clk.read());
+    }
+    //Method which is sentive to FCLK_CLK1_clk sc_clock object
+    //FCLK_CLK1 pin written based on FCLK_CLK1_clk clock value 
+    void processing_system7_v5_5_tlm ::trigger_FCLK_CLK1_pin()    {
+        FCLK_CLK1.write(FCLK_CLK1_clk.read());
     }
     void processing_system7_v5_5_tlm ::start_of_simulation()
     {

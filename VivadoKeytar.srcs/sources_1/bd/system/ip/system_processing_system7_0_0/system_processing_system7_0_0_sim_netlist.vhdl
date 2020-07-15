@@ -1,7 +1,7 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
--- Date        : Wed Jul 15 00:16:07 2020
+-- Date        : Wed Jul 15 01:20:46 2020
 -- Host        : ConnerServer running 64-bit Manjaro Linux
 -- Command     : write_vhdl -force -mode funcsim
 --               /NetDrive/Personal/Projects/Keytar/VivadoKeytar/VivadoKeytar.srcs/sources_1/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0_sim_netlist.vhdl
@@ -721,7 +721,7 @@ entity system_processing_system7_0_0_processing_system7_v5_5_processing_system7 
   attribute C_FCLK_CLK0_BUF : string;
   attribute C_FCLK_CLK0_BUF of system_processing_system7_0_0_processing_system7_v5_5_processing_system7 : entity is "FALSE";
   attribute C_FCLK_CLK1_BUF : string;
-  attribute C_FCLK_CLK1_BUF of system_processing_system7_0_0_processing_system7_v5_5_processing_system7 : entity is "FALSE";
+  attribute C_FCLK_CLK1_BUF of system_processing_system7_0_0_processing_system7_v5_5_processing_system7 : entity is "TRUE";
   attribute C_FCLK_CLK2_BUF : string;
   attribute C_FCLK_CLK2_BUF of system_processing_system7_0_0_processing_system7_v5_5_processing_system7 : entity is "FALSE";
   attribute C_FCLK_CLK3_BUF : string;
@@ -817,7 +817,7 @@ entity system_processing_system7_0_0_processing_system7_v5_5_processing_system7 
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of system_processing_system7_0_0_processing_system7_v5_5_processing_system7 : entity is "processing_system7_v5_5_processing_system7";
   attribute POWER : string;
-  attribute POWER of system_processing_system7_0_0_processing_system7_v5_5_processing_system7 : entity is "<PROCESSOR name={system} numA9Cores={2} clockFreq={666.666666} load={0.5} /><MEMORY name={code} memType={DDR3} dataWidth={32} clockFreq={533.333333} readRate={0.5} writeRate={0.5} /><IO interface={GPIO_Bank_1} ioStandard={LVCMOS18} bidis={28} ioBank={Vcco_p1} clockFreq={1} usageRate={0.5} /><IO interface={GPIO_Bank_0} ioStandard={LVCMOS33} bidis={16} ioBank={Vcco_p0} clockFreq={1} usageRate={0.5} /><IO interface={UART} ioStandard={LVCMOS18} bidis={2} ioBank={Vcco_p1} clockFreq={100.000000} usageRate={0.5} /><IO interface={SD} ioStandard={LVCMOS18} bidis={8} ioBank={Vcco_p1} clockFreq={50.000000} usageRate={0.5} /><PLL domain={Processor} vco={1333.333} /><PLL domain={Memory} vco={1066.667} /><PLL domain={IO} vco={1600.000} />/>";
+  attribute POWER of system_processing_system7_0_0_processing_system7_v5_5_processing_system7 : entity is "<PROCESSOR name={system} numA9Cores={2} clockFreq={666.666666} load={0.5} /><MEMORY name={code} memType={DDR3} dataWidth={32} clockFreq={533.333333} readRate={0.5} writeRate={0.5} /><IO interface={GPIO_Bank_1} ioStandard={LVCMOS18} bidis={28} ioBank={Vcco_p1} clockFreq={1} usageRate={0.5} /><IO interface={GPIO_Bank_0} ioStandard={LVCMOS33} bidis={16} ioBank={Vcco_p0} clockFreq={1} usageRate={0.5} /><IO interface={UART} ioStandard={LVCMOS18} bidis={2} ioBank={Vcco_p1} clockFreq={100.000000} usageRate={0.5} /><IO interface={SD} ioStandard={LVCMOS18} bidis={8} ioBank={Vcco_p1} clockFreq={50.000000} usageRate={0.5} /><PLL domain={Processor} vco={1333.333} /><PLL domain={Memory} vco={1066.667} /><PLL domain={IO} vco={1000.000} />/>";
   attribute USE_TRACE_DATA_EDGE_DETECTOR : integer;
   attribute USE_TRACE_DATA_EDGE_DETECTOR of system_processing_system7_0_0_processing_system7_v5_5_processing_system7 : entity is 0;
 end system_processing_system7_0_0_processing_system7_v5_5_processing_system7;
@@ -827,6 +827,7 @@ architecture STRUCTURE of system_processing_system7_0_0_processing_system7_v5_5_
   signal \<const1>\ : STD_LOGIC;
   signal ENET0_MDIO_T_n : STD_LOGIC;
   signal ENET1_MDIO_T_n : STD_LOGIC;
+  signal FCLK_CLK_unbuffered : STD_LOGIC_VECTOR ( 1 to 1 );
   signal I2C0_SCL_T_n : STD_LOGIC;
   signal I2C0_SDA_T_n : STD_LOGIC;
   signal I2C1_SCL_T_n : STD_LOGIC;
@@ -936,6 +937,7 @@ architecture STRUCTURE of system_processing_system7_0_0_processing_system7_v5_5_
   attribute BOX_TYPE of PS_CLK_BIBUF : label is "PRIMITIVE";
   attribute BOX_TYPE of PS_PORB_BIBUF : label is "PRIMITIVE";
   attribute BOX_TYPE of PS_SRSTB_BIBUF : label is "PRIMITIVE";
+  attribute BOX_TYPE of \buffer_fclk_clk_1.FCLK_CLK_1_BUFG\ : label is "PRIMITIVE";
   attribute BOX_TYPE of \genblk13[0].MIO_BIBUF\ : label is "PRIMITIVE";
   attribute BOX_TYPE of \genblk13[10].MIO_BIBUF\ : label is "PRIMITIVE";
   attribute BOX_TYPE of \genblk13[11].MIO_BIBUF\ : label is "PRIMITIVE";
@@ -1946,7 +1948,7 @@ PS7_i: unisim.vcomponents.PS7
       EVENTSTANDBYWFI(1 downto 0) => EVENT_STANDBYWFI(1 downto 0),
       FCLKCLK(3) => FCLK_CLK3,
       FCLKCLK(2) => FCLK_CLK2,
-      FCLKCLK(1) => FCLK_CLK1,
+      FCLKCLK(1) => FCLK_CLK_unbuffered(1),
       FCLKCLK(0) => FCLK_CLK0,
       FCLKCLKTRIGN(3 downto 0) => B"0000",
       FCLKRESETN(3) => FCLK_RESET3_N,
@@ -2572,6 +2574,11 @@ SPI1_SS_T_INST_0: unisim.vcomponents.LUT1
 VCC: unisim.vcomponents.VCC
      port map (
       P => \<const1>\
+    );
+\buffer_fclk_clk_1.FCLK_CLK_1_BUFG\: unisim.vcomponents.BUFG
+     port map (
+      I => FCLK_CLK_unbuffered(1),
+      O => FCLK_CLK1
     );
 \genblk13[0].MIO_BIBUF\: unisim.vcomponents.BIBUF
      port map (
@@ -3353,6 +3360,7 @@ use UNISIM.VCOMPONENTS.ALL;
 entity system_processing_system7_0_0 is
   port (
     FCLK_CLK0 : out STD_LOGIC;
+    FCLK_CLK1 : out STD_LOGIC;
     MIO : inout STD_LOGIC_VECTOR ( 53 downto 0 );
     DDR_CAS_n : inout STD_LOGIC;
     DDR_CKE : inout STD_LOGIC;
@@ -3431,7 +3439,6 @@ architecture STRUCTURE of system_processing_system7_0_0 is
   signal NLW_inst_ENET1_SOF_RX_UNCONNECTED : STD_LOGIC;
   signal NLW_inst_ENET1_SOF_TX_UNCONNECTED : STD_LOGIC;
   signal NLW_inst_EVENT_EVENTO_UNCONNECTED : STD_LOGIC;
-  signal NLW_inst_FCLK_CLK1_UNCONNECTED : STD_LOGIC;
   signal NLW_inst_FCLK_CLK2_UNCONNECTED : STD_LOGIC;
   signal NLW_inst_FCLK_CLK3_UNCONNECTED : STD_LOGIC;
   signal NLW_inst_FCLK_RESET0_N_UNCONNECTED : STD_LOGIC;
@@ -3726,7 +3733,7 @@ architecture STRUCTURE of system_processing_system7_0_0 is
   attribute C_FCLK_CLK0_BUF : string;
   attribute C_FCLK_CLK0_BUF of inst : label is "FALSE";
   attribute C_FCLK_CLK1_BUF : string;
-  attribute C_FCLK_CLK1_BUF of inst : label is "FALSE";
+  attribute C_FCLK_CLK1_BUF of inst : label is "TRUE";
   attribute C_FCLK_CLK2_BUF : string;
   attribute C_FCLK_CLK2_BUF of inst : label is "FALSE";
   attribute C_FCLK_CLK3_BUF : string;
@@ -3820,7 +3827,7 @@ architecture STRUCTURE of system_processing_system7_0_0 is
   attribute HW_HANDOFF : string;
   attribute HW_HANDOFF of inst : label is "system_processing_system7_0_0.hwdef";
   attribute POWER : string;
-  attribute POWER of inst : label is "<PROCESSOR name={system} numA9Cores={2} clockFreq={666.666666} load={0.5} /><MEMORY name={code} memType={DDR3} dataWidth={32} clockFreq={533.333333} readRate={0.5} writeRate={0.5} /><IO interface={GPIO_Bank_1} ioStandard={LVCMOS18} bidis={28} ioBank={Vcco_p1} clockFreq={1} usageRate={0.5} /><IO interface={GPIO_Bank_0} ioStandard={LVCMOS33} bidis={16} ioBank={Vcco_p0} clockFreq={1} usageRate={0.5} /><IO interface={UART} ioStandard={LVCMOS18} bidis={2} ioBank={Vcco_p1} clockFreq={100.000000} usageRate={0.5} /><IO interface={SD} ioStandard={LVCMOS18} bidis={8} ioBank={Vcco_p1} clockFreq={50.000000} usageRate={0.5} /><PLL domain={Processor} vco={1333.333} /><PLL domain={Memory} vco={1066.667} /><PLL domain={IO} vco={1600.000} />/>";
+  attribute POWER of inst : label is "<PROCESSOR name={system} numA9Cores={2} clockFreq={666.666666} load={0.5} /><MEMORY name={code} memType={DDR3} dataWidth={32} clockFreq={533.333333} readRate={0.5} writeRate={0.5} /><IO interface={GPIO_Bank_1} ioStandard={LVCMOS18} bidis={28} ioBank={Vcco_p1} clockFreq={1} usageRate={0.5} /><IO interface={GPIO_Bank_0} ioStandard={LVCMOS33} bidis={16} ioBank={Vcco_p0} clockFreq={1} usageRate={0.5} /><IO interface={UART} ioStandard={LVCMOS18} bidis={2} ioBank={Vcco_p1} clockFreq={100.000000} usageRate={0.5} /><IO interface={SD} ioStandard={LVCMOS18} bidis={8} ioBank={Vcco_p1} clockFreq={50.000000} usageRate={0.5} /><PLL domain={Processor} vco={1333.333} /><PLL domain={Memory} vco={1066.667} /><PLL domain={IO} vco={1000.000} />/>";
   attribute USE_TRACE_DATA_EDGE_DETECTOR : integer;
   attribute USE_TRACE_DATA_EDGE_DETECTOR of inst : label is 0;
   attribute X_INTERFACE_INFO : string;
@@ -3837,7 +3844,9 @@ architecture STRUCTURE of system_processing_system7_0_0 is
   attribute X_INTERFACE_INFO of DDR_WEB : signal is "xilinx.com:interface:ddrx:1.0 DDR WE_N";
   attribute X_INTERFACE_INFO of FCLK_CLK0 : signal is "xilinx.com:signal:clock:1.0 FCLK_CLK0 CLK";
   attribute X_INTERFACE_PARAMETER : string;
-  attribute X_INTERFACE_PARAMETER of FCLK_CLK0 : signal is "XIL_INTERFACENAME FCLK_CLK0, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0";
+  attribute X_INTERFACE_PARAMETER of FCLK_CLK0 : signal is "XIL_INTERFACENAME FCLK_CLK0, FREQ_HZ 1000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0";
+  attribute X_INTERFACE_INFO of FCLK_CLK1 : signal is "xilinx.com:signal:clock:1.0 FCLK_CLK1 CLK";
+  attribute X_INTERFACE_PARAMETER of FCLK_CLK1 : signal is "XIL_INTERFACENAME FCLK_CLK1, FREQ_HZ 250000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, INSERT_VIP 0";
   attribute X_INTERFACE_INFO of PS_CLK : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_CLK";
   attribute X_INTERFACE_INFO of PS_PORB : signal is "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_PORB";
   attribute X_INTERFACE_PARAMETER of PS_PORB : signal is "XIL_INTERFACENAME FIXED_IO, CAN_DEBUG false";
@@ -3970,7 +3979,7 @@ inst: entity work.system_processing_system7_0_0_processing_system7_v5_5_processi
       EVENT_STANDBYWFE(1 downto 0) => NLW_inst_EVENT_STANDBYWFE_UNCONNECTED(1 downto 0),
       EVENT_STANDBYWFI(1 downto 0) => NLW_inst_EVENT_STANDBYWFI_UNCONNECTED(1 downto 0),
       FCLK_CLK0 => FCLK_CLK0,
-      FCLK_CLK1 => NLW_inst_FCLK_CLK1_UNCONNECTED,
+      FCLK_CLK1 => FCLK_CLK1,
       FCLK_CLK2 => NLW_inst_FCLK_CLK2_UNCONNECTED,
       FCLK_CLK3 => NLW_inst_FCLK_CLK3_UNCONNECTED,
       FCLK_CLKTRIG0_N => '0',

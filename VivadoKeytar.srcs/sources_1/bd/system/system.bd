@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xF176239B0B8904BE",
+      "boundary_crc": "0x35AB354B6867BD5B",
       "device": "xc7z020clg400-1",
       "name": "system",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
@@ -11,7 +11,8 @@
     },
     "design_tree": {
       "processing_system7_0": "",
-      "RGBTest_0": ""
+      "RGBTest_0": "",
+      "Synth_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -91,6 +92,16 @@
             "value_src": "default"
           }
         }
+      },
+      "Buzzer": {
+        "type": "data",
+        "direction": "O",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
       }
     },
     "components": {
@@ -114,10 +125,10 @@
             "value": "10.000000"
           },
           "PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ": {
-            "value": "50.000000"
+            "value": "1.000000"
           },
           "PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ": {
-            "value": "10.000000"
+            "value": "250.000000"
           },
           "PCW_ACT_FPGA2_PERIPHERAL_FREQMHZ": {
             "value": "10.000000"
@@ -168,10 +179,10 @@
             "value": "111.111115"
           },
           "PCW_CLK0_FREQ": {
-            "value": "50000000"
+            "value": "1000000"
           },
           "PCW_CLK1_FREQ": {
-            "value": "10000000"
+            "value": "250000000"
           },
           "PCW_CLK2_FREQ": {
             "value": "10000000"
@@ -183,6 +194,9 @@
             "value": "0x3FFFFFFF"
           },
           "PCW_EN_CLK0_PORT": {
+            "value": "1"
+          },
+          "PCW_EN_CLK1_PORT": {
             "value": "1"
           },
           "PCW_EN_EMIO_CD_SDIO0": {
@@ -203,10 +217,25 @@
           "PCW_EN_UART1": {
             "value": "1"
           },
+          "PCW_FCLK1_PERIPHERAL_CLKSRC": {
+            "value": "IO PLL"
+          },
           "PCW_FCLK_CLK0_BUF": {
             "value": "FALSE"
           },
+          "PCW_FCLK_CLK1_BUF": {
+            "value": "TRUE"
+          },
+          "PCW_FPGA0_PERIPHERAL_FREQMHZ": {
+            "value": "1"
+          },
+          "PCW_FPGA1_PERIPHERAL_FREQMHZ": {
+            "value": "250"
+          },
           "PCW_FPGA_FCLK0_ENABLE": {
+            "value": "1"
+          },
+          "PCW_FPGA_FCLK1_ENABLE": {
             "value": "1"
           },
           "PCW_GPIO_MIO_GPIO_ENABLE": {
@@ -766,7 +795,7 @@
                 "value_src": "default_prop"
               },
               "FREQ_HZ": {
-                "value": "50000000",
+                "value": "1000000",
                 "value_src": "user_prop"
               }
             }
@@ -775,6 +804,40 @@
             "direction": "O",
             "left": "2",
             "right": "0",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "",
+                "value_src": "weak"
+              }
+            }
+          }
+        }
+      },
+      "Synth_0": {
+        "vlnv": "xilinx.com:module_ref:Synth:1.0",
+        "xci_name": "system_Synth_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "Synth",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "Clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "CLK_DOMAIN": {
+                "value": "system_processing_system7_0_0_FCLK_CLK1",
+                "value_src": "default_prop"
+              },
+              "FREQ_HZ": {
+                "value": "250000000",
+                "value_src": "user_prop"
+              }
+            }
+          },
+          "Buzzer": {
+            "direction": "O",
             "parameters": {
               "LAYERED_METADATA": {
                 "value": "",
@@ -810,6 +873,18 @@
         "ports": [
           "processing_system7_0/FCLK_CLK0",
           "RGBTest_0/Clock"
+        ]
+      },
+      "processing_system7_0_FCLK_CLK1": {
+        "ports": [
+          "processing_system7_0/FCLK_CLK1",
+          "Synth_0/Clock"
+        ]
+      },
+      "Synth_0_Buzzer": {
+        "ports": [
+          "Synth_0/Buzzer",
+          "Buzzer"
         ]
       }
     }

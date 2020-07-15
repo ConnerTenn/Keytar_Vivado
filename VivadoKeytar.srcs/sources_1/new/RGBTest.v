@@ -11,7 +11,7 @@ module RGBTest(
 
     always @(posedge Clock)
     begin
-        if (clockdiv==50000000)
+        if (clockdiv==1000000-1)
         begin
             case (RGB)
                 3'b011: begin RGB <= 3'b101; end
