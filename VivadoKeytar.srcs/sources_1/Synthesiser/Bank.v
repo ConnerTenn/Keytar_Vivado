@@ -1,21 +1,12 @@
 `timescale 1ns / 1ps
 
+`include "Math.v"
+
 
 module Bank(
     Clock,
     Waveform
 );
-    function integer clog2;
-        input integer value;
-        begin
-            value = value-1;
-            for (clog2=0; value>0; clog2=clog2+1)
-            begin
-                value = value>>1;
-            end
-        end
-    endfunction
-
     input Clock;
     output [15:0] Waveform;
 
@@ -25,7 +16,7 @@ module Bank(
     for (gi=0; gi<NUM_CHANNELS; gi=gi+1)
     begin:channels
         wire [15:0] waveform;
-        wire [clog2(16'hFFFF*NUM_CHANNELS)-1:0] wavesum;
+        wire [clog2(16'hFFFF*NUM_CHANNELS):0] wavesum;
         Channel channel (
             .Clock(clock),
             .Waveform(waveform)
@@ -44,7 +35,7 @@ module Bank(
     end
 
     //Rescale output
-    assign Waveform = (channels[NUM_CHANNELS-1].wavesum >> clog2(16'hFFFF*NUM_CHANNELS)-1-15);
+    assign Waveform = (channels[NUM_CHANNELS-1].wavesum >> clog2(16'hFFFF*NUM_CHANNELS)-15);
     
 
     // always @(posedge Clock)

@@ -1,20 +1,12 @@
 `timescale 1ns / 1ps
 
+`include "Math.v"
+
+
 module Synth(
     Clock,
     Buzzer
 );
-    function integer clog2;
-        input integer value;
-        begin
-            value = value-1;
-            for (clog2=0; value>0; clog2=clog2+1)
-            begin
-                value = value>>1;
-            end
-        end
-    endfunction
-
     input Clock;
     output Buzzer;
 
@@ -27,7 +19,7 @@ module Synth(
     for (gi=0; gi<NUM_BANKS; gi=gi+1)
     begin:banks
         wire [15:0] waveform;
-        wire [clog2(16'hFFFF*NUM_BANKS)-1:0] wavesum;
+        wire [clog2(16'hFFFF*NUM_BANKS):0] wavesum;
         Bank bank (
             .Clock(clock),
             .Waveform(waveform)
