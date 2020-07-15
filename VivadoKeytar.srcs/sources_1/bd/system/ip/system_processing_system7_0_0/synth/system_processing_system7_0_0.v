@@ -58,6 +58,7 @@ _AXI_GP1_THREAD_ID_WIDTH=12,C_NUM_F2P_INTR_INPUTS=1,C_IRQ_F2P_MODE=DIRECT,C_DQ_W
 =1,C_GP1_EN_MODIFIABLE_TXN=1}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module system_processing_system7_0_0 (
+  FCLK_CLK0,
   MIO,
   DDR_CAS_n,
   DDR_CKE,
@@ -81,6 +82,9 @@ module system_processing_system7_0_0 (
   PS_PORB
 );
 
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME FCLK_CLK0, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 FCLK_CLK0 CLK" *)
+output wire FCLK_CLK0;
 (* X_INTERFACE_INFO = "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO MIO" *)
 inout wire [53 : 0] MIO;
 (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR CAS_N" *)
@@ -795,7 +799,7 @@ inout wire PS_PORB;
     .DMA1_DRTYPE(2'B0),
     .DMA2_DRTYPE(2'B0),
     .DMA3_DRTYPE(2'B0),
-    .FCLK_CLK0(),
+    .FCLK_CLK0(FCLK_CLK0),
     .FCLK_CLK1(),
     .FCLK_CLK2(),
     .FCLK_CLK3(),

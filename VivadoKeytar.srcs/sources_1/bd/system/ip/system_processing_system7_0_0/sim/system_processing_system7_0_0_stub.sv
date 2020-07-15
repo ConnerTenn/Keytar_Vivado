@@ -65,6 +65,7 @@ typedef bit bit_as_bool;
 
 (* SC_MODULE_EXPORT *)
 module system_processing_system7_0_0 (
+  output bit_as_bool FCLK_CLK0,
   output bit [53 : 0] MIO,
   output bit_as_bool DDR_CAS_n,
   output bit_as_bool DDR_CKE,
@@ -92,9 +93,10 @@ endmodule
 
 `ifdef XCELIUM
 (* XMSC_MODULE_EXPORT *)
-module system_processing_system7_0_0 (MIO,DDR_CAS_n,DDR_CKE,DDR_Clk_n,DDR_Clk,DDR_CS_n,DDR_DRSTB,DDR_ODT,DDR_RAS_n,DDR_WEB,DDR_BankAddr,DDR_Addr,DDR_VRN,DDR_VRP,DDR_DM,DDR_DQ,DDR_DQS_n,DDR_DQS,PS_SRSTB,PS_CLK,PS_PORB)
+module system_processing_system7_0_0 (FCLK_CLK0,MIO,DDR_CAS_n,DDR_CKE,DDR_Clk_n,DDR_Clk,DDR_CS_n,DDR_DRSTB,DDR_ODT,DDR_RAS_n,DDR_WEB,DDR_BankAddr,DDR_Addr,DDR_VRN,DDR_VRP,DDR_DM,DDR_DQ,DDR_DQS_n,DDR_DQS,PS_SRSTB,PS_CLK,PS_PORB)
 (* integer foreign = "SystemC";
 *);
+  output wire FCLK_CLK0;
   inout wire [53 : 0] MIO;
   inout wire DDR_CAS_n;
   inout wire DDR_CKE;
@@ -121,7 +123,8 @@ endmodule
 
 `ifdef RIVIERA
 (* SC_MODULE_EXPORT *)
-module system_processing_system7_0_0 (MIO,DDR_CAS_n,DDR_CKE,DDR_Clk_n,DDR_Clk,DDR_CS_n,DDR_DRSTB,DDR_ODT,DDR_RAS_n,DDR_WEB,DDR_BankAddr,DDR_Addr,DDR_VRN,DDR_VRP,DDR_DM,DDR_DQ,DDR_DQS_n,DDR_DQS,PS_SRSTB,PS_CLK,PS_PORB)
+module system_processing_system7_0_0 (FCLK_CLK0,MIO,DDR_CAS_n,DDR_CKE,DDR_Clk_n,DDR_Clk,DDR_CS_n,DDR_DRSTB,DDR_ODT,DDR_RAS_n,DDR_WEB,DDR_BankAddr,DDR_Addr,DDR_VRN,DDR_VRP,DDR_DM,DDR_DQ,DDR_DQS_n,DDR_DQS,PS_SRSTB,PS_CLK,PS_PORB)
+  output wire FCLK_CLK0;
   inout wire [53 : 0] MIO;
   inout wire DDR_CAS_n;
   inout wire DDR_CKE;

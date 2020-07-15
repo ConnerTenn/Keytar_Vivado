@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xCC6CFA53C0928857",
+      "boundary_crc": "0xF176239B0B8904BE",
       "device": "xc7z020clg400-1",
       "name": "system",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
@@ -10,7 +10,8 @@
       "validated": "true"
     },
     "design_tree": {
-      "processing_system7_0": ""
+      "processing_system7_0": "",
+      "RGBTest_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -78,6 +79,20 @@
         }
       }
     },
+    "ports": {
+      "RGB": {
+        "type": "data",
+        "direction": "O",
+        "left": "2",
+        "right": "0",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      }
+    },
     "components": {
       "processing_system7_0": {
         "vlnv": "xilinx.com:ip:processing_system7:5.5",
@@ -99,7 +114,7 @@
             "value": "10.000000"
           },
           "PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ": {
-            "value": "10.000000"
+            "value": "50.000000"
           },
           "PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ": {
             "value": "10.000000"
@@ -153,7 +168,7 @@
             "value": "111.111115"
           },
           "PCW_CLK0_FREQ": {
-            "value": "10000000"
+            "value": "50000000"
           },
           "PCW_CLK1_FREQ": {
             "value": "10000000"
@@ -168,7 +183,7 @@
             "value": "0x3FFFFFFF"
           },
           "PCW_EN_CLK0_PORT": {
-            "value": "0"
+            "value": "1"
           },
           "PCW_EN_EMIO_CD_SDIO0": {
             "value": "0"
@@ -186,6 +201,12 @@
             "value": "1"
           },
           "PCW_EN_UART1": {
+            "value": "1"
+          },
+          "PCW_FCLK_CLK0_BUF": {
+            "value": "FALSE"
+          },
+          "PCW_FPGA_FCLK0_ENABLE": {
             "value": "1"
           },
           "PCW_GPIO_MIO_GPIO_ENABLE": {
@@ -726,6 +747,42 @@
             "value": "0"
           }
         }
+      },
+      "RGBTest_0": {
+        "vlnv": "xilinx.com:module_ref:RGBTest:1.0",
+        "xci_name": "system_RGBTest_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "RGBTest",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "Clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "CLK_DOMAIN": {
+                "value": "system_processing_system7_0_0_FCLK_CLK0",
+                "value_src": "default_prop"
+              },
+              "FREQ_HZ": {
+                "value": "50000000",
+                "value_src": "user_prop"
+              }
+            }
+          },
+          "RGB": {
+            "direction": "O",
+            "left": "2",
+            "right": "0",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "",
+                "value_src": "weak"
+              }
+            }
+          }
+        }
       }
     },
     "interface_nets": {
@@ -739,6 +796,20 @@
         "interface_ports": [
           "FIXED_IO",
           "processing_system7_0/FIXED_IO"
+        ]
+      }
+    },
+    "nets": {
+      "RGBTest_0_RGB": {
+        "ports": [
+          "RGBTest_0/RGB",
+          "RGB"
+        ]
+      },
+      "processing_system7_0_FCLK_CLK0": {
+        "ports": [
+          "processing_system7_0/FCLK_CLK0",
+          "RGBTest_0/Clock"
         ]
       }
     }

@@ -1,7 +1,7 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-// Date        : Mon Jul 13 00:44:56 2020
+// Date        : Wed Jul 15 00:16:07 2020
 // Host        : ConnerServer running 64-bit Manjaro Linux
 // Command     : write_verilog -force -mode funcsim
 //               /NetDrive/Personal/Projects/Keytar/VivadoKeytar/VivadoKeytar.srcs/sources_1/bd/system/ip/system_processing_system7_0_0/system_processing_system7_0_0_sim_netlist.v
@@ -15,7 +15,8 @@
 (* CHECK_LICENSE_TYPE = "system_processing_system7_0_0,processing_system7_v5_5_processing_system7,{}" *) (* DowngradeIPIdentifiedWarnings = "yes" *) (* X_CORE_INFO = "processing_system7_v5_5_processing_system7,Vivado 2020.1" *) 
 (* NotValidForBitStream *)
 module system_processing_system7_0_0
-   (MIO,
+   (FCLK_CLK0,
+    MIO,
     DDR_CAS_n,
     DDR_CKE,
     DDR_Clk_n,
@@ -36,6 +37,7 @@ module system_processing_system7_0_0
     PS_SRSTB,
     PS_CLK,
     PS_PORB);
+  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 FCLK_CLK0 CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME FCLK_CLK0, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) output FCLK_CLK0;
   (* X_INTERFACE_INFO = "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO MIO" *) inout [53:0]MIO;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR CAS_N" *) inout DDR_CAS_n;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR CKE" *) inout DDR_CKE;
@@ -75,6 +77,7 @@ module system_processing_system7_0_0
   wire DDR_VRN;
   wire DDR_VRP;
   wire DDR_WEB;
+  wire FCLK_CLK0;
   wire [53:0]MIO;
   wire PS_CLK;
   wire PS_PORB;
@@ -124,7 +127,6 @@ module system_processing_system7_0_0
   wire NLW_inst_ENET1_SOF_RX_UNCONNECTED;
   wire NLW_inst_ENET1_SOF_TX_UNCONNECTED;
   wire NLW_inst_EVENT_EVENTO_UNCONNECTED;
-  wire NLW_inst_FCLK_CLK0_UNCONNECTED;
   wire NLW_inst_FCLK_CLK1_UNCONNECTED;
   wire NLW_inst_FCLK_CLK2_UNCONNECTED;
   wire NLW_inst_FCLK_CLK3_UNCONNECTED;
@@ -577,7 +579,7 @@ module system_processing_system7_0_0
         .EVENT_EVENTO(NLW_inst_EVENT_EVENTO_UNCONNECTED),
         .EVENT_STANDBYWFE(NLW_inst_EVENT_STANDBYWFE_UNCONNECTED[1:0]),
         .EVENT_STANDBYWFI(NLW_inst_EVENT_STANDBYWFI_UNCONNECTED[1:0]),
-        .FCLK_CLK0(NLW_inst_FCLK_CLK0_UNCONNECTED),
+        .FCLK_CLK0(FCLK_CLK0),
         .FCLK_CLK1(NLW_inst_FCLK_CLK1_UNCONNECTED),
         .FCLK_CLK2(NLW_inst_FCLK_CLK2_UNCONNECTED),
         .FCLK_CLK3(NLW_inst_FCLK_CLK3_UNCONNECTED),

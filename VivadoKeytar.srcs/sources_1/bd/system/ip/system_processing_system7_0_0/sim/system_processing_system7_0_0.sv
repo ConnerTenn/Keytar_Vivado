@@ -677,6 +677,7 @@
 
 //MODULE DECLARATION
  module system_processing_system7_0_0 (
+  FCLK_CLK0,
   MIO,
   DDR_CAS_n,
   DDR_CKE,
@@ -761,6 +762,7 @@
 
 //INPUT AND OUTPUT PORTS
 
+      output  FCLK_CLK0;
       inout  [53 : 0] MIO;
       inout  DDR_CAS_n;
       inout  DDR_CKE;
@@ -785,6 +787,7 @@
 
 //REG DECLARATIONS
 
+      reg FCLK_CLK0;
       string ip_name;
       reg disable_port;
 
@@ -793,6 +796,7 @@ import "DPI-C" function void ps7_set_ip_context(input string ip_name);
 import "DPI-C" function void ps7_set_str_param(input string name,input string val);
 import "DPI-C" function void ps7_set_int_param(input string name,input longint val);
 import "DPI-C" function void ps7_init_c_model();
+import "DPI-C" function void ps7_simulate_single_cycle_FCLK_CLK0();
    export "DPI-C" function ps7_stop_sim;
    function void ps7_stop_sim();
         $display("End of simulation");
@@ -888,5 +892,18 @@ import "DPI-C" function void ps7_init_c_model();
       ps7_set_str_param ( "C_GP1_EN_MODIFIABLE_TXN",C_GP1_EN_MODIFIABLE_TXN );
   ps7_init_c_model();
   end
+  initial
+  begin
+     FCLK_CLK0 = 1'b0;
+  end
+
+  always #(10.0) FCLK_CLK0 <= ~FCLK_CLK0;
+
+  always@(posedge FCLK_CLK0)
+  begin
+   ps7_set_ip_context(ip_name);
+   ps7_simulate_single_cycle_FCLK_CLK0();
+  end
+
 endmodule
 

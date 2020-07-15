@@ -80,6 +80,7 @@ public:
 
   // module pin-to-pin RTL interface
 
+  sc_core::sc_out< bool > FCLK_CLK0;
   sc_core::sc_out< sc_dt::sc_bv<54> > MIO;
   sc_core::sc_out< bool > DDR_CAS_n;
   sc_core::sc_out< bool > DDR_CKE;
@@ -125,6 +126,7 @@ public:
 
   // module pin-to-pin RTL interface
 
+  sc_core::sc_out< bool > FCLK_CLK0;
   sc_core::sc_out< sc_dt::sc_bv<54> > MIO;
   sc_core::sc_out< bool > DDR_CAS_n;
   sc_core::sc_out< bool > DDR_CKE;
@@ -170,6 +172,7 @@ public:
 
   // module pin-to-pin RTL interface
 
+  sc_core::sc_out< bool > FCLK_CLK0;
   sc_core::sc_out< sc_dt::sc_bv<54> > MIO;
   sc_core::sc_out< bool > DDR_CAS_n;
   sc_core::sc_out< bool > DDR_CKE;
@@ -215,6 +218,7 @@ public:
 
   // module pin-to-pin RTL interface
 
+  sc_core::sc_out< bool > FCLK_CLK0;
   sc_core::sc_out< sc_dt::sc_bv<54> > MIO;
   sc_core::sc_out< bool > DDR_CAS_n;
   sc_core::sc_out< bool > DDR_CKE;
@@ -264,6 +268,7 @@ public:
 
   // module pin-to-pin RTL interface
 
+  sc_core::sc_out< bool > FCLK_CLK0;
   sc_core::sc_out< sc_dt::sc_bv<54> > MIO;
   sc_core::sc_out< bool > DDR_CAS_n;
   sc_core::sc_out< bool > DDR_CKE;
