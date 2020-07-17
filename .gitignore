@@ -2,6 +2,7 @@
 #== Directories ==
 VivadoKeytar.cache/
 VivadoKeytar.runs/
+VivadoKeytar.tmp/
 
 #== File Types ==
 #reports

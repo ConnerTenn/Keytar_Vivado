@@ -7,11 +7,11 @@ module RGBTest(
     input Clock;
     output reg[2:0] RGB = 3'b011;
 
-    reg[31:0] clockdiv = 0;
+    reg[32:0] clockdiv = 0;
 
     always @(posedge Clock)
     begin
-        if (clockdiv==1000000-1)
+        if (clockdiv==50_000_000-1)
         begin
             case (RGB)
                 3'b011: begin RGB <= 3'b101; end
