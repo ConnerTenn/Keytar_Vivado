@@ -59,7 +59,7 @@ module BuzzerTest(
         if (BusPSel && BusPReady && BusPEnable)
         begin
             case (BusPAddr)
-                32'h40000000: begin increment <= BusPWriteData[15:0]; BusPReady <= 1; end
+                32'h4010_0000: begin increment <= BusPWriteData[15:0]; BusPReady <= 1; end
             endcase
 
             BusPReady <= 0;

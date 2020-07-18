@@ -1,15 +1,19 @@
 `timescale 1ns / 1ps
 
-// `include "Math.v"
 
-
-module Synth(
+module Synth #(
+    DEBUG = 0
+)
+(
     Clock100MHz,
     Waveform,
     BusClock, BusPAddr, BusPWriteData, BusPReadData, 
     BusPWrite, BusPReady, 
     BusPEnable, BusPSel, BusPError
 );
+
+    `include "Math.v"
+
     input Clock100MHz;
     output signed [23:0] Waveform;
 
@@ -21,7 +25,7 @@ module Synth(
     input BusPEnable, BusPSel;
     output BusPError;
 
-    parameter NUM_CHANNELS=64;
+    parameter NUM_CHANNELS=2;
 
     reg clock1MHz = 0;
 
@@ -29,14 +33,14 @@ module Synth(
     for (gi=0; gi<NUM_CHANNELS; gi=gi+1)
     begin:channels
         wire signed [23:0] waveform;
-        wire signed [29:0] wavesum; //wire signed [clog2(24'hFFFFFF*NUM_CHANNELS):0] wavesum;
+        wire signed [clog2(24'hFFFFFF*NUM_CHANNELS):0] wavesum;
 
         wire [31:0] buspreaddata;
         wire [31:0] buspreaddata_OR;
         wire buspready, busperror;
         wire buspready_OR, busperror_OR;
 
-        Channel #(.ADDRESS(32'h40000000 + 32'h100 * gi)) channel0
+        Channel #(.ADDRESS(32'h4000_0000 + 32'h100 * gi)) channel0
         (
             .Clock1MHz(clock1MHz),
             .Waveform(waveform),
@@ -66,7 +70,7 @@ module Synth(
     end
 
     //Rescale output
-    assign Waveform = (channels[NUM_CHANNELS-1].wavesum >>> (29-23)); //assign Waveform = (channels[NUM_CHANNELS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_CHANNELS)-23));
+    assign Waveform = (channels[NUM_CHANNELS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_CHANNELS)-23));
 
     assign BusPReadData = channels[NUM_CHANNELS-1].buspreaddata_OR;
     assign BusPReady = channels[NUM_CHANNELS-1].buspready_OR;
@@ -75,16 +79,26 @@ module Synth(
 
     reg [7:0] clkdiv = 0;
 
-    always @(posedge Clock100MHz)
+    if (!DEBUG)
     begin
-        if (clkdiv < 100)
+        always @(posedge Clock100MHz)
         begin
-            clkdiv <= clkdiv + 1;
+            if (clkdiv < 100)
+            begin
+                clkdiv <= clkdiv + 1;
+            end
+            else
+            begin
+                clkdiv <= 0;
+                clock1MHz <= !clock1MHz;
+            end
         end
-        else
+    end
+    else
+    begin
+        always @(Clock100MHz)
         begin
-            clkdiv <= 0;
-            clock1MHz <= !clock1MHz;
+            clock1MHz <= Clock100MHz;
         end
     end
 
