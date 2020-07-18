@@ -40,7 +40,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 
 # The design that will be created by this Tcl script contains the following 
 # module references:
-# BuzzerTest, RGBTest
+# BuzzerTest, RGBTest, Synth
 
 # Please add the sources of those modules before sourcing this Tcl script.
 
@@ -170,9 +170,13 @@ proc create_root_design { parentCell } {
   # Create ports
   set Buzzer [ create_bd_port -dir O -type data Buzzer ]
   set RGB [ create_bd_port -dir O -from 2 -to 0 -type data RGB ]
+  set Waveform [ create_bd_port -dir O -from 23 -to 0 -type data Waveform ]
 
   # Create instance: APBSlave_Breakout_0, and set properties
   set APBSlave_Breakout_0 [ create_bd_cell -type ip -vlnv Independant:user:APBSlave_Breakout:1.0 APBSlave_Breakout_0 ]
+
+  # Create instance: APBSlave_Breakout_1, and set properties
+  set APBSlave_Breakout_1 [ create_bd_cell -type ip -vlnv Independant:user:APBSlave_Breakout:1.0 APBSlave_Breakout_1 ]
 
   # Create instance: BuzzerTest_0, and set properties
   set block_name BuzzerTest
@@ -196,10 +200,21 @@ proc create_root_design { parentCell } {
      return 1
    }
   
+  # Create instance: Synth_0, and set properties
+  set block_name Synth
+  set block_cell_name Synth_0
+  if { [catch {set Synth_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   } elseif { $Synth_0 eq "" } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   }
+  
   # Create instance: axi_apb_bridge_0, and set properties
   set axi_apb_bridge_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_apb_bridge:3.0 axi_apb_bridge_0 ]
   set_property -dict [ list \
-   CONFIG.C_APB_NUM_SLAVES {1} \
+   CONFIG.C_APB_NUM_SLAVES {2} \
    CONFIG.C_M_APB_PROTOCOL {apb3} \
  ] $axi_apb_bridge_0
 
@@ -209,6 +224,13 @@ proc create_root_design { parentCell } {
    CONFIG.NUM_MI {1} \
  ] $axi_interconnect_0
 
+  # Create instance: proc_sys_reset_0, and set properties
+  set proc_sys_reset_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 proc_sys_reset_0 ]
+  set_property -dict [ list \
+   CONFIG.C_AUX_RST_WIDTH {2} \
+   CONFIG.C_EXT_RST_WIDTH {1} \
+ ] $proc_sys_reset_0
+
   # Create instance: processing_system7_0, and set properties
   set processing_system7_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 processing_system7_0 ]
   set_property -dict [ list \
@@ -217,8 +239,8 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ACT_DCI_PERIPHERAL_FREQMHZ {10.158730} \
    CONFIG.PCW_ACT_ENET0_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_ENET1_PERIPHERAL_FREQMHZ {10.000000} \
-   CONFIG.PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ {50.000000} \
-   CONFIG.PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ {1.000000} \
+   CONFIG.PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ {100.000000} \
+   CONFIG.PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_FPGA2_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_FPGA3_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_PCAP_PERIPHERAL_FREQMHZ {200.000000} \
@@ -238,8 +260,8 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ARMPLL_CTRL_FBDIV {40} \
    CONFIG.PCW_CAN_PERIPHERAL_DIVISOR0 {1} \
    CONFIG.PCW_CAN_PERIPHERAL_DIVISOR1 {1} \
-   CONFIG.PCW_CLK0_FREQ {50000000} \
-   CONFIG.PCW_CLK1_FREQ {1000000} \
+   CONFIG.PCW_CLK0_FREQ {100000000} \
+   CONFIG.PCW_CLK1_FREQ {10000000} \
    CONFIG.PCW_CLK2_FREQ {10000000} \
    CONFIG.PCW_CLK3_FREQ {10000000} \
    CONFIG.PCW_CPU_CPU_PLL_FREQMHZ {1333.333} \
@@ -258,28 +280,29 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ENET1_RESET_ENABLE {0} \
    CONFIG.PCW_ENET_RESET_ENABLE {0} \
    CONFIG.PCW_EN_CLK0_PORT {1} \
-   CONFIG.PCW_EN_CLK1_PORT {1} \
+   CONFIG.PCW_EN_CLK1_PORT {0} \
    CONFIG.PCW_EN_EMIO_CD_SDIO0 {0} \
    CONFIG.PCW_EN_EMIO_WP_SDIO0 {0} \
    CONFIG.PCW_EN_GPIO {1} \
    CONFIG.PCW_EN_RST0_PORT {1} \
+   CONFIG.PCW_EN_RST1_PORT {0} \
    CONFIG.PCW_EN_SDIO0 {1} \
    CONFIG.PCW_EN_UART1 {1} \
-   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR0 {8} \
+   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR0 {4} \
    CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR1 {4} \
    CONFIG.PCW_FCLK1_PERIPHERAL_CLKSRC {IO PLL} \
-   CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR0 {40} \
-   CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR1 {40} \
+   CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR0 {1} \
+   CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR1 {1} \
    CONFIG.PCW_FCLK2_PERIPHERAL_DIVISOR0 {1} \
    CONFIG.PCW_FCLK2_PERIPHERAL_DIVISOR1 {1} \
    CONFIG.PCW_FCLK3_PERIPHERAL_DIVISOR0 {1} \
    CONFIG.PCW_FCLK3_PERIPHERAL_DIVISOR1 {1} \
    CONFIG.PCW_FCLK_CLK0_BUF {FALSE} \
-   CONFIG.PCW_FCLK_CLK1_BUF {TRUE} \
-   CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {50} \
+   CONFIG.PCW_FCLK_CLK1_BUF {FALSE} \
+   CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {100} \
    CONFIG.PCW_FPGA1_PERIPHERAL_FREQMHZ {1} \
    CONFIG.PCW_FPGA_FCLK0_ENABLE {1} \
-   CONFIG.PCW_FPGA_FCLK1_ENABLE {1} \
+   CONFIG.PCW_FPGA_FCLK1_ENABLE {0} \
    CONFIG.PCW_FPGA_FCLK2_ENABLE {0} \
    CONFIG.PCW_FPGA_FCLK3_ENABLE {0} \
    CONFIG.PCW_GPIO_MIO_GPIO_ENABLE {1} \
@@ -554,31 +577,55 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_USE_S_AXI_GP0 {0} \
  ] $processing_system7_0
 
+  # Create instance: xlconstant_0, and set properties
+  set xlconstant_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_0 ]
+  set_property -dict [ list \
+   CONFIG.CONST_VAL {0} \
+ ] $xlconstant_0
+
+  # Create instance: xlconstant_1, and set properties
+  set xlconstant_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 xlconstant_1 ]
+
   # Create interface connections
   connect_bd_intf_net -intf_net S00_AXI_1 [get_bd_intf_pins axi_interconnect_0/S00_AXI] [get_bd_intf_pins processing_system7_0/M_AXI_GP0]
   connect_bd_intf_net -intf_net axi_apb_bridge_0_APB_M [get_bd_intf_pins APBSlave_Breakout_0/APB_S] [get_bd_intf_pins axi_apb_bridge_0/APB_M]
+  connect_bd_intf_net -intf_net axi_apb_bridge_0_APB_M2 [get_bd_intf_pins APBSlave_Breakout_1/APB_S] [get_bd_intf_pins axi_apb_bridge_0/APB_M2]
   connect_bd_intf_net -intf_net axi_interconnect_0_M00_AXI [get_bd_intf_pins axi_apb_bridge_0/AXI4_LITE] [get_bd_intf_pins axi_interconnect_0/M00_AXI]
   connect_bd_intf_net -intf_net processing_system7_0_DDR [get_bd_intf_ports DDR] [get_bd_intf_pins processing_system7_0/DDR]
   connect_bd_intf_net -intf_net processing_system7_0_FIXED_IO [get_bd_intf_ports FIXED_IO] [get_bd_intf_pins processing_system7_0/FIXED_IO]
 
   # Create port connections
-  connect_bd_net -net APBSlave_Breakout_0_BusClock [get_bd_pins APBSlave_Breakout_0/BusClock] [get_bd_pins BuzzerTest_0/BusClock]
-  connect_bd_net -net APBSlave_Breakout_0_BusPAddr [get_bd_pins APBSlave_Breakout_0/BusPAddr] [get_bd_pins BuzzerTest_0/BusPAddr]
-  connect_bd_net -net APBSlave_Breakout_0_BusPEnable [get_bd_pins APBSlave_Breakout_0/BusPEnable] [get_bd_pins BuzzerTest_0/BusPEnable]
-  connect_bd_net -net APBSlave_Breakout_0_BusPSel [get_bd_pins APBSlave_Breakout_0/BusPSel] [get_bd_pins BuzzerTest_0/BusPSel]
-  connect_bd_net -net APBSlave_Breakout_0_BusPWrite [get_bd_pins APBSlave_Breakout_0/BusPWrite] [get_bd_pins BuzzerTest_0/BusPWrite]
-  connect_bd_net -net APBSlave_Breakout_0_BusPWriteData [get_bd_pins APBSlave_Breakout_0/BusPWriteData] [get_bd_pins BuzzerTest_0/BusPWriteData]
-  connect_bd_net -net BuzzerTest_0_BusPError [get_bd_pins APBSlave_Breakout_0/BusPError] [get_bd_pins BuzzerTest_0/BusPError]
-  connect_bd_net -net BuzzerTest_0_BusPReadData [get_bd_pins APBSlave_Breakout_0/BusPReadData] [get_bd_pins BuzzerTest_0/BusPReadData]
-  connect_bd_net -net BuzzerTest_0_BusPReady [get_bd_pins APBSlave_Breakout_0/BusPReady] [get_bd_pins BuzzerTest_0/BusPReady]
+  connect_bd_net -net APBSlave_Breakout_0_BusClock [get_bd_pins APBSlave_Breakout_0/BusClock] [get_bd_pins Synth_0/BusClock]
+  connect_bd_net -net APBSlave_Breakout_0_BusPAddr [get_bd_pins APBSlave_Breakout_0/BusPAddr] [get_bd_pins Synth_0/BusPAddr]
+  connect_bd_net -net APBSlave_Breakout_0_BusPEnable [get_bd_pins APBSlave_Breakout_0/BusPEnable] [get_bd_pins Synth_0/BusPEnable]
+  connect_bd_net -net APBSlave_Breakout_0_BusPSel [get_bd_pins APBSlave_Breakout_0/BusPSel] [get_bd_pins Synth_0/BusPSel]
+  connect_bd_net -net APBSlave_Breakout_0_BusPWrite [get_bd_pins APBSlave_Breakout_0/BusPWrite] [get_bd_pins Synth_0/BusPWrite]
+  connect_bd_net -net APBSlave_Breakout_0_BusPWriteData [get_bd_pins APBSlave_Breakout_0/BusPWriteData] [get_bd_pins Synth_0/BusPWriteData]
+  connect_bd_net -net APBSlave_Breakout_1_BusClock [get_bd_pins APBSlave_Breakout_1/BusClock] [get_bd_pins BuzzerTest_0/BusClock]
+  connect_bd_net -net APBSlave_Breakout_1_BusPAddr [get_bd_pins APBSlave_Breakout_1/BusPAddr] [get_bd_pins BuzzerTest_0/BusPAddr]
+  connect_bd_net -net APBSlave_Breakout_1_BusPEnable [get_bd_pins APBSlave_Breakout_1/BusPEnable] [get_bd_pins BuzzerTest_0/BusPEnable]
+  connect_bd_net -net APBSlave_Breakout_1_BusPSel [get_bd_pins APBSlave_Breakout_1/BusPSel] [get_bd_pins BuzzerTest_0/BusPSel]
+  connect_bd_net -net APBSlave_Breakout_1_BusPWrite [get_bd_pins APBSlave_Breakout_1/BusPWrite] [get_bd_pins BuzzerTest_0/BusPWrite]
+  connect_bd_net -net APBSlave_Breakout_1_BusPWriteData [get_bd_pins APBSlave_Breakout_1/BusPWriteData] [get_bd_pins BuzzerTest_0/BusPWriteData]
+  connect_bd_net -net ARESETN_1 [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins proc_sys_reset_0/interconnect_aresetn]
+  connect_bd_net -net BuzzerTest_0_BusPError [get_bd_pins APBSlave_Breakout_1/BusPError] [get_bd_pins BuzzerTest_0/BusPError]
+  connect_bd_net -net BuzzerTest_0_BusPReadData [get_bd_pins APBSlave_Breakout_1/BusPReadData] [get_bd_pins BuzzerTest_0/BusPReadData]
+  connect_bd_net -net BuzzerTest_0_BusPReady [get_bd_pins APBSlave_Breakout_1/BusPReady] [get_bd_pins BuzzerTest_0/BusPReady]
   connect_bd_net -net BuzzerTest_0_Buzzer [get_bd_ports Buzzer] [get_bd_pins BuzzerTest_0/Buzzer]
   connect_bd_net -net RGBTest_0_RGB [get_bd_ports RGB] [get_bd_pins RGBTest_0/RGB]
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins APBSlave_Breakout_0/s_apb_pclock] [get_bd_pins RGBTest_0/Clock] [get_bd_pins axi_apb_bridge_0/s_axi_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK]
-  connect_bd_net -net processing_system7_0_FCLK_CLK1 [get_bd_pins BuzzerTest_0/Clock] [get_bd_pins processing_system7_0/FCLK_CLK1]
-  connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins axi_apb_bridge_0/s_axi_aresetn] [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
+  connect_bd_net -net Synth_0_BusPError [get_bd_pins APBSlave_Breakout_0/BusPError] [get_bd_pins Synth_0/BusPError]
+  connect_bd_net -net Synth_0_BusPReadData [get_bd_pins APBSlave_Breakout_0/BusPReadData] [get_bd_pins Synth_0/BusPReadData]
+  connect_bd_net -net Synth_0_BusPReady [get_bd_pins APBSlave_Breakout_0/BusPReady] [get_bd_pins Synth_0/BusPReady]
+  connect_bd_net -net Synth_0_Waveform [get_bd_ports Waveform] [get_bd_pins Synth_0/Waveform]
+  connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins axi_apb_bridge_0/s_axi_aresetn] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins APBSlave_Breakout_0/s_apb_pclock] [get_bd_pins APBSlave_Breakout_1/s_apb_pclock] [get_bd_pins BuzzerTest_0/Clock] [get_bd_pins RGBTest_0/Clock] [get_bd_pins Synth_0/Clock100MHz] [get_bd_pins axi_apb_bridge_0/s_axi_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK]
+  connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins proc_sys_reset_0/aux_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
+  connect_bd_net -net xlconstant_0_dout [get_bd_pins proc_sys_reset_0/dcm_locked] [get_bd_pins proc_sys_reset_0/mb_debug_sys_rst] [get_bd_pins xlconstant_0/dout]
+  connect_bd_net -net xlconstant_1_dout [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins xlconstant_1/dout]
 
   # Create address segments
   assign_bd_address -offset 0x40000000 -range 0x00001000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs APBSlave_Breakout_0/APB_S/Reg] -force
+  assign_bd_address -offset 0x40001000 -range 0x00001000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs APBSlave_Breakout_1/APB_S/Reg] -force
 
 
   # Restore current instance

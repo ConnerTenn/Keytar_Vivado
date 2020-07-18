@@ -1,7 +1,7 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-// Date        : Thu Jul 16 23:45:21 2020
+// Date        : Fri Jul 17 22:14:13 2020
 // Host        : ConnerServer running 64-bit Manjaro Linux
 // Command     : write_verilog -force -mode funcsim
 //               /NetDrive/Personal/Projects/Keytar/VivadoKeytar/VivadoKeytar.srcs/sources_1/bd/system/ip/system_BuzzerTest_0_0/system_BuzzerTest_0_0_sim_netlist.v
@@ -27,7 +27,7 @@ module system_BuzzerTest_0_0
     BusPEnable,
     BusPSel,
     BusPError);
-  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 Clock CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME Clock, FREQ_HZ 1000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, INSERT_VIP 0" *) input Clock;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 Clock CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME Clock, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input Clock;
   output Buzzer;
   input BusClock;
   input [31:0]BusPAddr;
@@ -123,9 +123,6 @@ module system_BuzzerTest_0_0_BuzzerTest
   wire [15:0]BusPWriteData;
   wire Buzzer;
   wire Clock;
-  wire clk;
-  wire [3:1]clkdiv_reg;
-  wire \clkdiv_reg_n_0_[0] ;
   wire [15:0]in;
   wire \increment[15]_i_1_n_0 ;
   wire \increment[15]_i_2_n_0 ;
@@ -134,9 +131,6 @@ module system_BuzzerTest_0_0_BuzzerTest
   wire \increment[15]_i_5_n_0 ;
   wire \increment[15]_i_6_n_0 ;
   wire \increment[15]_i_7_n_0 ;
-  wire \inst/_n_0 ;
-  wire [3:0]p_0_in;
-  wire slowclk_i_1_n_0;
 
   (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT3 #(
@@ -152,68 +146,6 @@ module system_BuzzerTest_0_0_BuzzerTest
         .D(BusPReady_i_1_n_0),
         .Q(BusPReady),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
-  LUT1 #(
-    .INIT(2'h1)) 
-    \clkdiv[0]_i_1 
-       (.I0(\clkdiv_reg_n_0_[0] ),
-        .O(p_0_in[0]));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
-  LUT2 #(
-    .INIT(4'h6)) 
-    \clkdiv[1]_i_1 
-       (.I0(\clkdiv_reg_n_0_[0] ),
-        .I1(clkdiv_reg[1]),
-        .O(p_0_in[1]));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
-  LUT3 #(
-    .INIT(8'h78)) 
-    \clkdiv[2]_i_1 
-       (.I0(\clkdiv_reg_n_0_[0] ),
-        .I1(clkdiv_reg[1]),
-        .I2(clkdiv_reg[2]),
-        .O(p_0_in[2]));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
-  LUT4 #(
-    .INIT(16'h7F80)) 
-    \clkdiv[3]_i_1 
-       (.I0(clkdiv_reg[1]),
-        .I1(\clkdiv_reg_n_0_[0] ),
-        .I2(clkdiv_reg[2]),
-        .I3(clkdiv_reg[3]),
-        .O(p_0_in[3]));
-  FDRE #(
-    .INIT(1'b0)) 
-    \clkdiv_reg[0] 
-       (.C(Clock),
-        .CE(1'b1),
-        .D(p_0_in[0]),
-        .Q(\clkdiv_reg_n_0_[0] ),
-        .R(\inst/_n_0 ));
-  FDRE #(
-    .INIT(1'b0)) 
-    \clkdiv_reg[1] 
-       (.C(Clock),
-        .CE(1'b1),
-        .D(p_0_in[1]),
-        .Q(clkdiv_reg[1]),
-        .R(\inst/_n_0 ));
-  FDRE #(
-    .INIT(1'b0)) 
-    \clkdiv_reg[2] 
-       (.C(Clock),
-        .CE(1'b1),
-        .D(p_0_in[2]),
-        .Q(clkdiv_reg[2]),
-        .R(\inst/_n_0 ));
-  FDRE #(
-    .INIT(1'b0)) 
-    \clkdiv_reg[3] 
-       (.C(Clock),
-        .CE(1'b1),
-        .D(p_0_in[3]),
-        .Q(clkdiv_reg[3]),
-        .R(\inst/_n_0 ));
   LUT6 #(
     .INIT(64'h8000000000000000)) 
     \increment[15]_i_1 
@@ -412,50 +344,27 @@ module system_BuzzerTest_0_0_BuzzerTest
         .D(BusPWriteData[9]),
         .Q(in[9]),
         .R(1'b0));
-  LUT3 #(
-    .INIT(8'hA8)) 
-    \inst/ 
-       (.I0(clkdiv_reg[3]),
-        .I1(clkdiv_reg[1]),
-        .I2(clkdiv_reg[2]),
-        .O(\inst/_n_0 ));
-  LUT4 #(
-    .INIT(16'h1FE0)) 
-    slowclk_i_1
-       (.I0(clkdiv_reg[2]),
-        .I1(clkdiv_reg[1]),
-        .I2(clkdiv_reg[3]),
-        .I3(clk),
-        .O(slowclk_i_1_n_0));
-  FDRE #(
-    .INIT(1'b0)) 
-    slowclk_reg
-       (.C(Clock),
-        .CE(1'b1),
-        .D(slowclk_i_1_n_0),
-        .Q(clk),
-        .R(1'b0));
-  system_BuzzerTest_0_0_WaveGen wavegen
+  system_BuzzerTest_0_0_WaveGen16 wavegen
        (.Buzzer(Buzzer),
-        .Q(in),
-        .clk(clk));
+        .Clock(Clock),
+        .Q(in));
 endmodule
 
-(* ORIG_REF_NAME = "WaveGen" *) 
-module system_BuzzerTest_0_0_WaveGen
+(* ORIG_REF_NAME = "WaveGen16" *) 
+module system_BuzzerTest_0_0_WaveGen16
    (Buzzer,
-    clk,
+    Clock,
     Q);
   output Buzzer;
-  input clk;
+  input Clock;
   input [15:0]Q;
 
   wire Buzzer;
   wire Buzzer_INST_0_i_1_n_0;
   wire Buzzer_INST_0_i_2_n_0;
+  wire Clock;
   wire [15:0]Q;
   wire clear;
-  wire clk;
   wire counter0_carry__0_i_1_n_0;
   wire counter0_carry__0_i_2_n_0;
   wire counter0_carry__0_i_3_n_0;
@@ -537,7 +446,7 @@ module system_BuzzerTest_0_0_WaveGen
   wire \counter_reg[8]_i_1_n_5 ;
   wire \counter_reg[8]_i_1_n_6 ;
   wire \counter_reg[8]_i_1_n_7 ;
-  wire [15:0]p_0_in__0;
+  wire [15:0]p_0_in;
   wire [3:3]NLW_counter0_carry__2_CO_UNCONNECTED;
   wire [3:3]\NLW_counter_reg[12]_i_1_CO_UNCONNECTED ;
 
@@ -577,7 +486,7 @@ module system_BuzzerTest_0_0_WaveGen
         .CO({counter0_carry_n_0,counter0_carry_n_1,counter0_carry_n_2,counter0_carry_n_3}),
         .CYINIT(1'b0),
         .DI(counter_reg[3:0]),
-        .O(p_0_in__0[3:0]),
+        .O(p_0_in[3:0]),
         .S({counter0_carry_i_1_n_0,counter0_carry_i_2_n_0,counter0_carry_i_3_n_0,counter0_carry_i_4_n_0}));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 counter0_carry__0
@@ -585,7 +494,7 @@ module system_BuzzerTest_0_0_WaveGen
         .CO({counter0_carry__0_n_0,counter0_carry__0_n_1,counter0_carry__0_n_2,counter0_carry__0_n_3}),
         .CYINIT(1'b0),
         .DI(counter_reg[7:4]),
-        .O(p_0_in__0[7:4]),
+        .O(p_0_in[7:4]),
         .S({counter0_carry__0_i_1_n_0,counter0_carry__0_i_2_n_0,counter0_carry__0_i_3_n_0,counter0_carry__0_i_4_n_0}));
   LUT2 #(
     .INIT(4'h6)) 
@@ -617,7 +526,7 @@ module system_BuzzerTest_0_0_WaveGen
         .CO({counter0_carry__1_n_0,counter0_carry__1_n_1,counter0_carry__1_n_2,counter0_carry__1_n_3}),
         .CYINIT(1'b0),
         .DI(counter_reg[11:8]),
-        .O(p_0_in__0[11:8]),
+        .O(p_0_in[11:8]),
         .S({counter0_carry__1_i_1_n_0,counter0_carry__1_i_2_n_0,counter0_carry__1_i_3_n_0,counter0_carry__1_i_4_n_0}));
   LUT2 #(
     .INIT(4'h6)) 
@@ -649,7 +558,7 @@ module system_BuzzerTest_0_0_WaveGen
         .CO({NLW_counter0_carry__2_CO_UNCONNECTED[3],counter0_carry__2_n_1,counter0_carry__2_n_2,counter0_carry__2_n_3}),
         .CYINIT(1'b0),
         .DI({1'b0,counter_reg[14:12]}),
-        .O(p_0_in__0[15:12]),
+        .O(p_0_in[15:12]),
         .S({counter0_carry__2_i_1_n_0,counter0_carry__2_i_2_n_0,counter0_carry__2_i_3_n_0,counter0_carry__2_i_4_n_0}));
   LUT2 #(
     .INIT(4'h6)) 
@@ -703,31 +612,31 @@ module system_BuzzerTest_0_0_WaveGen
     .INIT(64'h8000000000000000)) 
     \counter[0]_i_1 
        (.I0(\counter[0]_i_3_n_0 ),
-        .I1(p_0_in__0[1]),
-        .I2(p_0_in__0[0]),
-        .I3(p_0_in__0[3]),
-        .I4(p_0_in__0[2]),
+        .I1(p_0_in[1]),
+        .I2(p_0_in[0]),
+        .I3(p_0_in[3]),
+        .I4(p_0_in[2]),
         .I5(\counter[0]_i_4_n_0 ),
         .O(clear));
   LUT6 #(
     .INIT(64'h8000000000000000)) 
     \counter[0]_i_3 
-       (.I0(p_0_in__0[12]),
-        .I1(p_0_in__0[13]),
-        .I2(p_0_in__0[10]),
-        .I3(p_0_in__0[11]),
-        .I4(p_0_in__0[15]),
-        .I5(p_0_in__0[14]),
+       (.I0(p_0_in[12]),
+        .I1(p_0_in[13]),
+        .I2(p_0_in[10]),
+        .I3(p_0_in[11]),
+        .I4(p_0_in[15]),
+        .I5(p_0_in[14]),
         .O(\counter[0]_i_3_n_0 ));
   LUT6 #(
     .INIT(64'h8000000000000000)) 
     \counter[0]_i_4 
-       (.I0(p_0_in__0[6]),
-        .I1(p_0_in__0[7]),
-        .I2(p_0_in__0[4]),
-        .I3(p_0_in__0[5]),
-        .I4(p_0_in__0[9]),
-        .I5(p_0_in__0[8]),
+       (.I0(p_0_in[6]),
+        .I1(p_0_in[7]),
+        .I2(p_0_in[4]),
+        .I3(p_0_in[5]),
+        .I4(p_0_in[9]),
+        .I5(p_0_in[8]),
         .O(\counter[0]_i_4_n_0 ));
   LUT2 #(
     .INIT(4'h6)) 
@@ -828,7 +737,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[0] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[0]_i_2_n_7 ),
         .Q(counter_reg[0]),
@@ -844,7 +753,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[10] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[8]_i_1_n_5 ),
         .Q(counter_reg[10]),
@@ -852,7 +761,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[11] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[8]_i_1_n_4 ),
         .Q(counter_reg[11]),
@@ -860,7 +769,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[12] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[12]_i_1_n_7 ),
         .Q(counter_reg[12]),
@@ -876,7 +785,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[13] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[12]_i_1_n_6 ),
         .Q(counter_reg[13]),
@@ -884,7 +793,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[14] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[12]_i_1_n_5 ),
         .Q(counter_reg[14]),
@@ -892,7 +801,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[15] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[12]_i_1_n_4 ),
         .Q(counter_reg[15]),
@@ -900,7 +809,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[1] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[0]_i_2_n_6 ),
         .Q(counter_reg[1]),
@@ -908,7 +817,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[2] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[0]_i_2_n_5 ),
         .Q(counter_reg[2]),
@@ -916,7 +825,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[3] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[0]_i_2_n_4 ),
         .Q(counter_reg[3]),
@@ -924,7 +833,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[4] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[4]_i_1_n_7 ),
         .Q(counter_reg[4]),
@@ -940,7 +849,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[5] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[4]_i_1_n_6 ),
         .Q(counter_reg[5]),
@@ -948,7 +857,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[6] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[4]_i_1_n_5 ),
         .Q(counter_reg[6]),
@@ -956,7 +865,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[7] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[4]_i_1_n_4 ),
         .Q(counter_reg[7]),
@@ -964,7 +873,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[8] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[8]_i_1_n_7 ),
         .Q(counter_reg[8]),
@@ -980,7 +889,7 @@ module system_BuzzerTest_0_0_WaveGen
   FDRE #(
     .INIT(1'b0)) 
     \counter_reg[9] 
-       (.C(clk),
+       (.C(Clock),
         .CE(1'b1),
         .D(\counter_reg[8]_i_1_n_6 ),
         .Q(counter_reg[9]),

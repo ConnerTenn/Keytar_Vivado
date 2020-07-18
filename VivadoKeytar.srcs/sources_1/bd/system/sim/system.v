@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Thu Jul 16 23:44:00 2020
+//Date        : Fri Jul 17 23:16:03 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -299,7 +299,7 @@ module s00_couplers_imp_Y9JEWS
         .s_axi_wvalid(s00_couplers_to_auto_pc_WVALID));
 endmodule
 
-(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=8,numReposBlks=6,numNonXlnxBlks=1,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=2,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "system.hwdef" *) 
+(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=13,numReposBlks=11,numNonXlnxBlks=2,numHierBlks=2,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=OOC_per_IP}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
    (Buzzer,
     DDR_addr,
@@ -323,7 +323,8 @@ module system
     FIXED_IO_ps_clk,
     FIXED_IO_ps_porb,
     FIXED_IO_ps_srstb,
-    RGB);
+    RGB,
+    Waveform);
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.BUZZER DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.BUZZER, LAYERED_METADATA undef" *) output Buzzer;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR ADDR" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DDR, AXI_ARBITRATION_SCHEME TDM, BURST_LENGTH 8, CAN_DEBUG false, CAS_LATENCY 11, CAS_WRITE_LATENCY 11, CS_ENABLED true, DATA_MASK_ENABLED true, DATA_WIDTH 8, MEMORY_TYPE COMPONENTS, MEM_ADDR_MAP ROW_COLUMN_BANK, SLOT Single, TIMEPERIOD_PS 1250" *) inout [14:0]DDR_addr;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR BA" *) inout [2:0]DDR_ba;
@@ -347,6 +348,7 @@ module system
   (* X_INTERFACE_INFO = "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_PORB" *) inout FIXED_IO_ps_porb;
   (* X_INTERFACE_INFO = "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_SRSTB" *) inout FIXED_IO_ps_srstb;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.RGB DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.RGB, LAYERED_METADATA undef" *) output [2:0]RGB;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.WAVEFORM DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.WAVEFORM, LAYERED_METADATA undef" *) output [23:0]Waveform;
 
   wire APBSlave_Breakout_0_BusClock;
   wire [31:0]APBSlave_Breakout_0_BusPAddr;
@@ -354,6 +356,13 @@ module system
   wire APBSlave_Breakout_0_BusPSel;
   wire APBSlave_Breakout_0_BusPWrite;
   wire [31:0]APBSlave_Breakout_0_BusPWriteData;
+  wire APBSlave_Breakout_1_BusClock;
+  wire [31:0]APBSlave_Breakout_1_BusPAddr;
+  wire APBSlave_Breakout_1_BusPEnable;
+  wire APBSlave_Breakout_1_BusPSel;
+  wire APBSlave_Breakout_1_BusPWrite;
+  wire [31:0]APBSlave_Breakout_1_BusPWriteData;
+  wire [0:0]ARESETN_1;
   wire BuzzerTest_0_BusPError;
   wire [31:0]BuzzerTest_0_BusPReadData;
   wire BuzzerTest_0_BusPReady;
@@ -397,6 +406,14 @@ module system
   wire S00_AXI_1_WREADY;
   wire [3:0]S00_AXI_1_WSTRB;
   wire S00_AXI_1_WVALID;
+  wire Synth_0_BusPError;
+  wire [31:0]Synth_0_BusPReadData;
+  wire Synth_0_BusPReady;
+  wire [23:0]Synth_0_Waveform;
+  wire [31:0]axi_apb_bridge_0_APB_M2_PRDATA;
+  wire axi_apb_bridge_0_APB_M2_PREADY;
+  wire [1:1]axi_apb_bridge_0_APB_M2_PSEL;
+  wire axi_apb_bridge_0_APB_M2_PSLVERR;
   wire [31:0]axi_apb_bridge_0_APB_M_PADDR;
   wire axi_apb_bridge_0_APB_M_PENABLE;
   wire [31:0]axi_apb_bridge_0_APB_M_PRDATA;
@@ -421,6 +438,7 @@ module system
   wire [31:0]axi_interconnect_0_M00_AXI_WDATA;
   wire axi_interconnect_0_M00_AXI_WREADY;
   wire axi_interconnect_0_M00_AXI_WVALID;
+  wire [0:0]proc_sys_reset_0_peripheral_aresetn;
   wire [14:0]processing_system7_0_DDR_ADDR;
   wire [2:0]processing_system7_0_DDR_BA;
   wire processing_system7_0_DDR_CAS_N;
@@ -437,7 +455,6 @@ module system
   wire processing_system7_0_DDR_RESET_N;
   wire processing_system7_0_DDR_WE_N;
   wire processing_system7_0_FCLK_CLK0;
-  wire processing_system7_0_FCLK_CLK1;
   wire processing_system7_0_FCLK_RESET0_N;
   wire processing_system7_0_FIXED_IO_DDR_VRN;
   wire processing_system7_0_FIXED_IO_DDR_VRP;
@@ -445,16 +462,19 @@ module system
   wire processing_system7_0_FIXED_IO_PS_CLK;
   wire processing_system7_0_FIXED_IO_PS_PORB;
   wire processing_system7_0_FIXED_IO_PS_SRSTB;
+  wire [0:0]xlconstant_0_dout;
+  wire [0:0]xlconstant_1_dout;
 
   assign Buzzer = BuzzerTest_0_Buzzer;
   assign RGB[2:0] = RGBTest_0_RGB;
+  assign Waveform[23:0] = Synth_0_Waveform;
   system_APBSlave_Breakout_0_2 APBSlave_Breakout_0
        (.BusClock(APBSlave_Breakout_0_BusClock),
         .BusPAddr(APBSlave_Breakout_0_BusPAddr),
         .BusPEnable(APBSlave_Breakout_0_BusPEnable),
-        .BusPError(BuzzerTest_0_BusPError),
-        .BusPReadData(BuzzerTest_0_BusPReadData),
-        .BusPReady(BuzzerTest_0_BusPReady),
+        .BusPError(Synth_0_BusPError),
+        .BusPReadData(Synth_0_BusPReadData),
+        .BusPReady(Synth_0_BusPReady),
         .BusPSel(APBSlave_Breakout_0_BusPSel),
         .BusPWrite(APBSlave_Breakout_0_BusPWrite),
         .BusPWriteData(APBSlave_Breakout_0_BusPWriteData),
@@ -467,33 +487,65 @@ module system
         .s_apb_pslverr(axi_apb_bridge_0_APB_M_PSLVERR),
         .s_apb_pwdata(axi_apb_bridge_0_APB_M_PWDATA),
         .s_apb_pwrite(axi_apb_bridge_0_APB_M_PWRITE));
-  system_BuzzerTest_0_0 BuzzerTest_0
-       (.BusClock(APBSlave_Breakout_0_BusClock),
-        .BusPAddr(APBSlave_Breakout_0_BusPAddr),
-        .BusPEnable(APBSlave_Breakout_0_BusPEnable),
+  system_APBSlave_Breakout_0_4 APBSlave_Breakout_1
+       (.BusClock(APBSlave_Breakout_1_BusClock),
+        .BusPAddr(APBSlave_Breakout_1_BusPAddr),
+        .BusPEnable(APBSlave_Breakout_1_BusPEnable),
         .BusPError(BuzzerTest_0_BusPError),
         .BusPReadData(BuzzerTest_0_BusPReadData),
         .BusPReady(BuzzerTest_0_BusPReady),
-        .BusPSel(APBSlave_Breakout_0_BusPSel),
-        .BusPWrite(APBSlave_Breakout_0_BusPWrite),
-        .BusPWriteData(APBSlave_Breakout_0_BusPWriteData),
+        .BusPSel(APBSlave_Breakout_1_BusPSel),
+        .BusPWrite(APBSlave_Breakout_1_BusPWrite),
+        .BusPWriteData(APBSlave_Breakout_1_BusPWriteData),
+        .s_apb_paddr(axi_apb_bridge_0_APB_M_PADDR),
+        .s_apb_pclock(processing_system7_0_FCLK_CLK0),
+        .s_apb_penable(axi_apb_bridge_0_APB_M_PENABLE),
+        .s_apb_prdata(axi_apb_bridge_0_APB_M2_PRDATA),
+        .s_apb_pready(axi_apb_bridge_0_APB_M2_PREADY),
+        .s_apb_psel(axi_apb_bridge_0_APB_M2_PSEL),
+        .s_apb_pslverr(axi_apb_bridge_0_APB_M2_PSLVERR),
+        .s_apb_pwdata(axi_apb_bridge_0_APB_M_PWDATA),
+        .s_apb_pwrite(axi_apb_bridge_0_APB_M_PWRITE));
+  system_BuzzerTest_0_0 BuzzerTest_0
+       (.BusClock(APBSlave_Breakout_1_BusClock),
+        .BusPAddr(APBSlave_Breakout_1_BusPAddr),
+        .BusPEnable(APBSlave_Breakout_1_BusPEnable),
+        .BusPError(BuzzerTest_0_BusPError),
+        .BusPReadData(BuzzerTest_0_BusPReadData),
+        .BusPReady(BuzzerTest_0_BusPReady),
+        .BusPSel(APBSlave_Breakout_1_BusPSel),
+        .BusPWrite(APBSlave_Breakout_1_BusPWrite),
+        .BusPWriteData(APBSlave_Breakout_1_BusPWriteData),
         .Buzzer(BuzzerTest_0_Buzzer),
-        .Clock(processing_system7_0_FCLK_CLK1));
+        .Clock(processing_system7_0_FCLK_CLK0));
   system_RGBTest_0_0 RGBTest_0
        (.Clock(processing_system7_0_FCLK_CLK0),
         .RGB(RGBTest_0_RGB));
+  system_Synth_0_0 Synth_0
+       (.BusClock(APBSlave_Breakout_0_BusClock),
+        .BusPAddr(APBSlave_Breakout_0_BusPAddr),
+        .BusPEnable(APBSlave_Breakout_0_BusPEnable),
+        .BusPError(Synth_0_BusPError),
+        .BusPReadData(Synth_0_BusPReadData),
+        .BusPReady(Synth_0_BusPReady),
+        .BusPSel(APBSlave_Breakout_0_BusPSel),
+        .BusPWrite(APBSlave_Breakout_0_BusPWrite),
+        .BusPWriteData(APBSlave_Breakout_0_BusPWriteData),
+        .Clock100MHz(processing_system7_0_FCLK_CLK0),
+        .Waveform(Synth_0_Waveform));
   system_axi_apb_bridge_0_1 axi_apb_bridge_0
        (.m_apb_paddr(axi_apb_bridge_0_APB_M_PADDR),
         .m_apb_penable(axi_apb_bridge_0_APB_M_PENABLE),
         .m_apb_prdata(axi_apb_bridge_0_APB_M_PRDATA),
-        .m_apb_pready(axi_apb_bridge_0_APB_M_PREADY),
-        .m_apb_psel(axi_apb_bridge_0_APB_M_PSEL),
-        .m_apb_pslverr(axi_apb_bridge_0_APB_M_PSLVERR),
+        .m_apb_prdata2(axi_apb_bridge_0_APB_M2_PRDATA),
+        .m_apb_pready({axi_apb_bridge_0_APB_M2_PREADY,axi_apb_bridge_0_APB_M_PREADY}),
+        .m_apb_psel({axi_apb_bridge_0_APB_M2_PSEL,axi_apb_bridge_0_APB_M_PSEL}),
+        .m_apb_pslverr({axi_apb_bridge_0_APB_M2_PSLVERR,axi_apb_bridge_0_APB_M_PSLVERR}),
         .m_apb_pwdata(axi_apb_bridge_0_APB_M_PWDATA),
         .m_apb_pwrite(axi_apb_bridge_0_APB_M_PWRITE),
         .s_axi_aclk(processing_system7_0_FCLK_CLK0),
         .s_axi_araddr(axi_interconnect_0_M00_AXI_ARADDR),
-        .s_axi_aresetn(processing_system7_0_FCLK_RESET0_N),
+        .s_axi_aresetn(proc_sys_reset_0_peripheral_aresetn),
         .s_axi_arready(axi_interconnect_0_M00_AXI_ARREADY),
         .s_axi_arvalid(axi_interconnect_0_M00_AXI_ARVALID),
         .s_axi_awaddr(axi_interconnect_0_M00_AXI_AWADDR),
@@ -511,9 +563,9 @@ module system
         .s_axi_wvalid(axi_interconnect_0_M00_AXI_WVALID));
   system_axi_interconnect_0_0 axi_interconnect_0
        (.ACLK(processing_system7_0_FCLK_CLK0),
-        .ARESETN(processing_system7_0_FCLK_RESET0_N),
+        .ARESETN(ARESETN_1),
         .M00_ACLK(processing_system7_0_FCLK_CLK0),
-        .M00_ARESETN(processing_system7_0_FCLK_RESET0_N),
+        .M00_ARESETN(proc_sys_reset_0_peripheral_aresetn),
         .M00_AXI_araddr(axi_interconnect_0_M00_AXI_ARADDR),
         .M00_AXI_arready(axi_interconnect_0_M00_AXI_ARREADY),
         .M00_AXI_arvalid(axi_interconnect_0_M00_AXI_ARVALID),
@@ -531,7 +583,7 @@ module system
         .M00_AXI_wready(axi_interconnect_0_M00_AXI_WREADY),
         .M00_AXI_wvalid(axi_interconnect_0_M00_AXI_WVALID),
         .S00_ACLK(processing_system7_0_FCLK_CLK0),
-        .S00_ARESETN(processing_system7_0_FCLK_RESET0_N),
+        .S00_ARESETN(proc_sys_reset_0_peripheral_aresetn),
         .S00_AXI_araddr(S00_AXI_1_ARADDR),
         .S00_AXI_arburst(S00_AXI_1_ARBURST),
         .S00_AXI_arcache(S00_AXI_1_ARCACHE),
@@ -570,6 +622,14 @@ module system
         .S00_AXI_wready(S00_AXI_1_WREADY),
         .S00_AXI_wstrb(S00_AXI_1_WSTRB),
         .S00_AXI_wvalid(S00_AXI_1_WVALID));
+  system_proc_sys_reset_0_0 proc_sys_reset_0
+       (.aux_reset_in(processing_system7_0_FCLK_RESET0_N),
+        .dcm_locked(xlconstant_0_dout),
+        .ext_reset_in(xlconstant_1_dout),
+        .interconnect_aresetn(ARESETN_1),
+        .mb_debug_sys_rst(xlconstant_0_dout),
+        .peripheral_aresetn(proc_sys_reset_0_peripheral_aresetn),
+        .slowest_sync_clk(processing_system7_0_FCLK_CLK0));
   system_processing_system7_0_0 processing_system7_0
        (.DDR_Addr(DDR_addr[14:0]),
         .DDR_BankAddr(DDR_ba[2:0]),
@@ -589,7 +649,6 @@ module system
         .DDR_VRP(FIXED_IO_ddr_vrp),
         .DDR_WEB(DDR_we_n),
         .FCLK_CLK0(processing_system7_0_FCLK_CLK0),
-        .FCLK_CLK1(processing_system7_0_FCLK_CLK1),
         .FCLK_RESET0_N(processing_system7_0_FCLK_RESET0_N),
         .MIO(FIXED_IO_mio[53:0]),
         .M_AXI_GP0_ACLK(processing_system7_0_FCLK_CLK0),
@@ -634,6 +693,10 @@ module system
         .PS_CLK(FIXED_IO_ps_clk),
         .PS_PORB(FIXED_IO_ps_porb),
         .PS_SRSTB(FIXED_IO_ps_srstb));
+  system_xlconstant_0_0 xlconstant_0
+       (.dout(xlconstant_0_dout));
+  system_xlconstant_1_0 xlconstant_1
+       (.dout(xlconstant_1_dout));
 endmodule
 
 module system_axi_interconnect_0_0

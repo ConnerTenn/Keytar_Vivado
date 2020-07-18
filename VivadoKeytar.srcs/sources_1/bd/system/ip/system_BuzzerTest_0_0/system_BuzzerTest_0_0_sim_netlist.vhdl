@@ -1,7 +1,7 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
--- Date        : Thu Jul 16 23:45:21 2020
+-- Date        : Fri Jul 17 22:14:13 2020
 -- Host        : ConnerServer running 64-bit Manjaro Linux
 -- Command     : write_vhdl -force -mode funcsim
 --               /NetDrive/Personal/Projects/Keytar/VivadoKeytar/VivadoKeytar.srcs/sources_1/bd/system/ip/system_BuzzerTest_0_0/system_BuzzerTest_0_0_sim_netlist.vhdl
@@ -14,17 +14,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity system_BuzzerTest_0_0_WaveGen is
+entity system_BuzzerTest_0_0_WaveGen16 is
   port (
     Buzzer : out STD_LOGIC;
-    clk : in STD_LOGIC;
+    Clock : in STD_LOGIC;
     Q : in STD_LOGIC_VECTOR ( 15 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of system_BuzzerTest_0_0_WaveGen : entity is "WaveGen";
-end system_BuzzerTest_0_0_WaveGen;
+  attribute ORIG_REF_NAME of system_BuzzerTest_0_0_WaveGen16 : entity is "WaveGen16";
+end system_BuzzerTest_0_0_WaveGen16;
 
-architecture STRUCTURE of system_BuzzerTest_0_0_WaveGen is
+architecture STRUCTURE of system_BuzzerTest_0_0_WaveGen16 is
   signal Buzzer_INST_0_i_1_n_0 : STD_LOGIC;
   signal Buzzer_INST_0_i_2_n_0 : STD_LOGIC;
   signal clear : STD_LOGIC;
@@ -109,7 +109,7 @@ architecture STRUCTURE of system_BuzzerTest_0_0_WaveGen is
   signal \counter_reg[8]_i_1_n_5\ : STD_LOGIC;
   signal \counter_reg[8]_i_1_n_6\ : STD_LOGIC;
   signal \counter_reg[8]_i_1_n_7\ : STD_LOGIC;
-  signal \p_0_in__0\ : STD_LOGIC_VECTOR ( 15 downto 0 );
+  signal p_0_in : STD_LOGIC_VECTOR ( 15 downto 0 );
   signal \NLW_counter0_carry__2_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
   signal \NLW_counter_reg[12]_i_1_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
   attribute ADDER_THRESHOLD : integer;
@@ -170,7 +170,7 @@ counter0_carry: unisim.vcomponents.CARRY4
       CO(0) => counter0_carry_n_3,
       CYINIT => '0',
       DI(3 downto 0) => counter_reg(3 downto 0),
-      O(3 downto 0) => \p_0_in__0\(3 downto 0),
+      O(3 downto 0) => p_0_in(3 downto 0),
       S(3) => counter0_carry_i_1_n_0,
       S(2) => counter0_carry_i_2_n_0,
       S(1) => counter0_carry_i_3_n_0,
@@ -185,7 +185,7 @@ counter0_carry: unisim.vcomponents.CARRY4
       CO(0) => \counter0_carry__0_n_3\,
       CYINIT => '0',
       DI(3 downto 0) => counter_reg(7 downto 4),
-      O(3 downto 0) => \p_0_in__0\(7 downto 4),
+      O(3 downto 0) => p_0_in(7 downto 4),
       S(3) => \counter0_carry__0_i_1_n_0\,
       S(2) => \counter0_carry__0_i_2_n_0\,
       S(1) => \counter0_carry__0_i_3_n_0\,
@@ -236,7 +236,7 @@ counter0_carry: unisim.vcomponents.CARRY4
       CO(0) => \counter0_carry__1_n_3\,
       CYINIT => '0',
       DI(3 downto 0) => counter_reg(11 downto 8),
-      O(3 downto 0) => \p_0_in__0\(11 downto 8),
+      O(3 downto 0) => p_0_in(11 downto 8),
       S(3) => \counter0_carry__1_i_1_n_0\,
       S(2) => \counter0_carry__1_i_2_n_0\,
       S(1) => \counter0_carry__1_i_3_n_0\,
@@ -288,7 +288,7 @@ counter0_carry: unisim.vcomponents.CARRY4
       CYINIT => '0',
       DI(3) => '0',
       DI(2 downto 0) => counter_reg(14 downto 12),
-      O(3 downto 0) => \p_0_in__0\(15 downto 12),
+      O(3 downto 0) => p_0_in(15 downto 12),
       S(3) => \counter0_carry__2_i_1_n_0\,
       S(2) => \counter0_carry__2_i_2_n_0\,
       S(1) => \counter0_carry__2_i_3_n_0\,
@@ -372,10 +372,10 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
     )
         port map (
       I0 => \counter[0]_i_3_n_0\,
-      I1 => \p_0_in__0\(1),
-      I2 => \p_0_in__0\(0),
-      I3 => \p_0_in__0\(3),
-      I4 => \p_0_in__0\(2),
+      I1 => p_0_in(1),
+      I2 => p_0_in(0),
+      I3 => p_0_in(3),
+      I4 => p_0_in(2),
       I5 => \counter[0]_i_4_n_0\,
       O => clear
     );
@@ -384,12 +384,12 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => X"8000000000000000"
     )
         port map (
-      I0 => \p_0_in__0\(12),
-      I1 => \p_0_in__0\(13),
-      I2 => \p_0_in__0\(10),
-      I3 => \p_0_in__0\(11),
-      I4 => \p_0_in__0\(15),
-      I5 => \p_0_in__0\(14),
+      I0 => p_0_in(12),
+      I1 => p_0_in(13),
+      I2 => p_0_in(10),
+      I3 => p_0_in(11),
+      I4 => p_0_in(15),
+      I5 => p_0_in(14),
       O => \counter[0]_i_3_n_0\
     );
 \counter[0]_i_4\: unisim.vcomponents.LUT6
@@ -397,12 +397,12 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => X"8000000000000000"
     )
         port map (
-      I0 => \p_0_in__0\(6),
-      I1 => \p_0_in__0\(7),
-      I2 => \p_0_in__0\(4),
-      I3 => \p_0_in__0\(5),
-      I4 => \p_0_in__0\(9),
-      I5 => \p_0_in__0\(8),
+      I0 => p_0_in(6),
+      I1 => p_0_in(7),
+      I2 => p_0_in(4),
+      I3 => p_0_in(5),
+      I4 => p_0_in(9),
+      I5 => p_0_in(8),
       O => \counter[0]_i_4_n_0\
     );
 \counter[0]_i_5\: unisim.vcomponents.LUT2
@@ -554,7 +554,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[0]_i_2_n_7\,
       Q => counter_reg(0),
@@ -583,7 +583,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[8]_i_1_n_5\,
       Q => counter_reg(10),
@@ -594,7 +594,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[8]_i_1_n_4\,
       Q => counter_reg(11),
@@ -605,7 +605,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[12]_i_1_n_7\,
       Q => counter_reg(12),
@@ -635,7 +635,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[12]_i_1_n_6\,
       Q => counter_reg(13),
@@ -646,7 +646,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[12]_i_1_n_5\,
       Q => counter_reg(14),
@@ -657,7 +657,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[12]_i_1_n_4\,
       Q => counter_reg(15),
@@ -668,7 +668,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[0]_i_2_n_6\,
       Q => counter_reg(1),
@@ -679,7 +679,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[0]_i_2_n_5\,
       Q => counter_reg(2),
@@ -690,7 +690,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[0]_i_2_n_4\,
       Q => counter_reg(3),
@@ -701,7 +701,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[4]_i_1_n_7\,
       Q => counter_reg(4),
@@ -730,7 +730,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[4]_i_1_n_6\,
       Q => counter_reg(5),
@@ -741,7 +741,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[4]_i_1_n_5\,
       Q => counter_reg(6),
@@ -752,7 +752,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[4]_i_1_n_4\,
       Q => counter_reg(7),
@@ -763,7 +763,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[8]_i_1_n_7\,
       Q => counter_reg(8),
@@ -792,7 +792,7 @@ counter0_carry_i_4: unisim.vcomponents.LUT2
       INIT => '0'
     )
         port map (
-      C => clk,
+      C => Clock,
       CE => '1',
       D => \counter_reg[8]_i_1_n_6\,
       Q => counter_reg(9),
@@ -821,9 +821,6 @@ end system_BuzzerTest_0_0_BuzzerTest;
 architecture STRUCTURE of system_BuzzerTest_0_0_BuzzerTest is
   signal \^buspready\ : STD_LOGIC;
   signal BusPReady_i_1_n_0 : STD_LOGIC;
-  signal clk : STD_LOGIC;
-  signal clkdiv_reg : STD_LOGIC_VECTOR ( 3 downto 1 );
-  signal \clkdiv_reg_n_0_[0]\ : STD_LOGIC;
   signal \in\ : STD_LOGIC_VECTOR ( 15 downto 0 );
   signal \increment[15]_i_1_n_0\ : STD_LOGIC;
   signal \increment[15]_i_2_n_0\ : STD_LOGIC;
@@ -832,15 +829,8 @@ architecture STRUCTURE of system_BuzzerTest_0_0_BuzzerTest is
   signal \increment[15]_i_5_n_0\ : STD_LOGIC;
   signal \increment[15]_i_6_n_0\ : STD_LOGIC;
   signal \increment[15]_i_7_n_0\ : STD_LOGIC;
-  signal \inst/_n_0\ : STD_LOGIC;
-  signal p_0_in : STD_LOGIC_VECTOR ( 3 downto 0 );
-  signal slowclk_i_1_n_0 : STD_LOGIC;
   attribute SOFT_HLUTNM : string;
   attribute SOFT_HLUTNM of BusPReady_i_1 : label is "soft_lutpair0";
-  attribute SOFT_HLUTNM of \clkdiv[0]_i_1\ : label is "soft_lutpair2";
-  attribute SOFT_HLUTNM of \clkdiv[1]_i_1\ : label is "soft_lutpair2";
-  attribute SOFT_HLUTNM of \clkdiv[2]_i_1\ : label is "soft_lutpair1";
-  attribute SOFT_HLUTNM of \clkdiv[3]_i_1\ : label is "soft_lutpair1";
   attribute SOFT_HLUTNM of \increment[15]_i_4\ : label is "soft_lutpair0";
 begin
   BusPReady <= \^buspready\;
@@ -861,88 +851,6 @@ BusPReady_reg: unisim.vcomponents.FDRE
       D => BusPReady_i_1_n_0,
       Q => \^buspready\,
       R => '0'
-    );
-\clkdiv[0]_i_1\: unisim.vcomponents.LUT1
-    generic map(
-      INIT => X"1"
-    )
-        port map (
-      I0 => \clkdiv_reg_n_0_[0]\,
-      O => p_0_in(0)
-    );
-\clkdiv[1]_i_1\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"6"
-    )
-        port map (
-      I0 => \clkdiv_reg_n_0_[0]\,
-      I1 => clkdiv_reg(1),
-      O => p_0_in(1)
-    );
-\clkdiv[2]_i_1\: unisim.vcomponents.LUT3
-    generic map(
-      INIT => X"78"
-    )
-        port map (
-      I0 => \clkdiv_reg_n_0_[0]\,
-      I1 => clkdiv_reg(1),
-      I2 => clkdiv_reg(2),
-      O => p_0_in(2)
-    );
-\clkdiv[3]_i_1\: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"7F80"
-    )
-        port map (
-      I0 => clkdiv_reg(1),
-      I1 => \clkdiv_reg_n_0_[0]\,
-      I2 => clkdiv_reg(2),
-      I3 => clkdiv_reg(3),
-      O => p_0_in(3)
-    );
-\clkdiv_reg[0]\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => Clock,
-      CE => '1',
-      D => p_0_in(0),
-      Q => \clkdiv_reg_n_0_[0]\,
-      R => \inst/_n_0\
-    );
-\clkdiv_reg[1]\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => Clock,
-      CE => '1',
-      D => p_0_in(1),
-      Q => clkdiv_reg(1),
-      R => \inst/_n_0\
-    );
-\clkdiv_reg[2]\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => Clock,
-      CE => '1',
-      D => p_0_in(2),
-      Q => clkdiv_reg(2),
-      R => \inst/_n_0\
-    );
-\clkdiv_reg[3]\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => Clock,
-      CE => '1',
-      D => p_0_in(3),
-      Q => clkdiv_reg(3),
-      R => \inst/_n_0\
     );
 \increment[15]_i_1\: unisim.vcomponents.LUT6
     generic map(
@@ -1210,43 +1118,11 @@ BusPReady_reg: unisim.vcomponents.FDRE
       Q => \in\(9),
       R => '0'
     );
-\inst/\: unisim.vcomponents.LUT3
-    generic map(
-      INIT => X"A8"
-    )
-        port map (
-      I0 => clkdiv_reg(3),
-      I1 => clkdiv_reg(1),
-      I2 => clkdiv_reg(2),
-      O => \inst/_n_0\
-    );
-slowclk_i_1: unisim.vcomponents.LUT4
-    generic map(
-      INIT => X"1FE0"
-    )
-        port map (
-      I0 => clkdiv_reg(2),
-      I1 => clkdiv_reg(1),
-      I2 => clkdiv_reg(3),
-      I3 => clk,
-      O => slowclk_i_1_n_0
-    );
-slowclk_reg: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => Clock,
-      CE => '1',
-      D => slowclk_i_1_n_0,
-      Q => clk,
-      R => '0'
-    );
-wavegen: entity work.system_BuzzerTest_0_0_WaveGen
+wavegen: entity work.system_BuzzerTest_0_0_WaveGen16
      port map (
       Buzzer => Buzzer,
-      Q(15 downto 0) => \in\(15 downto 0),
-      clk => clk
+      Clock => Clock,
+      Q(15 downto 0) => \in\(15 downto 0)
     );
 end STRUCTURE;
 library IEEE;
@@ -1284,7 +1160,7 @@ architecture STRUCTURE of system_BuzzerTest_0_0 is
   attribute X_INTERFACE_INFO : string;
   attribute X_INTERFACE_INFO of Clock : signal is "xilinx.com:signal:clock:1.0 Clock CLK";
   attribute X_INTERFACE_PARAMETER : string;
-  attribute X_INTERFACE_PARAMETER of Clock : signal is "XIL_INTERFACENAME Clock, FREQ_HZ 1000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, INSERT_VIP 0";
+  attribute X_INTERFACE_PARAMETER of Clock : signal is "XIL_INTERFACENAME Clock, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0";
 begin
   BusPError <= \<const0>\;
   BusPReadData(31) <= \<const0>\;

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Thu Jul 16 23:44:01 2020" VIVADOVERSION="2020.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Jul 17 23:16:04 2020" VIVADOVERSION="2020.1">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z020" NAME="system" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -119,6 +119,11 @@
         <CONNECTION INSTANCE="processing_system7_0" PORT="PS_PORB"/>
       </CONNECTIONS>
     </PORT>
+    <PORT DIR="O" LEFT="23" NAME="Waveform" RIGHT="0" SIGIS="data" SIGNAME="Synth_0_Waveform">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="Synth_0" PORT="Waveform"/>
+      </CONNECTIONS>
+    </PORT>
   </EXTERNALPORTS>
 
   <EXTERNALINTERFACES>
@@ -225,15 +230,130 @@
         </PORT>
         <PORT DIR="O" NAME="BusClock" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_BusClock">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="BuzzerTest_0" PORT="BusClock"/>
+            <CONNECTION INSTANCE="Synth_0" PORT="BusClock"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="BusPAddr" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_BusPAddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="BuzzerTest_0" PORT="BusPAddr"/>
+            <CONNECTION INSTANCE="Synth_0" PORT="BusPAddr"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="BusPWriteData" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_BusPWriteData">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth_0" PORT="BusPWriteData"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="BusPReadData" RIGHT="0" SIGIS="undef" SIGNAME="Synth_0_BusPReadData">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth_0" PORT="BusPReadData"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="BusPWrite" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_BusPWrite">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth_0" PORT="BusPWrite"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="BusPReady" SIGIS="undef" SIGNAME="Synth_0_BusPReady">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth_0" PORT="BusPReady"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="BusPEnable" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_BusPEnable">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth_0" PORT="BusPEnable"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="BusPSel" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_BusPSel">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth_0" PORT="BusPSel"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="BusPError" SIGIS="undef" SIGNAME="Synth_0_BusPError">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth_0" PORT="BusPError"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="axi_apb_bridge_0_APB_M" NAME="APB_S" TYPE="SLAVE" VLNV="xilinx.com:interface:apb:1.0">
+          <PORTMAPS>
+            <PORTMAP LOGICAL="PADDR" PHYSICAL="s_apb_paddr"/>
+            <PORTMAP LOGICAL="PSEL" PHYSICAL="s_apb_psel"/>
+            <PORTMAP LOGICAL="PENABLE" PHYSICAL="s_apb_penable"/>
+            <PORTMAP LOGICAL="PWRITE" PHYSICAL="s_apb_pwrite"/>
+            <PORTMAP LOGICAL="PWDATA" PHYSICAL="s_apb_pwdata"/>
+            <PORTMAP LOGICAL="PREADY" PHYSICAL="s_apb_pready"/>
+            <PORTMAP LOGICAL="PRDATA" PHYSICAL="s_apb_prdata"/>
+            <PORTMAP LOGICAL="PSLVERR" PHYSICAL="s_apb_pslverr"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
+    </MODULE>
+    <MODULE COREREVISION="2" FULLNAME="/APBSlave_Breakout_1" HWVERSION="1.0" INSTANCE="APBSlave_Breakout_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="APBSlave_Breakout" VLNV="Independant:user:APBSlave_Breakout:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="system_APBSlave_Breakout_0_4"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+        <PARAMETER NAME="C_BASEADDR" VALUE="0x40001000"/>
+        <PARAMETER NAME="C_HIGHADDR" VALUE="0x40001FFF"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="s_apb_pclock" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="s_apb_paddr" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_paddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_apb_bridge_0" PORT="m_apb_paddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="s_apb_pwdata" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_pwdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_apb_bridge_0" PORT="m_apb_pwdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="s_apb_prdata" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_prdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_apb_bridge_0" PORT="m_apb_prdata2"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_apb_pwrite" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_pwrite">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_apb_bridge_0" PORT="m_apb_pwrite"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_apb_pready" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_pready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_apb_bridge_0" PORT="m_apb_pready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_apb_penable" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_penable">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_apb_bridge_0" PORT="m_apb_penable"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s_apb_psel" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_psel">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_apb_bridge_0" PORT="m_apb_psel"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s_apb_pslverr" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_pslverr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_apb_bridge_0" PORT="m_apb_pslverr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="BusClock" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_BusClock">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="BuzzerTest_0" PORT="BusClock"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="BusPAddr" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_BusPAddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="BuzzerTest_0" PORT="BusPAddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="BusPWriteData" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_BusPWriteData">
           <CONNECTIONS>
             <CONNECTION INSTANCE="BuzzerTest_0" PORT="BusPWriteData"/>
           </CONNECTIONS>
@@ -243,7 +363,7 @@
             <CONNECTION INSTANCE="BuzzerTest_0" PORT="BusPReadData"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="BusPWrite" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_BusPWrite">
+        <PORT DIR="O" NAME="BusPWrite" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_BusPWrite">
           <CONNECTIONS>
             <CONNECTION INSTANCE="BuzzerTest_0" PORT="BusPWrite"/>
           </CONNECTIONS>
@@ -253,12 +373,12 @@
             <CONNECTION INSTANCE="BuzzerTest_0" PORT="BusPReady"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="BusPEnable" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_BusPEnable">
+        <PORT DIR="O" NAME="BusPEnable" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_BusPEnable">
           <CONNECTIONS>
             <CONNECTION INSTANCE="BuzzerTest_0" PORT="BusPEnable"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="BusPSel" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_BusPSel">
+        <PORT DIR="O" NAME="BusPSel" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_BusPSel">
           <CONNECTIONS>
             <CONNECTION INSTANCE="BuzzerTest_0" PORT="BusPSel"/>
           </CONNECTIONS>
@@ -270,7 +390,7 @@
         </PORT>
       </PORTS>
       <BUSINTERFACES>
-        <BUSINTERFACE BUSNAME="axi_apb_bridge_0_APB_M" NAME="APB_S" TYPE="SLAVE" VLNV="xilinx.com:interface:apb:1.0">
+        <BUSINTERFACE BUSNAME="axi_apb_bridge_0_APB_M2" NAME="APB_S" TYPE="SLAVE" VLNV="xilinx.com:interface:apb:1.0">
           <PORTMAPS>
             <PORTMAP LOGICAL="PADDR" PHYSICAL="s_apb_paddr"/>
             <PORTMAP LOGICAL="PSEL" PHYSICAL="s_apb_psel"/>
@@ -291,14 +411,100 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT CLKFREQUENCY="1000000" DIR="I" NAME="Clock" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK1">
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="Clock" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK1"/>
+            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="Buzzer" SIGIS="undef" SIGNAME="BuzzerTest_0_Buzzer">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="Buzzer"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="BusClock" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_BusClock">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="BusClock"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="BusPAddr" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_BusPAddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="BusPAddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="BusPWriteData" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_BusPWriteData">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="BusPWriteData"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="BusPReadData" RIGHT="0" SIGIS="undef" SIGNAME="BuzzerTest_0_BusPReadData">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="BusPReadData"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="BusPWrite" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_BusPWrite">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="BusPWrite"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="BusPReady" SIGIS="undef" SIGNAME="BuzzerTest_0_BusPReady">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="BusPReady"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="BusPEnable" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_BusPEnable">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="BusPEnable"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="BusPSel" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_BusPSel">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="BusPSel"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="BusPError" SIGIS="undef" SIGNAME="BuzzerTest_0_BusPError">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="BusPError"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/RGBTest_0" HWVERSION="1.0" INSTANCE="RGBTest_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="RGBTest" VLNV="xilinx.com:module_ref:RGBTest:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="Component_Name" VALUE="system_RGBTest_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="Clock" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="2" NAME="RGB" RIGHT="0" SIGIS="undef" SIGNAME="RGBTest_0_RGB">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="RGB"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="1" FULLNAME="/Synth_0" HWVERSION="1.0" INSTANCE="Synth_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="Synth" VLNV="xilinx.com:module_ref:Synth:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="NUM_CHANNELS" VALUE="64"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_Synth_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="I" NAME="Clock100MHz" SIGIS="undef" SIGNAME="processing_system7_0_FCLK_CLK0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="23" NAME="Waveform" RIGHT="0" SIGIS="undef" SIGNAME="Synth_0_Waveform">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="Waveform"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="BusClock" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_BusClock">
@@ -316,7 +522,7 @@
             <CONNECTION INSTANCE="APBSlave_Breakout_0" PORT="BusPWriteData"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="BusPReadData" RIGHT="0" SIGIS="undef" SIGNAME="BuzzerTest_0_BusPReadData">
+        <PORT DIR="O" LEFT="31" NAME="BusPReadData" RIGHT="0" SIGIS="undef" SIGNAME="Synth_0_BusPReadData">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_0" PORT="BusPReadData"/>
           </CONNECTIONS>
@@ -326,7 +532,7 @@
             <CONNECTION INSTANCE="APBSlave_Breakout_0" PORT="BusPWrite"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="BusPReady" SIGIS="undef" SIGNAME="BuzzerTest_0_BusPReady">
+        <PORT DIR="O" NAME="BusPReady" SIGIS="undef" SIGNAME="Synth_0_BusPReady">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_0" PORT="BusPReady"/>
           </CONNECTIONS>
@@ -341,29 +547,9 @@
             <CONNECTION INSTANCE="APBSlave_Breakout_0" PORT="BusPSel"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="BusPError" SIGIS="undef" SIGNAME="BuzzerTest_0_BusPError">
+        <PORT DIR="O" NAME="BusPError" SIGIS="undef" SIGNAME="Synth_0_BusPError">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_0" PORT="BusPError"/>
-          </CONNECTIONS>
-        </PORT>
-      </PORTS>
-      <BUSINTERFACES/>
-    </MODULE>
-    <MODULE COREREVISION="1" FULLNAME="/RGBTest_0" HWVERSION="1.0" INSTANCE="RGBTest_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="RGBTest" VLNV="xilinx.com:module_ref:RGBTest:1.0">
-      <DOCUMENTS/>
-      <PARAMETERS>
-        <PARAMETER NAME="Component_Name" VALUE="system_RGBTest_0_0"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT CLKFREQUENCY="50000000" DIR="I" NAME="Clock" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="2" NAME="RGB" RIGHT="0" SIGIS="undef" SIGNAME="RGBTest_0_RGB">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="External_Ports" PORT="RGB"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -380,10 +566,10 @@
         <PARAMETER NAME="C_S_AXI_DATA_WIDTH" VALUE="32"/>
         <PARAMETER NAME="C_M_APB_ADDR_WIDTH" VALUE="32"/>
         <PARAMETER NAME="C_M_APB_DATA_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="C_APB_NUM_SLAVES" VALUE="1"/>
+        <PARAMETER NAME="C_APB_NUM_SLAVES" VALUE="2"/>
         <PARAMETER NAME="C_M_APB_PROTOCOL" VALUE="apb3"/>
-        <PARAMETER NAME="C_S_AXI_RNG2_BASEADDR" VALUE="0x0000000010000000"/>
-        <PARAMETER NAME="C_S_AXI_RNG2_HIGHADDR" VALUE="0x000000001FFFFFFF"/>
+        <PARAMETER NAME="C_S_AXI_RNG2_BASEADDR" VALUE="0x0000000040001000"/>
+        <PARAMETER NAME="C_S_AXI_RNG2_HIGHADDR" VALUE="0x0000000040001FFF"/>
         <PARAMETER NAME="C_S_AXI_RNG3_BASEADDR" VALUE="0x0000000020000000"/>
         <PARAMETER NAME="C_S_AXI_RNG3_HIGHADDR" VALUE="0x000000002FFFFFFF"/>
         <PARAMETER NAME="C_S_AXI_RNG4_BASEADDR" VALUE="0x0000000030000000"/>
@@ -418,14 +604,14 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="BUS"/>
       </PARAMETERS>
       <PORTS>
-        <PORT CLKFREQUENCY="50000000" DIR="I" NAME="s_axi_aclk" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="s_axi_aclk" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="s_axi_aresetn" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="processing_system7_0_FCLK_RESET0_N">
+        <PORT DIR="I" NAME="s_axi_aresetn" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="proc_sys_reset_0_peripheral_aresetn">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_RESET0_N"/>
+            <CONNECTION INSTANCE="proc_sys_reset_0" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="s_axi_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_apb_bridge_0_s_axi_awaddr">
@@ -508,34 +694,52 @@
             <CONNECTION INSTANCE="axi_interconnect_0" PORT="M00_AXI_rready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="m_apb_paddr" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_s_apb_paddr">
+        <PORT DIR="O" LEFT="31" NAME="m_apb_paddr" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_paddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_0" PORT="s_apb_paddr"/>
           </CONNECTIONS>
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="s_apb_paddr"/>
+          </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="0" NAME="m_apb_psel" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_s_apb_psel">
+        <PORT DIR="O" LEFT="1" NAME="m_apb_psel" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_psel">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_0" PORT="s_apb_psel"/>
           </CONNECTIONS>
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="s_apb_psel"/>
+          </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="m_apb_penable" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_s_apb_penable">
+        <PORT DIR="O" NAME="m_apb_penable" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_penable">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_0" PORT="s_apb_penable"/>
           </CONNECTIONS>
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="s_apb_penable"/>
+          </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="m_apb_pwrite" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_s_apb_pwrite">
+        <PORT DIR="O" NAME="m_apb_pwrite" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_pwrite">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_0" PORT="s_apb_pwrite"/>
           </CONNECTIONS>
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="s_apb_pwrite"/>
+          </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="m_apb_pwdata" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_s_apb_pwdata">
+        <PORT DIR="O" LEFT="31" NAME="m_apb_pwdata" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_pwdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_0" PORT="s_apb_pwdata"/>
           </CONNECTIONS>
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="s_apb_pwdata"/>
+          </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="0" NAME="m_apb_pready" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_s_apb_pready">
+        <PORT DIR="I" LEFT="1" NAME="m_apb_pready" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_pready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_0" PORT="s_apb_pready"/>
+          </CONNECTIONS>
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="s_apb_pready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="m_apb_prdata" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_s_apb_prdata">
@@ -543,9 +747,17 @@
             <CONNECTION INSTANCE="APBSlave_Breakout_0" PORT="s_apb_prdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="0" NAME="m_apb_pslverr" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_0_s_apb_pslverr">
+        <PORT DIR="I" LEFT="31" NAME="m_apb_prdata2" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_prdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="s_apb_prdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="1" NAME="m_apb_pslverr" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_1_s_apb_pslverr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_0" PORT="s_apb_pslverr"/>
+          </CONNECTIONS>
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="s_apb_pslverr"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -553,7 +765,7 @@
         <BUSINTERFACE BUSNAME="axi_interconnect_0_M00_AXI" DATAWIDTH="32" NAME="AXI4_LITE" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
           <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
           <PARAMETER NAME="PROTOCOL" VALUE="AXI4LITE"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="0"/>
           <PARAMETER NAME="ADDR_WIDTH" VALUE="32"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
@@ -606,6 +818,18 @@
             <PORTMAP LOGICAL="PADDR" PHYSICAL="m_apb_paddr"/>
             <PORTMAP LOGICAL="PENABLE" PHYSICAL="m_apb_penable"/>
             <PORTMAP LOGICAL="PRDATA" PHYSICAL="m_apb_prdata"/>
+            <PORTMAP LOGICAL="PREADY" PHYSICAL="m_apb_pready"/>
+            <PORTMAP LOGICAL="PSEL" PHYSICAL="m_apb_psel"/>
+            <PORTMAP LOGICAL="PSLVERR" PHYSICAL="m_apb_pslverr"/>
+            <PORTMAP LOGICAL="PWDATA" PHYSICAL="m_apb_pwdata"/>
+            <PORTMAP LOGICAL="PWRITE" PHYSICAL="m_apb_pwrite"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="axi_apb_bridge_0_APB_M2" NAME="APB_M2" TYPE="MASTER" VLNV="xilinx.com:interface:apb:1.0">
+          <PORTMAPS>
+            <PORTMAP LOGICAL="PADDR" PHYSICAL="m_apb_paddr"/>
+            <PORTMAP LOGICAL="PENABLE" PHYSICAL="m_apb_penable"/>
+            <PORTMAP LOGICAL="PRDATA" PHYSICAL="m_apb_prdata2"/>
             <PORTMAP LOGICAL="PREADY" PHYSICAL="m_apb_pready"/>
             <PORTMAP LOGICAL="PSEL" PHYSICAL="m_apb_psel"/>
             <PORTMAP LOGICAL="PSLVERR" PHYSICAL="m_apb_pslverr"/>
@@ -943,9 +1167,9 @@
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="ARESETN" SIGIS="rst" SIGNAME="processing_system7_0_FCLK_RESET0_N">
+        <PORT DIR="I" NAME="ARESETN" SIGIS="rst" SIGNAME="proc_sys_reset_0_interconnect_aresetn">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_RESET0_N"/>
+            <CONNECTION INSTANCE="proc_sys_reset_0" PORT="interconnect_aresetn"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="S00_ACLK" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
@@ -953,9 +1177,9 @@
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="S00_ARESETN" SIGIS="rst" SIGNAME="processing_system7_0_FCLK_RESET0_N">
+        <PORT DIR="I" NAME="S00_ARESETN" SIGIS="rst" SIGNAME="proc_sys_reset_0_peripheral_aresetn">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_RESET0_N"/>
+            <CONNECTION INSTANCE="proc_sys_reset_0" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="M00_ACLK" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
@@ -963,9 +1187,9 @@
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="M00_ARESETN" SIGIS="rst" SIGNAME="processing_system7_0_FCLK_RESET0_N">
+        <PORT DIR="I" NAME="M00_ARESETN" SIGIS="rst" SIGNAME="proc_sys_reset_0_peripheral_aresetn">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_RESET0_N"/>
+            <CONNECTION INSTANCE="proc_sys_reset_0" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="M00_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="axi_apb_bridge_0_s_axi_awaddr">
@@ -1310,6 +1534,69 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
+    <MODULE COREREVISION="13" FULLNAME="/proc_sys_reset_0" HWVERSION="5.0" INSTANCE="proc_sys_reset_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="proc_sys_reset" VLNV="xilinx.com:ip:proc_sys_reset:5.0">
+      <DOCUMENTS>
+        <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=proc_sys_reset;v=v5_0;d=pg164-proc-sys-reset.pdf"/>
+      </DOCUMENTS>
+      <PARAMETERS>
+        <PARAMETER NAME="C_FAMILY" VALUE="zynq"/>
+        <PARAMETER NAME="C_EXT_RST_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="C_AUX_RST_WIDTH" VALUE="2"/>
+        <PARAMETER NAME="C_EXT_RESET_HIGH" VALUE="0"/>
+        <PARAMETER NAME="C_AUX_RESET_HIGH" VALUE="0"/>
+        <PARAMETER NAME="C_NUM_BUS_RST" VALUE="1"/>
+        <PARAMETER NAME="C_NUM_PERP_RST" VALUE="1"/>
+        <PARAMETER NAME="C_NUM_INTERCONNECT_ARESETN" VALUE="1"/>
+        <PARAMETER NAME="C_NUM_PERP_ARESETN" VALUE="1"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_proc_sys_reset_0_0"/>
+        <PARAMETER NAME="USE_BOARD_FLOW" VALUE="false"/>
+        <PARAMETER NAME="RESET_BOARD_INTERFACE" VALUE="Custom"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="slowest_sync_clk" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="ext_reset_in" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="xlconstant_1_dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="xlconstant_1" PORT="dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="aux_reset_in" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="processing_system7_0_FCLK_RESET0_N">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_RESET0_N"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="mb_debug_sys_rst" POLARITY="ACTIVE_HIGH" SIGIS="rst" SIGNAME="xlconstant_0_dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="xlconstant_0" PORT="dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="dcm_locked" SIGIS="undef" SIGNAME="xlconstant_0_dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="xlconstant_0" PORT="dout"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="mb_reset" POLARITY="ACTIVE_HIGH" SIGIS="rst"/>
+        <PORT DIR="O" LEFT="0" NAME="bus_struct_reset" POLARITY="ACTIVE_HIGH" RIGHT="0" SIGIS="rst"/>
+        <PORT DIR="O" LEFT="0" NAME="peripheral_reset" POLARITY="ACTIVE_HIGH" RIGHT="0" SIGIS="rst"/>
+        <PORT DIR="O" LEFT="0" NAME="interconnect_aresetn" POLARITY="ACTIVE_LOW" RIGHT="0" SIGIS="rst" SIGNAME="proc_sys_reset_0_interconnect_aresetn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_interconnect_0" PORT="ARESETN"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="peripheral_aresetn" POLARITY="ACTIVE_LOW" RIGHT="0" SIGIS="rst" SIGNAME="proc_sys_reset_0_peripheral_aresetn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_apb_bridge_0" PORT="s_axi_aresetn"/>
+            <CONNECTION INSTANCE="axi_interconnect_0" PORT="M00_ARESETN"/>
+            <CONNECTION INSTANCE="axi_interconnect_0" PORT="S00_ARESETN"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
     <MODULE CONFIGURABLE="TRUE" COREREVISION="6" FULLNAME="/processing_system7_0" HWVERSION="5.5" INSTANCE="processing_system7_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" IS_PL="FALSE" MODTYPE="processing_system7" VLNV="xilinx.com:ip:processing_system7:5.5">
       <DOCUMENTS>
         <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=processing_system7;v=v5_3;d=pg082-processing-system7.pdf"/>
@@ -1365,7 +1652,7 @@
         <PARAMETER NAME="C_USE_S_AXI_ACP" VALUE="0"/>
         <PARAMETER NAME="C_PS7_SI_REV" VALUE="PRODUCTION"/>
         <PARAMETER NAME="C_FCLK_CLK0_BUF" VALUE="FALSE"/>
-        <PARAMETER NAME="C_FCLK_CLK1_BUF" VALUE="TRUE"/>
+        <PARAMETER NAME="C_FCLK_CLK1_BUF" VALUE="FALSE"/>
         <PARAMETER NAME="C_FCLK_CLK2_BUF" VALUE="FALSE"/>
         <PARAMETER NAME="C_FCLK_CLK3_BUF" VALUE="FALSE"/>
         <PARAMETER NAME="C_PACKAGE_NAME" VALUE="clg400"/>
@@ -1408,7 +1695,7 @@
         <PARAMETER NAME="PCW_TTC1_BASEADDR" VALUE="0xE0105000"/>
         <PARAMETER NAME="PCW_TTC1_HIGHADDR" VALUE="0xE0105fff"/>
         <PARAMETER NAME="PCW_FCLK_CLK0_BUF" VALUE="FALSE"/>
-        <PARAMETER NAME="PCW_FCLK_CLK1_BUF" VALUE="TRUE"/>
+        <PARAMETER NAME="PCW_FCLK_CLK1_BUF" VALUE="FALSE"/>
         <PARAMETER NAME="PCW_FCLK_CLK2_BUF" VALUE="FALSE"/>
         <PARAMETER NAME="PCW_FCLK_CLK3_BUF" VALUE="FALSE"/>
         <PARAMETER NAME="PCW_UIPARAM_DDR_FREQ_MHZ" VALUE="533.333333"/>
@@ -1500,7 +1787,7 @@
         <PARAMETER NAME="PCW_TTC1_CLK2_PERIPHERAL_FREQMHZ" VALUE="133.333333"/>
         <PARAMETER NAME="PCW_PCAP_PERIPHERAL_FREQMHZ" VALUE="200"/>
         <PARAMETER NAME="PCW_TPIU_PERIPHERAL_FREQMHZ" VALUE="200"/>
-        <PARAMETER NAME="PCW_FPGA0_PERIPHERAL_FREQMHZ" VALUE="50"/>
+        <PARAMETER NAME="PCW_FPGA0_PERIPHERAL_FREQMHZ" VALUE="100"/>
         <PARAMETER NAME="PCW_FPGA1_PERIPHERAL_FREQMHZ" VALUE="1"/>
         <PARAMETER NAME="PCW_FPGA2_PERIPHERAL_FREQMHZ" VALUE="50"/>
         <PARAMETER NAME="PCW_FPGA3_PERIPHERAL_FREQMHZ" VALUE="50"/>
@@ -1524,8 +1811,8 @@
         <PARAMETER NAME="PCW_ACT_TTC_PERIPHERAL_FREQMHZ" VALUE="50"/>
         <PARAMETER NAME="PCW_ACT_PCAP_PERIPHERAL_FREQMHZ" VALUE="200.000000"/>
         <PARAMETER NAME="PCW_ACT_TPIU_PERIPHERAL_FREQMHZ" VALUE="200.000000"/>
-        <PARAMETER NAME="PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ" VALUE="50.000000"/>
-        <PARAMETER NAME="PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ" VALUE="1.000000"/>
+        <PARAMETER NAME="PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ" VALUE="100.000000"/>
+        <PARAMETER NAME="PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ" VALUE="10.000000"/>
         <PARAMETER NAME="PCW_ACT_FPGA2_PERIPHERAL_FREQMHZ" VALUE="10.000000"/>
         <PARAMETER NAME="PCW_ACT_FPGA3_PERIPHERAL_FREQMHZ" VALUE="10.000000"/>
         <PARAMETER NAME="PCW_ACT_TTC0_CLK0_PERIPHERAL_FREQMHZ" VALUE="111.111115"/>
@@ -1534,8 +1821,8 @@
         <PARAMETER NAME="PCW_ACT_TTC1_CLK0_PERIPHERAL_FREQMHZ" VALUE="111.111115"/>
         <PARAMETER NAME="PCW_ACT_TTC1_CLK1_PERIPHERAL_FREQMHZ" VALUE="111.111115"/>
         <PARAMETER NAME="PCW_ACT_TTC1_CLK2_PERIPHERAL_FREQMHZ" VALUE="111.111115"/>
-        <PARAMETER NAME="PCW_CLK0_FREQ" VALUE="50000000"/>
-        <PARAMETER NAME="PCW_CLK1_FREQ" VALUE="1000000"/>
+        <PARAMETER NAME="PCW_CLK0_FREQ" VALUE="100000000"/>
+        <PARAMETER NAME="PCW_CLK1_FREQ" VALUE="10000000"/>
         <PARAMETER NAME="PCW_CLK2_FREQ" VALUE="10000000"/>
         <PARAMETER NAME="PCW_CLK3_FREQ" VALUE="10000000"/>
         <PARAMETER NAME="PCW_OVERRIDE_BASIC_CLOCK" VALUE="0"/>
@@ -1548,12 +1835,12 @@
         <PARAMETER NAME="PCW_SPI_PERIPHERAL_DIVISOR0" VALUE="1"/>
         <PARAMETER NAME="PCW_CAN_PERIPHERAL_DIVISOR0" VALUE="1"/>
         <PARAMETER NAME="PCW_CAN_PERIPHERAL_DIVISOR1" VALUE="1"/>
-        <PARAMETER NAME="PCW_FCLK0_PERIPHERAL_DIVISOR0" VALUE="8"/>
-        <PARAMETER NAME="PCW_FCLK1_PERIPHERAL_DIVISOR0" VALUE="40"/>
+        <PARAMETER NAME="PCW_FCLK0_PERIPHERAL_DIVISOR0" VALUE="4"/>
+        <PARAMETER NAME="PCW_FCLK1_PERIPHERAL_DIVISOR0" VALUE="1"/>
         <PARAMETER NAME="PCW_FCLK2_PERIPHERAL_DIVISOR0" VALUE="1"/>
         <PARAMETER NAME="PCW_FCLK3_PERIPHERAL_DIVISOR0" VALUE="1"/>
         <PARAMETER NAME="PCW_FCLK0_PERIPHERAL_DIVISOR1" VALUE="4"/>
-        <PARAMETER NAME="PCW_FCLK1_PERIPHERAL_DIVISOR1" VALUE="40"/>
+        <PARAMETER NAME="PCW_FCLK1_PERIPHERAL_DIVISOR1" VALUE="1"/>
         <PARAMETER NAME="PCW_FCLK2_PERIPHERAL_DIVISOR1" VALUE="1"/>
         <PARAMETER NAME="PCW_FCLK3_PERIPHERAL_DIVISOR1" VALUE="1"/>
         <PARAMETER NAME="PCW_ENET0_PERIPHERAL_DIVISOR0" VALUE="1"/>
@@ -1618,7 +1905,7 @@
         <PARAMETER NAME="PCW_USE_S_AXI_HP1" VALUE="0"/>
         <PARAMETER NAME="PCW_USE_S_AXI_HP2" VALUE="0"/>
         <PARAMETER NAME="PCW_USE_S_AXI_HP3" VALUE="0"/>
-        <PARAMETER NAME="PCW_M_AXI_GP0_FREQMHZ" VALUE="50"/>
+        <PARAMETER NAME="PCW_M_AXI_GP0_FREQMHZ" VALUE="100"/>
         <PARAMETER NAME="PCW_M_AXI_GP1_FREQMHZ" VALUE="10"/>
         <PARAMETER NAME="PCW_S_AXI_GP0_FREQMHZ" VALUE="10"/>
         <PARAMETER NAME="PCW_S_AXI_GP1_FREQMHZ" VALUE="10"/>
@@ -1720,7 +2007,7 @@
         <PARAMETER NAME="PCW_DM_WIDTH" VALUE="4"/>
         <PARAMETER NAME="PCW_MIO_PRIMITIVE" VALUE="54"/>
         <PARAMETER NAME="PCW_EN_CLK0_PORT" VALUE="1"/>
-        <PARAMETER NAME="PCW_EN_CLK1_PORT" VALUE="1"/>
+        <PARAMETER NAME="PCW_EN_CLK1_PORT" VALUE="0"/>
         <PARAMETER NAME="PCW_EN_CLK2_PORT" VALUE="0"/>
         <PARAMETER NAME="PCW_EN_CLK3_PORT" VALUE="0"/>
         <PARAMETER NAME="PCW_EN_RST0_PORT" VALUE="1"/>
@@ -2201,7 +2488,7 @@
         <PARAMETER NAME="PCW_MIO_TREE_SIGNALS" VALUE="gpio[0]#gpio[1]#gpio[2]#gpio[3]#gpio[4]#gpio[5]#gpio[6]#gpio[7]#gpio[8]#gpio[9]#gpio[10]#gpio[11]#gpio[12]#gpio[13]#gpio[14]#gpio[15]#gpio[16]#gpio[17]#gpio[18]#gpio[19]#gpio[20]#gpio[21]#gpio[22]#gpio[23]#gpio[24]#gpio[25]#gpio[26]#gpio[27]#gpio[28]#gpio[29]#gpio[30]#gpio[31]#gpio[32]#gpio[33]#gpio[34]#gpio[35]#gpio[36]#gpio[37]#gpio[38]#gpio[39]#clk#cmd#data[0]#data[1]#data[2]#data[3]#cd#wp#tx#rx#gpio[50]#gpio[51]#gpio[52]#gpio[53]"/>
         <PARAMETER NAME="PCW_PS7_SI_REV" VALUE="PRODUCTION"/>
         <PARAMETER NAME="PCW_FPGA_FCLK0_ENABLE" VALUE="1"/>
-        <PARAMETER NAME="PCW_FPGA_FCLK1_ENABLE" VALUE="1"/>
+        <PARAMETER NAME="PCW_FPGA_FCLK1_ENABLE" VALUE="0"/>
         <PARAMETER NAME="PCW_FPGA_FCLK2_ENABLE" VALUE="0"/>
         <PARAMETER NAME="PCW_FPGA_FCLK3_ENABLE" VALUE="0"/>
         <PARAMETER NAME="PCW_NOR_SRAM_CS0_T_TR" VALUE="1"/>
@@ -2387,7 +2674,7 @@
             <CONNECTION INSTANCE="axi_interconnect_0" PORT="S00_AXI_wstrb"/>
           </CONNECTIONS>
         </PORT>
-        <PORT CLKFREQUENCY="50000000" DIR="I" NAME="M_AXI_GP0_ACLK" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="M_AXI_GP0_ACLK" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
           </CONNECTIONS>
@@ -2447,7 +2734,7 @@
             <CONNECTION INSTANCE="axi_interconnect_0" PORT="S00_AXI_rdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT CLKFREQUENCY="50000000" DIR="O" NAME="FCLK_CLK0" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
+        <PORT CLKFREQUENCY="100000000" DIR="O" NAME="FCLK_CLK0" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP0_ACLK"/>
             <CONNECTION INSTANCE="axi_interconnect_0" PORT="M00_ACLK"/>
@@ -2455,20 +2742,16 @@
             <CONNECTION INSTANCE="axi_interconnect_0" PORT="S00_ACLK"/>
             <CONNECTION INSTANCE="axi_apb_bridge_0" PORT="s_axi_aclk"/>
             <CONNECTION INSTANCE="APBSlave_Breakout_0" PORT="s_apb_pclock"/>
+            <CONNECTION INSTANCE="APBSlave_Breakout_1" PORT="s_apb_pclock"/>
+            <CONNECTION INSTANCE="proc_sys_reset_0" PORT="slowest_sync_clk"/>
             <CONNECTION INSTANCE="RGBTest_0" PORT="Clock"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT CLKFREQUENCY="1000000" DIR="O" NAME="FCLK_CLK1" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK1">
-          <CONNECTIONS>
             <CONNECTION INSTANCE="BuzzerTest_0" PORT="Clock"/>
+            <CONNECTION INSTANCE="Synth_0" PORT="Clock100MHz"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="FCLK_RESET0_N" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="processing_system7_0_FCLK_RESET0_N">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_interconnect_0" PORT="M00_ARESETN"/>
-            <CONNECTION INSTANCE="axi_interconnect_0" PORT="S00_ARESETN"/>
-            <CONNECTION INSTANCE="axi_interconnect_0" PORT="ARESETN"/>
-            <CONNECTION INSTANCE="axi_apb_bridge_0" PORT="s_axi_aresetn"/>
+            <CONNECTION INSTANCE="proc_sys_reset_0" PORT="aux_reset_in"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="IO" LEFT="53" NAME="MIO" RIGHT="0" SIGIS="undef" SIGNAME="processing_system7_0_MIO">
@@ -2628,7 +2911,7 @@
           <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="8"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
           <PARAMETER NAME="PROTOCOL" VALUE="AXI3"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="50000000"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="12"/>
           <PARAMETER NAME="ADDR_WIDTH" VALUE="32"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
@@ -2698,10 +2981,47 @@
       </BUSINTERFACES>
       <MEMORYMAP>
         <MEMRANGE ADDRESSBLOCK="Reg" BASENAME="C_BASEADDR" BASEVALUE="0x40000000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40000FFF" INSTANCE="APBSlave_Breakout_0" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="APB_S"/>
+        <MEMRANGE ADDRESSBLOCK="Reg" BASENAME="C_BASEADDR" BASEVALUE="0x40001000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40001FFF" INSTANCE="APBSlave_Breakout_1" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="APB_S"/>
       </MEMORYMAP>
       <PERIPHERALS>
         <PERIPHERAL INSTANCE="APBSlave_Breakout_0"/>
+        <PERIPHERAL INSTANCE="APBSlave_Breakout_1"/>
       </PERIPHERALS>
+    </MODULE>
+    <MODULE COREREVISION="7" FULLNAME="/xlconstant_0" HWVERSION="1.1" INSTANCE="xlconstant_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlconstant" VLNV="xilinx.com:ip:xlconstant:1.1">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="CONST_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="CONST_VAL" VALUE="0x0"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_xlconstant_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="O" LEFT="0" NAME="dout" RIGHT="0" SIGIS="undef" SIGNAME="xlconstant_0_dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="proc_sys_reset_0" PORT="mb_debug_sys_rst"/>
+            <CONNECTION INSTANCE="proc_sys_reset_0" PORT="dcm_locked"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
+    </MODULE>
+    <MODULE COREREVISION="7" FULLNAME="/xlconstant_1" HWVERSION="1.1" INSTANCE="xlconstant_1" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="xlconstant" VLNV="xilinx.com:ip:xlconstant:1.1">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="CONST_WIDTH" VALUE="1"/>
+        <PARAMETER NAME="CONST_VAL" VALUE="0x1"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_xlconstant_1_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT DIR="O" LEFT="0" NAME="dout" RIGHT="0" SIGIS="undef" SIGNAME="xlconstant_1_dout">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="proc_sys_reset_0" PORT="ext_reset_in"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES/>
     </MODULE>
   </MODULES>
 

@@ -26,8 +26,8 @@ module BuzzerTest(
     reg slowclk = 0;
     reg [3:0] clkdiv = 0;
 
-    WaveGen wavegen(
-        .Clock(slowclk),
+    WaveGen16 wavegen(
+        .Clock(Clock),
         .Increment(increment),
         .Waveform(waveform)
     );

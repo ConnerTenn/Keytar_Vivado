@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module WaveGen(
+module WaveGen16(
     Clock,
     Increment,
     Waveform

@@ -1,7 +1,7 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-// Date        : Thu Jul 16 20:11:41 2020
+// Date        : Fri Jul 17 18:38:50 2020
 // Host        : ConnerServer running 64-bit Manjaro Linux
 // Command     : write_verilog -force -mode synth_stub -rename_top system_auto_pc_0 -prefix
 //               system_auto_pc_0_ system_auto_pc_0_stub.v
