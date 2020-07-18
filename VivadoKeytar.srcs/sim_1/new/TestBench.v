@@ -60,7 +60,7 @@ module TestBench;
         buspsel <= 0;
 
 
-        #200;
+        #400;
 
         $display("\n\n=== Simulation Complete ===\n\n");
 

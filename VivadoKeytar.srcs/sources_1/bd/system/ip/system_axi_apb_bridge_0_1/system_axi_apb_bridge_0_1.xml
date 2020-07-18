@@ -757,7 +757,7 @@
       <spirit:vendorExtensions>
         <xilinx:busInterfaceInfo>
           <xilinx:enablement>
-            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.APB_M2" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_APB_NUM_SLAVES&apos;)) > 1)">true</xilinx:isEnabled>
+            <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="BUSIF_ENABLEMENT.APB_M2" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_APB_NUM_SLAVES&apos;)) > 1)">false</xilinx:isEnabled>
           </xilinx:enablement>
         </xilinx:busInterfaceInfo>
       </spirit:vendorExtensions>
@@ -2306,11 +2306,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Jul 18 03:41:24 UTC 2020</spirit:value>
+            <spirit:value>Sat Jul 18 06:20:20 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:03f3efeb</spirit:value>
+            <spirit:value>9:fa7c9427</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2321,7 +2321,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:03f3efeb</spirit:value>
+            <spirit:value>9:fa7c9427</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2337,11 +2337,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Jul 18 03:41:24 UTC 2020</spirit:value>
+            <spirit:value>Sat Jul 18 06:20:20 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:03f3efeb</spirit:value>
+            <spirit:value>9:fa7c9427</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2364,7 +2364,7 @@
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:fa82ad54</spirit:value>
+            <spirit:value>9:e357923a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2380,11 +2380,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Jul 18 03:41:24 UTC 2020</spirit:value>
+            <spirit:value>Sat Jul 18 06:20:20 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:fa82ad54</spirit:value>
+            <spirit:value>9:e357923a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2398,11 +2398,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Sat Jul 18 03:42:42 UTC 2020</spirit:value>
+            <spirit:value>Sat Jul 18 06:21:45 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:03f3efeb</spirit:value>
+            <spirit:value>9:fa7c9427</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -2802,7 +2802,7 @@
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_APB_NUM_SLAVES&apos;)) - 1)">1</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_APB_NUM_SLAVES&apos;)) - 1)">0</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -2862,7 +2862,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_APB_NUM_SLAVES&apos;)) - 1)">1</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_APB_NUM_SLAVES&apos;)) - 1)">0</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -2916,7 +2916,7 @@
         <spirit:vendorExtensions>
           <xilinx:portInfo>
             <xilinx:enablement>
-              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.m_apb_prdata2" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_APB_NUM_SLAVES&apos;)) > 1)">true</xilinx:isEnabled>
+              <xilinx:isEnabled xilinx:resolve="dependent" xilinx:id="PORT_ENABLEMENT.m_apb_prdata2" xilinx:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_APB_NUM_SLAVES&apos;)) > 1)">false</xilinx:isEnabled>
             </xilinx:enablement>
           </xilinx:portInfo>
         </spirit:vendorExtensions>
@@ -3304,7 +3304,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_APB_NUM_SLAVES&apos;)) - 1)">1</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_APB_NUM_SLAVES&apos;)) - 1)">0</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -3398,7 +3398,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_APB_NUM_SLAVES</spirit:name>
         <spirit:displayName>Number Of Slaves</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_APB_NUM_SLAVES" spirit:minimum="1" spirit:maximum="16" spirit:rangeType="long">2</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_APB_NUM_SLAVES" spirit:minimum="1" spirit:maximum="16" spirit:rangeType="long">1</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="string">
         <spirit:name>C_M_APB_PROTOCOL</spirit:name>
@@ -4145,7 +4145,7 @@
       <spirit:name>C_APB_NUM_SLAVES</spirit:name>
       <spirit:displayName>Number Of Slaves</spirit:displayName>
       <spirit:description>Number of slaves to be connected to the bridge</spirit:description>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_APB_NUM_SLAVES" spirit:order="1100" spirit:configGroups="1 UnGrouped" spirit:minimum="1" spirit:maximum="16" spirit:rangeType="long">2</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_APB_NUM_SLAVES" spirit:order="1100" spirit:configGroups="1 UnGrouped" spirit:minimum="1" spirit:maximum="16" spirit:rangeType="long">1</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>

@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Fri Jul 17 23:41:23 2020
+//Date        : Sat Jul 18 03:06:43 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -34,7 +34,7 @@ module system_wrapper
     FIXED_IO_ps_srstb,
     RGB,
     Waveform);
-  output Buzzer;
+  output [0:0]Buzzer;
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -59,7 +59,7 @@ module system_wrapper
   output [2:0]RGB;
   output [23:0]Waveform;
 
-  wire Buzzer;
+  wire [0:0]Buzzer;
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
   wire DDR_cas_n;

@@ -63,7 +63,7 @@ pagesize -pg 1 -db -bbox -sgen 0 0 1490 980
    "Color Coded_TopLeft":"0,-12",
    "Default View_Layers":"/processing_system7_0_FCLK_CLK0:true|/ARESETN_1:true|/proc_sys_reset_0_peripheral_aresetn:true|/processing_system7_0_FCLK_CLK1:true|",
    "Default View_ScaleFactor":"0.647312",
-   "Default View_TopLeft":"-382,312",
+   "Default View_TopLeft":"-323,311",
    "Display-PortTypeClock":"true",
    "Display-PortTypeOthers":"true",
    "Display-PortTypeReset":"true",
@@ -80,8 +80,8 @@ pagesize -pg 1 -db -bbox -sgen 0 0 1490 980
 #  -string -flagsOSRD
 preplace port DDR -pg 1 -lvl 4 -x 1190 -y 370 -defaultsOSRD
 preplace port FIXED_IO -pg 1 -lvl 4 -x 1190 -y 490 -defaultsOSRD
-preplace port Buzzer -pg 1 -lvl 4 -x 1190 -y 1110 -defaultsOSRD
 preplace portBus RGB -pg 1 -lvl 4 -x 1190 -y 430 -defaultsOSRD
+preplace portBus Buzzer -pg 1 -lvl 4 -x 1190 -y 1030 -defaultsOSRD
 preplace portBus Waveform -pg 1 -lvl 4 -x 1190 -y 850 -defaultsOSRD
 preplace inst processing_system7_0 -pg 1 -lvl 1 -x 100 -y 410 -defaultsOSRD
 preplace inst axi_interconnect_0 -pg 1 -lvl 1 -x 100 -y 650 -defaultsOSRD
@@ -97,7 +97,7 @@ preplace netloc processing_system7_0_FCLK_CLK0 1 0 3 -260 790 340 780 760
 preplace netloc Synth_0_Waveform 1 3 1 N 850
 preplace netloc ARESETN_1 1 0 2 -250 780 300
 preplace netloc proc_sys_reset_0_peripheral_aresetn 1 0 2 -240 770 320
-preplace netloc xlconstant_0_dout 1 0 4 -230 1020 320 1110 N 1110 N
+preplace netloc xlconstant_0_dout 1 0 4 -230 1020 320 1030 N 1030 N
 preplace netloc xlconstant_1_dout 1 0 2 -240 1010 300
 preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 2 -250 800 310
 preplace netloc APBSlave_Breakout_0_BusClock 1 2 1 N 840

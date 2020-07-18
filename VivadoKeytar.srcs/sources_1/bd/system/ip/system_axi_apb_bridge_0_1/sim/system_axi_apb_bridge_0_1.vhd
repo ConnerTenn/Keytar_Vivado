@@ -77,14 +77,13 @@ ENTITY system_axi_apb_bridge_0_1 IS
     s_axi_rvalid : OUT STD_LOGIC;
     s_axi_rready : IN STD_LOGIC;
     m_apb_paddr : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
-    m_apb_psel : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
+    m_apb_psel : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_apb_penable : OUT STD_LOGIC;
     m_apb_pwrite : OUT STD_LOGIC;
     m_apb_pwdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
-    m_apb_pready : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+    m_apb_pready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     m_apb_prdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    m_apb_prdata2 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    m_apb_pslverr : IN STD_LOGIC_VECTOR(1 DOWNTO 0)
+    m_apb_pslverr : IN STD_LOGIC_VECTOR(0 DOWNTO 0)
   );
 END system_axi_apb_bridge_0_1;
 
@@ -158,11 +157,11 @@ ARCHITECTURE system_axi_apb_bridge_0_1_arch OF system_axi_apb_bridge_0_1 IS
       s_axi_rvalid : OUT STD_LOGIC;
       s_axi_rready : IN STD_LOGIC;
       m_apb_paddr : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
-      m_apb_psel : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
+      m_apb_psel : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_apb_penable : OUT STD_LOGIC;
       m_apb_pwrite : OUT STD_LOGIC;
       m_apb_pwdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
-      m_apb_pready : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+      m_apb_pready : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_apb_prdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
       m_apb_prdata2 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
       m_apb_prdata3 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -179,22 +178,21 @@ ARCHITECTURE system_axi_apb_bridge_0_1_arch OF system_axi_apb_bridge_0_1 IS
       m_apb_prdata14 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
       m_apb_prdata15 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
       m_apb_prdata16 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-      m_apb_pslverr : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+      m_apb_pslverr : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       m_apb_pprot : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
       m_apb_pstrb : OUT STD_LOGIC_VECTOR(3 DOWNTO 0)
     );
   END COMPONENT axi_apb_bridge;
   ATTRIBUTE X_INTERFACE_INFO : STRING;
   ATTRIBUTE X_INTERFACE_PARAMETER : STRING;
-  ATTRIBUTE X_INTERFACE_INFO OF m_apb_pslverr: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M PSLVERR [0:0] [0:0], xilinx.com:interface:apb:1.0 APB_M2 PSLVERR [0:0] [1:1]";
-  ATTRIBUTE X_INTERFACE_INFO OF m_apb_prdata2: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M2 PRDATA";
+  ATTRIBUTE X_INTERFACE_INFO OF m_apb_pslverr: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M PSLVERR";
   ATTRIBUTE X_INTERFACE_INFO OF m_apb_prdata: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M PRDATA";
-  ATTRIBUTE X_INTERFACE_INFO OF m_apb_pready: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M PREADY [0:0] [0:0], xilinx.com:interface:apb:1.0 APB_M2 PREADY [0:0] [1:1]";
-  ATTRIBUTE X_INTERFACE_INFO OF m_apb_pwdata: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M PWDATA, xilinx.com:interface:apb:1.0 APB_M2 PWDATA";
-  ATTRIBUTE X_INTERFACE_INFO OF m_apb_pwrite: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M PWRITE, xilinx.com:interface:apb:1.0 APB_M2 PWRITE";
-  ATTRIBUTE X_INTERFACE_INFO OF m_apb_penable: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M PENABLE, xilinx.com:interface:apb:1.0 APB_M2 PENABLE";
-  ATTRIBUTE X_INTERFACE_INFO OF m_apb_psel: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M PSEL [0:0] [0:0], xilinx.com:interface:apb:1.0 APB_M2 PSEL [0:0] [1:1]";
-  ATTRIBUTE X_INTERFACE_INFO OF m_apb_paddr: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M PADDR, xilinx.com:interface:apb:1.0 APB_M2 PADDR";
+  ATTRIBUTE X_INTERFACE_INFO OF m_apb_pready: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M PREADY";
+  ATTRIBUTE X_INTERFACE_INFO OF m_apb_pwdata: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M PWDATA";
+  ATTRIBUTE X_INTERFACE_INFO OF m_apb_pwrite: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M PWRITE";
+  ATTRIBUTE X_INTERFACE_INFO OF m_apb_penable: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M PENABLE";
+  ATTRIBUTE X_INTERFACE_INFO OF m_apb_psel: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M PSEL";
+  ATTRIBUTE X_INTERFACE_INFO OF m_apb_paddr: SIGNAL IS "xilinx.com:interface:apb:1.0 APB_M PADDR";
   ATTRIBUTE X_INTERFACE_INFO OF s_axi_rready: SIGNAL IS "xilinx.com:interface:aximm:1.0 AXI4_LITE RREADY";
   ATTRIBUTE X_INTERFACE_INFO OF s_axi_rvalid: SIGNAL IS "xilinx.com:interface:aximm:1.0 AXI4_LITE RVALID";
   ATTRIBUTE X_INTERFACE_INFO OF s_axi_rresp: SIGNAL IS "xilinx.com:interface:aximm:1.0 AXI4_LITE RRESP";
@@ -226,7 +224,7 @@ BEGIN
       C_S_AXI_DATA_WIDTH => 32,
       C_M_APB_ADDR_WIDTH => 32,
       C_M_APB_DATA_WIDTH => 32,
-      C_APB_NUM_SLAVES => 2,
+      C_APB_NUM_SLAVES => 1,
       C_M_APB_PROTOCOL => "apb3",
       C_BASEADDR => X"0000000040000000",
       C_HIGHADDR => X"00000000400FFFFF",
@@ -291,7 +289,7 @@ BEGIN
       m_apb_pwdata => m_apb_pwdata,
       m_apb_pready => m_apb_pready,
       m_apb_prdata => m_apb_prdata,
-      m_apb_prdata2 => m_apb_prdata2,
+      m_apb_prdata2 => STD_LOGIC_VECTOR(TO_UNSIGNED(0, 32)),
       m_apb_prdata3 => STD_LOGIC_VECTOR(TO_UNSIGNED(0, 32)),
       m_apb_prdata4 => STD_LOGIC_VECTOR(TO_UNSIGNED(0, 32)),
       m_apb_prdata5 => STD_LOGIC_VECTOR(TO_UNSIGNED(0, 32)),
