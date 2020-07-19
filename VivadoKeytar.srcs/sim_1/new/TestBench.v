@@ -35,7 +35,7 @@ module TestBench;
         .Clock100MHz(clock1MHz), //100MHz divider is bypased in debug mode
         .Waveform(waveform),
         .BusClock(clock1MHz), .BusPAddr(buspaddr), .BusPWriteData(buspwritedata), .BusPReadData(), 
-        .BusPWrite(1), .BusPReady(), 
+        .BusPWrite(1'b1), .BusPReady(), 
         .BusPEnable(buspenable), .BusPSel(buspsel), .BusPError()
     );
 
@@ -43,24 +43,86 @@ module TestBench;
     initial 
     begin
         $display("\n\n=== Running Simulation ===\n\n");
-        buspaddr <= 32'h4000_0000;
-        buspwritedata <= 100_000;
+
         buspsel <= 1;
 
-        #1
-        buspenable <= 1;
-        #1
-        buspenable <= 0;
+        //Channel[0] Increment
+        buspaddr <= 32'h4000_0000;
+        buspwritedata <= 100_000;
+        #1; buspenable <= 1; #1; buspenable <= 0;
+
+        //Channel[0] Attack
+        buspaddr <= 32'h4000_0008;
+        buspwritedata <= 100_000;
+        #1; buspenable <= 1; #1; buspenable <= 0;
+        //Channel[0] Decay
+        buspaddr <= 32'h4000_000C;
+        buspwritedata <= 100_000;
+        #1; buspenable <= 1; #1; buspenable <= 0;
+        //Channel[0] Sustain
+        buspaddr <= 32'h4000_0010;
+        buspwritedata <= 24'hA0_0000;
+        #1; buspenable <= 1; #1; buspenable <= 0;
+        //Channel[0] Release
+        buspaddr <= 32'h4000_0014;
+        buspwritedata <= 100_000;
+        #1; buspenable <= 1; #1; buspenable <= 0;
+
+
+        //Channel[1] Increment
         buspaddr <= 32'h4000_0100;
         buspwritedata <= 100_000;
-        #1
-        buspenable <= 1;
-        #1
-        buspenable <= 0;
+        #1; buspenable <= 1; #1; buspenable <= 0;
+
+        //Channel[1] Attack
+        buspaddr <= 32'h4000_0108;
+        buspwritedata <= 100_000;
+        #1; buspenable <= 1; #1; buspenable <= 0;
+        //Channel[1] Decay
+        buspaddr <= 32'h4000_010C;
+        buspwritedata <= 100_000;
+        #1; buspenable <= 1; #1; buspenable <= 0;
+        //Channel[1] Sustain
+        buspaddr <= 32'h4000_0110;
+        buspwritedata <= 24'hA0_0000;
+        #1; buspenable <= 1; #1; buspenable <= 0;
+        //Channel[1] Release
+        buspaddr <= 32'h4000_0114;
+        buspwritedata <= 100_000;
+        #1; buspenable <= 1; #1; buspenable <= 0;
+
+
+        //Channel[0] Gate
+        buspaddr <= 32'h4000_0018;
+        buspwritedata <= 1;
+        #1; buspenable <= 1; #1; buspenable <= 0;
+
+        //Channel[1] Gate
+        buspaddr <= 32'h4000_0118;
+        buspwritedata <= 1;
+        #1; buspenable <= 1; #1; buspenable <= 0;
+
+        
         buspsel <= 0;
 
 
-        #400;
+        #400
+
+        buspsel <= 1;
+
+        //Channel[0] Gate
+        buspaddr <= 32'h4000_0018;
+        buspwritedata <= 0;
+        #1; buspenable <= 1; #1; buspenable <= 0;
+
+        //Channel[1] Gate
+        buspaddr <= 32'h4000_0118;
+        buspwritedata <= 0;
+        #1; buspenable <= 1; #1; buspenable <= 0;
+
+        buspsel <= 0;
+
+        #200;
 
         $display("\n\n=== Simulation Complete ===\n\n");
 

@@ -11,6 +11,8 @@ module Channel
     BusPWrite, BusPReady, 
     BusPEnable, BusPSel, BusPError
 );
+    parameter WAVE_MAX = 24'hFFFFFF;
+    
     input Clock1MHz;
     output signed [23:0] Waveform;
 
@@ -22,16 +24,40 @@ module Channel
     input BusPEnable, BusPSel;
     output BusPError;
 
+    wire running;
 
     reg [23:0] increment = 219;
     reg [1:0] wavetype = 0;
+    wire [23:0] wavegenout;
 
     WaveGen wavegen(
         .Clock(Clock1MHz),
+        .Run(running),
         .Increment(increment),
         .WaveType(wavetype),
-        .Waveform(Waveform)
+        .Waveform(wavegenout)
     );
+
+    reg [23:0] attack = 0, decay = 0, sustain = 0, releas = 0;
+    reg gate = 0;
+    wire [23:0] envelope;
+
+    ADSR adsr(
+        .Clock(Clock1MHz),
+        .Gate(gate),
+        .Running(running),
+        .ADSRstate(),
+        .Attack(attack), .Decay(decay), .Sustain(sustain), .Release(releas),
+        .Envelope(envelope)
+    );
+
+    /*
+    envolope is a fixed point encoded multiplier
+    To computer multiplication, wavegenout must be sign extended
+    Signed right shift is also used to rescale the output
+    */
+    wire [47:0] wavemul = { {24{wavegenout[23]}}, wavegenout} * {24'd0, envelope};
+    assign Waveform = (wavemul>>>24);
 
     always @(posedge Clock1MHz)
     begin
@@ -55,16 +81,26 @@ module Channel
             begin
                 //Read
                 case (BusPAddr)
-                    ADDRESS+32'h00: BusPReadData[23:0] <= {8'h0, increment};
-                    ADDRESS+32'h04: BusPReadData <= {30'h0, wavetype};
+                    ADDRESS+4*0: BusPReadData <= {8'h0, increment};
+                    ADDRESS+4*1: BusPReadData <= {30'h0, wavetype};
+                    ADDRESS+4*2: BusPReadData <= {8'h0, attack};
+                    ADDRESS+4*3: BusPReadData <= {8'h0, sustain};
+                    ADDRESS+4*4: BusPReadData <= {8'h0, decay};
+                    ADDRESS+4*5: BusPReadData <= {8'h0, releas};
+                    ADDRESS+4*6: BusPReadData <= {31'h0, gate};
                 endcase
             end
             else
             begin
                 //Write
                 case (BusPAddr)
-                    ADDRESS+32'h00: increment <= BusPWriteData[23:0];
-                    ADDRESS+32'h04: wavetype <= BusPWriteData[1:0];
+                    ADDRESS+4*0: increment <= BusPWriteData[23:0];
+                    ADDRESS+4*1: wavetype <= BusPWriteData[1:0];
+                    ADDRESS+4*2: attack <= BusPWriteData[23:0];
+                    ADDRESS+4*3: decay <= BusPWriteData[23:0];
+                    ADDRESS+4*4: sustain <= BusPWriteData[23:0];
+                    ADDRESS+4*5: releas <= BusPWriteData[23:0];
+                    ADDRESS+4*6: gate <= BusPWriteData[0:0];
                 endcase
             end
 

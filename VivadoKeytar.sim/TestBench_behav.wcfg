@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="404000001fs"></ZoomEndTime>
-      <Cursor1Time time="0fs"></Cursor1Time>
+      <ZoomEndTime time="335000001fs"></ZoomEndTime>
+      <Cursor1Time time="150000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="174"></NameColumnWidth>
-      <ValueColumnWidth column_width="79"></ValueColumnWidth>
+      <ValueColumnWidth column_width="75"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="18" />
+   <WVObjectSize size="5" />
    <wvobject type="logic" fp_name="/TestBench/clock1MHz">
       <obj_property name="ElementShortName">clock1MHz</obj_property>
       <obj_property name="ObjectShortName">clock1MHz</obj_property>
@@ -37,86 +37,133 @@
       <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
       <obj_property name="AnalogHorizLine">0.000000</obj_property>
    </wvobject>
-   <wvobject fp_name="divider22" type="divider">
+   <wvobject type="group" fp_name="group39">
       <obj_property name="label">Bus</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/TestBench/synth/BusPAddr">
+         <obj_property name="ElementShortName">BusPAddr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">BusPAddr[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestBench/synth/BusPWriteData">
+         <obj_property name="ElementShortName">BusPWriteData[31:0]</obj_property>
+         <obj_property name="ObjectShortName">BusPWriteData[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestBench/synth/BusPReadData">
+         <obj_property name="ElementShortName">BusPReadData[31:0]</obj_property>
+         <obj_property name="ObjectShortName">BusPReadData[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestBench/synth/BusPWrite">
+         <obj_property name="ElementShortName">BusPWrite</obj_property>
+         <obj_property name="ObjectShortName">BusPWrite</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestBench/buspsel">
+         <obj_property name="ElementShortName">buspsel</obj_property>
+         <obj_property name="ObjectShortName">buspsel</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestBench/buspenable">
+         <obj_property name="ElementShortName">buspenable</obj_property>
+         <obj_property name="ObjectShortName">buspenable</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestBench/synth/BusPReady">
+         <obj_property name="ElementShortName">BusPReady</obj_property>
+         <obj_property name="ObjectShortName">BusPReady</obj_property>
+      </wvobject>
    </wvobject>
-   <wvobject type="array" fp_name="/TestBench/synth/BusPAddr">
-      <obj_property name="ElementShortName">BusPAddr[31:0]</obj_property>
-      <obj_property name="ObjectShortName">BusPAddr[31:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/TestBench/synth/BusPWriteData">
-      <obj_property name="ElementShortName">BusPWriteData[31:0]</obj_property>
-      <obj_property name="ObjectShortName">BusPWriteData[31:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/TestBench/synth/BusPReadData">
-      <obj_property name="ElementShortName">BusPReadData[31:0]</obj_property>
-      <obj_property name="ObjectShortName">BusPReadData[31:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/TestBench/synth/BusPWrite">
-      <obj_property name="ElementShortName">BusPWrite</obj_property>
-      <obj_property name="ObjectShortName">BusPWrite</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/TestBench/buspsel">
-      <obj_property name="ElementShortName">buspsel</obj_property>
-      <obj_property name="ObjectShortName">buspsel</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/TestBench/buspenable">
-      <obj_property name="ElementShortName">buspenable</obj_property>
-      <obj_property name="ObjectShortName">buspenable</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/TestBench/synth/BusPReady">
-      <obj_property name="ElementShortName">BusPReady</obj_property>
-      <obj_property name="ObjectShortName">BusPReady</obj_property>
-   </wvobject>
-   <wvobject fp_name="divider24" type="divider">
+   <wvobject type="group" fp_name="group37">
       <obj_property name="label">Channel 0</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/TestBench/synth/\channels[0].channel0 /Waveform">
+         <obj_property name="ElementShortName">Waveform[23:0]</obj_property>
+         <obj_property name="ObjectShortName">Waveform[23:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+         <obj_property name="CellHeight">100</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_LINEAR</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestBench/synth/\channels[0].channel0 /envelope">
+         <obj_property name="ElementShortName">envelope[23:0]</obj_property>
+         <obj_property name="ObjectShortName">envelope[23:0]</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+         <obj_property name="CellHeight">100</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestBench/synth/\channels[0].channel0 /BusPReady">
+         <obj_property name="ElementShortName">BusPReady</obj_property>
+         <obj_property name="ObjectShortName">BusPReady</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestBench/synth/\channels[0].channel0 /increment">
+         <obj_property name="ElementShortName">increment[23:0]</obj_property>
+         <obj_property name="ObjectShortName">increment[23:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestBench/synth/\channels[0].channel0 /wavegen/counter">
+         <obj_property name="ElementShortName">counter[23:0]</obj_property>
+         <obj_property name="ObjectShortName">counter[23:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+         <obj_property name="CellHeight">100</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_LINEAR</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      </wvobject>
    </wvobject>
-   <wvobject type="array" fp_name="/TestBench/synth/\channels[0].channel0 /Waveform">
-      <obj_property name="ElementShortName">Waveform[23:0]</obj_property>
-      <obj_property name="ObjectShortName">Waveform[23:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
-      <obj_property name="CellHeight">100</obj_property>
-      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
-      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
-      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
-      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_LINEAR</obj_property>
-      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
-      <obj_property name="AnalogHorizLine">0.000000</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/TestBench/synth/\channels[0].channel0 /BusPReady">
-      <obj_property name="ElementShortName">BusPReady</obj_property>
-      <obj_property name="ObjectShortName">BusPReady</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/TestBench/synth/\channels[0].channel0 /increment">
-      <obj_property name="ElementShortName">increment[23:0]</obj_property>
-      <obj_property name="ObjectShortName">increment[23:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="divider41" type="divider">
+   <wvobject type="group" fp_name="group38">
       <obj_property name="label">Channel 1</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/TestBench/synth/\channels[1].channel0 /Waveform">
-      <obj_property name="ElementShortName">Waveform[23:0]</obj_property>
-      <obj_property name="ObjectShortName">Waveform[23:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
-      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
-      <obj_property name="CellHeight">100</obj_property>
-      <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
-      <obj_property name="AnalogYRangeMin">0.000000</obj_property>
-      <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
-      <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_LINEAR</obj_property>
-      <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
-      <obj_property name="AnalogHorizLine">0.000000</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/TestBench/synth/\channels[1].channel0 /BusPReady">
-      <obj_property name="ElementShortName">BusPReady</obj_property>
-      <obj_property name="ObjectShortName">BusPReady</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/TestBench/synth/\channels[1].channel0 /increment">
-      <obj_property name="ElementShortName">increment[23:0]</obj_property>
-      <obj_property name="ObjectShortName">increment[23:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/TestBench/synth/\channels[1].channel0 /Waveform">
+         <obj_property name="ElementShortName">Waveform[23:0]</obj_property>
+         <obj_property name="ObjectShortName">Waveform[23:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+         <obj_property name="CellHeight">100</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_LINEAR</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestBench/synth/\channels[1].channel0 /envelope">
+         <obj_property name="ElementShortName">envelope[23:0]</obj_property>
+         <obj_property name="ObjectShortName">envelope[23:0]</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+         <obj_property name="CellHeight">100</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_LINEAR</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/TestBench/synth/\channels[1].channel0 /BusPReady">
+         <obj_property name="ElementShortName">BusPReady</obj_property>
+         <obj_property name="ObjectShortName">BusPReady</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestBench/synth/\channels[1].channel0 /increment">
+         <obj_property name="ElementShortName">increment[23:0]</obj_property>
+         <obj_property name="ObjectShortName">increment[23:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestBench/synth/\channels[1].channel0 /wavegen/counter">
+         <obj_property name="ElementShortName">counter[23:0]</obj_property>
+         <obj_property name="ObjectShortName">counter[23:0]</obj_property>
+         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+         <obj_property name="CellHeight">100</obj_property>
+         <obj_property name="AnalogYRangeType">ANALOG_YRANGETYPE_AUTO</obj_property>
+         <obj_property name="AnalogYRangeMin">0.000000</obj_property>
+         <obj_property name="AnalogYRRangeMax">0.000000</obj_property>
+         <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_LINEAR</obj_property>
+         <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
+         <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      </wvobject>
    </wvobject>
 </wave_config>

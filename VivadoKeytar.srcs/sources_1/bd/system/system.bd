@@ -1204,12 +1204,6 @@
           "processing_system7_0/FIXED_IO"
         ]
       },
-      "axi_interconnect_0_M00_AXI": {
-        "interface_ports": [
-          "axi_interconnect_0/M00_AXI",
-          "axi_apb_bridge_0/AXI4_LITE"
-        ]
-      },
       "S00_AXI_1": {
         "interface_ports": [
           "axi_interconnect_0/S00_AXI",
@@ -1220,6 +1214,12 @@
         "interface_ports": [
           "APBSlave_Breakout_0/APB_S",
           "axi_apb_bridge_0/APB_M"
+        ]
+      },
+      "axi_interconnect_0_M00_AXI": {
+        "interface_ports": [
+          "axi_interconnect_0/M00_AXI",
+          "axi_apb_bridge_0/AXI4_LITE"
         ]
       }
     },
