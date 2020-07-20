@@ -31,21 +31,13 @@ module ADSR
         end
     endfunction
 
-    wire [23:0] nextenvolope = EnvolopeSel(ADSRstate, Envelope, step);
-    function automatic [23:0] EnvolopeSel;
-        input [1:0] adsrstate;
-        input [23:0] envolope; input [23:0] step;
-        begin
-            if (adsrstate==2'b00)
-            begin
-                EnvolopeSel = envolope+step;
-            end
-            else
-            begin
-                EnvolopeSel = envolope-step;
-            end
-        end
-    endfunction
+    wire [23:0] nextattackenvolope = Envelope + step;
+    wire [23:0] nextdecayenvolope = Envelope - step;
+    wire [23:0] nextsustainenvolope = Envelope - step;
+
+    wire attackcompare = Envelope>=WAVE_MAX-step;
+    wire decaycompare = Envelope<=Sustain+step;
+    wire releasecompare = Envelope <= 0+step;
 
     reg gateprev = 0;
 
@@ -71,25 +63,25 @@ module ADSR
             2'b00: //Attack
                 // if (Running == 1)
                 begin
-                    if (Envelope>=WAVE_MAX-step)
+                    if (attackcompare) //(Envelope>=WAVE_MAX-step)
                     begin
                         ADSRstate <= 2'b01;
                     end
                     else 
                     begin
-                        Envelope <= nextenvolope;//Envelope + step;
+                        Envelope <= nextattackenvolope; //envolope+step
                     end
                 end
                 
             2'b01: //Decay
                 begin
-                    if (Envelope<=Sustain+step)
+                    if (decaycompare) //(Envelope<=Sustain+step)
                     begin
                         ADSRstate <= 2'b10;
                     end
                     else
                     begin
-                        Envelope <= nextenvolope;//Envelope - step;
+                        Envelope <= nextdecayenvolope; //envolope-step
                     end
                 end
             // 2'b10: //Sustain
@@ -98,14 +90,14 @@ module ADSR
         end
         else //Release
         begin
-            if (Envelope <= 0+step)
+            if (releasecompare) //(Envelope <= 0+step)
             begin
                 Running <= 0;
                 Envelope <= 0;
             end
             else
             begin
-                Envelope <= nextenvolope;//Envelope - step;
+                Envelope <= releasecompare; //envolope-step
             end
         end
     end
