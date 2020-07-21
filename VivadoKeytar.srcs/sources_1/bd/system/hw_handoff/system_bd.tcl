@@ -40,7 +40,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 
 # The design that will be created by this Tcl script contains the following 
 # module references:
-# RGBTest, Synth
+# HDMIController, RGBTest, Synth
 
 # Please add the sources of those modules before sourcing this Tcl script.
 
@@ -166,15 +166,35 @@ proc create_root_design { parentCell } {
 
   set FIXED_IO [ create_bd_intf_port -mode Master -vlnv xilinx.com:display_processing_system7:fixedio_rtl:1.0 FIXED_IO ]
 
+  set I2C [ create_bd_intf_port -mode Master -vlnv xilinx.com:interface:iic_rtl:1.0 I2C ]
+
 
   # Create ports
+  set Blue [ create_bd_port -dir O -from 4 -to 0 -type data Blue ]
   set Buzzer [ create_bd_port -dir O -from 0 -to 0 -type data Buzzer ]
+  set De [ create_bd_port -dir O -type data De ]
+  set Green [ create_bd_port -dir O -from 5 -to 0 -type data Green ]
+  set HSync [ create_bd_port -dir O -type data HSync ]
+  set PClk [ create_bd_port -dir O -type clk PClk ]
   set RGB [ create_bd_port -dir O -from 2 -to 0 -type data RGB ]
+  set Red [ create_bd_port -dir O -from 4 -to 0 -type data Red ]
+  set VSync [ create_bd_port -dir O -type data VSync ]
   set Waveform [ create_bd_port -dir O -from 23 -to 0 -type data Waveform ]
 
   # Create instance: APBSlave_Breakout_0, and set properties
   set APBSlave_Breakout_0 [ create_bd_cell -type ip -vlnv Independant:user:APBSlave_Breakout:1.0 APBSlave_Breakout_0 ]
 
+  # Create instance: HDMIController_0, and set properties
+  set block_name HDMIController
+  set block_cell_name HDMIController_0
+  if { [catch {set HDMIController_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   } elseif { $HDMIController_0 eq "" } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   }
+  
   # Create instance: RGBTest_0, and set properties
   set block_name RGBTest
   set block_cell_name RGBTest_0
@@ -226,7 +246,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ACT_ENET0_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_ENET1_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ {100.000000} \
-   CONFIG.PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ {10.000000} \
+   CONFIG.PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ {133.333344} \
    CONFIG.PCW_ACT_FPGA2_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_FPGA3_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_PCAP_PERIPHERAL_FREQMHZ {200.000000} \
@@ -247,7 +267,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_CAN_PERIPHERAL_DIVISOR0 {1} \
    CONFIG.PCW_CAN_PERIPHERAL_DIVISOR1 {1} \
    CONFIG.PCW_CLK0_FREQ {100000000} \
-   CONFIG.PCW_CLK1_FREQ {10000000} \
+   CONFIG.PCW_CLK1_FREQ {133333344} \
    CONFIG.PCW_CLK2_FREQ {10000000} \
    CONFIG.PCW_CLK3_FREQ {10000000} \
    CONFIG.PCW_CPU_CPU_PLL_FREQMHZ {1333.333} \
@@ -266,10 +286,12 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ENET1_RESET_ENABLE {0} \
    CONFIG.PCW_ENET_RESET_ENABLE {0} \
    CONFIG.PCW_EN_CLK0_PORT {1} \
-   CONFIG.PCW_EN_CLK1_PORT {0} \
+   CONFIG.PCW_EN_CLK1_PORT {1} \
    CONFIG.PCW_EN_EMIO_CD_SDIO0 {0} \
+   CONFIG.PCW_EN_EMIO_I2C0 {1} \
    CONFIG.PCW_EN_EMIO_WP_SDIO0 {0} \
    CONFIG.PCW_EN_GPIO {1} \
+   CONFIG.PCW_EN_I2C0 {1} \
    CONFIG.PCW_EN_RST0_PORT {1} \
    CONFIG.PCW_EN_RST1_PORT {0} \
    CONFIG.PCW_EN_SDIO0 {1} \
@@ -277,26 +299,31 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR0 {4} \
    CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR1 {4} \
    CONFIG.PCW_FCLK1_PERIPHERAL_CLKSRC {IO PLL} \
-   CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR0 {1} \
+   CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR0 {12} \
    CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR1 {1} \
    CONFIG.PCW_FCLK2_PERIPHERAL_DIVISOR0 {1} \
    CONFIG.PCW_FCLK2_PERIPHERAL_DIVISOR1 {1} \
    CONFIG.PCW_FCLK3_PERIPHERAL_DIVISOR0 {1} \
    CONFIG.PCW_FCLK3_PERIPHERAL_DIVISOR1 {1} \
    CONFIG.PCW_FCLK_CLK0_BUF {FALSE} \
-   CONFIG.PCW_FCLK_CLK1_BUF {FALSE} \
+   CONFIG.PCW_FCLK_CLK1_BUF {TRUE} \
    CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {100} \
-   CONFIG.PCW_FPGA1_PERIPHERAL_FREQMHZ {1} \
+   CONFIG.PCW_FPGA1_PERIPHERAL_FREQMHZ {133} \
    CONFIG.PCW_FPGA_FCLK0_ENABLE {1} \
-   CONFIG.PCW_FPGA_FCLK1_ENABLE {0} \
+   CONFIG.PCW_FPGA_FCLK1_ENABLE {1} \
    CONFIG.PCW_FPGA_FCLK2_ENABLE {0} \
    CONFIG.PCW_FPGA_FCLK3_ENABLE {0} \
    CONFIG.PCW_GPIO_MIO_GPIO_ENABLE {1} \
    CONFIG.PCW_GPIO_MIO_GPIO_IO {MIO} \
+   CONFIG.PCW_I2C0_GRP_INT_ENABLE {1} \
+   CONFIG.PCW_I2C0_GRP_INT_IO {EMIO} \
+   CONFIG.PCW_I2C0_I2C0_IO {EMIO} \
+   CONFIG.PCW_I2C0_PERIPHERAL_ENABLE {1} \
    CONFIG.PCW_I2C0_RESET_ENABLE {0} \
    CONFIG.PCW_I2C1_RESET_ENABLE {0} \
-   CONFIG.PCW_I2C_PERIPHERAL_FREQMHZ {25} \
+   CONFIG.PCW_I2C_PERIPHERAL_FREQMHZ {111.111115} \
    CONFIG.PCW_I2C_RESET_ENABLE {1} \
+   CONFIG.PCW_I2C_RESET_SELECT {Share reset pin} \
    CONFIG.PCW_IOPLL_CTRL_FBDIV {48} \
    CONFIG.PCW_IO_IO_PLL_FREQMHZ {1600.000} \
    CONFIG.PCW_MIO_0_DIRECTION {inout} \
@@ -578,6 +605,7 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net axi_interconnect_0_M00_AXI [get_bd_intf_pins axi_apb_bridge_0/AXI4_LITE] [get_bd_intf_pins axi_interconnect_0/M00_AXI]
   connect_bd_intf_net -intf_net processing_system7_0_DDR [get_bd_intf_ports DDR] [get_bd_intf_pins processing_system7_0/DDR]
   connect_bd_intf_net -intf_net processing_system7_0_FIXED_IO [get_bd_intf_ports FIXED_IO] [get_bd_intf_pins processing_system7_0/FIXED_IO]
+  connect_bd_intf_net -intf_net processing_system7_0_IIC_0 [get_bd_intf_ports I2C] [get_bd_intf_pins processing_system7_0/IIC_0]
 
   # Create port connections
   connect_bd_net -net APBSlave_Breakout_0_BusClock [get_bd_pins APBSlave_Breakout_0/BusClock] [get_bd_pins Synth_0/BusClock]
@@ -587,6 +615,13 @@ proc create_root_design { parentCell } {
   connect_bd_net -net APBSlave_Breakout_0_BusPWrite [get_bd_pins APBSlave_Breakout_0/BusPWrite] [get_bd_pins Synth_0/BusPWrite]
   connect_bd_net -net APBSlave_Breakout_0_BusPWriteData [get_bd_pins APBSlave_Breakout_0/BusPWriteData] [get_bd_pins Synth_0/BusPWriteData]
   connect_bd_net -net ARESETN_1 [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins proc_sys_reset_0/interconnect_aresetn]
+  connect_bd_net -net HDMIController_0_Blue [get_bd_ports Blue] [get_bd_pins HDMIController_0/Blue]
+  connect_bd_net -net HDMIController_0_De [get_bd_ports De] [get_bd_pins HDMIController_0/De]
+  connect_bd_net -net HDMIController_0_Green [get_bd_ports Green] [get_bd_pins HDMIController_0/Green]
+  connect_bd_net -net HDMIController_0_HSync [get_bd_ports HSync] [get_bd_pins HDMIController_0/HSync]
+  connect_bd_net -net HDMIController_0_PClk [get_bd_ports PClk] [get_bd_pins HDMIController_0/PClk]
+  connect_bd_net -net HDMIController_0_Red [get_bd_ports Red] [get_bd_pins HDMIController_0/Red]
+  connect_bd_net -net HDMIController_0_VSync [get_bd_ports VSync] [get_bd_pins HDMIController_0/VSync]
   connect_bd_net -net RGBTest_0_RGB [get_bd_ports RGB] [get_bd_pins RGBTest_0/RGB]
   connect_bd_net -net Synth_0_BusPError [get_bd_pins APBSlave_Breakout_0/BusPError] [get_bd_pins Synth_0/BusPError]
   connect_bd_net -net Synth_0_BusPReadData [get_bd_pins APBSlave_Breakout_0/BusPReadData] [get_bd_pins Synth_0/BusPReadData]
@@ -594,6 +629,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net Synth_0_Waveform [get_bd_ports Waveform] [get_bd_pins Synth_0/Waveform]
   connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins axi_apb_bridge_0/s_axi_aresetn] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
   connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins APBSlave_Breakout_0/s_apb_pclock] [get_bd_pins RGBTest_0/Clock] [get_bd_pins Synth_0/Clock100MHz] [get_bd_pins axi_apb_bridge_0/s_axi_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK]
+  connect_bd_net -net processing_system7_0_FCLK_CLK1 [get_bd_pins HDMIController_0/Clock] [get_bd_pins processing_system7_0/FCLK_CLK1]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins proc_sys_reset_0/aux_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
   connect_bd_net -net xlconstant_0_dout [get_bd_ports Buzzer] [get_bd_pins proc_sys_reset_0/dcm_locked] [get_bd_pins proc_sys_reset_0/mb_debug_sys_rst] [get_bd_pins xlconstant_0/dout]
   connect_bd_net -net xlconstant_1_dout [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins xlconstant_1/dout]

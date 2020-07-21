@@ -81,6 +81,7 @@ input wire BusPSel;
 output wire BusPError;
 
   Synth #(
+    .DEBUG(0),
     .NUM_CHANNELS(64)
   ) inst (
     .Clock100MHz(Clock100MHz),

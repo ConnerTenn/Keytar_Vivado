@@ -677,6 +677,12 @@
 
 //MODULE DECLARATION
  module system_processing_system7_0_0 (
+  I2C0_SDA_I,
+  I2C0_SDA_O,
+  I2C0_SDA_T,
+  I2C0_SCL_I,
+  I2C0_SCL_O,
+  I2C0_SCL_T,
   M_AXI_GP0_ARVALID,
   M_AXI_GP0_AWVALID,
   M_AXI_GP0_BREADY,
@@ -717,6 +723,7 @@
   M_AXI_GP0_RRESP,
   M_AXI_GP0_RDATA,
   FCLK_CLK0,
+  FCLK_CLK1,
   FCLK_RESET0_N,
   MIO,
   DDR_CAS_n,
@@ -793,7 +800,7 @@
       parameter C_USE_S_AXI_ACP = 0;
       parameter C_PS7_SI_REV = "PRODUCTION";
       parameter C_FCLK_CLK0_BUF = "FALSE";
-      parameter C_FCLK_CLK1_BUF = "FALSE";
+      parameter C_FCLK_CLK1_BUF = "TRUE";
       parameter C_FCLK_CLK2_BUF = "FALSE";
       parameter C_FCLK_CLK3_BUF = "FALSE";
       parameter C_PACKAGE_NAME = "clg400";
@@ -802,6 +809,12 @@
 
 //INPUT AND OUTPUT PORTS
 
+      input  I2C0_SDA_I;
+      output  I2C0_SDA_O;
+      output  I2C0_SDA_T;
+      input  I2C0_SCL_I;
+      output  I2C0_SCL_O;
+      output  I2C0_SCL_T;
       output  M_AXI_GP0_ARVALID;
       output  M_AXI_GP0_AWVALID;
       output  M_AXI_GP0_BREADY;
@@ -842,6 +855,7 @@
       input  [1 : 0] M_AXI_GP0_RRESP;
       input  [31 : 0] M_AXI_GP0_RDATA;
       output  FCLK_CLK0;
+      output  FCLK_CLK1;
       output  FCLK_RESET0_N;
       inout  [53 : 0] MIO;
       inout  DDR_CAS_n;
@@ -867,6 +881,10 @@
 
 //REG DECLARATIONS
 
+      reg I2C0_SDA_O;
+      reg I2C0_SDA_T;
+      reg I2C0_SCL_O;
+      reg I2C0_SCL_T;
       reg M_AXI_GP0_ARVALID;
       reg M_AXI_GP0_AWVALID;
       reg M_AXI_GP0_BREADY;
@@ -895,6 +913,7 @@
       reg [3 : 0] M_AXI_GP0_AWQOS;
       reg [3 : 0] M_AXI_GP0_WSTRB;
       reg FCLK_CLK0;
+      reg FCLK_CLK1;
       reg FCLK_RESET0_N;
       string ip_name;
       reg disable_port;
@@ -906,6 +925,7 @@ import "DPI-C" function void ps7_set_int_param(input string name,input longint v
 import "DPI-C" function void ps7_init_c_model();
 import "DPI-C" function void ps7_init_m_axi_gp0(input int M_AXI_GP0_AWID_size,input int M_AXI_GP0_AWADDR_size,input int M_AXI_GP0_AWLEN_size,input int M_AXI_GP0_AWSIZE_size,input int M_AXI_GP0_AWBURST_size,input int M_AXI_GP0_AWLOCK_size,input int M_AXI_GP0_AWCACHE_size,input int M_AXI_GP0_AWPROT_size,input int M_AXI_GP0_AWQOS_size,input int M_AXI_GP0_AWVALID_size,input int M_AXI_GP0_AWREADY_size,input int M_AXI_GP0_WID_size,input int M_AXI_GP0_WDATA_size,input int M_AXI_GP0_WSTRB_size,input int M_AXI_GP0_WLAST_size,input int M_AXI_GP0_WVALID_size,input int M_AXI_GP0_WREADY_size,input int M_AXI_GP0_BID_size,input int M_AXI_GP0_BRESP_size,input int M_AXI_GP0_BVALID_size,input int M_AXI_GP0_BREADY_size,input int M_AXI_GP0_ARID_size,input int M_AXI_GP0_ARADDR_size,input int M_AXI_GP0_ARLEN_size,input int M_AXI_GP0_ARSIZE_size,input int M_AXI_GP0_ARBURST_size,input int M_AXI_GP0_ARLOCK_size,input int M_AXI_GP0_ARCACHE_size,input int M_AXI_GP0_ARPROT_size,input int M_AXI_GP0_ARQOS_size,input int M_AXI_GP0_ARVALID_size,input int M_AXI_GP0_ARREADY_size,input int M_AXI_GP0_RID_size,input int M_AXI_GP0_RDATA_size,input int M_AXI_GP0_RRESP_size,input int M_AXI_GP0_RLAST_size,input int M_AXI_GP0_RVALID_size,input int M_AXI_GP0_RREADY_size);
 import "DPI-C" function void ps7_simulate_single_cycle_FCLK_CLK0();
+import "DPI-C" function void ps7_simulate_single_cycle_FCLK_CLK1();
 import "DPI-C" function void ps7_simulate_single_cycle_M_AXI_GP0_ACLK();
 import "DPI-C" function void ps7_set_inputs_m_axi_gp0_M_AXI_GP0_ACLK(
 input bit M_AXI_GP0_AWREADY,
@@ -1058,6 +1078,19 @@ output bit M_AXI_GP0_RREADY
   begin
    ps7_set_ip_context(ip_name);
    ps7_simulate_single_cycle_FCLK_CLK0();
+  end
+
+  initial
+  begin
+     FCLK_CLK1 = 1'b0;
+  end
+
+  always #(3.7593984962406015) FCLK_CLK1 <= ~FCLK_CLK1;
+
+  always@(posedge FCLK_CLK1)
+  begin
+   ps7_set_ip_context(ip_name);
+   ps7_simulate_single_cycle_FCLK_CLK1();
   end
 
 
