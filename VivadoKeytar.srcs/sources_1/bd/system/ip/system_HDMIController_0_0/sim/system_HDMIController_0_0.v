@@ -65,7 +65,7 @@ module system_HDMIController_0_0 (
   De
 );
 
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME Clock, FREQ_HZ 133333344, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, INSERT_VIP 0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME Clock, FREQ_HZ 150000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 Clock CLK" *)
 input wire Clock;
 output wire [4 : 0] Red;
@@ -76,7 +76,16 @@ output wire VSync;
 output wire PClk;
 output wire De;
 
-  HDMIController inst (
+  HDMIController #(
+    .HSYNC(44),
+    .LMARGIN(148),
+    .XRES(1920),
+    .RMARGIN(88),
+    .VSYNC(5),
+    .TMARGIN(36),
+    .YRES(1080),
+    .BMARGIN(4)
+  ) inst (
     .Clock(Clock),
     .Red(Red),
     .Green(Green),
