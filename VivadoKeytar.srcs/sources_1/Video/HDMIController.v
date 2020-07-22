@@ -127,6 +127,7 @@ module HDMIController (
             end
         end
     end
-    
-    
+
 endmodule
+
+
