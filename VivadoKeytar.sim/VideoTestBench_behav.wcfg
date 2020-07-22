@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="VideoTestBench_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="VideoTestBench" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="1036000001fs"></ZoomEndTime>
+      <Cursor1Time time="90390000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="174"></NameColumnWidth>
+      <ValueColumnWidth column_width="67"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="14" />
+   <wvobject type="logic" fp_name="/VideoTestBench/clock">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/VideoTestBench/hdmi/Red">
+      <obj_property name="ElementShortName">Red[4:0]</obj_property>
+      <obj_property name="ObjectShortName">Red[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/VideoTestBench/hdmi/Green">
+      <obj_property name="ElementShortName">Green[5:0]</obj_property>
+      <obj_property name="ObjectShortName">Green[5:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/VideoTestBench/hdmi/Blue">
+      <obj_property name="ElementShortName">Blue[4:0]</obj_property>
+      <obj_property name="ObjectShortName">Blue[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/VideoTestBench/hdmi/HSync">
+      <obj_property name="ElementShortName">HSync</obj_property>
+      <obj_property name="ObjectShortName">HSync</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/VideoTestBench/hdmi/VSync">
+      <obj_property name="ElementShortName">VSync</obj_property>
+      <obj_property name="ObjectShortName">VSync</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/VideoTestBench/hdmi/PClk">
+      <obj_property name="ElementShortName">PClk</obj_property>
+      <obj_property name="ObjectShortName">PClk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/VideoTestBench/hdmi/De">
+      <obj_property name="ElementShortName">De</obj_property>
+      <obj_property name="ObjectShortName">De</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/VideoTestBench/hdmi/hblank">
+      <obj_property name="ElementShortName">hblank</obj_property>
+      <obj_property name="ObjectShortName">hblank</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/VideoTestBench/hdmi/vblank">
+      <obj_property name="ElementShortName">vblank</obj_property>
+      <obj_property name="ObjectShortName">vblank</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/VideoTestBench/hdmi/Hcounter">
+      <obj_property name="ElementShortName">Hcounter[11:0]</obj_property>
+      <obj_property name="ObjectShortName">Hcounter[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/VideoTestBench/hdmi/Vcounter">
+      <obj_property name="ElementShortName">Vcounter[11:0]</obj_property>
+      <obj_property name="ObjectShortName">Vcounter[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/VideoTestBench/hdmi/xpos">
+      <obj_property name="ElementShortName">xpos[11:0]</obj_property>
+      <obj_property name="ObjectShortName">xpos[11:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/VideoTestBench/hdmi/ypos">
+      <obj_property name="ElementShortName">ypos[11:0]</obj_property>
+      <obj_property name="ObjectShortName">ypos[11:0]</obj_property>
+   </wvobject>
+</wave_config>

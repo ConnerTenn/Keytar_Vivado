@@ -13,7 +13,7 @@ module HDMIController (
     output [4:0] Blue;
     output reg HSync = 1, VSync = 1;
     output PClk;
-    output reg De;
+    output De;
 
     assign PClk = Clock;
 
@@ -34,21 +34,26 @@ module HDMIController (
     wire [11:0] xpos;
     wire [11:0] ypos;
 
-    assign Red = vblank|hblank ? 5'h0 : red;
-    assign Green = vblank|hblank ? 6'h0 : green;
-    assign Blue = vblank|hblank ? 5'h0 : blue;
-
     always @(negedge PClk)
     begin
-        red <= (xpos>>5);
-        green <= (xpos>>9);
+        red <= xpos[7:3] + ypos[9:5];
+        green <= xpos[5:0];
         blue <= (ypos>>6);
     end
 
-    reg [11:0] Hcounter = 0;
-    reg [11:0] Vcounter = 0;
+
     reg hblank = 1;
     reg vblank = 1;
+    reg de = 0;
+
+    assign Red = (vblank||hblank) ? 5'h0 : red;
+    assign Green = (vblank||hblank) ? 6'h0 : green;
+    assign Blue = (vblank||hblank) ? 5'h0 : blue;
+    assign De = (vblank) ? 1'b0 : de;
+
+
+    reg [11:0] Hcounter = 0;
+    reg [11:0] Vcounter = 0;
 
     assign xpos = Hcounter-HSYNC-LMARGIN;
     assign ypos = Vcounter-VSYNC-TMARGIN;
@@ -63,40 +68,19 @@ module HDMIController (
         //End of Back Porch
         if (Hcounter == HSYNC+LMARGIN-1)
         begin
-            De <= 1;
+            de <= 1;
             hblank <= 0;
         end
         //End of Active
         if (Hcounter == HSYNC+LMARGIN+XRES-1)
         begin
-            De <= 0;
-            hblank <= 0;
+            de <= 0;
+            hblank <= 1;
         end
         //End of Front Porch
         if (Hcounter == HSYNC+LMARGIN+XRES+RMARGIN-1)
         begin
             HSync <= 1;
-        end
-        
-        //End of Sync
-        if (Vcounter == VSYNC-1)
-        begin
-            VSync <= 0;
-        end
-        //End of Back Porch
-        if (Vcounter == VSYNC+TMARGIN-1)
-        begin
-            vblank <= 0;
-        end
-        //End of Active
-        if (Hcounter == VSYNC+TMARGIN+YRES-1)
-        begin
-            vblank <= 1;
-        end
-        //End of Front Porch
-        if (Hcounter == VSYNC+TMARGIN+YRES+BMARGIN-1)
-        begin
-            VSync <= 1;
         end
 
 
@@ -104,12 +88,33 @@ module HDMIController (
         if (Hcounter < HSYNC+LMARGIN+XRES+RMARGIN-1)
         begin
             Hcounter <= Hcounter+1;
-            
         end
         else
         begin
             //End of Line
             Hcounter <= 0;
+
+        
+            //End of Sync
+            if (Vcounter == VSYNC-1)
+            begin
+                VSync <= 0;
+            end
+            //End of Back Porch
+            if (Vcounter == VSYNC+TMARGIN-1)
+            begin
+                vblank <= 0;
+            end
+            //End of Active
+            if (Vcounter == VSYNC+TMARGIN+YRES-1)
+            begin
+                vblank <= 1;
+            end
+            //End of Front Porch
+            if (Vcounter == VSYNC+TMARGIN+YRES+BMARGIN-1)
+            begin
+                VSync <= 1;
+            end
 
             if (Vcounter < VSYNC+TMARGIN+YRES+BMARGIN-1)
             begin

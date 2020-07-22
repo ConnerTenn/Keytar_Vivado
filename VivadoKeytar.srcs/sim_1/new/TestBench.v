@@ -125,7 +125,6 @@ module TestBench;
         #200;
 
         $display("\n\n=== Simulation Complete ===\n\n");
-
         $finish;
     end
 
