@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Thu Jul 23 02:17:30 2020
+//Date        : Thu Jul 23 02:49:38 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -450,7 +450,6 @@ module system
   wire [31:0]axi_interconnect_0_M00_AXI_WDATA;
   wire axi_interconnect_0_M00_AXI_WREADY;
   wire axi_interconnect_0_M00_AXI_WVALID;
-  wire [0:0]proc_sys_reset_0_peripheral_aresetn;
   wire [14:0]processing_system7_0_DDR_ADDR;
   wire [2:0]processing_system7_0_DDR_BA;
   wire processing_system7_0_DDR_CAS_N;
@@ -467,7 +466,8 @@ module system
   wire processing_system7_0_DDR_RESET_N;
   wire processing_system7_0_DDR_WE_N;
   wire processing_system7_0_FCLK_CLK0;
-  wire processing_system7_0_FCLK_RESET0_N;
+  wire [0:0]processing_system7_0_FCLK_RESET0_N;
+  wire processing_system7_0_FCLK_RESET0_N1;
   wire processing_system7_0_FIXED_IO_DDR_VRN;
   wire processing_system7_0_FIXED_IO_DDR_VRP;
   wire [53:0]processing_system7_0_FIXED_IO_MIO;
@@ -545,7 +545,7 @@ module system
         .m_apb_pwrite(axi_apb_bridge_0_APB_M_PWRITE),
         .s_axi_aclk(processing_system7_0_FCLK_CLK0),
         .s_axi_araddr(axi_interconnect_0_M00_AXI_ARADDR),
-        .s_axi_aresetn(proc_sys_reset_0_peripheral_aresetn),
+        .s_axi_aresetn(processing_system7_0_FCLK_RESET0_N),
         .s_axi_arready(axi_interconnect_0_M00_AXI_ARREADY),
         .s_axi_arvalid(axi_interconnect_0_M00_AXI_ARVALID),
         .s_axi_awaddr(axi_interconnect_0_M00_AXI_AWADDR),
@@ -565,7 +565,7 @@ module system
        (.ACLK(processing_system7_0_FCLK_CLK0),
         .ARESETN(ARESETN_1),
         .M00_ACLK(processing_system7_0_FCLK_CLK0),
-        .M00_ARESETN(proc_sys_reset_0_peripheral_aresetn),
+        .M00_ARESETN(processing_system7_0_FCLK_RESET0_N),
         .M00_AXI_araddr(axi_interconnect_0_M00_AXI_ARADDR),
         .M00_AXI_arready(axi_interconnect_0_M00_AXI_ARREADY),
         .M00_AXI_arvalid(axi_interconnect_0_M00_AXI_ARVALID),
@@ -583,7 +583,7 @@ module system
         .M00_AXI_wready(axi_interconnect_0_M00_AXI_WREADY),
         .M00_AXI_wvalid(axi_interconnect_0_M00_AXI_WVALID),
         .S00_ACLK(processing_system7_0_FCLK_CLK0),
-        .S00_ARESETN(proc_sys_reset_0_peripheral_aresetn),
+        .S00_ARESETN(processing_system7_0_FCLK_RESET0_N),
         .S00_AXI_araddr(S00_AXI_1_ARADDR),
         .S00_AXI_arburst(S00_AXI_1_ARBURST),
         .S00_AXI_arcache(S00_AXI_1_ARCACHE),
@@ -623,12 +623,12 @@ module system
         .S00_AXI_wstrb(S00_AXI_1_WSTRB),
         .S00_AXI_wvalid(S00_AXI_1_WVALID));
   system_proc_sys_reset_0_0 proc_sys_reset_0
-       (.aux_reset_in(processing_system7_0_FCLK_RESET0_N),
-        .dcm_locked(xlconstant_0_dout),
-        .ext_reset_in(xlconstant_1_dout),
+       (.aux_reset_in(xlconstant_1_dout),
+        .dcm_locked(xlconstant_1_dout),
+        .ext_reset_in(processing_system7_0_FCLK_RESET0_N1),
         .interconnect_aresetn(ARESETN_1),
         .mb_debug_sys_rst(xlconstant_0_dout),
-        .peripheral_aresetn(proc_sys_reset_0_peripheral_aresetn),
+        .peripheral_aresetn(processing_system7_0_FCLK_RESET0_N),
         .slowest_sync_clk(processing_system7_0_FCLK_CLK0));
   system_processing_system7_0_0 processing_system7_0
        (.DDR_Addr(DDR_addr[14:0]),
@@ -649,7 +649,7 @@ module system
         .DDR_VRP(FIXED_IO_ddr_vrp),
         .DDR_WEB(DDR_we_n),
         .FCLK_CLK0(processing_system7_0_FCLK_CLK0),
-        .FCLK_RESET0_N(processing_system7_0_FCLK_RESET0_N),
+        .FCLK_RESET0_N(processing_system7_0_FCLK_RESET0_N1),
         .I2C0_SCL_I(processing_system7_0_IIC_0_SCL_I),
         .I2C0_SCL_O(processing_system7_0_IIC_0_SCL_O),
         .I2C0_SCL_T(processing_system7_0_IIC_0_SCL_T),

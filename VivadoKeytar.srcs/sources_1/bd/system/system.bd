@@ -1371,31 +1371,18 @@
           "BuzzerTest_0/Clock"
         ]
       },
-      "proc_sys_reset_0_peripheral_aresetn": {
+      "xlconstant_0_dout": {
+        "ports": [
+          "xlconstant_0/dout",
+          "proc_sys_reset_0/mb_debug_sys_rst"
+        ]
+      },
+      "processing_system7_0_FCLK_RESET0_N": {
         "ports": [
           "proc_sys_reset_0/peripheral_aresetn",
           "axi_apb_bridge_0/s_axi_aresetn",
           "axi_interconnect_0/M00_ARESETN",
           "axi_interconnect_0/S00_ARESETN"
-        ]
-      },
-      "xlconstant_0_dout": {
-        "ports": [
-          "xlconstant_0/dout",
-          "proc_sys_reset_0/mb_debug_sys_rst",
-          "proc_sys_reset_0/dcm_locked"
-        ]
-      },
-      "xlconstant_1_dout": {
-        "ports": [
-          "xlconstant_1/dout",
-          "proc_sys_reset_0/ext_reset_in"
-        ]
-      },
-      "processing_system7_0_FCLK_RESET0_N": {
-        "ports": [
-          "processing_system7_0/FCLK_RESET0_N",
-          "proc_sys_reset_0/aux_reset_in"
         ]
       },
       "BuzzerTest_0_BusPError": {
@@ -1469,6 +1456,19 @@
           "VSync",
           "PClk",
           "Waveform"
+        ]
+      },
+      "xlconstant_1_dout": {
+        "ports": [
+          "xlconstant_1/dout",
+          "proc_sys_reset_0/aux_reset_in",
+          "proc_sys_reset_0/dcm_locked"
+        ]
+      },
+      "processing_system7_0_FCLK_RESET0_N1": {
+        "ports": [
+          "processing_system7_0/FCLK_RESET0_N",
+          "proc_sys_reset_0/ext_reset_in"
         ]
       },
       "ARESETN_1": {

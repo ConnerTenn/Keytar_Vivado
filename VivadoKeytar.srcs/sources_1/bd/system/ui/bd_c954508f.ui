@@ -63,7 +63,7 @@ pagesize -pg 1 -db -bbox -sgen 0 0 1490 980
    "Color Coded_TopLeft":"0,-12",
    "Default View_Layers":"/processing_system7_0_FCLK_CLK0:true|/ARESETN_1:true|/proc_sys_reset_0_peripheral_aresetn:true|/processing_system7_0_FCLK_CLK1:true|",
    "Default View_ScaleFactor":"1.05133",
-   "Default View_TopLeft":"-217,888",
+   "Default View_TopLeft":"-969,592",
    "Display-PortTypeClock":"true",
    "Display-PortTypeOthers":"true",
    "Display-PortTypeReset":"true",
@@ -103,10 +103,8 @@ preplace inst xlconstant_2 -pg 1 -lvl 5 -x 620 -y 1210 -defaultsOSRD
 preplace inst BuzzerTest_0 -pg 1 -lvl 4 -x 180 -y 1140 -defaultsOSRD
 preplace netloc RGBTest_0_RGB 1 3 3 N 440 N 440 N
 preplace netloc processing_system7_0_FCLK_CLK0 1 1 3 -1340 530 -590 700 -180
-preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 2 -1310 780 -570
-preplace netloc xlconstant_0_dout 1 1 1 -1330 1230n
-preplace netloc xlconstant_1_dout 1 1 1 N 1190
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 1 2 -1330 540 -610
+preplace netloc xlconstant_0_dout 1 1 1 -1320 1230n
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 1 2 -1310 780 -570
 preplace netloc BuzzerTest_0_BusPError 1 3 2 -130 1270 370
 preplace netloc BuzzerTest_0_BusPReady 1 3 2 -90 820 400
 preplace netloc BuzzerTest_0_BusPReadData 1 3 2 -100 810 410
@@ -118,6 +116,8 @@ preplace netloc APBSlave_Breakout_1_BusPWrite 1 3 2 -140 800 390
 preplace netloc APBSlave_Breakout_1_BusPWriteData 1 3 2 -150 760 420
 preplace netloc BuzzerTest_0_Buzzer 1 4 2 430 1090 NJ
 preplace netloc xlconstant_2_dout 1 5 1 700 600n
+preplace netloc xlconstant_1_dout 1 1 1 -1340 1190n
+preplace netloc processing_system7_0_FCLK_RESET0_N1 1 1 2 -1330 540 -610
 preplace netloc ARESETN_1 1 1 2 -1320 790 -610
 preplace netloc axi_apb_bridge_0_APB_M 1 3 1 -170 620n
 preplace netloc processing_system7_0_IIC_0 1 2 4 -600 380 N 380 NJ 380 NJ
