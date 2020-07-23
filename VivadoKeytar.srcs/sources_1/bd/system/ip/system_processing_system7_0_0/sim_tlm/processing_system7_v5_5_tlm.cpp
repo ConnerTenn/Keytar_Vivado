@@ -152,7 +152,9 @@ processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_n
         ,I2C0_SCL_T("I2C0_SCL_T")
         ,M_AXI_GP0_ACLK("M_AXI_GP0_ACLK")
         ,FCLK_CLK0("FCLK_CLK0")
+        ,FCLK_CLK1("FCLK_CLK1")
         ,FCLK_RESET0_N("FCLK_RESET0_N")
+        ,FCLK_RESET1_N("FCLK_RESET1_N")
         ,MIO("MIO")
         ,DDR_CAS_n("DDR_CAS_n")
         ,DDR_CKE("DDR_CKE")
@@ -175,7 +177,8 @@ processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_n
         ,PS_CLK("PS_CLK")
         ,PS_PORB("PS_PORB")
     ,m_rp_bridge_M_AXI_GP0("m_rp_bridge_M_AXI_GP0")     
-        ,FCLK_CLK0_clk("FCLK_CLK0_clk", sc_time(20000.0,sc_core::SC_PS))//clock period in picoseconds = 1000000/freq(in MZ)
+        ,FCLK_CLK0_clk("FCLK_CLK0_clk", sc_time(10000.0,sc_core::SC_PS))//clock period in picoseconds = 1000000/freq(in MZ)
+        ,FCLK_CLK1_clk("FCLK_CLK1_clk", sc_time(6666.666666666667,sc_core::SC_PS))//clock period in picoseconds = 1000000/freq(in MZ)
     ,prop(_prop)
     {
         //creating instances of xtlm slave sockets
@@ -221,6 +224,9 @@ processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_n
         SC_METHOD(trigger_FCLK_CLK0_pin);
         sensitive << FCLK_CLK0_clk;
         dont_initialize();
+        SC_METHOD(trigger_FCLK_CLK1_pin);
+        sensitive << FCLK_CLK1_clk;
+        dont_initialize();
         m_rp_bridge_M_AXI_GP0.registerUserExtensionHandlerCallback(&get_extensions_from_tlm);
         m_zynq_tlm_model->rst(qemu_rst);
     }
@@ -235,13 +241,23 @@ processing_system7_v5_5_tlm :: ~processing_system7_v5_5_tlm() {
     void processing_system7_v5_5_tlm ::trigger_FCLK_CLK0_pin()    {
         FCLK_CLK0.write(FCLK_CLK0_clk.read());
     }
+    //Method which is sentive to FCLK_CLK1_clk sc_clock object
+    //FCLK_CLK1 pin written based on FCLK_CLK1_clk clock value 
+    void processing_system7_v5_5_tlm ::trigger_FCLK_CLK1_pin()    {
+        FCLK_CLK1.write(FCLK_CLK1_clk.read());
+    }
     //ps2pl_rst[0] output reset pin
     void processing_system7_v5_5_tlm :: FCLK_RESET0_N_trigger()   {
         FCLK_RESET0_N.write(m_zynq_tlm_model->ps2pl_rst[0].read());
+    }
+    //ps2pl_rst[1] output reset pin
+    void processing_system7_v5_5_tlm :: FCLK_RESET1_N_trigger()   {
+        FCLK_RESET1_N.write(m_zynq_tlm_model->ps2pl_rst[1].read());
     }
     void processing_system7_v5_5_tlm ::start_of_simulation()
     {
     //temporary fix to drive the enabled reset pin 
         FCLK_RESET0_N.write(true);
+        FCLK_RESET1_N.write(true);
         qemu_rst.write(false);
     }
