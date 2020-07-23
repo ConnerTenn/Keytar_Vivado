@@ -24,10 +24,10 @@ module BuzzerTest(
     reg [15:0] increment = 86;
 
     reg slowclk = 0;
-    reg [3:0] clkdiv = 0;
+    reg [11:0] clkdiv = 0;
 
     WaveGen16 wavegen(
-        .Clock(Clock),
+        .Clock(slowclk),
         .Increment(increment),
         .Waveform(waveform)
     );
@@ -36,7 +36,7 @@ module BuzzerTest(
 
     always @(posedge Clock)
     begin
-        if (clkdiv < 10)
+        if (clkdiv < 100)
         begin
             clkdiv <= clkdiv + 1;
         end
@@ -59,7 +59,7 @@ module BuzzerTest(
         if (BusPSel && BusPReady && BusPEnable)
         begin
             case (BusPAddr)
-                32'h4010_0000: begin increment <= BusPWriteData[15:0]; BusPReady <= 1; end
+                32'h4000_0000: begin increment <= BusPWriteData[15:0]; BusPReady <= 1; end
             endcase
 
             BusPReady <= 0;

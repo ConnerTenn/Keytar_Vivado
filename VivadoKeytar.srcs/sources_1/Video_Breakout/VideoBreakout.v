@@ -12,7 +12,7 @@ module VideoBreakout (
     BusPWrite, BusPReady, 
     BusPEnable, BusPSel, BusPError
 );
-    parameter ADDRESS = 32'h4001_0000;
+    parameter ADDRESS = 32'h4010_0000;
 
     input PClock;
 

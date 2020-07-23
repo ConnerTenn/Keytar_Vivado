@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Wed Jul 22 03:15:45 2020
+//Date        : Thu Jul 23 02:17:30 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -11,6 +11,7 @@
 
 module system_wrapper
    (Blue,
+    Buzzer,
     DDR_addr,
     DDR_ba,
     DDR_cas_n,
@@ -42,7 +43,8 @@ module system_wrapper
     Red,
     VSync,
     Waveform);
-  output [4:0]Blue;
+  output [0:0]Blue;
+  output Buzzer;
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -58,24 +60,25 @@ module system_wrapper
   inout DDR_ras_n;
   inout DDR_reset_n;
   inout DDR_we_n;
-  output De;
+  output [0:0]De;
   inout FIXED_IO_ddr_vrn;
   inout FIXED_IO_ddr_vrp;
   inout [53:0]FIXED_IO_mio;
   inout FIXED_IO_ps_clk;
   inout FIXED_IO_ps_porb;
   inout FIXED_IO_ps_srstb;
-  output [5:0]Green;
-  output HSync;
+  output [0:0]Green;
+  output [0:0]HSync;
   inout I2C_scl_io;
   inout I2C_sda_io;
-  output PClk;
+  output [0:0]PClk;
   output [2:0]RGB;
-  output [4:0]Red;
-  output VSync;
-  output [23:0]Waveform;
+  output [0:0]Red;
+  output [0:0]VSync;
+  output [0:0]Waveform;
 
-  wire [4:0]Blue;
+  wire [0:0]Blue;
+  wire Buzzer;
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
   wire DDR_cas_n;
@@ -91,15 +94,15 @@ module system_wrapper
   wire DDR_ras_n;
   wire DDR_reset_n;
   wire DDR_we_n;
-  wire De;
+  wire [0:0]De;
   wire FIXED_IO_ddr_vrn;
   wire FIXED_IO_ddr_vrp;
   wire [53:0]FIXED_IO_mio;
   wire FIXED_IO_ps_clk;
   wire FIXED_IO_ps_porb;
   wire FIXED_IO_ps_srstb;
-  wire [5:0]Green;
-  wire HSync;
+  wire [0:0]Green;
+  wire [0:0]HSync;
   wire I2C_scl_i;
   wire I2C_scl_io;
   wire I2C_scl_o;
@@ -108,11 +111,11 @@ module system_wrapper
   wire I2C_sda_io;
   wire I2C_sda_o;
   wire I2C_sda_t;
-  wire PClk;
+  wire [0:0]PClk;
   wire [2:0]RGB;
-  wire [4:0]Red;
-  wire VSync;
-  wire [23:0]Waveform;
+  wire [0:0]Red;
+  wire [0:0]VSync;
+  wire [0:0]Waveform;
 
   IOBUF I2C_scl_iobuf
        (.I(I2C_scl_o),
@@ -126,6 +129,7 @@ module system_wrapper
         .T(I2C_sda_t));
   system system_i
        (.Blue(Blue),
+        .Buzzer(Buzzer),
         .DDR_addr(DDR_addr),
         .DDR_ba(DDR_ba),
         .DDR_cas_n(DDR_cas_n),

@@ -151,11 +151,8 @@ processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_n
         ,I2C0_SCL_O("I2C0_SCL_O")
         ,I2C0_SCL_T("I2C0_SCL_T")
         ,M_AXI_GP0_ACLK("M_AXI_GP0_ACLK")
-        ,S_AXI_GP0_ACLK("S_AXI_GP0_ACLK")
         ,FCLK_CLK0("FCLK_CLK0")
-        ,FCLK_CLK1("FCLK_CLK1")
         ,FCLK_RESET0_N("FCLK_RESET0_N")
-        ,FCLK_RESET1_N("FCLK_RESET1_N")
         ,MIO("MIO")
         ,DDR_CAS_n("DDR_CAS_n")
         ,DDR_CKE("DDR_CKE")
@@ -177,15 +174,11 @@ processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_n
         ,PS_SRSTB("PS_SRSTB")
         ,PS_CLK("PS_CLK")
         ,PS_PORB("PS_PORB")
-    ,S_AXI_GP0_xtlm_brdg("S_AXI_GP0_xtlm_brdg")
     ,m_rp_bridge_M_AXI_GP0("m_rp_bridge_M_AXI_GP0")     
-        ,FCLK_CLK0_clk("FCLK_CLK0_clk", sc_time(10000.0,sc_core::SC_PS))//clock period in picoseconds = 1000000/freq(in MZ)
-        ,FCLK_CLK1_clk("FCLK_CLK1_clk", sc_time(6666.666666666667,sc_core::SC_PS))//clock period in picoseconds = 1000000/freq(in MZ)
+        ,FCLK_CLK0_clk("FCLK_CLK0_clk", sc_time(20000.0,sc_core::SC_PS))//clock period in picoseconds = 1000000/freq(in MZ)
     ,prop(_prop)
     {
         //creating instances of xtlm slave sockets
-        S_AXI_GP0_wr_socket = new xtlm::xtlm_aximm_target_socket("S_AXI_GP0_wr_socket", 32);
-        S_AXI_GP0_rd_socket =  new xtlm::xtlm_aximm_target_socket("S_AXI_GP0_rd_socket", 32);
         //creating instances of xtlm master sockets
         M_AXI_GP0_wr_socket = new xtlm::xtlm_aximm_initiator_socket("M_AXI_GP0_wr_socket", 32);
         M_AXI_GP0_rd_socket = new xtlm::xtlm_aximm_initiator_socket("M_AXI_GP0_rd_socket", 32);
@@ -217,15 +210,6 @@ processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_n
 	    const char* skt = skt_name.c_str();
         m_zynq_tlm_model = new xilinx_zynq("xilinx_zynq",skt);
 
-        //instantiating XTLM2TLM bridge and stiching it between 
-        //S_AXI_GP0_wr_socket/rd_socket sockets to s_axi_gp[0] target socket of Zynq Qemu tlm wrapper
-        S_AXI_GP0_buff = new zynq_tlm::xsc_xtlm_aximm_tran_buffer("S_AXI_GP0_buff");
-        S_AXI_GP0_rd_socket->bind(*S_AXI_GP0_buff->in_rd_socket);
-        S_AXI_GP0_wr_socket->bind(*S_AXI_GP0_buff->in_wr_socket);
-        S_AXI_GP0_buff->out_wr_socket->bind(*S_AXI_GP0_xtlm_brdg.wr_socket);
-        S_AXI_GP0_buff->out_rd_socket->bind(*S_AXI_GP0_xtlm_brdg.rd_socket);
-        m_zynq_tlm_model->s_axi_gp[0]->bind(S_AXI_GP0_xtlm_brdg.initiator_socket);
-
         //instantiating TLM2XTLM bridge and stiching it between 
         //s_axi_gp[0] initiator socket of zynq Qemu tlm wrapper to M_AXI_GP0_wr_socket/rd_socket sockets 
         m_rp_bridge_M_AXI_GP0.wr_socket->bind(*M_AXI_GP0_wr_socket);
@@ -237,18 +221,11 @@ processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_n
         SC_METHOD(trigger_FCLK_CLK0_pin);
         sensitive << FCLK_CLK0_clk;
         dont_initialize();
-        SC_METHOD(trigger_FCLK_CLK1_pin);
-        sensitive << FCLK_CLK1_clk;
-        dont_initialize();
-        S_AXI_GP0_xtlm_brdg.registerUserExtensionHandlerCallback(&add_extensions_to_tlm);
         m_rp_bridge_M_AXI_GP0.registerUserExtensionHandlerCallback(&get_extensions_from_tlm);
         m_zynq_tlm_model->rst(qemu_rst);
     }
 processing_system7_v5_5_tlm :: ~processing_system7_v5_5_tlm() {
         //deleteing dynamically created objects 
-        delete S_AXI_GP0_wr_socket;
-        delete S_AXI_GP0_rd_socket;
-        delete S_AXI_GP0_buff;
         delete M_AXI_GP0_wr_socket;
         delete M_AXI_GP0_rd_socket;
     }
@@ -258,23 +235,13 @@ processing_system7_v5_5_tlm :: ~processing_system7_v5_5_tlm() {
     void processing_system7_v5_5_tlm ::trigger_FCLK_CLK0_pin()    {
         FCLK_CLK0.write(FCLK_CLK0_clk.read());
     }
-    //Method which is sentive to FCLK_CLK1_clk sc_clock object
-    //FCLK_CLK1 pin written based on FCLK_CLK1_clk clock value 
-    void processing_system7_v5_5_tlm ::trigger_FCLK_CLK1_pin()    {
-        FCLK_CLK1.write(FCLK_CLK1_clk.read());
-    }
     //ps2pl_rst[0] output reset pin
     void processing_system7_v5_5_tlm :: FCLK_RESET0_N_trigger()   {
         FCLK_RESET0_N.write(m_zynq_tlm_model->ps2pl_rst[0].read());
-    }
-    //ps2pl_rst[1] output reset pin
-    void processing_system7_v5_5_tlm :: FCLK_RESET1_N_trigger()   {
-        FCLK_RESET1_N.write(m_zynq_tlm_model->ps2pl_rst[1].read());
     }
     void processing_system7_v5_5_tlm ::start_of_simulation()
     {
     //temporary fix to drive the enabled reset pin 
         FCLK_RESET0_N.write(true);
-        FCLK_RESET1_N.write(true);
         qemu_rst.write(false);
     }
