@@ -40,7 +40,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 
 # The design that will be created by this Tcl script contains the following 
 # module references:
-# BuzzerTest, RGBTest
+# BuzzerTest, RGBTest, VideoController
 
 # Please add the sources of those modules before sourcing this Tcl script.
 
@@ -210,11 +210,19 @@ proc create_root_design { parentCell } {
    }
   
   # Create instance: VideoBreakout_0, and set properties
-  set VideoBreakout_0 [ create_bd_cell -type ip -vlnv Independant:user:VideoBreakout:1.2 VideoBreakout_0 ]
-  set_property -dict [ list \
-   CONFIG.ADDRESS {0x41010000} \
- ] $VideoBreakout_0
+  set VideoBreakout_0 [ create_bd_cell -type ip -vlnv Independant:user:VideoBreakout:2.0 VideoBreakout_0 ]
 
+  # Create instance: VideoController_0, and set properties
+  set block_name VideoController
+  set block_cell_name VideoController_0
+  if { [catch {set VideoController_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   } elseif { $VideoController_0 eq "" } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   }
+  
   # Create instance: axi_apb_bridge_0, and set properties
   set axi_apb_bridge_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_apb_bridge:3.0 axi_apb_bridge_0 ]
   set_property -dict [ list \
@@ -239,8 +247,9 @@ proc create_root_design { parentCell } {
   set axi_vdma_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_vdma:6.3 axi_vdma_0 ]
   set_property -dict [ list \
    CONFIG.c_include_s2mm {0} \
-   CONFIG.c_mm2s_genlock_mode {1} \
+   CONFIG.c_mm2s_genlock_mode {3} \
    CONFIG.c_s2mm_genlock_mode {0} \
+   CONFIG.c_use_mm2s_fsync {0} \
  ] $axi_vdma_0
 
   # Create instance: const_0_0, and set properties
@@ -700,12 +709,12 @@ proc create_root_design { parentCell } {
   connect_bd_net -net APBSlave_Breakout_1_BusPSel [get_bd_pins APBSlave_Breakout_1/BusPSel] [get_bd_pins BuzzerTest_0/BusPSel]
   connect_bd_net -net APBSlave_Breakout_1_BusPWrite [get_bd_pins APBSlave_Breakout_1/BusPWrite] [get_bd_pins BuzzerTest_0/BusPWrite]
   connect_bd_net -net APBSlave_Breakout_1_BusPWriteData [get_bd_pins APBSlave_Breakout_1/BusPWriteData] [get_bd_pins BuzzerTest_0/BusPWriteData]
-  connect_bd_net -net APBSlave_Breakout_2_BusClock [get_bd_pins APBSlave_Breakout_2/BusClock] [get_bd_pins VideoBreakout_0/BusClock]
-  connect_bd_net -net APBSlave_Breakout_2_BusPAddr [get_bd_pins APBSlave_Breakout_2/BusPAddr] [get_bd_pins VideoBreakout_0/BusPAddr]
-  connect_bd_net -net APBSlave_Breakout_2_BusPEnable [get_bd_pins APBSlave_Breakout_2/BusPEnable] [get_bd_pins VideoBreakout_0/BusPEnable]
-  connect_bd_net -net APBSlave_Breakout_2_BusPSel [get_bd_pins APBSlave_Breakout_2/BusPSel] [get_bd_pins VideoBreakout_0/BusPSel]
-  connect_bd_net -net APBSlave_Breakout_2_BusPWrite [get_bd_pins APBSlave_Breakout_2/BusPWrite] [get_bd_pins VideoBreakout_0/BusPWrite]
-  connect_bd_net -net APBSlave_Breakout_2_BusPWriteData [get_bd_pins APBSlave_Breakout_2/BusPWriteData] [get_bd_pins VideoBreakout_0/BusPWriteData]
+  connect_bd_net -net APBSlave_Breakout_2_BusClock [get_bd_pins APBSlave_Breakout_2/BusClock] [get_bd_pins VideoController_0/BusClock]
+  connect_bd_net -net APBSlave_Breakout_2_BusPAddr [get_bd_pins APBSlave_Breakout_2/BusPAddr] [get_bd_pins VideoController_0/BusPAddr]
+  connect_bd_net -net APBSlave_Breakout_2_BusPEnable [get_bd_pins APBSlave_Breakout_2/BusPEnable] [get_bd_pins VideoController_0/BusPEnable]
+  connect_bd_net -net APBSlave_Breakout_2_BusPSel [get_bd_pins APBSlave_Breakout_2/BusPSel] [get_bd_pins VideoController_0/BusPSel]
+  connect_bd_net -net APBSlave_Breakout_2_BusPWrite [get_bd_pins APBSlave_Breakout_2/BusPWrite] [get_bd_pins VideoController_0/BusPWrite]
+  connect_bd_net -net APBSlave_Breakout_2_BusPWriteData [get_bd_pins APBSlave_Breakout_2/BusPWriteData] [get_bd_pins VideoController_0/BusPWriteData]
   connect_bd_net -net ARESETN_1 [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins axi_interconnect_1/ARESETN] [get_bd_pins proc_sys_reset_0/interconnect_aresetn]
   connect_bd_net -net BuzzerTest_0_BusPError [get_bd_pins APBSlave_Breakout_1/BusPError] [get_bd_pins BuzzerTest_0/BusPError]
   connect_bd_net -net BuzzerTest_0_BusPReadData [get_bd_pins APBSlave_Breakout_1/BusPReadData] [get_bd_pins BuzzerTest_0/BusPReadData]
@@ -714,11 +723,11 @@ proc create_root_design { parentCell } {
   connect_bd_net -net Net [get_bd_pins const_HIGH_2/dout] [get_bd_pins v_axi4s_vid_out_0/aclken] [get_bd_pins v_axi4s_vid_out_0/vid_io_out_ce] [get_bd_pins v_tc_0/clken] [get_bd_pins v_tc_0/gen_clken]
   connect_bd_net -net RGBTest_0_RGB [get_bd_ports RGB] [get_bd_pins RGBTest_0/RGB]
   connect_bd_net -net VideoBreakout_0_Blue [get_bd_ports Blue] [get_bd_pins VideoBreakout_0/Blue]
-  connect_bd_net -net VideoBreakout_0_BusPError [get_bd_pins APBSlave_Breakout_2/BusPError] [get_bd_pins VideoBreakout_0/BusPError]
-  connect_bd_net -net VideoBreakout_0_BusPReadData [get_bd_pins APBSlave_Breakout_2/BusPReadData] [get_bd_pins VideoBreakout_0/BusPReadData]
-  connect_bd_net -net VideoBreakout_0_BusPReady [get_bd_pins APBSlave_Breakout_2/BusPReady] [get_bd_pins VideoBreakout_0/BusPReady]
+  connect_bd_net -net VideoBreakout_0_BusPError [get_bd_pins APBSlave_Breakout_2/BusPError] [get_bd_pins VideoController_0/BusPError]
+  connect_bd_net -net VideoBreakout_0_BusPReadData [get_bd_pins APBSlave_Breakout_2/BusPReadData] [get_bd_pins VideoController_0/BusPReadData]
+  connect_bd_net -net VideoBreakout_0_BusPReady [get_bd_pins APBSlave_Breakout_2/BusPReady] [get_bd_pins VideoController_0/BusPReady]
   connect_bd_net -net VideoBreakout_0_De [get_bd_ports De] [get_bd_pins VideoBreakout_0/De]
-  connect_bd_net -net VideoBreakout_0_FramePTR [get_bd_pins VideoBreakout_0/FramePTR] [get_bd_pins axi_vdma_0/mm2s_frame_ptr_in]
+  connect_bd_net -net VideoBreakout_0_FramePTR [get_bd_pins VideoController_0/FramePTR] [get_bd_pins axi_vdma_0/mm2s_frame_ptr_in]
   connect_bd_net -net VideoBreakout_0_Green [get_bd_ports Green] [get_bd_pins VideoBreakout_0/Green]
   connect_bd_net -net VideoBreakout_0_HSync [get_bd_ports HSync] [get_bd_pins VideoBreakout_0/HSync]
   connect_bd_net -net VideoBreakout_0_PClk [get_bd_ports PClk] [get_bd_pins VideoBreakout_0/PClk]
@@ -734,18 +743,19 @@ proc create_root_design { parentCell } {
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins axi_apb_bridge_0/s_axi_aresetn] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/M01_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins axi_interconnect_1/M00_ARESETN] [get_bd_pins axi_interconnect_1/S00_ARESETN] [get_bd_pins axi_vdma_0/axi_resetn] [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins v_axi4s_vid_out_0/aresetn]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N1 [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
   connect_bd_net -net processing_system7_0_FCLK_RESET1_N [get_bd_pins proc_sys_reset_1/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET1_N]
+  connect_bd_net -net v_axi4s_vid_out_0_locked [get_bd_pins VideoController_0/VidOutLocked] [get_bd_pins v_axi4s_vid_out_0/locked]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins const_LOW_0/dout] [get_bd_pins proc_sys_reset_0/mb_debug_sys_rst] [get_bd_pins proc_sys_reset_1/mb_debug_sys_rst]
   connect_bd_net -net xlconstant_1_dout [get_bd_pins const_HIGH_1/dout] [get_bd_pins proc_sys_reset_0/aux_reset_in] [get_bd_pins proc_sys_reset_0/dcm_locked] [get_bd_pins proc_sys_reset_1/aux_reset_in] [get_bd_pins proc_sys_reset_1/dcm_locked]
 
   # Create address segments
-  assign_bd_address -offset 0x60000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces axi_vdma_0/Data_MM2S] [get_bd_addr_segs processing_system7_0/S_AXI_GP0/GP0_M_AXI_GP0] -force
+  assign_bd_address -offset 0x10000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces axi_vdma_0/Data_MM2S] [get_bd_addr_segs processing_system7_0/S_AXI_GP0/GP0_DDR_LOWOCM] -force
   assign_bd_address -offset 0x40000000 -range 0x00001000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs APBSlave_Breakout_1/APB_S/Reg] -force
   assign_bd_address -offset 0x41010000 -range 0x00001000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs APBSlave_Breakout_2/APB_S/Reg] -force
   assign_bd_address -offset 0x41000000 -range 0x00000400 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs axi_vdma_0/S_AXI_LITE/Reg] -force
 
   # Exclude Address Segments
-  exclude_bd_addr_seg -offset 0x00000000 -range 0x40000000 -target_address_space [get_bd_addr_spaces axi_vdma_0/Data_MM2S] [get_bd_addr_segs processing_system7_0/S_AXI_GP0/GP0_DDR_LOWOCM]
   exclude_bd_addr_seg -offset 0xE0000000 -range 0x00400000 -target_address_space [get_bd_addr_spaces axi_vdma_0/Data_MM2S] [get_bd_addr_segs processing_system7_0/S_AXI_GP0/GP0_IOP]
+  exclude_bd_addr_seg -offset 0x60000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces axi_vdma_0/Data_MM2S] [get_bd_addr_segs processing_system7_0/S_AXI_GP0/GP0_M_AXI_GP0]
 
 
   # Restore current instance

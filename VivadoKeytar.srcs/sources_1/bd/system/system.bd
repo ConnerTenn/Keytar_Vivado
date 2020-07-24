@@ -40,8 +40,9 @@
           "auto_pc": ""
         }
       },
+      "const_0_0": "",
       "VideoBreakout_0": "",
-      "const_0_0": ""
+      "VideoController_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -1158,16 +1159,16 @@
               }
             },
             "interface_nets": {
-              "s00_couplers_to_auto_pc": {
-                "interface_ports": [
-                  "S_AXI",
-                  "auto_pc/S_AXI"
-                ]
-              },
               "auto_pc_to_s00_couplers": {
                 "interface_ports": [
                   "M_AXI",
                   "auto_pc/M_AXI"
+                ]
+              },
+              "s00_couplers_to_auto_pc": {
+                "interface_ports": [
+                  "S_AXI",
+                  "auto_pc/S_AXI"
                 ]
               }
             },
@@ -1302,28 +1303,28 @@
               "m01_couplers/S_AXI"
             ]
           },
-          "m00_couplers_to_axi_interconnect_0": {
-            "interface_ports": [
-              "M00_AXI",
-              "m00_couplers/M_AXI"
-            ]
-          },
           "xbar_to_m00_couplers": {
             "interface_ports": [
               "xbar/M00_AXI",
               "m00_couplers/S_AXI"
             ]
           },
-          "s00_couplers_to_xbar": {
+          "m00_couplers_to_axi_interconnect_0": {
             "interface_ports": [
-              "s00_couplers/M_AXI",
-              "xbar/S00_AXI"
+              "M00_AXI",
+              "m00_couplers/M_AXI"
             ]
           },
           "axi_interconnect_0_to_s00_couplers": {
             "interface_ports": [
               "S00_AXI",
               "s00_couplers/S_AXI"
+            ]
+          },
+          "s00_couplers_to_xbar": {
+            "interface_ports": [
+              "s00_couplers/M_AXI",
+              "xbar/S00_AXI"
             ]
           },
           "m01_couplers_to_axi_interconnect_0": {
@@ -1547,7 +1548,10 @@
             "value": "0"
           },
           "c_mm2s_genlock_mode": {
-            "value": "1"
+            "value": "3"
+          },
+          "c_use_mm2s_fsync": {
+            "value": "0"
           }
         },
         "addressing": {
@@ -1817,16 +1821,16 @@
                   "auto_ds/S_AXI"
                 ]
               },
-              "auto_pc_to_s00_couplers": {
-                "interface_ports": [
-                  "M_AXI",
-                  "auto_pc/M_AXI"
-                ]
-              },
               "auto_ds_to_auto_pc": {
                 "interface_ports": [
                   "auto_ds/M_AXI",
                   "auto_pc/S_AXI"
+                ]
+              },
+              "auto_pc_to_s00_couplers": {
+                "interface_ports": [
+                  "M_AXI",
+                  "auto_pc/M_AXI"
                 ]
               }
             },
@@ -1889,21 +1893,68 @@
           }
         }
       },
-      "VideoBreakout_0": {
-        "vlnv": "Independant:user:VideoBreakout:1.2",
-        "xci_name": "system_VideoBreakout_0_0",
-        "parameters": {
-          "ADDRESS": {
-            "value": "0x41010000"
-          }
-        }
-      },
       "const_0_0": {
         "vlnv": "xilinx.com:ip:xlconstant:1.1",
         "xci_name": "system_xlconstant_0_2",
         "parameters": {
           "CONST_VAL": {
             "value": "0"
+          }
+        }
+      },
+      "VideoBreakout_0": {
+        "vlnv": "Independant:user:VideoBreakout:2.0",
+        "xci_name": "system_VideoBreakout_0_0"
+      },
+      "VideoController_0": {
+        "vlnv": "xilinx.com:module_ref:VideoController:1.0",
+        "xci_name": "system_VideoController_0_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "VideoController",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "BusClock": {
+            "direction": "I"
+          },
+          "BusPAddr": {
+            "direction": "I",
+            "left": "31",
+            "right": "0"
+          },
+          "BusPWriteData": {
+            "direction": "I",
+            "left": "31",
+            "right": "0"
+          },
+          "BusPReadData": {
+            "direction": "O",
+            "left": "31",
+            "right": "0"
+          },
+          "BusPWrite": {
+            "direction": "I"
+          },
+          "BusPReady": {
+            "direction": "O"
+          },
+          "BusPEnable": {
+            "direction": "I"
+          },
+          "BusPSel": {
+            "direction": "I"
+          },
+          "BusPError": {
+            "direction": "O"
+          },
+          "FramePTR": {
+            "direction": "O",
+            "left": "5",
+            "right": "0"
+          },
+          "VidOutLocked": {
+            "direction": "I"
           }
         }
       }
@@ -2160,54 +2211,54 @@
       "APBSlave_Breakout_2_BusClock": {
         "ports": [
           "APBSlave_Breakout_2/BusClock",
-          "VideoBreakout_0/BusClock"
+          "VideoController_0/BusClock"
         ]
       },
       "APBSlave_Breakout_2_BusPAddr": {
         "ports": [
           "APBSlave_Breakout_2/BusPAddr",
-          "VideoBreakout_0/BusPAddr"
+          "VideoController_0/BusPAddr"
         ]
       },
       "APBSlave_Breakout_2_BusPWriteData": {
         "ports": [
           "APBSlave_Breakout_2/BusPWriteData",
-          "VideoBreakout_0/BusPWriteData"
+          "VideoController_0/BusPWriteData"
         ]
       },
       "APBSlave_Breakout_2_BusPWrite": {
         "ports": [
           "APBSlave_Breakout_2/BusPWrite",
-          "VideoBreakout_0/BusPWrite"
+          "VideoController_0/BusPWrite"
         ]
       },
       "APBSlave_Breakout_2_BusPEnable": {
         "ports": [
           "APBSlave_Breakout_2/BusPEnable",
-          "VideoBreakout_0/BusPEnable"
+          "VideoController_0/BusPEnable"
         ]
       },
       "APBSlave_Breakout_2_BusPSel": {
         "ports": [
           "APBSlave_Breakout_2/BusPSel",
-          "VideoBreakout_0/BusPSel"
+          "VideoController_0/BusPSel"
         ]
       },
       "VideoBreakout_0_BusPError": {
         "ports": [
-          "VideoBreakout_0/BusPError",
+          "VideoController_0/BusPError",
           "APBSlave_Breakout_2/BusPError"
         ]
       },
       "VideoBreakout_0_BusPReady": {
         "ports": [
-          "VideoBreakout_0/BusPReady",
+          "VideoController_0/BusPReady",
           "APBSlave_Breakout_2/BusPReady"
         ]
       },
       "VideoBreakout_0_BusPReadData": {
         "ports": [
-          "VideoBreakout_0/BusPReadData",
+          "VideoController_0/BusPReadData",
           "APBSlave_Breakout_2/BusPReadData"
         ]
       },
@@ -2261,7 +2312,7 @@
       },
       "VideoBreakout_0_FramePTR": {
         "ports": [
-          "VideoBreakout_0/FramePTR",
+          "VideoController_0/FramePTR",
           "axi_vdma_0/mm2s_frame_ptr_in"
         ]
       },
@@ -2276,6 +2327,12 @@
         "ports": [
           "const_0_0/dout",
           "v_axi4s_vid_out_0/fid"
+        ]
+      },
+      "v_axi4s_vid_out_0_locked": {
+        "ports": [
+          "v_axi4s_vid_out_0/locked",
+          "VideoController_0/VidOutLocked"
         ]
       }
     },
@@ -2313,9 +2370,8 @@
             "segments": {
               "SEG_processing_system7_0_GP0_DDR_LOWOCM": {
                 "address_block": "/processing_system7_0/S_AXI_GP0/GP0_DDR_LOWOCM",
-                "offset": "0x00000000",
-                "range": "1G",
-                "is_excluded": "TRUE"
+                "offset": "0x10000000",
+                "range": "16M"
               },
               "SEG_processing_system7_0_GP0_IOP": {
                 "address_block": "/processing_system7_0/S_AXI_GP0/GP0_IOP",
@@ -2326,7 +2382,8 @@
               "SEG_processing_system7_0_GP0_M_AXI_GP0": {
                 "address_block": "/processing_system7_0/S_AXI_GP0/GP0_M_AXI_GP0",
                 "offset": "0x60000000",
-                "range": "16M"
+                "range": "16M",
+                "is_excluded": "TRUE"
               }
             }
           }

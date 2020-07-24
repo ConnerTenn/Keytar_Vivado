@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Thu Jul 23 21:20:05 2020
+//Date        : Fri Jul 24 01:40:52 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -778,7 +778,7 @@ module s00_couplers_imp_Y9JEWS
         .s_axi_wvalid(s00_couplers_to_auto_pc_WVALID));
 endmodule
 
-(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=28,numReposBlks=22,numNonXlnxBlks=3,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=2,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
+(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=29,numReposBlks=23,numNonXlnxBlks=3,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
    (Blue,
     Buzzer,
@@ -1037,6 +1037,7 @@ module system
   wire processing_system7_0_IIC_0_SDA_I;
   wire processing_system7_0_IIC_0_SDA_O;
   wire processing_system7_0_IIC_0_SDA_T;
+  wire v_axi4s_vid_out_0_locked;
   wire v_axi4s_vid_out_0_vid_io_out_ACTIVE_VIDEO;
   wire v_axi4s_vid_out_0_vid_io_out_HBLANK;
   wire v_axi4s_vid_out_0_vid_io_out_HSYNC;
@@ -1121,17 +1122,7 @@ module system
         .RGB(RGBTest_0_RGB));
   system_VideoBreakout_0_0 VideoBreakout_0
        (.Blue(VideoBreakout_0_Blue),
-        .BusClock(APBSlave_Breakout_2_BusClock),
-        .BusPAddr(APBSlave_Breakout_2_BusPAddr),
-        .BusPEnable(APBSlave_Breakout_2_BusPEnable),
-        .BusPError(VideoBreakout_0_BusPError),
-        .BusPReadData(VideoBreakout_0_BusPReadData),
-        .BusPReady(VideoBreakout_0_BusPReady),
-        .BusPSel(APBSlave_Breakout_2_BusPSel),
-        .BusPWrite(APBSlave_Breakout_2_BusPWrite),
-        .BusPWriteData(APBSlave_Breakout_2_BusPWriteData),
         .De(VideoBreakout_0_De),
-        .FramePTR(VideoBreakout_0_FramePTR),
         .Green(VideoBreakout_0_Green),
         .HSync(VideoBreakout_0_HSync),
         .PClk(VideoBreakout_0_PClk),
@@ -1145,6 +1136,18 @@ module system
         .vid_hsync(v_axi4s_vid_out_0_vid_io_out_HSYNC),
         .vid_vblank(v_axi4s_vid_out_0_vid_io_out_VBLANK),
         .vid_vsync(v_axi4s_vid_out_0_vid_io_out_VSYNC));
+  system_VideoController_0_0 VideoController_0
+       (.BusClock(APBSlave_Breakout_2_BusClock),
+        .BusPAddr(APBSlave_Breakout_2_BusPAddr),
+        .BusPEnable(APBSlave_Breakout_2_BusPEnable),
+        .BusPError(VideoBreakout_0_BusPError),
+        .BusPReadData(VideoBreakout_0_BusPReadData),
+        .BusPReady(VideoBreakout_0_BusPReady),
+        .BusPSel(APBSlave_Breakout_2_BusPSel),
+        .BusPWrite(APBSlave_Breakout_2_BusPWrite),
+        .BusPWriteData(APBSlave_Breakout_2_BusPWriteData),
+        .FramePTR(VideoBreakout_0_FramePTR),
+        .VidOutLocked(v_axi4s_vid_out_0_locked));
   system_axi_apb_bridge_0_1 axi_apb_bridge_0
        (.m_apb_paddr(axi_apb_bridge_0_APB_M_PADDR),
         .m_apb_penable(axi_apb_bridge_0_APB_M_PENABLE),
@@ -1464,6 +1467,7 @@ module system
         .aclken(Net),
         .aresetn(processing_system7_0_FCLK_RESET0_N),
         .fid(const_0_0_dout),
+        .locked(v_axi4s_vid_out_0_locked),
         .s_axis_video_tdata(axi_vdma_0_M_AXIS_MM2S_TDATA),
         .s_axis_video_tlast(axi_vdma_0_M_AXIS_MM2S_TLAST),
         .s_axis_video_tready(axi_vdma_0_M_AXIS_MM2S_TREADY),

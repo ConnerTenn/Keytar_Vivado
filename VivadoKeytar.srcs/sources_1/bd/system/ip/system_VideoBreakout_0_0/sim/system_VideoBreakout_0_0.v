@@ -47,8 +47,8 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: Independant:user:VideoBreakout:1.2
-// IP Revision: 1
+// IP VLNV: Independant:user:VideoBreakout:2.0
+// IP Revision: 2
 
 `timescale 1ns/1ps
 
@@ -69,17 +69,7 @@ module system_VideoBreakout_0_0 (
   HSync,
   VSync,
   PClk,
-  De,
-  FramePTR,
-  BusClock,
-  BusPAddr,
-  BusPWriteData,
-  BusPReadData,
-  BusPWrite,
-  BusPReady,
-  BusPEnable,
-  BusPSel,
-  BusPError
+  De
 );
 
 input wire PClock;
@@ -104,20 +94,8 @@ output wire HSync;
 output wire VSync;
 output wire PClk;
 output wire De;
-output wire [5 : 0] FramePTR;
-input wire BusClock;
-input wire [31 : 0] BusPAddr;
-input wire [31 : 0] BusPWriteData;
-output wire [31 : 0] BusPReadData;
-input wire BusPWrite;
-output wire BusPReady;
-input wire BusPEnable;
-input wire BusPSel;
-output wire BusPError;
 
-  VideoBreakout #(
-    .ADDRESS(32'H41010000)
-  ) inst (
+  VideoBreakout inst (
     .PClock(PClock),
     .vid_active_video(vid_active_video),
     .vid_data(vid_data),
@@ -132,16 +110,6 @@ output wire BusPError;
     .HSync(HSync),
     .VSync(VSync),
     .PClk(PClk),
-    .De(De),
-    .FramePTR(FramePTR),
-    .BusClock(BusClock),
-    .BusPAddr(BusPAddr),
-    .BusPWriteData(BusPWriteData),
-    .BusPReadData(BusPReadData),
-    .BusPWrite(BusPWrite),
-    .BusPReady(BusPReady),
-    .BusPEnable(BusPEnable),
-    .BusPSel(BusPSel),
-    .BusPError(BusPError)
+    .De(De)
   );
 endmodule

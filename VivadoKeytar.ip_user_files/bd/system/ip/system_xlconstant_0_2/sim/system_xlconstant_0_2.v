@@ -47,69 +47,22 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: Independant:user:VideoBreakout:2.0
-// IP Revision: 2
+// IP VLNV: xilinx.com:ip:xlconstant:1.1
+// IP Revision: 7
 
-(* X_CORE_INFO = "VideoBreakout,Vivado 2020.1" *)
-(* CHECK_LICENSE_TYPE = "system_VideoBreakout_0_0,VideoBreakout,{}" *)
-(* IP_DEFINITION_SOURCE = "package_project" *)
+`timescale 1ns/1ps
+
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-module system_VideoBreakout_0_0 (
-  PClock,
-  vid_active_video,
-  vid_data,
-  vid_field_id,
-  vid_hblank,
-  vid_hsync,
-  vid_vblank,
-  vid_vsync,
-  Red,
-  Green,
-  Blue,
-  HSync,
-  VSync,
-  PClk,
-  De
+module system_xlconstant_0_2 (
+  dout
 );
 
-input wire PClock;
-(* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io ACTIVE_VIDEO" *)
-input wire vid_active_video;
-(* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io DATA" *)
-input wire [31 : 0] vid_data;
-(* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io FIELD" *)
-input wire vid_field_id;
-(* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io HBLANK" *)
-input wire vid_hblank;
-(* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io HSYNC" *)
-input wire vid_hsync;
-(* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io VBLANK" *)
-input wire vid_vblank;
-(* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io VSYNC" *)
-input wire vid_vsync;
-output wire [4 : 0] Red;
-output wire [5 : 0] Green;
-output wire [4 : 0] Blue;
-output wire HSync;
-output wire VSync;
-output wire PClk;
-output wire De;
+output wire [0 : 0] dout;
 
-  VideoBreakout inst (
-    .PClock(PClock),
-    .vid_active_video(vid_active_video),
-    .vid_data(vid_data),
-    .vid_field_id(vid_field_id),
-    .vid_hblank(vid_hblank),
-    .vid_hsync(vid_hsync),
-    .vid_vblank(vid_vblank),
-    .vid_vsync(vid_vsync),
-    .Red(Red),
-    .Green(Green),
-    .Blue(Blue),
-    .HSync(HSync),
-    .VSync(VSync),
-    .PClk(PClk),
-    .De(De)
+  xlconstant_v1_1_7_xlconstant #(
+    .CONST_WIDTH(1),
+    .CONST_VAL('H0)
+  ) inst (
+    .dout(dout)
   );
 endmodule
