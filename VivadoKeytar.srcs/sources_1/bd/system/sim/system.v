@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Thu Jul 23 20:56:00 2020
+//Date        : Thu Jul 23 21:20:05 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -778,7 +778,7 @@ module s00_couplers_imp_Y9JEWS
         .s_axi_wvalid(s00_couplers_to_auto_pc_WVALID));
 endmodule
 
-(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=27,numReposBlks=21,numNonXlnxBlks=3,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=2,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
+(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=28,numReposBlks=22,numNonXlnxBlks=3,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=2,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
    (Blue,
     Buzzer,
@@ -1000,6 +1000,7 @@ module system
   wire axi_vdma_0_M_AXIS_MM2S_TREADY;
   wire [0:0]axi_vdma_0_M_AXIS_MM2S_TUSER;
   wire axi_vdma_0_M_AXIS_MM2S_TVALID;
+  wire [0:0]const_0_0_dout;
   wire [0:0]const_0_2_dout;
   wire [31:0]const_0_3_dout;
   wire [0:0]proc_sys_reset_1_peripheral_aresetn;
@@ -1326,6 +1327,8 @@ module system
         .s_axi_lite_wdata(axi_interconnect_0_M01_AXI_WDATA),
         .s_axi_lite_wready(axi_interconnect_0_M01_AXI_WREADY),
         .s_axi_lite_wvalid(axi_interconnect_0_M01_AXI_WVALID));
+  system_xlconstant_0_2 const_0_0
+       (.dout(const_0_0_dout));
   system_xlconstant_0_1 const_0_2
        (.dout(const_0_2_dout));
   system_const_HIGH_2_0 const_0_3
@@ -1460,7 +1463,7 @@ module system
        (.aclk(processing_system7_0_FCLK_CLK0),
         .aclken(Net),
         .aresetn(processing_system7_0_FCLK_RESET0_N),
-        .fid(1'b0),
+        .fid(const_0_0_dout),
         .s_axis_video_tdata(axi_vdma_0_M_AXIS_MM2S_TDATA),
         .s_axis_video_tlast(axi_vdma_0_M_AXIS_MM2S_TLAST),
         .s_axis_video_tready(axi_vdma_0_M_AXIS_MM2S_TREADY),

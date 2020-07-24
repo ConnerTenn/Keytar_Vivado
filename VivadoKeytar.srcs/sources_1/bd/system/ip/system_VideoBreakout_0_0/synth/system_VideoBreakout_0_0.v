@@ -47,8 +47,8 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: Independant:user:VideoBreakout:1.1
-// IP Revision: 2
+// IP VLNV: Independant:user:VideoBreakout:1.2
+// IP Revision: 1
 
 (* X_CORE_INFO = "VideoBreakout,Vivado 2020.1" *)
 (* CHECK_LICENSE_TYPE = "system_VideoBreakout_0_0,VideoBreakout,{}" *)

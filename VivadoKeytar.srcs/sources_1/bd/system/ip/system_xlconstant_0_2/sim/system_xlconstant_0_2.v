@@ -47,101 +47,22 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: Independant:user:VideoBreakout:1.2
-// IP Revision: 1
+// IP VLNV: xilinx.com:ip:xlconstant:1.1
+// IP Revision: 7
 
 `timescale 1ns/1ps
 
-(* IP_DEFINITION_SOURCE = "package_project" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-module system_VideoBreakout_0_0 (
-  PClock,
-  vid_active_video,
-  vid_data,
-  vid_field_id,
-  vid_hblank,
-  vid_hsync,
-  vid_vblank,
-  vid_vsync,
-  Red,
-  Green,
-  Blue,
-  HSync,
-  VSync,
-  PClk,
-  De,
-  FramePTR,
-  BusClock,
-  BusPAddr,
-  BusPWriteData,
-  BusPReadData,
-  BusPWrite,
-  BusPReady,
-  BusPEnable,
-  BusPSel,
-  BusPError
+module system_xlconstant_0_2 (
+  dout
 );
 
-input wire PClock;
-(* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io ACTIVE_VIDEO" *)
-input wire vid_active_video;
-(* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io DATA" *)
-input wire [31 : 0] vid_data;
-(* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io FIELD" *)
-input wire vid_field_id;
-(* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io HBLANK" *)
-input wire vid_hblank;
-(* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io HSYNC" *)
-input wire vid_hsync;
-(* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io VBLANK" *)
-input wire vid_vblank;
-(* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io VSYNC" *)
-input wire vid_vsync;
-output wire [4 : 0] Red;
-output wire [5 : 0] Green;
-output wire [4 : 0] Blue;
-output wire HSync;
-output wire VSync;
-output wire PClk;
-output wire De;
-output wire [5 : 0] FramePTR;
-input wire BusClock;
-input wire [31 : 0] BusPAddr;
-input wire [31 : 0] BusPWriteData;
-output wire [31 : 0] BusPReadData;
-input wire BusPWrite;
-output wire BusPReady;
-input wire BusPEnable;
-input wire BusPSel;
-output wire BusPError;
+output wire [0 : 0] dout;
 
-  VideoBreakout #(
-    .ADDRESS(32'H41010000)
+  xlconstant_v1_1_7_xlconstant #(
+    .CONST_WIDTH(1),
+    .CONST_VAL('H0)
   ) inst (
-    .PClock(PClock),
-    .vid_active_video(vid_active_video),
-    .vid_data(vid_data),
-    .vid_field_id(vid_field_id),
-    .vid_hblank(vid_hblank),
-    .vid_hsync(vid_hsync),
-    .vid_vblank(vid_vblank),
-    .vid_vsync(vid_vsync),
-    .Red(Red),
-    .Green(Green),
-    .Blue(Blue),
-    .HSync(HSync),
-    .VSync(VSync),
-    .PClk(PClk),
-    .De(De),
-    .FramePTR(FramePTR),
-    .BusClock(BusClock),
-    .BusPAddr(BusPAddr),
-    .BusPWriteData(BusPWriteData),
-    .BusPReadData(BusPReadData),
-    .BusPWrite(BusPWrite),
-    .BusPReady(BusPReady),
-    .BusPEnable(BusPEnable),
-    .BusPSel(BusPSel),
-    .BusPError(BusPError)
+    .dout(dout)
   );
 endmodule

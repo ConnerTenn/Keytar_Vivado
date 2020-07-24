@@ -210,7 +210,7 @@ proc create_root_design { parentCell } {
    }
   
   # Create instance: VideoBreakout_0, and set properties
-  set VideoBreakout_0 [ create_bd_cell -type ip -vlnv Independant:user:VideoBreakout:1.1 VideoBreakout_0 ]
+  set VideoBreakout_0 [ create_bd_cell -type ip -vlnv Independant:user:VideoBreakout:1.2 VideoBreakout_0 ]
   set_property -dict [ list \
    CONFIG.ADDRESS {0x41010000} \
  ] $VideoBreakout_0
@@ -242,6 +242,12 @@ proc create_root_design { parentCell } {
    CONFIG.c_mm2s_genlock_mode {1} \
    CONFIG.c_s2mm_genlock_mode {0} \
  ] $axi_vdma_0
+
+  # Create instance: const_0_0, and set properties
+  set const_0_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 const_0_0 ]
+  set_property -dict [ list \
+   CONFIG.CONST_VAL {0} \
+ ] $const_0_0
 
   # Create instance: const_0_2, and set properties
   set const_0_2 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 const_0_2 ]
@@ -718,6 +724,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net VideoBreakout_0_PClk [get_bd_ports PClk] [get_bd_pins VideoBreakout_0/PClk]
   connect_bd_net -net VideoBreakout_0_Red [get_bd_ports Red] [get_bd_pins VideoBreakout_0/Red]
   connect_bd_net -net VideoBreakout_0_VSync [get_bd_ports VSync] [get_bd_pins VideoBreakout_0/VSync]
+  connect_bd_net -net const_0_0_dout [get_bd_pins const_0_0/dout] [get_bd_pins v_axi4s_vid_out_0/fid]
   connect_bd_net -net const_0_2_dout [get_bd_ports Waveform] [get_bd_pins const_0_2/dout]
   connect_bd_net -net const_0_3_dout [get_bd_pins VideoBreakout_0/vid_data] [get_bd_pins VideoBreakout_0/vid_field_id] [get_bd_pins const_0_3/dout]
   connect_bd_net -net proc_sys_reset_1_peripheral_aresetn [get_bd_pins proc_sys_reset_1/peripheral_aresetn] [get_bd_pins v_tc_0/resetn]
