@@ -11,7 +11,7 @@ module VideoBreakout (
     input PClock;
 
     input vid_active_video;
-    input [31:0] vid_data;
+    input [23:0] vid_data;
     input vid_field_id;
     input vid_hblank, vid_hsync, vid_vblank, vid_vsync;
 
@@ -22,11 +22,11 @@ module VideoBreakout (
     output PClk;
     output De;
 
-    //31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1  0
-    // -  -  -  R  R  R  R  R  -  -  G  G  G  G  G  G  -  -  -  B  B  B  B  B  -  -  -  -  -  -  -  -
-    assign Red = vid_data[28:24];
-    assign Green = vid_data[21:16];
-    assign Blue = vid_data[12:8];
+    //23 22 21 20 19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1  0
+    // -  -  -  R  R  R  R  R  -  -  G  G  G  G  G  G  -  -  -  B  B  B  B  B
+    assign Red = vid_data[20:16];
+    assign Green = vid_data[13:8];
+    assign Blue = vid_data[4:0];
     assign HSync = vid_hsync;
     assign VSync = vid_vsync;
     assign PClk = PClock;

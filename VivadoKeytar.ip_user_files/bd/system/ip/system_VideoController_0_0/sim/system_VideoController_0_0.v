@@ -47,22 +47,67 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: xilinx.com:ip:xlconstant:1.1
-// IP Revision: 7
+// IP VLNV: xilinx.com:module_ref:VideoController:1.0
+// IP Revision: 1
 
 `timescale 1ns/1ps
 
+(* IP_DEFINITION_SOURCE = "module_ref" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-module system_const_HIGH_2_0 (
-  dout
+module system_VideoController_0_0 (
+  BusClock,
+  BusPAddr,
+  BusPWriteData,
+  BusPReadData,
+  BusPWrite,
+  BusPReady,
+  BusPEnable,
+  BusPSel,
+  BusPError,
+  FramePTR,
+  VidOverflow,
+  VidUnderflow,
+  VidOutLocked,
+  VidStatus,
+  VidFifoRead,
+  VDMAFramePtr
 );
 
-output wire [31 : 0] dout;
+input wire BusClock;
+input wire [31 : 0] BusPAddr;
+input wire [31 : 0] BusPWriteData;
+output wire [31 : 0] BusPReadData;
+input wire BusPWrite;
+output wire BusPReady;
+input wire BusPEnable;
+input wire BusPSel;
+output wire BusPError;
+output wire [5 : 0] FramePTR;
+input wire VidOverflow;
+input wire VidUnderflow;
+input wire VidOutLocked;
+input wire [31 : 0] VidStatus;
+input wire [10 : 0] VidFifoRead;
+input wire [5 : 0] VDMAFramePtr;
 
-  xlconstant_v1_1_7_xlconstant #(
-    .CONST_WIDTH(32),
-    .CONST_VAL('H00000000)
+  VideoController #(
+    .ADDRESS(32'H41010000)
   ) inst (
-    .dout(dout)
+    .BusClock(BusClock),
+    .BusPAddr(BusPAddr),
+    .BusPWriteData(BusPWriteData),
+    .BusPReadData(BusPReadData),
+    .BusPWrite(BusPWrite),
+    .BusPReady(BusPReady),
+    .BusPEnable(BusPEnable),
+    .BusPSel(BusPSel),
+    .BusPError(BusPError),
+    .FramePTR(FramePTR),
+    .VidOverflow(VidOverflow),
+    .VidUnderflow(VidUnderflow),
+    .VidOutLocked(VidOutLocked),
+    .VidStatus(VidStatus),
+    .VidFifoRead(VidFifoRead),
+    .VDMAFramePtr(VDMAFramePtr)
   );
 endmodule
