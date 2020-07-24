@@ -65,7 +65,12 @@ module system_VideoController_0_0 (
   BusPSel,
   BusPError,
   FramePTR,
-  VidOutLocked
+  VidOverflow,
+  VidUnderflow,
+  VidOutLocked,
+  VidStatus,
+  VidFifoRead,
+  VDMAFramePtr
 );
 
 input wire BusClock;
@@ -78,7 +83,12 @@ input wire BusPEnable;
 input wire BusPSel;
 output wire BusPError;
 output wire [5 : 0] FramePTR;
+input wire VidOverflow;
+input wire VidUnderflow;
 input wire VidOutLocked;
+input wire [31 : 0] VidStatus;
+input wire [10 : 0] VidFifoRead;
+input wire [5 : 0] VDMAFramePtr;
 
   VideoController #(
     .ADDRESS(32'H41010000)
@@ -93,6 +103,11 @@ input wire VidOutLocked;
     .BusPSel(BusPSel),
     .BusPError(BusPError),
     .FramePTR(FramePTR),
-    .VidOutLocked(VidOutLocked)
+    .VidOverflow(VidOverflow),
+    .VidUnderflow(VidUnderflow),
+    .VidOutLocked(VidOutLocked),
+    .VidStatus(VidStatus),
+    .VidFifoRead(VidFifoRead),
+    .VDMAFramePtr(VDMAFramePtr)
   );
 endmodule

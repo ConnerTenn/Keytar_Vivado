@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Fri Jul 24 01:40:52 2020
+//Date        : Fri Jul 24 04:15:30 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -778,7 +778,7 @@ module s00_couplers_imp_Y9JEWS
         .s_axi_wvalid(s00_couplers_to_auto_pc_WVALID));
 endmodule
 
-(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=29,numReposBlks=23,numNonXlnxBlks=3,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
+(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=28,numReposBlks=22,numNonXlnxBlks=3,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
    (Blue,
     Buzzer,
@@ -1000,9 +1000,9 @@ module system
   wire axi_vdma_0_M_AXIS_MM2S_TREADY;
   wire [0:0]axi_vdma_0_M_AXIS_MM2S_TUSER;
   wire axi_vdma_0_M_AXIS_MM2S_TVALID;
+  wire [5:0]axi_vdma_0_mm2s_frame_ptr_out;
   wire [0:0]const_0_0_dout;
   wire [0:0]const_0_2_dout;
-  wire [31:0]const_0_3_dout;
   wire [0:0]proc_sys_reset_1_peripheral_aresetn;
   wire [0:0]proc_sys_reset_1_peripheral_reset;
   wire [14:0]processing_system7_0_DDR_ADDR;
@@ -1037,12 +1037,19 @@ module system
   wire processing_system7_0_IIC_0_SDA_I;
   wire processing_system7_0_IIC_0_SDA_O;
   wire processing_system7_0_IIC_0_SDA_T;
+  wire [10:0]v_axi4s_vid_out_0_fifo_read_level;
   wire v_axi4s_vid_out_0_locked;
+  wire v_axi4s_vid_out_0_overflow;
+  wire [31:0]v_axi4s_vid_out_0_status;
+  wire v_axi4s_vid_out_0_underflow;
   wire v_axi4s_vid_out_0_vid_io_out_ACTIVE_VIDEO;
+  wire [31:0]v_axi4s_vid_out_0_vid_io_out_DATA;
+  wire v_axi4s_vid_out_0_vid_io_out_FIELD;
   wire v_axi4s_vid_out_0_vid_io_out_HBLANK;
   wire v_axi4s_vid_out_0_vid_io_out_HSYNC;
   wire v_axi4s_vid_out_0_vid_io_out_VBLANK;
   wire v_axi4s_vid_out_0_vid_io_out_VSYNC;
+  wire v_axi4s_vid_out_0_vtg_ce;
   wire v_tc_0_vtiming_out_ACTIVE_VIDEO;
   wire v_tc_0_vtiming_out_HBLANK;
   wire v_tc_0_vtiming_out_HSYNC;
@@ -1130,8 +1137,8 @@ module system
         .Red(VideoBreakout_0_Red),
         .VSync(VideoBreakout_0_VSync),
         .vid_active_video(v_axi4s_vid_out_0_vid_io_out_ACTIVE_VIDEO),
-        .vid_data(const_0_3_dout),
-        .vid_field_id(const_0_3_dout[0]),
+        .vid_data(v_axi4s_vid_out_0_vid_io_out_DATA),
+        .vid_field_id(v_axi4s_vid_out_0_vid_io_out_FIELD),
         .vid_hblank(v_axi4s_vid_out_0_vid_io_out_HBLANK),
         .vid_hsync(v_axi4s_vid_out_0_vid_io_out_HSYNC),
         .vid_vblank(v_axi4s_vid_out_0_vid_io_out_VBLANK),
@@ -1147,7 +1154,12 @@ module system
         .BusPWrite(APBSlave_Breakout_2_BusPWrite),
         .BusPWriteData(APBSlave_Breakout_2_BusPWriteData),
         .FramePTR(VideoBreakout_0_FramePTR),
-        .VidOutLocked(v_axi4s_vid_out_0_locked));
+        .VDMAFramePtr(axi_vdma_0_mm2s_frame_ptr_out),
+        .VidFifoRead(v_axi4s_vid_out_0_fifo_read_level),
+        .VidOutLocked(v_axi4s_vid_out_0_locked),
+        .VidOverflow(v_axi4s_vid_out_0_overflow),
+        .VidStatus(v_axi4s_vid_out_0_status),
+        .VidUnderflow(v_axi4s_vid_out_0_underflow));
   system_axi_apb_bridge_0_1 axi_apb_bridge_0
        (.m_apb_paddr(axi_apb_bridge_0_APB_M_PADDR),
         .m_apb_penable(axi_apb_bridge_0_APB_M_PENABLE),
@@ -1313,6 +1325,7 @@ module system
         .m_axis_mm2s_tuser(axi_vdma_0_M_AXIS_MM2S_TUSER),
         .m_axis_mm2s_tvalid(axi_vdma_0_M_AXIS_MM2S_TVALID),
         .mm2s_frame_ptr_in(VideoBreakout_0_FramePTR),
+        .mm2s_frame_ptr_out(axi_vdma_0_mm2s_frame_ptr_out),
         .s_axi_lite_aclk(processing_system7_0_FCLK_CLK0),
         .s_axi_lite_araddr(axi_interconnect_0_M01_AXI_ARADDR[8:0]),
         .s_axi_lite_arready(axi_interconnect_0_M01_AXI_ARREADY),
@@ -1334,8 +1347,6 @@ module system
        (.dout(const_0_0_dout));
   system_xlconstant_0_1 const_0_2
        (.dout(const_0_2_dout));
-  system_const_HIGH_2_0 const_0_3
-       (.dout(const_0_3_dout));
   system_xlconstant_1_0 const_HIGH_1
        (.dout(xlconstant_1_dout));
   system_const_HIGH_1_0 const_HIGH_2
@@ -1467,13 +1478,19 @@ module system
         .aclken(Net),
         .aresetn(processing_system7_0_FCLK_RESET0_N),
         .fid(const_0_0_dout),
+        .fifo_read_level(v_axi4s_vid_out_0_fifo_read_level),
         .locked(v_axi4s_vid_out_0_locked),
+        .overflow(v_axi4s_vid_out_0_overflow),
         .s_axis_video_tdata(axi_vdma_0_M_AXIS_MM2S_TDATA),
         .s_axis_video_tlast(axi_vdma_0_M_AXIS_MM2S_TLAST),
         .s_axis_video_tready(axi_vdma_0_M_AXIS_MM2S_TREADY),
         .s_axis_video_tuser(axi_vdma_0_M_AXIS_MM2S_TUSER),
         .s_axis_video_tvalid(axi_vdma_0_M_AXIS_MM2S_TVALID),
+        .status(v_axi4s_vid_out_0_status),
+        .underflow(v_axi4s_vid_out_0_underflow),
         .vid_active_video(v_axi4s_vid_out_0_vid_io_out_ACTIVE_VIDEO),
+        .vid_data(v_axi4s_vid_out_0_vid_io_out_DATA),
+        .vid_field_id(v_axi4s_vid_out_0_vid_io_out_FIELD),
         .vid_hblank(v_axi4s_vid_out_0_vid_io_out_HBLANK),
         .vid_hsync(v_axi4s_vid_out_0_vid_io_out_HSYNC),
         .vid_io_out_ce(Net),
@@ -1482,6 +1499,7 @@ module system
         .vid_vblank(v_axi4s_vid_out_0_vid_io_out_VBLANK),
         .vid_vsync(v_axi4s_vid_out_0_vid_io_out_VSYNC),
         .vtg_active_video(v_tc_0_vtiming_out_ACTIVE_VIDEO),
+        .vtg_ce(v_axi4s_vid_out_0_vtg_ce),
         .vtg_field_id(1'b0),
         .vtg_hblank(v_tc_0_vtiming_out_HBLANK),
         .vtg_hsync(v_tc_0_vtiming_out_HSYNC),
@@ -1491,7 +1509,7 @@ module system
        (.active_video_out(v_tc_0_vtiming_out_ACTIVE_VIDEO),
         .clk(processing_system7_0_FCLK_CLK1),
         .clken(Net),
-        .gen_clken(Net),
+        .gen_clken(v_axi4s_vid_out_0_vtg_ce),
         .hblank_out(v_tc_0_vtiming_out_HBLANK),
         .hsync_out(v_tc_0_vtiming_out_HSYNC),
         .resetn(proc_sys_reset_1_peripheral_aresetn),

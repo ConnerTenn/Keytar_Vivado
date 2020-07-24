@@ -264,13 +264,6 @@ proc create_root_design { parentCell } {
    CONFIG.CONST_VAL {0} \
  ] $const_0_2
 
-  # Create instance: const_0_3, and set properties
-  set const_0_3 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 const_0_3 ]
-  set_property -dict [ list \
-   CONFIG.CONST_VAL {0} \
-   CONFIG.CONST_WIDTH {32} \
- ] $const_0_3
-
   # Create instance: const_HIGH_1, and set properties
   set const_HIGH_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 const_HIGH_1 ]
 
@@ -305,7 +298,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ACT_DCI_PERIPHERAL_FREQMHZ {10.158730} \
    CONFIG.PCW_ACT_ENET0_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_ENET1_PERIPHERAL_FREQMHZ {10.000000} \
-   CONFIG.PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ {100.000000} \
+   CONFIG.PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ {200.000000} \
    CONFIG.PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ {150.000000} \
    CONFIG.PCW_ACT_FPGA2_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_FPGA3_PERIPHERAL_FREQMHZ {10.000000} \
@@ -326,7 +319,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ARMPLL_CTRL_FBDIV {40} \
    CONFIG.PCW_CAN_PERIPHERAL_DIVISOR0 {1} \
    CONFIG.PCW_CAN_PERIPHERAL_DIVISOR1 {1} \
-   CONFIG.PCW_CLK0_FREQ {100000000} \
+   CONFIG.PCW_CLK0_FREQ {200000000} \
    CONFIG.PCW_CLK1_FREQ {150000000} \
    CONFIG.PCW_CLK2_FREQ {10000000} \
    CONFIG.PCW_CLK3_FREQ {10000000} \
@@ -356,8 +349,8 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_EN_RST1_PORT {1} \
    CONFIG.PCW_EN_SDIO0 {1} \
    CONFIG.PCW_EN_UART1 {1} \
-   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR0 {4} \
-   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR1 {3} \
+   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR0 {3} \
+   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR1 {2} \
    CONFIG.PCW_FCLK1_PERIPHERAL_CLKSRC {IO PLL} \
    CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR0 {8} \
    CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR1 {1} \
@@ -367,7 +360,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_FCLK3_PERIPHERAL_DIVISOR1 {1} \
    CONFIG.PCW_FCLK_CLK0_BUF {FALSE} \
    CONFIG.PCW_FCLK_CLK1_BUF {TRUE} \
-   CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {100} \
+   CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {200} \
    CONFIG.PCW_FPGA1_PERIPHERAL_FREQMHZ {149} \
    CONFIG.PCW_FPGA_FCLK0_ENABLE {1} \
    CONFIG.PCW_FPGA_FCLK1_ENABLE {1} \
@@ -657,6 +650,7 @@ proc create_root_design { parentCell } {
    CONFIG.C_HAS_ASYNC_CLK {1} \
    CONFIG.C_S_AXIS_VIDEO_DATA_WIDTH {8} \
    CONFIG.C_S_AXIS_VIDEO_FORMAT {6} \
+   CONFIG.C_VTG_MASTER_SLAVE {1} \
  ] $v_axi4s_vid_out_0
 
   # Create instance: v_tc_0, and set properties
@@ -720,7 +714,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net BuzzerTest_0_BusPReadData [get_bd_pins APBSlave_Breakout_1/BusPReadData] [get_bd_pins BuzzerTest_0/BusPReadData]
   connect_bd_net -net BuzzerTest_0_BusPReady [get_bd_pins APBSlave_Breakout_1/BusPReady] [get_bd_pins BuzzerTest_0/BusPReady]
   connect_bd_net -net BuzzerTest_0_Buzzer [get_bd_ports Buzzer] [get_bd_pins BuzzerTest_0/Buzzer]
-  connect_bd_net -net Net [get_bd_pins const_HIGH_2/dout] [get_bd_pins v_axi4s_vid_out_0/aclken] [get_bd_pins v_axi4s_vid_out_0/vid_io_out_ce] [get_bd_pins v_tc_0/clken] [get_bd_pins v_tc_0/gen_clken]
+  connect_bd_net -net Net [get_bd_pins const_HIGH_2/dout] [get_bd_pins v_axi4s_vid_out_0/aclken] [get_bd_pins v_axi4s_vid_out_0/vid_io_out_ce] [get_bd_pins v_tc_0/clken]
   connect_bd_net -net RGBTest_0_RGB [get_bd_ports RGB] [get_bd_pins RGBTest_0/RGB]
   connect_bd_net -net VideoBreakout_0_Blue [get_bd_ports Blue] [get_bd_pins VideoBreakout_0/Blue]
   connect_bd_net -net VideoBreakout_0_BusPError [get_bd_pins APBSlave_Breakout_2/BusPError] [get_bd_pins VideoController_0/BusPError]
@@ -733,9 +727,9 @@ proc create_root_design { parentCell } {
   connect_bd_net -net VideoBreakout_0_PClk [get_bd_ports PClk] [get_bd_pins VideoBreakout_0/PClk]
   connect_bd_net -net VideoBreakout_0_Red [get_bd_ports Red] [get_bd_pins VideoBreakout_0/Red]
   connect_bd_net -net VideoBreakout_0_VSync [get_bd_ports VSync] [get_bd_pins VideoBreakout_0/VSync]
+  connect_bd_net -net axi_vdma_0_mm2s_frame_ptr_out [get_bd_pins VideoController_0/VDMAFramePtr] [get_bd_pins axi_vdma_0/mm2s_frame_ptr_out]
   connect_bd_net -net const_0_0_dout [get_bd_pins const_0_0/dout] [get_bd_pins v_axi4s_vid_out_0/fid]
   connect_bd_net -net const_0_2_dout [get_bd_ports Waveform] [get_bd_pins const_0_2/dout]
-  connect_bd_net -net const_0_3_dout [get_bd_pins VideoBreakout_0/vid_data] [get_bd_pins VideoBreakout_0/vid_field_id] [get_bd_pins const_0_3/dout]
   connect_bd_net -net proc_sys_reset_1_peripheral_aresetn [get_bd_pins proc_sys_reset_1/peripheral_aresetn] [get_bd_pins v_tc_0/resetn]
   connect_bd_net -net proc_sys_reset_1_peripheral_reset [get_bd_pins proc_sys_reset_1/peripheral_reset] [get_bd_pins v_axi4s_vid_out_0/vid_io_out_reset]
   connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins APBSlave_Breakout_1/s_apb_pclock] [get_bd_pins APBSlave_Breakout_2/s_apb_pclock] [get_bd_pins BuzzerTest_0/Clock] [get_bd_pins RGBTest_0/Clock] [get_bd_pins axi_apb_bridge_0/s_axi_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/M01_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins axi_interconnect_1/ACLK] [get_bd_pins axi_interconnect_1/M00_ACLK] [get_bd_pins axi_interconnect_1/S00_ACLK] [get_bd_pins axi_vdma_0/m_axi_mm2s_aclk] [get_bd_pins axi_vdma_0/m_axis_mm2s_aclk] [get_bd_pins axi_vdma_0/s_axi_lite_aclk] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins processing_system7_0/S_AXI_GP0_ACLK] [get_bd_pins v_axi4s_vid_out_0/aclk]
@@ -743,7 +737,12 @@ proc create_root_design { parentCell } {
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins axi_apb_bridge_0/s_axi_aresetn] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/M01_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins axi_interconnect_1/M00_ARESETN] [get_bd_pins axi_interconnect_1/S00_ARESETN] [get_bd_pins axi_vdma_0/axi_resetn] [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_pins v_axi4s_vid_out_0/aresetn]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N1 [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
   connect_bd_net -net processing_system7_0_FCLK_RESET1_N [get_bd_pins proc_sys_reset_1/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET1_N]
+  connect_bd_net -net v_axi4s_vid_out_0_fifo_read_level [get_bd_pins VideoController_0/VidFifoRead] [get_bd_pins v_axi4s_vid_out_0/fifo_read_level]
   connect_bd_net -net v_axi4s_vid_out_0_locked [get_bd_pins VideoController_0/VidOutLocked] [get_bd_pins v_axi4s_vid_out_0/locked]
+  connect_bd_net -net v_axi4s_vid_out_0_overflow [get_bd_pins VideoController_0/VidOverflow] [get_bd_pins v_axi4s_vid_out_0/overflow]
+  connect_bd_net -net v_axi4s_vid_out_0_status [get_bd_pins VideoController_0/VidStatus] [get_bd_pins v_axi4s_vid_out_0/status]
+  connect_bd_net -net v_axi4s_vid_out_0_underflow [get_bd_pins VideoController_0/VidUnderflow] [get_bd_pins v_axi4s_vid_out_0/underflow]
+  connect_bd_net -net v_axi4s_vid_out_0_vtg_ce [get_bd_pins v_axi4s_vid_out_0/vtg_ce] [get_bd_pins v_tc_0/gen_clken]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins const_LOW_0/dout] [get_bd_pins proc_sys_reset_0/mb_debug_sys_rst] [get_bd_pins proc_sys_reset_1/mb_debug_sys_rst]
   connect_bd_net -net xlconstant_1_dout [get_bd_pins const_HIGH_1/dout] [get_bd_pins proc_sys_reset_0/aux_reset_in] [get_bd_pins proc_sys_reset_0/dcm_locked] [get_bd_pins proc_sys_reset_1/aux_reset_in] [get_bd_pins proc_sys_reset_1/dcm_locked]
 

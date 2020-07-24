@@ -52,7 +52,7 @@
 
 (* X_CORE_INFO = "v_axi4s_vid_out_v4_0_10,Vivado 2020.1" *)
 (* CHECK_LICENSE_TYPE = "system_v_axi4s_vid_out_0_0,v_axi4s_vid_out_v4_0_10,{}" *)
-(* CORE_GENERATION_INFO = "system_v_axi4s_vid_out_0_0,v_axi4s_vid_out_v4_0_10,{x_ipProduct=Vivado 2020.1,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=v_axi4s_vid_out,x_ipVersion=4.0,x_ipCoreRevision=10,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_FAMILY=zynq,C_PIXELS_PER_CLOCK=1,C_COMPONENTS_PER_PIXEL=4,C_S_AXIS_COMPONENT_WIDTH=8,C_NATIVE_COMPONENT_WIDTH=8,C_NATIVE_DATA_WIDTH=32,C_S_AXIS_TDATA_WIDTH=32,C_HAS_ASYNC_CLK=1,C_ADDR_WIDTH=10,C_VTG_MASTER_SLAVE=0,C_HYSTERESIS_LEVEL=12,C_SYNC_LOCK_THRESHOLD=4,C_INCLUDE_PIXEL_REP\
+(* CORE_GENERATION_INFO = "system_v_axi4s_vid_out_0_0,v_axi4s_vid_out_v4_0_10,{x_ipProduct=Vivado 2020.1,x_ipVendor=xilinx.com,x_ipLibrary=ip,x_ipName=v_axi4s_vid_out,x_ipVersion=4.0,x_ipCoreRevision=10,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_FAMILY=zynq,C_PIXELS_PER_CLOCK=1,C_COMPONENTS_PER_PIXEL=4,C_S_AXIS_COMPONENT_WIDTH=8,C_NATIVE_COMPONENT_WIDTH=8,C_NATIVE_DATA_WIDTH=32,C_S_AXIS_TDATA_WIDTH=32,C_HAS_ASYNC_CLK=1,C_ADDR_WIDTH=10,C_VTG_MASTER_SLAVE=1,C_HYSTERESIS_LEVEL=12,C_SYNC_LOCK_THRESHOLD=4,C_INCLUDE_PIXEL_REP\
 EAT=0,C_INCLUDE_PIXEL_REMAP_420=0,C_ADDR_WIDTH_PIXEL_REMAP_420=10}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module system_v_axi4s_vid_out_0_0 (
@@ -89,7 +89,7 @@ module system_v_axi4s_vid_out_0_0 (
   status
 );
 
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME aclk_intf, ASSOCIATED_BUSIF video_in, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME aclk_intf, ASSOCIATED_BUSIF video_in, FREQ_HZ 200000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 aclk_intf CLK" *)
 input wire aclk;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME aclken_intf, POLARITY ACTIVE_HIGH" *)
@@ -106,7 +106,7 @@ input wire s_axis_video_tvalid;
 output wire s_axis_video_tready;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 video_in TUSER" *)
 input wire s_axis_video_tuser;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME video_in, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 1, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef, INSERT_VIP 0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME video_in, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 1, HAS_TREADY 1, HAS_TSTRB 0, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 200000000, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 video_in TLAST" *)
 input wire s_axis_video_tlast;
 input wire fid;
@@ -162,7 +162,7 @@ output wire [31 : 0] status;
     .C_S_AXIS_TDATA_WIDTH(32),
     .C_HAS_ASYNC_CLK(1),
     .C_ADDR_WIDTH(10),
-    .C_VTG_MASTER_SLAVE(0),
+    .C_VTG_MASTER_SLAVE(1),
     .C_HYSTERESIS_LEVEL(12),
     .C_SYNC_LOCK_THRESHOLD(4),
     .C_INCLUDE_PIXEL_REPEAT(0),

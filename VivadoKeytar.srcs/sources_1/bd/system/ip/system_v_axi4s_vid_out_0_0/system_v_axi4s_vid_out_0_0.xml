@@ -129,7 +129,7 @@
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>FREQ_HZ</spirit:name>
-          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.VIDEO_IN.FREQ_HZ">100000000</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="BUSIFPARAM_VALUE.VIDEO_IN.FREQ_HZ">200000000</spirit:value>
           <spirit:vendorExtensions>
             <xilinx:parameterInfo>
               <xilinx:parameterUsage>none</xilinx:parameterUsage>
@@ -336,7 +336,7 @@
           <spirit:name>FREQ_HZ</spirit:name>
           <spirit:displayName>vid-in clock frequency</spirit:displayName>
           <spirit:description>vid-in clock frequency</spirit:description>
-          <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="BUSIFPARAM_VALUE.ACLK_INTF.FREQ_HZ">100000000</spirit:value>
+          <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="BUSIFPARAM_VALUE.ACLK_INTF.FREQ_HZ">200000000</spirit:value>
         </spirit:parameter>
         <spirit:parameter>
           <spirit:name>FREQ_TOLERANCE_HZ</spirit:name>
@@ -584,7 +584,7 @@
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:20aee93d</spirit:value>
+            <spirit:value>9:f385bbee</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -598,11 +598,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Thu Jul 23 08:08:55 UTC 2020</spirit:value>
+            <spirit:value>Fri Jul 24 08:15:31 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:20aee93d</spirit:value>
+            <spirit:value>9:f385bbee</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -618,11 +618,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Thu Jul 23 08:08:55 UTC 2020</spirit:value>
+            <spirit:value>Fri Jul 24 08:15:31 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:20aee93d</spirit:value>
+            <spirit:value>9:f385bbee</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -651,7 +651,7 @@
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:ddcda292</spirit:value>
+            <spirit:value>9:527d2878</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -667,11 +667,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Thu Jul 23 08:08:55 UTC 2020</spirit:value>
+            <spirit:value>Fri Jul 24 08:15:31 UTC 2020</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:ddcda292</spirit:value>
+            <spirit:value>9:527d2878</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -1223,7 +1223,7 @@
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_VTG_MASTER_SLAVE</spirit:name>
         <spirit:displayName>Timing Mode</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_VTG_MASTER_SLAVE" spirit:choiceRef="choice_pairs_4667218c">0</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_VTG_MASTER_SLAVE" spirit:choiceRef="choice_pairs_4667218c">1</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>C_HYSTERESIS_LEVEL</spirit:name>
@@ -1519,7 +1519,7 @@
     <spirit:parameter>
       <spirit:name>C_VTG_MASTER_SLAVE</spirit:name>
       <spirit:displayName>Timing Mode</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_VTG_MASTER_SLAVE" spirit:choiceRef="choice_pairs_4667218c" spirit:order="10" spirit:configGroups="1 NoDisplay">0</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_VTG_MASTER_SLAVE" spirit:choiceRef="choice_pairs_4667218c" spirit:order="10" spirit:configGroups="1 NoDisplay">1</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -1617,6 +1617,7 @@
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.C_HAS_ASYNC_CLK" xilinx:valueSource="user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.C_S_AXIS_VIDEO_DATA_WIDTH" xilinx:valueSource="user" xilinx:valuePermission="bd_and_user"/>
         <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.C_S_AXIS_VIDEO_FORMAT" xilinx:valueSource="user" xilinx:valuePermission="bd_and_user"/>
+        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.C_VTG_MASTER_SLAVE" xilinx:valueSource="user"/>
       </xilinx:configElementInfos>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
