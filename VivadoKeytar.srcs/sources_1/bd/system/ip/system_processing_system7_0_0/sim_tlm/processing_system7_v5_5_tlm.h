@@ -140,6 +140,7 @@ class processing_system7_v5_5_tlm : public sc_core::sc_module   {
     sc_core::sc_out<bool> I2C0_SCL_O;
     sc_core::sc_out<bool> I2C0_SCL_T;
     sc_core::sc_in<bool> M_AXI_GP0_ACLK;
+    sc_core::sc_in<bool> M_AXI_GP1_ACLK;
     sc_core::sc_in<bool> S_AXI_GP0_ACLK;
     sc_core::sc_out<bool> FCLK_CLK0;
     sc_core::sc_out<bool> FCLK_CLK1;
@@ -169,6 +170,8 @@ class processing_system7_v5_5_tlm : public sc_core::sc_module   {
 
     xtlm::xtlm_aximm_initiator_socket*      M_AXI_GP0_wr_socket;
     xtlm::xtlm_aximm_initiator_socket*      M_AXI_GP0_rd_socket;
+    xtlm::xtlm_aximm_initiator_socket*      M_AXI_GP1_wr_socket;
+    xtlm::xtlm_aximm_initiator_socket*      M_AXI_GP1_rd_socket;
     xtlm::xtlm_aximm_target_socket*         S_AXI_GP0_wr_socket;
     xtlm::xtlm_aximm_target_socket*         S_AXI_GP0_rd_socket;
 
@@ -205,6 +208,7 @@ processing_system7_v5_5_tlm(sc_core::sc_module_name name,
     // simple initiator socket of xilinx_zynqmp and xtlm 
     // socket with xilinx_zynq's simple target socket
     rptlm2xtlm_converter<32, 32> m_rp_bridge_M_AXI_GP0;     
+    rptlm2xtlm_converter<32, 32> m_rp_bridge_M_AXI_GP1;     
     
     // sc_clocks for generating pl clocks
     // output pins FCLK_CLK0..3 are drived by these clocks

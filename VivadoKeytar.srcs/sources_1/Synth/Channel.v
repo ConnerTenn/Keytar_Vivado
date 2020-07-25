@@ -67,16 +67,10 @@ module Channel
     always @(posedge BusClock)
     begin
 
-        if (BusPSel)
+        if (BusPSel && !BusPReady)
         begin
-            if (ADDRESS <= BusPAddr && BusPAddr <= ADDRESS+32'hFF)
-            begin
-                BusPReady <= 1;
-            end
-        end
-
-        if (BusPSel && BusPReady && BusPEnable)
-        begin
+            BusPReady <= 1;
+            
             if (!BusPWrite)
             begin
                 //Read
@@ -90,7 +84,11 @@ module Channel
                     ADDRESS+4*6: BusPReadData <= {31'h0, gate};
                 endcase
             end
-            else
+        end
+
+        if (BusPSel && BusPReady && BusPEnable)
+        begin
+            if (BusPWrite)
             begin
                 //Write
                 case (BusPAddr)
