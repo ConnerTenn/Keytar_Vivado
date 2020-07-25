@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Fri Jul 24 20:31:31 2020
+//Date        : Sat Jul 25 02:13:39 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -44,7 +44,7 @@ module system_wrapper
     VSync,
     Waveform);
   output [4:0]Blue;
-  output Buzzer;
+  output [0:0]Buzzer;
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -78,7 +78,7 @@ module system_wrapper
   output [0:0]Waveform;
 
   wire [4:0]Blue;
-  wire Buzzer;
+  wire [0:0]Buzzer;
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
   wire DDR_cas_n;

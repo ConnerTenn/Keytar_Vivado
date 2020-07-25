@@ -48,7 +48,7 @@
 
 
 // IP VLNV: Independant:user:VideoBreakout:2.0
-// IP Revision: 3
+// IP Revision: 4
 
 `timescale 1ns/1ps
 
@@ -76,7 +76,7 @@ input wire PClock;
 (* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io ACTIVE_VIDEO" *)
 input wire vid_active_video;
 (* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io DATA" *)
-input wire [23 : 0] vid_data;
+input wire [15 : 0] vid_data;
 (* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io FIELD" *)
 input wire vid_field_id;
 (* X_INTERFACE_INFO = "xilinx.com:interface:vid_io:1.0 vid_io HBLANK" *)

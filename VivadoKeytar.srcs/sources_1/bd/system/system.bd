@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xA684067A1753BE4",
+      "boundary_crc": "0xCE8CE3338DDAFBA9",
       "device": "xc7z020clg400-1",
       "name": "system",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
@@ -24,8 +24,6 @@
       "const_LOW_0": "",
       "const_HIGH_1": "",
       "RGBTest_0": "",
-      "APBSlave_Breakout_1": "",
-      "BuzzerTest_0": "",
       "axi_vdma_0": "",
       "v_axi4s_vid_out_0": "",
       "v_tc_0": "",
@@ -238,7 +236,9 @@
         }
       },
       "Buzzer": {
-        "direction": "O"
+        "direction": "O",
+        "left": "0",
+        "right": "0"
       }
     },
     "components": {
@@ -1301,22 +1301,22 @@
               "xbar/S00_AXI"
             ]
           },
-          "m01_couplers_to_axi_interconnect_0": {
-            "interface_ports": [
-              "M01_AXI",
-              "m01_couplers/M_AXI"
-            ]
-          },
           "m00_couplers_to_axi_interconnect_0": {
             "interface_ports": [
               "M00_AXI",
               "m00_couplers/M_AXI"
             ]
           },
-          "axi_interconnect_0_to_s00_couplers": {
+          "xbar_to_m01_couplers": {
             "interface_ports": [
-              "S00_AXI",
-              "s00_couplers/S_AXI"
+              "xbar/M01_AXI",
+              "m01_couplers/S_AXI"
+            ]
+          },
+          "m01_couplers_to_axi_interconnect_0": {
+            "interface_ports": [
+              "M01_AXI",
+              "m01_couplers/M_AXI"
             ]
           },
           "xbar_to_m00_couplers": {
@@ -1325,10 +1325,10 @@
               "m00_couplers/S_AXI"
             ]
           },
-          "xbar_to_m01_couplers": {
+          "axi_interconnect_0_to_s00_couplers": {
             "interface_ports": [
-              "xbar/M01_AXI",
-              "m01_couplers/S_AXI"
+              "S00_AXI",
+              "s00_couplers/S_AXI"
             ]
           }
         },
@@ -1394,7 +1394,7 @@
         "xci_name": "system_axi_apb_bridge_0_1",
         "parameters": {
           "C_APB_NUM_SLAVES": {
-            "value": "2"
+            "value": "1"
           },
           "C_M_APB_PROTOCOL": {
             "value": "apb3"
@@ -1405,8 +1405,7 @@
             "AXI4_LITE": {
               "mode": "Slave",
               "bridges": [
-                "APB_M",
-                "APB_M2"
+                "APB_M"
               ]
             }
           }
@@ -1473,71 +1472,6 @@
           }
         }
       },
-      "APBSlave_Breakout_1": {
-        "vlnv": "Independant:user:APBSlave_Breakout:1.0",
-        "xci_name": "system_APBSlave_Breakout_0_3"
-      },
-      "BuzzerTest_0": {
-        "vlnv": "xilinx.com:module_ref:BuzzerTest:1.0",
-        "xci_name": "system_BuzzerTest_0_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "BuzzerTest",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "Clock": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "CLK_DOMAIN": {
-                "value": "system_processing_system7_0_0_FCLK_CLK1",
-                "value_src": "default_prop"
-              },
-              "FREQ_HZ": {
-                "value": "150000000",
-                "value_src": "user_prop"
-              }
-            }
-          },
-          "Buzzer": {
-            "direction": "O"
-          },
-          "BusClock": {
-            "direction": "I"
-          },
-          "BusPAddr": {
-            "direction": "I",
-            "left": "31",
-            "right": "0"
-          },
-          "BusPWriteData": {
-            "direction": "I",
-            "left": "31",
-            "right": "0"
-          },
-          "BusPReadData": {
-            "direction": "O",
-            "left": "31",
-            "right": "0"
-          },
-          "BusPWrite": {
-            "direction": "I"
-          },
-          "BusPReady": {
-            "direction": "O"
-          },
-          "BusPEnable": {
-            "direction": "I"
-          },
-          "BusPSel": {
-            "direction": "I"
-          },
-          "BusPError": {
-            "direction": "O"
-          }
-        }
-      },
       "axi_vdma_0": {
         "vlnv": "xilinx.com:ip:axi_vdma:6.3",
         "xci_name": "system_axi_vdma_0_0",
@@ -1549,7 +1483,7 @@
             "value": "32"
           },
           "c_m_axis_mm2s_tdata_width": {
-            "value": "24"
+            "value": "16"
           },
           "c_mm2s_genlock_mode": {
             "value": "1"
@@ -1594,11 +1528,14 @@
           "C_HAS_ASYNC_CLK": {
             "value": "0"
           },
+          "C_NATIVE_COMPONENT_WIDTH": {
+            "value": "16"
+          },
           "C_S_AXIS_VIDEO_DATA_WIDTH": {
-            "value": "8"
+            "value": "16"
           },
           "C_S_AXIS_VIDEO_FORMAT": {
-            "value": "2"
+            "value": "12"
           },
           "C_VTG_MASTER_SLAVE": {
             "value": "1"
@@ -1952,12 +1889,6 @@
           "VideoBreakout_0/vid_io"
         ]
       },
-      "axi_apb_bridge_0_APB_M": {
-        "interface_ports": [
-          "axi_apb_bridge_0/APB_M",
-          "APBSlave_Breakout_1/APB_S"
-        ]
-      },
       "processing_system7_0_IIC_0": {
         "interface_ports": [
           "I2C",
@@ -1982,12 +1913,6 @@
           "axi_vdma_0/S_AXI_LITE"
         ]
       },
-      "axi_apb_bridge_0_APB_M2": {
-        "interface_ports": [
-          "axi_apb_bridge_0/APB_M2",
-          "APBSlave_Breakout_2/APB_S"
-        ]
-      },
       "axi_vdma_0_M_AXIS_MM2S": {
         "interface_ports": [
           "v_axi4s_vid_out_0/video_in",
@@ -2004,6 +1929,12 @@
         "interface_ports": [
           "FIXED_IO",
           "processing_system7_0/FIXED_IO"
+        ]
+      },
+      "axi_apb_bridge_0_APB_M": {
+        "interface_ports": [
+          "axi_apb_bridge_0/APB_M",
+          "APBSlave_Breakout_2/APB_S"
         ]
       },
       "S00_AXI_2": {
@@ -2050,66 +1981,6 @@
           "axi_interconnect_1/M00_ARESETN",
           "v_axi4s_vid_out_0/aresetn",
           "axi_vdma_0/axi_resetn"
-        ]
-      },
-      "BuzzerTest_0_BusPError": {
-        "ports": [
-          "BuzzerTest_0/BusPError",
-          "APBSlave_Breakout_1/BusPError"
-        ]
-      },
-      "BuzzerTest_0_BusPReady": {
-        "ports": [
-          "BuzzerTest_0/BusPReady",
-          "APBSlave_Breakout_1/BusPReady"
-        ]
-      },
-      "BuzzerTest_0_BusPReadData": {
-        "ports": [
-          "BuzzerTest_0/BusPReadData",
-          "APBSlave_Breakout_1/BusPReadData"
-        ]
-      },
-      "APBSlave_Breakout_1_BusPEnable": {
-        "ports": [
-          "APBSlave_Breakout_1/BusPEnable",
-          "BuzzerTest_0/BusPEnable"
-        ]
-      },
-      "APBSlave_Breakout_1_BusPSel": {
-        "ports": [
-          "APBSlave_Breakout_1/BusPSel",
-          "BuzzerTest_0/BusPSel"
-        ]
-      },
-      "APBSlave_Breakout_1_BusClock": {
-        "ports": [
-          "APBSlave_Breakout_1/BusClock",
-          "BuzzerTest_0/BusClock"
-        ]
-      },
-      "APBSlave_Breakout_1_BusPAddr": {
-        "ports": [
-          "APBSlave_Breakout_1/BusPAddr",
-          "BuzzerTest_0/BusPAddr"
-        ]
-      },
-      "APBSlave_Breakout_1_BusPWrite": {
-        "ports": [
-          "APBSlave_Breakout_1/BusPWrite",
-          "BuzzerTest_0/BusPWrite"
-        ]
-      },
-      "APBSlave_Breakout_1_BusPWriteData": {
-        "ports": [
-          "APBSlave_Breakout_1/BusPWriteData",
-          "BuzzerTest_0/BusPWriteData"
-        ]
-      },
-      "BuzzerTest_0_Buzzer": {
-        "ports": [
-          "BuzzerTest_0/Buzzer",
-          "Buzzer"
         ]
       },
       "xlconstant_1_dout": {
@@ -2206,7 +2077,8 @@
       "const_0_2_dout": {
         "ports": [
           "const_0_2/dout",
-          "Waveform"
+          "Waveform",
+          "Buzzer"
         ]
       },
       "VideoBreakout_0_Red": {
@@ -2316,8 +2188,6 @@
           "axi_apb_bridge_0/s_axi_aclk",
           "proc_sys_reset_0/slowest_sync_clk",
           "RGBTest_0/Clock",
-          "APBSlave_Breakout_1/s_apb_pclock",
-          "BuzzerTest_0/Clock",
           "axi_interconnect_0/M01_ACLK",
           "APBSlave_Breakout_2/s_apb_pclock",
           "processing_system7_0/S_AXI_GP0_ACLK",
@@ -2340,11 +2210,6 @@
             "range": "4G",
             "width": "32",
             "segments": {
-              "SEG_APBSlave_Breakout_1_Reg": {
-                "address_block": "/APBSlave_Breakout_1/APB_S/Reg",
-                "offset": "0x40000000",
-                "range": "4K"
-              },
               "SEG_APBSlave_Breakout_2_Reg": {
                 "address_block": "/APBSlave_Breakout_2/APB_S/Reg",
                 "offset": "0x41010000",

@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Fri Jul 24 20:31:30 2020
+//Date        : Sat Jul 25 02:13:39 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -727,7 +727,7 @@ module s00_couplers_imp_Y9JEWS
         .s_axi_wvalid(s00_couplers_to_auto_pc_WVALID));
 endmodule
 
-(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=27,numReposBlks=21,numNonXlnxBlks=3,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
+(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=25,numReposBlks=19,numNonXlnxBlks=2,numHierBlks=6,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=2,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
    (Blue,
     Buzzer,
@@ -767,7 +767,7 @@ module system
     VSync,
     Waveform);
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.BLUE DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.BLUE, LAYERED_METADATA undef" *) output [4:0]Blue;
-  output Buzzer;
+  output [0:0]Buzzer;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR ADDR" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DDR, AXI_ARBITRATION_SCHEME TDM, BURST_LENGTH 8, CAN_DEBUG false, CAS_LATENCY 11, CAS_WRITE_LATENCY 11, CS_ENABLED true, DATA_MASK_ENABLED true, DATA_WIDTH 8, MEMORY_TYPE COMPONENTS, MEM_ADDR_MAP ROW_COLUMN_BANK, SLOT Single, TIMEPERIOD_PS 1250" *) inout [14:0]DDR_addr;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR BA" *) inout [2:0]DDR_ba;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR CAS_N" *) inout DDR_cas_n;
@@ -804,12 +804,6 @@ module system
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.VSYNC DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.VSYNC, LAYERED_METADATA undef" *) output [0:0]VSync;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.WAVEFORM DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.WAVEFORM, LAYERED_METADATA undef" *) output [0:0]Waveform;
 
-  wire APBSlave_Breakout_1_BusClock;
-  wire [31:0]APBSlave_Breakout_1_BusPAddr;
-  wire APBSlave_Breakout_1_BusPEnable;
-  wire APBSlave_Breakout_1_BusPSel;
-  wire APBSlave_Breakout_1_BusPWrite;
-  wire [31:0]APBSlave_Breakout_1_BusPWriteData;
   wire APBSlave_Breakout_2_BusClock;
   wire [31:0]APBSlave_Breakout_2_BusPAddr;
   wire APBSlave_Breakout_2_BusPEnable;
@@ -817,10 +811,6 @@ module system
   wire APBSlave_Breakout_2_BusPWrite;
   wire [31:0]APBSlave_Breakout_2_BusPWriteData;
   wire [0:0]ARESETN_1;
-  wire BuzzerTest_0_BusPError;
-  wire [31:0]BuzzerTest_0_BusPReadData;
-  wire BuzzerTest_0_BusPReady;
-  wire BuzzerTest_0_Buzzer;
   wire [0:0]Net;
   wire [2:0]RGBTest_0_RGB;
   wire [31:0]S00_AXI_1_ARADDR;
@@ -885,10 +875,6 @@ module system
   wire VideoBreakout_0_PClk;
   wire [4:0]VideoBreakout_0_Red;
   wire VideoBreakout_0_VSync;
-  wire [31:0]axi_apb_bridge_0_APB_M2_PRDATA;
-  wire axi_apb_bridge_0_APB_M2_PREADY;
-  wire [1:1]axi_apb_bridge_0_APB_M2_PSEL;
-  wire axi_apb_bridge_0_APB_M2_PSLVERR;
   wire [31:0]axi_apb_bridge_0_APB_M_PADDR;
   wire axi_apb_bridge_0_APB_M_PENABLE;
   wire [31:0]axi_apb_bridge_0_APB_M_PRDATA;
@@ -944,7 +930,7 @@ module system
   wire axi_interconnect_1_M00_AXI_RREADY;
   wire [1:0]axi_interconnect_1_M00_AXI_RRESP;
   wire axi_interconnect_1_M00_AXI_RVALID;
-  wire [23:0]axi_vdma_0_M_AXIS_MM2S_TDATA;
+  wire [15:0]axi_vdma_0_M_AXIS_MM2S_TDATA;
   wire axi_vdma_0_M_AXIS_MM2S_TLAST;
   wire axi_vdma_0_M_AXIS_MM2S_TREADY;
   wire [0:0]axi_vdma_0_M_AXIS_MM2S_TUSER;
@@ -989,7 +975,7 @@ module system
   wire [31:0]v_axi4s_vid_out_0_status;
   wire v_axi4s_vid_out_0_underflow;
   wire v_axi4s_vid_out_0_vid_io_out_ACTIVE_VIDEO;
-  wire [23:0]v_axi4s_vid_out_0_vid_io_out_DATA;
+  wire [15:0]v_axi4s_vid_out_0_vid_io_out_DATA;
   wire v_axi4s_vid_out_0_vid_io_out_FIELD;
   wire v_axi4s_vid_out_0_vid_io_out_HBLANK;
   wire v_axi4s_vid_out_0_vid_io_out_HSYNC;
@@ -1005,7 +991,7 @@ module system
   wire [0:0]xlconstant_1_dout;
 
   assign Blue[4:0] = VideoBreakout_0_Blue;
-  assign Buzzer = BuzzerTest_0_Buzzer;
+  assign Buzzer[0] = const_0_2_dout;
   assign De[0] = VideoBreakout_0_De;
   assign Green[5:0] = VideoBreakout_0_Green;
   assign HSync[0] = VideoBreakout_0_HSync;
@@ -1020,25 +1006,6 @@ module system
   assign Waveform[0] = const_0_2_dout;
   assign processing_system7_0_IIC_0_SCL_I = I2C_scl_i;
   assign processing_system7_0_IIC_0_SDA_I = I2C_sda_i;
-  system_APBSlave_Breakout_0_3 APBSlave_Breakout_1
-       (.BusClock(APBSlave_Breakout_1_BusClock),
-        .BusPAddr(APBSlave_Breakout_1_BusPAddr),
-        .BusPEnable(APBSlave_Breakout_1_BusPEnable),
-        .BusPError(BuzzerTest_0_BusPError),
-        .BusPReadData(BuzzerTest_0_BusPReadData),
-        .BusPReady(BuzzerTest_0_BusPReady),
-        .BusPSel(APBSlave_Breakout_1_BusPSel),
-        .BusPWrite(APBSlave_Breakout_1_BusPWrite),
-        .BusPWriteData(APBSlave_Breakout_1_BusPWriteData),
-        .s_apb_paddr(axi_apb_bridge_0_APB_M_PADDR),
-        .s_apb_pclock(processing_system7_0_FCLK_CLK1),
-        .s_apb_penable(axi_apb_bridge_0_APB_M_PENABLE),
-        .s_apb_prdata(axi_apb_bridge_0_APB_M_PRDATA),
-        .s_apb_pready(axi_apb_bridge_0_APB_M_PREADY),
-        .s_apb_psel(axi_apb_bridge_0_APB_M_PSEL),
-        .s_apb_pslverr(axi_apb_bridge_0_APB_M_PSLVERR),
-        .s_apb_pwdata(axi_apb_bridge_0_APB_M_PWDATA),
-        .s_apb_pwrite(axi_apb_bridge_0_APB_M_PWRITE));
   system_APBSlave_Breakout_1_0 APBSlave_Breakout_2
        (.BusClock(APBSlave_Breakout_2_BusClock),
         .BusPAddr(APBSlave_Breakout_2_BusPAddr),
@@ -1052,24 +1019,12 @@ module system
         .s_apb_paddr(axi_apb_bridge_0_APB_M_PADDR),
         .s_apb_pclock(processing_system7_0_FCLK_CLK1),
         .s_apb_penable(axi_apb_bridge_0_APB_M_PENABLE),
-        .s_apb_prdata(axi_apb_bridge_0_APB_M2_PRDATA),
-        .s_apb_pready(axi_apb_bridge_0_APB_M2_PREADY),
-        .s_apb_psel(axi_apb_bridge_0_APB_M2_PSEL),
-        .s_apb_pslverr(axi_apb_bridge_0_APB_M2_PSLVERR),
+        .s_apb_prdata(axi_apb_bridge_0_APB_M_PRDATA),
+        .s_apb_pready(axi_apb_bridge_0_APB_M_PREADY),
+        .s_apb_psel(axi_apb_bridge_0_APB_M_PSEL),
+        .s_apb_pslverr(axi_apb_bridge_0_APB_M_PSLVERR),
         .s_apb_pwdata(axi_apb_bridge_0_APB_M_PWDATA),
         .s_apb_pwrite(axi_apb_bridge_0_APB_M_PWRITE));
-  system_BuzzerTest_0_0 BuzzerTest_0
-       (.BusClock(APBSlave_Breakout_1_BusClock),
-        .BusPAddr(APBSlave_Breakout_1_BusPAddr),
-        .BusPEnable(APBSlave_Breakout_1_BusPEnable),
-        .BusPError(BuzzerTest_0_BusPError),
-        .BusPReadData(BuzzerTest_0_BusPReadData),
-        .BusPReady(BuzzerTest_0_BusPReady),
-        .BusPSel(APBSlave_Breakout_1_BusPSel),
-        .BusPWrite(APBSlave_Breakout_1_BusPWrite),
-        .BusPWriteData(APBSlave_Breakout_1_BusPWriteData),
-        .Buzzer(BuzzerTest_0_Buzzer),
-        .Clock(processing_system7_0_FCLK_CLK1));
   system_RGBTest_0_0 RGBTest_0
        (.Clock(processing_system7_0_FCLK_CLK1),
         .RGB(RGBTest_0_RGB));
@@ -1110,10 +1065,9 @@ module system
        (.m_apb_paddr(axi_apb_bridge_0_APB_M_PADDR),
         .m_apb_penable(axi_apb_bridge_0_APB_M_PENABLE),
         .m_apb_prdata(axi_apb_bridge_0_APB_M_PRDATA),
-        .m_apb_prdata2(axi_apb_bridge_0_APB_M2_PRDATA),
-        .m_apb_pready({axi_apb_bridge_0_APB_M2_PREADY,axi_apb_bridge_0_APB_M_PREADY}),
-        .m_apb_psel({axi_apb_bridge_0_APB_M2_PSEL,axi_apb_bridge_0_APB_M_PSEL}),
-        .m_apb_pslverr({axi_apb_bridge_0_APB_M2_PSLVERR,axi_apb_bridge_0_APB_M_PSLVERR}),
+        .m_apb_pready(axi_apb_bridge_0_APB_M_PREADY),
+        .m_apb_psel(axi_apb_bridge_0_APB_M_PSEL),
+        .m_apb_pslverr(axi_apb_bridge_0_APB_M_PSLVERR),
         .m_apb_pwdata(axi_apb_bridge_0_APB_M_PWDATA),
         .m_apb_pwrite(axi_apb_bridge_0_APB_M_PWRITE),
         .s_axi_aclk(processing_system7_0_FCLK_CLK1),
