@@ -249,7 +249,7 @@ proc create_root_design { parentCell } {
    CONFIG.c_include_s2mm {0} \
    CONFIG.c_m_axi_mm2s_data_width {32} \
    CONFIG.c_m_axis_mm2s_tdata_width {24} \
-   CONFIG.c_mm2s_genlock_mode {3} \
+   CONFIG.c_mm2s_genlock_mode {1} \
    CONFIG.c_mm2s_max_burst_length {16} \
    CONFIG.c_num_fstores {2} \
    CONFIG.c_s2mm_genlock_mode {0} \

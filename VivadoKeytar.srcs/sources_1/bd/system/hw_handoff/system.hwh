@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Jul 24 19:25:13 2020" VIVADOVERSION="2020.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Jul 24 20:31:32 2020" VIVADOVERSION="2020.1">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z020" NAME="system" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -4049,7 +4049,7 @@
         <PARAMETER NAME="C_M_AXI_SG_ADDR_WIDTH" VALUE="32"/>
         <PARAMETER NAME="C_M_AXI_SG_DATA_WIDTH" VALUE="32"/>
         <PARAMETER NAME="C_INCLUDE_MM2S" VALUE="1"/>
-        <PARAMETER NAME="C_MM2S_GENLOCK_MODE" VALUE="3"/>
+        <PARAMETER NAME="C_MM2S_GENLOCK_MODE" VALUE="1"/>
         <PARAMETER NAME="C_MM2S_GENLOCK_NUM_MASTERS" VALUE="1"/>
         <PARAMETER NAME="C_MM2S_GENLOCK_REPEAT_EN" VALUE="0"/>
         <PARAMETER NAME="C_MM2S_SOF_ENABLE" VALUE="1"/>
@@ -4113,7 +4113,7 @@
         <PARAMETER NAME="c_mm2s_sof_enable" VALUE="1"/>
         <PARAMETER NAME="c_s2mm_sof_enable" VALUE="1"/>
         <PARAMETER NAME="c_include_internal_genlock" VALUE="1"/>
-        <PARAMETER NAME="c_mm2s_genlock_mode" VALUE="3"/>
+        <PARAMETER NAME="c_mm2s_genlock_mode" VALUE="1"/>
         <PARAMETER NAME="c_mm2s_genlock_num_masters" VALUE="1"/>
         <PARAMETER NAME="c_s2mm_genlock_mode" VALUE="0"/>
         <PARAMETER NAME="c_s2mm_genlock_num_masters" VALUE="1"/>
