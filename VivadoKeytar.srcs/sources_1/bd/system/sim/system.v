@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Sat Jul 25 03:25:59 2020
+//Date        : Sat Jul 25 15:13:27 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -1017,7 +1017,7 @@ module s00_couplers_imp_LJEUBV
         .s_axi_wvalid(s00_couplers_to_auto_pc_WVALID));
 endmodule
 
-(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=30,numReposBlks=22,numNonXlnxBlks=3,numHierBlks=8,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=2,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
+(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=32,numReposBlks=24,numNonXlnxBlks=3,numHierBlks=8,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=4,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
    (Blue,
     Buzzer,
@@ -1051,6 +1051,9 @@ module system
     I2C_sda_i,
     I2C_sda_o,
     I2C_sda_t,
+    I2S_Clk,
+    I2S_DOut,
+    I2S_WS,
     PClk,
     RGB,
     Red,
@@ -1088,11 +1091,14 @@ module system
   (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 I2C SDA_I" *) input I2C_sda_i;
   (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 I2C SDA_O" *) output I2C_sda_o;
   (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 I2C SDA_T" *) output I2C_sda_t;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.I2S_CLK DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.I2S_CLK, CLK_DOMAIN system_AudioOutController_0_1_I2S_Clk, FREQ_HZ 100000000, LAYERED_METADATA undef, PHASE 0.000" *) output I2S_Clk;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.I2S_DOUT DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.I2S_DOUT, LAYERED_METADATA undef" *) output I2S_DOut;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.I2S_WS DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.I2S_WS, LAYERED_METADATA undef" *) output I2S_WS;
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.PCLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.PCLK, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, FREQ_HZ 150000000, FREQ_TOLERANCE_HZ 0, INSERT_VIP 0, PHASE 0.000" *) output [0:0]PClk;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.RGB DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.RGB, LAYERED_METADATA undef" *) output [2:0]RGB;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.RED DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.RED, LAYERED_METADATA undef" *) output [4:0]Red;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.VSYNC DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.VSYNC, LAYERED_METADATA undef" *) output [0:0]VSync;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.WAVEFORM DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.WAVEFORM, LAYERED_METADATA undef" *) output [0:0]Waveform;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.WAVEFORM DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.WAVEFORM, LAYERED_METADATA undef" *) output [23:0]Waveform;
 
   wire APBSlave_Breakout_2_BusClock;
   wire [31:0]APBSlave_Breakout_2_BusPAddr;
@@ -1100,7 +1106,16 @@ module system
   wire APBSlave_Breakout_2_BusPSel;
   wire APBSlave_Breakout_2_BusPWrite;
   wire [31:0]APBSlave_Breakout_2_BusPWriteData;
+  wire APBSlave_Breakout_synth_BusClock;
+  wire [31:0]APBSlave_Breakout_synth_BusPAddr;
+  wire APBSlave_Breakout_synth_BusPEnable;
+  wire APBSlave_Breakout_synth_BusPSel;
+  wire APBSlave_Breakout_synth_BusPWrite;
+  wire [31:0]APBSlave_Breakout_synth_BusPWriteData;
   wire [0:0]ARESETN_1;
+  wire AudioOutController_0_I2S_Clk;
+  wire AudioOutController_0_I2S_Data;
+  wire AudioOutController_0_I2S_WordSel;
   wire [0:0]Net;
   wire [2:0]RGBTest_0_RGB;
   wire [31:0]S00_AXI_2_ARADDR;
@@ -1116,6 +1131,10 @@ module system
   wire S00_AXI_2_RREADY;
   wire [1:0]S00_AXI_2_RRESP;
   wire S00_AXI_2_RVALID;
+  wire Synth_0_BusPError;
+  wire [31:0]Synth_0_BusPReadData;
+  wire Synth_0_BusPReady;
+  wire [23:0]Synth_0_Waveform;
   wire [4:0]VideoBreakout_0_Blue;
   wire VideoBreakout_0_BusPError;
   wire [31:0]VideoBreakout_0_BusPReadData;
@@ -1354,17 +1373,26 @@ module system
   assign I2C_scl_t = processing_system7_0_IIC_0_SCL_T;
   assign I2C_sda_o = processing_system7_0_IIC_0_SDA_O;
   assign I2C_sda_t = processing_system7_0_IIC_0_SDA_T;
+  assign I2S_Clk = AudioOutController_0_I2S_Clk;
+  assign I2S_DOut = AudioOutController_0_I2S_Data;
+  assign I2S_WS = AudioOutController_0_I2S_WordSel;
   assign PClk[0] = VideoBreakout_0_PClk;
   assign RGB[2:0] = RGBTest_0_RGB;
   assign Red[4:0] = VideoBreakout_0_Red;
   assign VSync[0] = VideoBreakout_0_VSync;
-  assign Waveform[0] = const_0_2_dout;
+  assign Waveform[23:0] = Synth_0_Waveform;
   assign processing_system7_0_IIC_0_SCL_I = I2C_scl_i;
   assign processing_system7_0_IIC_0_SDA_I = I2C_sda_i;
   system_APBSlave_Breakout_2_0 APBSlave_Breakout_synth
-       (.BusPError(1'b0),
-        .BusPReadData({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
-        .BusPReady(1'b0),
+       (.BusClock(APBSlave_Breakout_synth_BusClock),
+        .BusPAddr(APBSlave_Breakout_synth_BusPAddr),
+        .BusPEnable(APBSlave_Breakout_synth_BusPEnable),
+        .BusPError(Synth_0_BusPError),
+        .BusPReadData(Synth_0_BusPReadData),
+        .BusPReady(Synth_0_BusPReady),
+        .BusPSel(APBSlave_Breakout_synth_BusPSel),
+        .BusPWrite(APBSlave_Breakout_synth_BusPWrite),
+        .BusPWriteData(APBSlave_Breakout_synth_BusPWriteData),
         .s_apb_paddr(axi_apb_bridge_1_APB_M_PADDR),
         .s_apb_pclock(processing_system7_0_FCLK_CLK0),
         .s_apb_penable(axi_apb_bridge_1_APB_M_PENABLE),
@@ -1393,9 +1421,27 @@ module system
         .s_apb_pslverr(axi_apb_bridge_0_APB_M_PSLVERR),
         .s_apb_pwdata(axi_apb_bridge_0_APB_M_PWDATA),
         .s_apb_pwrite(axi_apb_bridge_0_APB_M_PWRITE));
+  system_AudioOutController_0_1 AudioOutController_0
+       (.Clock100MHz(processing_system7_0_FCLK_CLK0),
+        .I2S_Clk(AudioOutController_0_I2S_Clk),
+        .I2S_Data(AudioOutController_0_I2S_Data),
+        .I2S_WordSel(AudioOutController_0_I2S_WordSel),
+        .Waveform(Synth_0_Waveform));
   system_RGBTest_0_0 RGBTest_0
        (.Clock(processing_system7_0_FCLK_CLK1),
         .RGB(RGBTest_0_RGB));
+  system_Synth_0_0 Synth_0
+       (.BusClock(APBSlave_Breakout_synth_BusClock),
+        .BusPAddr(APBSlave_Breakout_synth_BusPAddr),
+        .BusPEnable(APBSlave_Breakout_synth_BusPEnable),
+        .BusPError(Synth_0_BusPError),
+        .BusPReadData(Synth_0_BusPReadData),
+        .BusPReady(Synth_0_BusPReady),
+        .BusPSel(APBSlave_Breakout_synth_BusPSel),
+        .BusPWrite(APBSlave_Breakout_synth_BusPWrite),
+        .BusPWriteData(APBSlave_Breakout_synth_BusPWriteData),
+        .Clock100MHz(processing_system7_0_FCLK_CLK0),
+        .Waveform(Synth_0_Waveform));
   system_VideoBreakout_0_0 VideoBreakout_0
        (.Blue(VideoBreakout_0_Blue),
         .De(VideoBreakout_0_De),

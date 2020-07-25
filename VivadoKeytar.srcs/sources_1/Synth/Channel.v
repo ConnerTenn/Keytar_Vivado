@@ -82,6 +82,7 @@ module Channel
                     ADDRESS+4*4: BusPReadData <= {8'h0, decay};
                     ADDRESS+4*5: BusPReadData <= {8'h0, releas};
                     ADDRESS+4*6: BusPReadData <= {31'h0, gate};
+                    ADDRESS+4*7: BusPReadData <= {8'h0, envelope};
                 endcase
             end
         end
@@ -99,6 +100,7 @@ module Channel
                     ADDRESS+4*4: sustain <= BusPWriteData[23:0];
                     ADDRESS+4*5: releas <= BusPWriteData[23:0];
                     ADDRESS+4*6: gate <= BusPWriteData[0:0];
+                    // ADDRESS+4*7: 
                 endcase
             end
 

@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Sat Jul 25 03:25:59 2020
+//Date        : Sat Jul 25 15:13:27 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -38,6 +38,9 @@ module system_wrapper
     HSync,
     I2C_scl_io,
     I2C_sda_io,
+    I2S_Clk,
+    I2S_DOut,
+    I2S_WS,
     PClk,
     RGB,
     Red,
@@ -71,11 +74,14 @@ module system_wrapper
   output [0:0]HSync;
   inout I2C_scl_io;
   inout I2C_sda_io;
+  output I2S_Clk;
+  output I2S_DOut;
+  output I2S_WS;
   output [0:0]PClk;
   output [2:0]RGB;
   output [4:0]Red;
   output [0:0]VSync;
-  output [0:0]Waveform;
+  output [23:0]Waveform;
 
   wire [4:0]Blue;
   wire [0:0]Buzzer;
@@ -111,11 +117,14 @@ module system_wrapper
   wire I2C_sda_io;
   wire I2C_sda_o;
   wire I2C_sda_t;
+  wire I2S_Clk;
+  wire I2S_DOut;
+  wire I2S_WS;
   wire [0:0]PClk;
   wire [2:0]RGB;
   wire [4:0]Red;
   wire [0:0]VSync;
-  wire [0:0]Waveform;
+  wire [23:0]Waveform;
 
   IOBUF I2C_scl_iobuf
        (.I(I2C_scl_o),
@@ -160,6 +169,9 @@ module system_wrapper
         .I2C_sda_i(I2C_sda_i),
         .I2C_sda_o(I2C_sda_o),
         .I2C_sda_t(I2C_sda_t),
+        .I2S_Clk(I2S_Clk),
+        .I2S_DOut(I2S_DOut),
+        .I2S_WS(I2S_WS),
         .PClk(PClk),
         .RGB(RGB),
         .Red(Red),

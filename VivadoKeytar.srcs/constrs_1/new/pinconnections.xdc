@@ -8,6 +8,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports {RGB[2]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {RGB[1]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {RGB[0]}]
 
+
 #Buzzer
 set_property PACKAGE_PIN P18 [get_ports {Buzzer}]
 set_property IOSTANDARD LVCMOS33 [get_ports {Buzzer}]
@@ -38,6 +39,8 @@ set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[2]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[1]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[0]}]
+
+
 
 #HDMI
 set_property PACKAGE_PIN U20 [get_ports {Red[0]}]
@@ -92,6 +95,14 @@ set_property IOSTANDARD LVCMOS33 [get_ports I2C_scl_io]
 set_property IOSTANDARD LVCMOS33 [get_ports I2C_sda_io]
 
 
+#HDMI Audio
+set_property PACKAGE_PIN T17 [get_ports I2S_Clk]
+set_property PACKAGE_PIN V17 [get_ports I2S_DOut]
+set_property PACKAGE_PIN R18 [get_ports I2S_WS]
+
+set_property IOSTANDARD LVCMOS33 [get_ports I2S_Clk]
+set_property IOSTANDARD LVCMOS33 [get_ports I2S_DOut]
+set_property IOSTANDARD LVCMOS33 [get_ports I2S_WS]
 
 
 
