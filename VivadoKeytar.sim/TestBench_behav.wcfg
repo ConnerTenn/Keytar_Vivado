@@ -11,13 +11,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="335000001fs"></ZoomEndTime>
-      <Cursor1Time time="150000000fs"></Cursor1Time>
+      <ZoomStartTime time="56938701fs"></ZoomStartTime>
+      <ZoomEndTime time="742212260fs"></ZoomEndTime>
+      <Cursor1Time time="628000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="174"></NameColumnWidth>
-      <ValueColumnWidth column_width="75"></ValueColumnWidth>
+      <NameColumnWidth column_width="187"></NameColumnWidth>
+      <ValueColumnWidth column_width="90"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="5" />
    <wvobject type="logic" fp_name="/TestBench/clock1MHz">
@@ -87,6 +87,10 @@
          <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
          <obj_property name="AnalogHorizLine">0.000000</obj_property>
       </wvobject>
+      <wvobject type="array" fp_name="/TestBench/synth/\channels[0].channel0 /adsr/ADSRstate">
+         <obj_property name="ElementShortName">ADSRstate[1:0]</obj_property>
+         <obj_property name="ObjectShortName">ADSRstate[1:0]</obj_property>
+      </wvobject>
       <wvobject type="array" fp_name="/TestBench/synth/\channels[0].channel0 /envelope">
          <obj_property name="ElementShortName">envelope[23:0]</obj_property>
          <obj_property name="ObjectShortName">envelope[23:0]</obj_property>
@@ -131,6 +135,10 @@
          <obj_property name="AnalogInterpolation">ANALOG_INTERPOLATION_LINEAR</obj_property>
          <obj_property name="AnalogOffscale">ANALOG_OFFSCALE_HIDE</obj_property>
          <obj_property name="AnalogHorizLine">0.000000</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/TestBench/synth/\channels[1].channel0 /adsr/ADSRstate">
+         <obj_property name="ElementShortName">ADSRstate[1:0]</obj_property>
+         <obj_property name="ObjectShortName">ADSRstate[1:0]</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/TestBench/synth/\channels[1].channel0 /envelope">
          <obj_property name="ElementShortName">envelope[23:0]</obj_property>

@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Sat Jul 25 15:13:27 2020
+//Date        : Tue Jul 28 00:43:28 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -1021,6 +1021,7 @@ endmodule
 module system
    (Blue,
     Buzzer,
+    Clk12MHz,
     DDR_addr,
     DDR_ba,
     DDR_cas_n,
@@ -1061,6 +1062,7 @@ module system
     Waveform);
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.BLUE DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.BLUE, LAYERED_METADATA undef" *) output [4:0]Blue;
   output [0:0]Buzzer;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.CLK12MHZ CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.CLK12MHZ, CLK_DOMAIN system_Clk12MHz, FREQ_HZ 12000000, FREQ_TOLERANCE_HZ 0, INSERT_VIP 0, PHASE 0.000" *) input Clk12MHz;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR ADDR" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DDR, AXI_ARBITRATION_SCHEME TDM, BURST_LENGTH 8, CAN_DEBUG false, CAS_LATENCY 11, CAS_WRITE_LATENCY 11, CS_ENABLED true, DATA_MASK_ENABLED true, DATA_WIDTH 8, MEMORY_TYPE COMPONENTS, MEM_ADDR_MAP ROW_COLUMN_BANK, SLOT Single, TIMEPERIOD_PS 1250" *) inout [14:0]DDR_addr;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR BA" *) inout [2:0]DDR_ba;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR CAS_N" *) inout DDR_cas_n;
@@ -1116,6 +1118,7 @@ module system
   wire AudioOutController_0_I2S_Clk;
   wire AudioOutController_0_I2S_Data;
   wire AudioOutController_0_I2S_WordSel;
+  wire Clk12MHz_1;
   wire [0:0]Net;
   wire [2:0]RGBTest_0_RGB;
   wire [31:0]S00_AXI_2_ARADDR;
@@ -1366,6 +1369,7 @@ module system
 
   assign Blue[4:0] = VideoBreakout_0_Blue;
   assign Buzzer[0] = const_0_2_dout;
+  assign Clk12MHz_1 = Clk12MHz;
   assign De[0] = VideoBreakout_0_De;
   assign Green[5:0] = VideoBreakout_0_Green;
   assign HSync[0] = VideoBreakout_0_HSync;
@@ -1422,10 +1426,10 @@ module system
         .s_apb_pwdata(axi_apb_bridge_0_APB_M_PWDATA),
         .s_apb_pwrite(axi_apb_bridge_0_APB_M_PWRITE));
   system_AudioOutController_0_1 AudioOutController_0
-       (.Clock100MHz(processing_system7_0_FCLK_CLK0),
-        .I2S_Clk(AudioOutController_0_I2S_Clk),
-        .I2S_Data(AudioOutController_0_I2S_Data),
-        .I2S_WordSel(AudioOutController_0_I2S_WordSel),
+       (.Clock(Clk12MHz_1),
+        .I2SClk(AudioOutController_0_I2S_Clk),
+        .I2SData(AudioOutController_0_I2S_Data),
+        .I2SWordSel(AudioOutController_0_I2S_WordSel),
         .Waveform(Synth_0_Waveform));
   system_RGBTest_0_0 RGBTest_0
        (.Clock(processing_system7_0_FCLK_CLK1),

@@ -55,26 +55,26 @@
 (* IP_DEFINITION_SOURCE = "module_ref" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module system_AudioOutController_0_1 (
-  Clock100MHz,
+  Clock,
   Waveform,
-  I2S_Clk,
-  I2S_Data,
-  I2S_WordSel
+  I2SClk,
+  I2SData,
+  I2SWordSel
 );
 
-input wire Clock100MHz;
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME Clock, FREQ_HZ 12000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_Clk12MHz, INSERT_VIP 0" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 Clock CLK" *)
+input wire Clock;
 input wire [23 : 0] Waveform;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME I2S_Clk, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_AudioOutController_0_1_I2S_Clk, INSERT_VIP 0" *)
-(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 I2S_Clk CLK" *)
-output wire I2S_Clk;
-output wire I2S_Data;
-output wire I2S_WordSel;
+output wire I2SClk;
+output wire I2SData;
+output wire I2SWordSel;
 
   AudioOutController inst (
-    .Clock100MHz(Clock100MHz),
+    .Clock(Clock),
     .Waveform(Waveform),
-    .I2S_Clk(I2S_Clk),
-    .I2S_Data(I2S_Data),
-    .I2S_WordSel(I2S_WordSel)
+    .I2SClk(I2SClk),
+    .I2SData(I2SData),
+    .I2SWordSel(I2SWordSel)
   );
 endmodule

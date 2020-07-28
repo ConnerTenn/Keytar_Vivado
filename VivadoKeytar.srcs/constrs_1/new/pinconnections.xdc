@@ -96,9 +96,13 @@ set_property IOSTANDARD LVCMOS33 [get_ports I2C_sda_io]
 
 
 #HDMI Audio
+set_property PACKAGE_PIN U14 [get_ports Clk12MHz]
+
 set_property PACKAGE_PIN T17 [get_ports I2S_Clk]
 set_property PACKAGE_PIN V17 [get_ports I2S_DOut]
 set_property PACKAGE_PIN R18 [get_ports I2S_WS]
+
+set_property IOSTANDARD LVCMOS33 [get_ports Clk12MHz]
 
 set_property IOSTANDARD LVCMOS33 [get_ports I2S_Clk]
 set_property IOSTANDARD LVCMOS33 [get_ports I2S_DOut]

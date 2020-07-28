@@ -172,6 +172,7 @@ proc create_root_design { parentCell } {
   # Create ports
   set Blue [ create_bd_port -dir O -from 4 -to 0 -type data Blue ]
   set Buzzer [ create_bd_port -dir O -from 0 -to 0 Buzzer ]
+  set Clk12MHz [ create_bd_port -dir I -type clk -freq_hz 12000000 Clk12MHz ]
   set De [ create_bd_port -dir O -from 0 -to 0 -type data De ]
   set Green [ create_bd_port -dir O -from 5 -to 0 -type data Green ]
   set HSync [ create_bd_port -dir O -from 0 -to 0 -type data HSync ]
@@ -329,7 +330,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ACT_DCI_PERIPHERAL_FREQMHZ {10.158730} \
    CONFIG.PCW_ACT_ENET0_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_ENET1_PERIPHERAL_FREQMHZ {10.000000} \
-   CONFIG.PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ {100.000000} \
+   CONFIG.PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ {48.000000} \
    CONFIG.PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ {150.000000} \
    CONFIG.PCW_ACT_FPGA2_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_FPGA3_PERIPHERAL_FREQMHZ {10.000000} \
@@ -350,7 +351,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ARMPLL_CTRL_FBDIV {40} \
    CONFIG.PCW_CAN_PERIPHERAL_DIVISOR0 {1} \
    CONFIG.PCW_CAN_PERIPHERAL_DIVISOR1 {1} \
-   CONFIG.PCW_CLK0_FREQ {100000000} \
+   CONFIG.PCW_CLK0_FREQ {48000000} \
    CONFIG.PCW_CLK1_FREQ {150000000} \
    CONFIG.PCW_CLK2_FREQ {10000000} \
    CONFIG.PCW_CLK3_FREQ {10000000} \
@@ -380,8 +381,9 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_EN_RST1_PORT {1} \
    CONFIG.PCW_EN_SDIO0 {1} \
    CONFIG.PCW_EN_UART1 {1} \
-   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR0 {4} \
-   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR1 {3} \
+   CONFIG.PCW_FCLK0_PERIPHERAL_CLKSRC {IO PLL} \
+   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR0 {5} \
+   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR1 {5} \
    CONFIG.PCW_FCLK1_PERIPHERAL_CLKSRC {IO PLL} \
    CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR0 {8} \
    CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR1 {1} \
@@ -391,7 +393,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_FCLK3_PERIPHERAL_DIVISOR1 {1} \
    CONFIG.PCW_FCLK_CLK0_BUF {FALSE} \
    CONFIG.PCW_FCLK_CLK1_BUF {TRUE} \
-   CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {100} \
+   CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {48} \
    CONFIG.PCW_FPGA1_PERIPHERAL_FREQMHZ {149} \
    CONFIG.PCW_FPGA_FCLK0_ENABLE {1} \
    CONFIG.PCW_FPGA_FCLK1_ENABLE {1} \
@@ -746,9 +748,10 @@ proc create_root_design { parentCell } {
   connect_bd_net -net APBSlave_Breakout_synth_BusPWrite [get_bd_pins APBSlave_Breakout_synth/BusPWrite] [get_bd_pins Synth_0/BusPWrite]
   connect_bd_net -net APBSlave_Breakout_synth_BusPWriteData [get_bd_pins APBSlave_Breakout_synth/BusPWriteData] [get_bd_pins Synth_0/BusPWriteData]
   connect_bd_net -net ARESETN_1 [get_bd_pins axi_interconnect_vdma/ARESETN] [get_bd_pins axi_interconnect_video_ctl/ARESETN] [get_bd_pins proc_sys_reset_1/interconnect_aresetn]
-  connect_bd_net -net AudioOutController_0_I2S_Clk [get_bd_ports I2S_Clk] [get_bd_pins AudioOutController_0/I2S_Clk]
-  connect_bd_net -net AudioOutController_0_I2S_Data [get_bd_ports I2S_DOut] [get_bd_pins AudioOutController_0/I2S_Data]
-  connect_bd_net -net AudioOutController_0_I2S_WordSel [get_bd_ports I2S_WS] [get_bd_pins AudioOutController_0/I2S_WordSel]
+  connect_bd_net -net AudioOutController_0_I2S_Clk [get_bd_ports I2S_Clk] [get_bd_pins AudioOutController_0/I2SClk]
+  connect_bd_net -net AudioOutController_0_I2S_Data [get_bd_ports I2S_DOut] [get_bd_pins AudioOutController_0/I2SData]
+  connect_bd_net -net AudioOutController_0_I2S_WordSel [get_bd_ports I2S_WS] [get_bd_pins AudioOutController_0/I2SWordSel]
+  connect_bd_net -net Clk12MHz_1 [get_bd_ports Clk12MHz] [get_bd_pins AudioOutController_0/Clock]
   connect_bd_net -net Net [get_bd_pins const_HIGH_2/dout] [get_bd_pins v_axi4s_vid_out_0/aclken] [get_bd_pins v_axi4s_vid_out_0/vid_io_out_ce] [get_bd_pins v_tc_0/clken]
   connect_bd_net -net RGBTest_0_RGB [get_bd_ports RGB] [get_bd_pins RGBTest_0/RGB]
   connect_bd_net -net Synth_0_BusPError [get_bd_pins APBSlave_Breakout_synth/BusPError] [get_bd_pins Synth_0/BusPError]
@@ -772,7 +775,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net proc_sys_reset_0_interconnect_aresetn [get_bd_pins axi_interconnect_synth/ARESETN] [get_bd_pins proc_sys_reset_0/interconnect_aresetn]
   connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins axi_apb_bridge_1/s_axi_aresetn] [get_bd_pins axi_interconnect_synth/M00_ARESETN] [get_bd_pins axi_interconnect_synth/S00_ARESETN] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
   connect_bd_net -net proc_sys_reset_1_peripheral_aresetn [get_bd_pins axi_apb_bridge_0/s_axi_aresetn] [get_bd_pins axi_interconnect_vdma/M00_ARESETN] [get_bd_pins axi_interconnect_vdma/S00_ARESETN] [get_bd_pins axi_interconnect_video_ctl/M00_ARESETN] [get_bd_pins axi_interconnect_video_ctl/M01_ARESETN] [get_bd_pins axi_interconnect_video_ctl/S00_ARESETN] [get_bd_pins axi_vdma_0/axi_resetn] [get_bd_pins proc_sys_reset_1/peripheral_aresetn] [get_bd_pins v_axi4s_vid_out_0/aresetn] [get_bd_pins v_tc_0/resetn]
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins APBSlave_Breakout_synth/s_apb_pclock] [get_bd_pins AudioOutController_0/Clock100MHz] [get_bd_pins Synth_0/Clock100MHz] [get_bd_pins axi_apb_bridge_1/s_axi_aclk] [get_bd_pins axi_interconnect_synth/ACLK] [get_bd_pins axi_interconnect_synth/M00_ACLK] [get_bd_pins axi_interconnect_synth/S00_ACLK] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins APBSlave_Breakout_synth/s_apb_pclock] [get_bd_pins Synth_0/Clock100MHz] [get_bd_pins axi_apb_bridge_1/s_axi_aclk] [get_bd_pins axi_interconnect_synth/ACLK] [get_bd_pins axi_interconnect_synth/M00_ACLK] [get_bd_pins axi_interconnect_synth/S00_ACLK] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK]
   connect_bd_net -net processing_system7_0_FCLK_CLK1 [get_bd_pins APBSlave_Breakout_video_ctl/s_apb_pclock] [get_bd_pins RGBTest_0/Clock] [get_bd_pins VideoBreakout_0/PClock] [get_bd_pins axi_apb_bridge_0/s_axi_aclk] [get_bd_pins axi_interconnect_vdma/ACLK] [get_bd_pins axi_interconnect_vdma/M00_ACLK] [get_bd_pins axi_interconnect_vdma/S00_ACLK] [get_bd_pins axi_interconnect_video_ctl/ACLK] [get_bd_pins axi_interconnect_video_ctl/M00_ACLK] [get_bd_pins axi_interconnect_video_ctl/M01_ACLK] [get_bd_pins axi_interconnect_video_ctl/S00_ACLK] [get_bd_pins axi_vdma_0/m_axi_mm2s_aclk] [get_bd_pins axi_vdma_0/m_axis_mm2s_aclk] [get_bd_pins axi_vdma_0/s_axi_lite_aclk] [get_bd_pins proc_sys_reset_1/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK1] [get_bd_pins processing_system7_0/M_AXI_GP1_ACLK] [get_bd_pins processing_system7_0/S_AXI_GP0_ACLK] [get_bd_pins v_axi4s_vid_out_0/aclk] [get_bd_pins v_tc_0/clk]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
   connect_bd_net -net processing_system7_0_FCLK_RESET1_N [get_bd_pins proc_sys_reset_1/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET1_N]

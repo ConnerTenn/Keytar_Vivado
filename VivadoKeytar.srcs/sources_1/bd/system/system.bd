@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x31A04DB4A6906486",
+      "boundary_crc": "0x300B31F6D273BA49",
       "device": "xc7z020clg400-1",
       "name": "system",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
@@ -290,6 +290,31 @@
             "value_src": "default_prop"
           }
         }
+      },
+      "Clk12MHz": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "system_Clk12MHz",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "12000000"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.000",
+            "value_src": "default"
+          }
+        }
       }
     },
     "components": {
@@ -313,7 +338,7 @@
             "value": "10.000000"
           },
           "PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ": {
-            "value": "100.000000"
+            "value": "48.000000"
           },
           "PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ": {
             "value": "150.000000"
@@ -367,7 +392,7 @@
             "value": "111.111115"
           },
           "PCW_CLK0_FREQ": {
-            "value": "100000000"
+            "value": "48000000"
           },
           "PCW_CLK1_FREQ": {
             "value": "150000000"
@@ -414,6 +439,9 @@
           "PCW_EN_UART1": {
             "value": "1"
           },
+          "PCW_FCLK0_PERIPHERAL_CLKSRC": {
+            "value": "IO PLL"
+          },
           "PCW_FCLK1_PERIPHERAL_CLKSRC": {
             "value": "IO PLL"
           },
@@ -424,7 +452,7 @@
             "value": "TRUE"
           },
           "PCW_FPGA0_PERIPHERAL_FREQMHZ": {
-            "value": "100"
+            "value": "48"
           },
           "PCW_FPGA1_PERIPHERAL_FREQMHZ": {
             "value": "149"
@@ -1360,22 +1388,16 @@
           }
         },
         "interface_nets": {
-          "s00_couplers_to_xbar": {
-            "interface_ports": [
-              "s00_couplers/M_AXI",
-              "xbar/S00_AXI"
-            ]
-          },
           "axi_interconnect_video_ctl_to_s00_couplers": {
             "interface_ports": [
               "S00_AXI",
               "s00_couplers/S_AXI"
             ]
           },
-          "m01_couplers_to_axi_interconnect_video_ctl": {
+          "xbar_to_m00_couplers": {
             "interface_ports": [
-              "M01_AXI",
-              "m01_couplers/M_AXI"
+              "xbar/M00_AXI",
+              "m00_couplers/S_AXI"
             ]
           },
           "m00_couplers_to_axi_interconnect_video_ctl": {
@@ -1384,10 +1406,16 @@
               "m00_couplers/M_AXI"
             ]
           },
-          "xbar_to_m00_couplers": {
+          "s00_couplers_to_xbar": {
             "interface_ports": [
-              "xbar/M00_AXI",
-              "m00_couplers/S_AXI"
+              "s00_couplers/M_AXI",
+              "xbar/S00_AXI"
+            ]
+          },
+          "m01_couplers_to_axi_interconnect_video_ctl": {
+            "interface_ports": [
+              "M01_AXI",
+              "m01_couplers/M_AXI"
             ]
           },
           "xbar_to_m01_couplers": {
@@ -1790,16 +1818,16 @@
               }
             },
             "interface_nets": {
-              "auto_pc_to_s00_couplers": {
-                "interface_ports": [
-                  "M_AXI",
-                  "auto_pc/M_AXI"
-                ]
-              },
               "s00_couplers_to_auto_pc": {
                 "interface_ports": [
                   "S_AXI",
                   "auto_pc/S_AXI"
+                ]
+              },
+              "auto_pc_to_s00_couplers": {
+                "interface_ports": [
+                  "M_AXI",
+                  "auto_pc/M_AXI"
                 ]
               }
             },
@@ -2082,16 +2110,16 @@
               }
             },
             "interface_nets": {
-              "s00_couplers_to_auto_pc": {
-                "interface_ports": [
-                  "S_AXI",
-                  "auto_pc/S_AXI"
-                ]
-              },
               "auto_pc_to_s00_couplers": {
                 "interface_ports": [
                   "M_AXI",
                   "auto_pc/M_AXI"
+                ]
+              },
+              "s00_couplers_to_auto_pc": {
+                "interface_ports": [
+                  "S_AXI",
+                  "auto_pc/S_AXI"
                 ]
               }
             },
@@ -2195,7 +2223,7 @@
                 "value_src": "default_prop"
               },
               "FREQ_HZ": {
-                "value": "100000000",
+                "value": "48000000",
                 "value_src": "user_prop"
               },
               "PHASE": {
@@ -2259,20 +2287,17 @@
           "boundary_crc": "0x0"
         },
         "ports": {
-          "Clock100MHz": {
+          "Clock": {
+            "type": "clk",
             "direction": "I",
             "parameters": {
               "CLK_DOMAIN": {
-                "value": "system_processing_system7_0_0_FCLK_CLK0",
+                "value": "system_Clk12MHz",
                 "value_src": "default_prop"
               },
               "FREQ_HZ": {
-                "value": "100000000",
+                "value": "12000000",
                 "value_src": "user_prop"
-              },
-              "PHASE": {
-                "value": "0.000",
-                "value_src": "default_prop"
               }
             }
           },
@@ -2281,11 +2306,7 @@
             "left": "23",
             "right": "0"
           },
-          "I2S_Clk": {
-            "type": "clk",
-            "direction": "O"
-          },
-          "I2S_Data": {
+          "I2SClk": {
             "direction": "O",
             "parameters": {
               "LAYERED_METADATA": {
@@ -2294,7 +2315,16 @@
               }
             }
           },
-          "I2S_WordSel": {
+          "I2SData": {
+            "direction": "O",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "",
+                "value_src": "weak"
+              }
+            }
+          },
+          "I2SWordSel": {
             "direction": "O",
             "parameters": {
               "LAYERED_METADATA": {
@@ -2646,8 +2676,7 @@
           "axi_interconnect_synth/M00_ACLK",
           "axi_apb_bridge_1/s_axi_aclk",
           "APBSlave_Breakout_synth/s_apb_pclock",
-          "Synth_0/Clock100MHz",
-          "AudioOutController_0/Clock100MHz"
+          "Synth_0/Clock100MHz"
         ]
       },
       "processing_system7_0_FCLK_RESET0_N": {
@@ -2733,20 +2762,26 @@
       },
       "AudioOutController_0_I2S_Data": {
         "ports": [
-          "AudioOutController_0/I2S_Data",
+          "AudioOutController_0/I2SData",
           "I2S_DOut"
         ]
       },
       "AudioOutController_0_I2S_WordSel": {
         "ports": [
-          "AudioOutController_0/I2S_WordSel",
+          "AudioOutController_0/I2SWordSel",
           "I2S_WS"
         ]
       },
       "AudioOutController_0_I2S_Clk": {
         "ports": [
-          "AudioOutController_0/I2S_Clk",
+          "AudioOutController_0/I2SClk",
           "I2S_Clk"
+        ]
+      },
+      "Clk12MHz_1": {
+        "ports": [
+          "Clk12MHz",
+          "AudioOutController_0/Clock"
         ]
       }
     },

@@ -50,32 +50,31 @@
 // IP VLNV: xilinx.com:module_ref:AudioOutController:1.0
 // IP Revision: 1
 
-(* X_CORE_INFO = "AudioOutController,Vivado 2020.1" *)
-(* CHECK_LICENSE_TYPE = "system_AudioOutController_0_1,AudioOutController,{}" *)
-(* CORE_GENERATION_INFO = "system_AudioOutController_0_1,AudioOutController,{x_ipProduct=Vivado 2020.1,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=AudioOutController,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED}" *)
+`timescale 1ns/1ps
+
 (* IP_DEFINITION_SOURCE = "module_ref" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module system_AudioOutController_0_1 (
-  Clock,
+  Clock100MHz,
   Waveform,
-  I2SClk,
-  I2SData,
-  I2SWordSel
+  I2S_Clk,
+  I2S_Data,
+  I2S_WordSel
 );
 
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME Clock, FREQ_HZ 12000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_Clk12MHz, INSERT_VIP 0" *)
-(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 Clock CLK" *)
-input wire Clock;
+input wire Clock100MHz;
 input wire [23 : 0] Waveform;
-output wire I2SClk;
-output wire I2SData;
-output wire I2SWordSel;
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME I2S_Clk, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_AudioOutController_0_1_I2S_Clk, INSERT_VIP 0" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 I2S_Clk CLK" *)
+output wire I2S_Clk;
+output wire I2S_Data;
+output wire I2S_WordSel;
 
   AudioOutController inst (
-    .Clock(Clock),
+    .Clock100MHz(Clock100MHz),
     .Waveform(Waveform),
-    .I2SClk(I2SClk),
-    .I2SData(I2SData),
-    .I2SWordSel(I2SWordSel)
+    .I2S_Clk(I2S_Clk),
+    .I2S_Data(I2S_Data),
+    .I2S_WordSel(I2S_WordSel)
   );
 endmodule

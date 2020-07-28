@@ -41,12 +41,13 @@ module Channel
     reg [23:0] attack = 0, decay = 0, sustain = 0, releas = 0;
     reg gate = 0;
     wire [23:0] envelope;
+    wire [1:0] adsrState;
 
     ADSR adsr(
         .Clock(Clock1MHz),
         .Gate(gate),
         .Running(running),
-        .ADSRstate(),
+        .ADSRstate(adsrState),
         .Attack(attack), .Decay(decay), .Sustain(sustain), .Release(releas),
         .Envelope(envelope)
     );
@@ -78,11 +79,12 @@ module Channel
                     ADDRESS+4*0: BusPReadData <= {8'h0, increment};
                     ADDRESS+4*1: BusPReadData <= {30'h0, wavetype};
                     ADDRESS+4*2: BusPReadData <= {8'h0, attack};
-                    ADDRESS+4*3: BusPReadData <= {8'h0, sustain};
-                    ADDRESS+4*4: BusPReadData <= {8'h0, decay};
+                    ADDRESS+4*3: BusPReadData <= {8'h0, decay};
+                    ADDRESS+4*4: BusPReadData <= {8'h0, sustain};
                     ADDRESS+4*5: BusPReadData <= {8'h0, releas};
                     ADDRESS+4*6: BusPReadData <= {31'h0, gate};
                     ADDRESS+4*7: BusPReadData <= {8'h0, envelope};
+                    ADDRESS+4*8: BusPReadData <= {30'h0, adsrState};
                 endcase
             end
         end
@@ -100,7 +102,8 @@ module Channel
                     ADDRESS+4*4: sustain <= BusPWriteData[23:0];
                     ADDRESS+4*5: releas <= BusPWriteData[23:0];
                     ADDRESS+4*6: gate <= BusPWriteData[0:0];
-                    // ADDRESS+4*7: 
+                    // ADDRESS+4*7:
+                    // ADDRESS+4*8:
                 endcase
             end
 
