@@ -51,9 +51,14 @@ module TestBench;
         buspwritedata <= 100_000;
         #1; buspenable <= 1; #1; buspenable <= 0;
 
+        //Channel[0] Increment
+        buspaddr <= 32'h4000_0004;
+        buspwritedata <= 1;
+        #1; buspenable <= 1; #1; buspenable <= 0;
+
         //Channel[0] Attack
         buspaddr <= 32'h4000_0008;
-        buspwritedata <= 100_000;
+        buspwritedata <= 50_000;
         #1; buspenable <= 1; #1; buspenable <= 0;
         //Channel[0] Decay
         buspaddr <= 32'h4000_000C;
@@ -76,7 +81,7 @@ module TestBench;
 
         //Channel[1] Attack
         buspaddr <= 32'h4000_0108;
-        buspwritedata <= 100_000;
+        buspwritedata <= 50_000;
         #1; buspenable <= 1; #1; buspenable <= 0;
         //Channel[1] Decay
         buspaddr <= 32'h4000_010C;
@@ -106,7 +111,7 @@ module TestBench;
         buspsel <= 0;
 
 
-        #400
+        #2000
 
         buspsel <= 1;
 

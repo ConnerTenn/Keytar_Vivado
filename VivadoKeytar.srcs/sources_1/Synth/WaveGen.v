@@ -23,8 +23,8 @@ module WaveGen(
     function automatic [23:0] WaveTypeSelect(
         input run,
         input [1:0] wavetype,
-        input [23:0] cntr,
-        input [23:0] pulsewidth
+        input signed [23:0] cntr,
+        input signed [23:0] pulsewidth
     );
         if (run == 0)
         begin
