@@ -96,17 +96,37 @@ set_property IOSTANDARD LVCMOS33 [get_ports I2C_sda_io]
 
 
 #HDMI Audio
-set_property PACKAGE_PIN U14 [get_ports Clk12MHz]
+# set_property PACKAGE_PIN U14 [get_ports Clk12MHz]
 
-set_property PACKAGE_PIN T17 [get_ports I2S_Clk]
-set_property PACKAGE_PIN V17 [get_ports I2S_DOut]
-set_property PACKAGE_PIN R18 [get_ports I2S_WS]
+# set_property PACKAGE_PIN T17 [get_ports I2S_Clk]
+# set_property PACKAGE_PIN V17 [get_ports I2S_DOut]
+# set_property PACKAGE_PIN R18 [get_ports I2S_WS]
 
-set_property IOSTANDARD LVCMOS33 [get_ports Clk12MHz]
+# set_property IOSTANDARD LVCMOS33 [get_ports Clk12MHz]
 
+# set_property IOSTANDARD LVCMOS33 [get_ports I2S_Clk]
+# set_property IOSTANDARD LVCMOS33 [get_ports I2S_DOut]
+# set_property IOSTANDARD LVCMOS33 [get_ports I2S_WS]
+
+
+#DAC Audio
+set_property PACKAGE_PIN J16 [get_ports DAC_MClk]
+set_property PACKAGE_PIN L15 [get_ports I2S_Clk]
+set_property PACKAGE_PIN L14 [get_ports I2S_DOut]
+set_property PACKAGE_PIN K16 [get_ports I2S_LR]
+set_property PACKAGE_PIN G19 [get_ports DAC_Reset]
+set_property PACKAGE_PIN G20 [get_ports I2S_Format]
+set_property PACKAGE_PIN J14 [get_ports {DAC_Mode[0]}]
+set_property PACKAGE_PIN K14 [get_ports {DAC_Mode[1]}]
+
+set_property IOSTANDARD LVCMOS33 [get_ports DAC_MClk]
 set_property IOSTANDARD LVCMOS33 [get_ports I2S_Clk]
 set_property IOSTANDARD LVCMOS33 [get_ports I2S_DOut]
-set_property IOSTANDARD LVCMOS33 [get_ports I2S_WS]
+set_property IOSTANDARD LVCMOS33 [get_ports I2S_LR]
+set_property IOSTANDARD LVCMOS33 [get_ports DAC_Reset]
+set_property IOSTANDARD LVCMOS33 [get_ports I2S_Format]
+set_property IOSTANDARD LVCMOS33 [get_ports {DAC_Mode[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {DAC_Mode[1]}]
 
 
 

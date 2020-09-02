@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Tue Jul 28 22:49:47 2020
+//Date        : Wed Sep  2 00:04:13 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -1017,11 +1017,14 @@ module s00_couplers_imp_LJEUBV
         .s_axi_wvalid(s00_couplers_to_auto_pc_WVALID));
 endmodule
 
-(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=32,numReposBlks=24,numNonXlnxBlks=3,numHierBlks=8,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=4,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
+(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=34,numReposBlks=26,numNonXlnxBlks=3,numHierBlks=8,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=4,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
    (Blue,
     Buzzer,
     Clk12MHz,
+    DAC_MClk,
+    DAC_Mode,
+    DAC_Reset,
     DDR_addr,
     DDR_ba,
     DDR_cas_n,
@@ -1054,7 +1057,8 @@ module system
     I2C_sda_t,
     I2S_Clk,
     I2S_DOut,
-    I2S_WS,
+    I2S_Format,
+    I2S_LR,
     PClk,
     RGB,
     Red,
@@ -1063,6 +1067,9 @@ module system
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.BLUE DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.BLUE, LAYERED_METADATA undef" *) output [4:0]Blue;
   output [0:0]Buzzer;
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.CLK12MHZ CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.CLK12MHZ, CLK_DOMAIN system_Clk12MHz, FREQ_HZ 12000000, FREQ_TOLERANCE_HZ 0, INSERT_VIP 0, PHASE 0.000" *) input Clk12MHz;
+  output DAC_MClk;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.DAC_MODE DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.DAC_MODE, LAYERED_METADATA undef" *) output [1:0]DAC_Mode;
+  output DAC_Reset;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR ADDR" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DDR, AXI_ARBITRATION_SCHEME TDM, BURST_LENGTH 8, CAN_DEBUG false, CAS_LATENCY 11, CAS_WRITE_LATENCY 11, CS_ENABLED true, DATA_MASK_ENABLED true, DATA_WIDTH 8, MEMORY_TYPE COMPONENTS, MEM_ADDR_MAP ROW_COLUMN_BANK, SLOT Single, TIMEPERIOD_PS 1250" *) inout [14:0]DDR_addr;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR BA" *) inout [2:0]DDR_ba;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR CAS_N" *) inout DDR_cas_n;
@@ -1095,7 +1102,8 @@ module system
   (* X_INTERFACE_INFO = "xilinx.com:interface:iic:1.0 I2C SDA_T" *) output I2C_sda_t;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.I2S_CLK DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.I2S_CLK, CLK_DOMAIN system_AudioOutController_0_1_I2S_Clk, FREQ_HZ 100000000, LAYERED_METADATA undef, PHASE 0.000" *) output I2S_Clk;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.I2S_DOUT DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.I2S_DOUT, LAYERED_METADATA undef" *) output I2S_DOut;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.I2S_WS DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.I2S_WS, LAYERED_METADATA undef" *) output I2S_WS;
+  output [0:0]I2S_Format;
+  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.I2S_LR DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.I2S_LR, LAYERED_METADATA undef" *) output I2S_LR;
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.PCLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.PCLK, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, FREQ_HZ 150000000, FREQ_TOLERANCE_HZ 0, INSERT_VIP 0, PHASE 0.000" *) output [0:0]PClk;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.RGB DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.RGB, LAYERED_METADATA undef" *) output [2:0]RGB;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.RED DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.RED, LAYERED_METADATA undef" *) output [4:0]Red;
@@ -1115,10 +1123,11 @@ module system
   wire APBSlave_Breakout_synth_BusPWrite;
   wire [31:0]APBSlave_Breakout_synth_BusPWriteData;
   wire [0:0]ARESETN_1;
+  wire AudioOutController_0_DAC_MClk;
+  wire AudioOutController_0_DAC_Reset;
   wire AudioOutController_0_I2S_Clk;
   wire AudioOutController_0_I2S_Data;
   wire AudioOutController_0_I2S_WordSel;
-  wire Clk12MHz_1;
   wire [0:0]Net;
   wire [2:0]RGBTest_0_RGB;
   wire [31:0]S00_AXI_2_ARADDR;
@@ -1236,6 +1245,8 @@ module system
   wire [5:0]axi_vdma_0_mm2s_frame_ptr_out;
   wire [0:0]const_0_0_dout;
   wire [0:0]const_0_2_dout;
+  wire [1:0]const_2_1_dout;
+  wire [0:0]const_HIGH_5_dout;
   wire [0:0]proc_sys_reset_0_interconnect_aresetn;
   wire [0:0]proc_sys_reset_0_peripheral_aresetn;
   wire [0:0]proc_sys_reset_1_peripheral_aresetn;
@@ -1369,7 +1380,9 @@ module system
 
   assign Blue[4:0] = VideoBreakout_0_Blue;
   assign Buzzer[0] = const_0_2_dout;
-  assign Clk12MHz_1 = Clk12MHz;
+  assign DAC_MClk = AudioOutController_0_DAC_MClk;
+  assign DAC_Mode[1:0] = const_2_1_dout;
+  assign DAC_Reset = AudioOutController_0_DAC_Reset;
   assign De[0] = VideoBreakout_0_De;
   assign Green[5:0] = VideoBreakout_0_Green;
   assign HSync[0] = VideoBreakout_0_HSync;
@@ -1379,7 +1392,8 @@ module system
   assign I2C_sda_t = processing_system7_0_IIC_0_SDA_T;
   assign I2S_Clk = AudioOutController_0_I2S_Clk;
   assign I2S_DOut = AudioOutController_0_I2S_Data;
-  assign I2S_WS = AudioOutController_0_I2S_WordSel;
+  assign I2S_Format[0] = const_HIGH_5_dout;
+  assign I2S_LR = AudioOutController_0_I2S_WordSel;
   assign PClk[0] = VideoBreakout_0_PClk;
   assign RGB[2:0] = RGBTest_0_RGB;
   assign Red[4:0] = VideoBreakout_0_Red;
@@ -1426,10 +1440,12 @@ module system
         .s_apb_pwdata(axi_apb_bridge_0_APB_M_PWDATA),
         .s_apb_pwrite(axi_apb_bridge_0_APB_M_PWRITE));
   system_AudioOutController_0_1 AudioOutController_0
-       (.Clock(Clk12MHz_1),
+       (.Clock(processing_system7_0_FCLK_CLK0),
+        .DAC_MClk(AudioOutController_0_DAC_MClk),
+        .DAC_Reset(AudioOutController_0_DAC_Reset),
         .I2SClk(AudioOutController_0_I2S_Clk),
         .I2SData(AudioOutController_0_I2S_Data),
-        .I2SWordSel(AudioOutController_0_I2S_WordSel),
+        .I2SLRSel(AudioOutController_0_I2S_WordSel),
         .Waveform(Synth_0_Waveform));
   system_RGBTest_0_0 RGBTest_0
        (.Clock(processing_system7_0_FCLK_CLK1),
@@ -1753,10 +1769,14 @@ module system
        (.dout(const_0_0_dout));
   system_xlconstant_0_1 const_0_2
        (.dout(const_0_2_dout));
-  system_xlconstant_1_0 const_HIGH_1
-       (.dout(xlconstant_1_dout));
+  system_const_2_0_0 const_2_1
+       (.dout(const_2_1_dout));
   system_const_HIGH_1_0 const_HIGH_2
        (.dout(Net));
+  system_const_HIGH_1_3 const_HIGH_4
+       (.dout(xlconstant_1_dout));
+  system_const_HIGH_4_0 const_HIGH_5
+       (.dout(const_HIGH_5_dout));
   system_xlconstant_0_0 const_LOW_0
        (.dout(xlconstant_0_dout));
   system_proc_sys_reset_0_0 proc_sys_reset_0

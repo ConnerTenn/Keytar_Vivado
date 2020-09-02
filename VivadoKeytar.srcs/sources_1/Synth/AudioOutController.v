@@ -3,43 +3,42 @@
 module AudioOutController (
     Clock,
     Waveform,
-    I2SClk, I2SData, I2SWordSel
+    I2SClk, I2SData, I2SLRSel,
+    DAC_Reset, DAC_MClk
 );
     input Clock;
     input signed [23:0] Waveform;
-    output I2SClk;
-    output reg I2SData=0, I2SWordSel=0;
+    output reg I2SClk = 0;
+    output reg I2SData=0, I2SLRSel=0;
+    output reg DAC_Reset=0;
+    output reg DAC_MClk=0; //Freq(DAC_MClk) = 128 * Freq(I2SClk)
 
-    reg [7:0] clkdiv96KHz = 0;
-    reg [7:0] clkdivbus = 0;
-    reg clk96KHz = 0;
-    reg clkbus = 0;
-
-    assign I2SClk = clkbus;
+    reg [3:0] clkdivMClk = 0;
+    reg [3:0] clkdivI2S = 0;
 
     always @(posedge Clock)
     begin
-        if (clkdivbus == (8)/2-1) //Generate bus
+        if (clkdivMClk == 4/2-1) //Generate Master Clock
         begin
-            clkdivbus <= 0;
-            clkbus <= !clkbus;
+            clkdivMClk <= 0;
+            DAC_MClk <= !DAC_MClk;
         end
         else
         begin
-            clkdivbus <= clkdivbus + 1;
+            clkdivMClk <= clkdivMClk + 1;
         end
     end
 
-    always @(posedge clkbus)
+    always @(posedge DAC_MClk)
     begin
-        if (clkdiv96KHz == (16*2)/2-1)
+        if (clkdivI2S == 4/2-1) //Generate I2S Clock
         begin
-            clkdiv96KHz <= 0;
-            clk96KHz <= !clk96KHz;
+            clkdivI2S <= 0;
+            I2SClk <= !I2SClk;
         end
         else
         begin
-            clkdiv96KHz <= clkdiv96KHz + 1;
+            clkdivI2S <= clkdivI2S + 1;
         end
     end
 
@@ -47,13 +46,13 @@ module AudioOutController (
     reg signed [23:0] sampleL = 0;
     reg signed [23:0] sampleR = 0;
 
-    always @(posedge clkbus)
+    always @(posedge I2SClk)
     begin
-        if (state == 16-1)
+        if (state == 32-1)
         begin
             state <= 0;
 
-            if (I2SWordSel == 0)
+            if (I2SLRSel == 0)
             begin
                 sampleL <= Waveform;
                 sampleR <= Waveform;
@@ -63,24 +62,25 @@ module AudioOutController (
         begin
             state <= state + 1;
 
-            case (I2SWordSel)
+            case (I2SLRSel)
                 0: sampleL <= sampleL<<1;
                 1: sampleR <= sampleR<<1;
             endcase
         end
     end
 
-    always @(negedge clkbus)
+    always @(negedge I2SClk)
     begin
-        case (I2SWordSel)
+        case (I2SLRSel)
             0: I2SData <= sampleL[23:23];
             1: I2SData <= sampleR[23:23];
         endcase
         
 
-        if (state == 16-1)
+        if (state == 32-1)
         begin
-            I2SWordSel <= !I2SWordSel;
+            I2SLRSel <= !I2SLRSel;
+            DAC_Reset <= 1;
         end
     end
     

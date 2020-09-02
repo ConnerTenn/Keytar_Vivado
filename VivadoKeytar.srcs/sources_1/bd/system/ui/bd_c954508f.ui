@@ -62,8 +62,8 @@ pagesize -pg 1 -db -bbox -sgen 0 0 1490 980
    "Color Coded_ScaleFactor":"0.405797",
    "Color Coded_TopLeft":"0,-12",
    "Default View_Layers":"/processing_system7_0_FCLK_CLK0:true|/ARESETN_1:true|/proc_sys_reset_0_peripheral_aresetn:true|/processing_system7_0_FCLK_CLK1:true|",
-   "Default View_ScaleFactor":"0.708797",
-   "Default View_TopLeft":"368,13",
+   "Default View_ScaleFactor":"0.630233",
+   "Default View_TopLeft":"-1109,-219",
    "Display-PortTypeClock":"true",
    "Display-PortTypeOthers":"true",
    "Display-PortTypeReset":"true",
@@ -78,115 +78,124 @@ pagesize -pg 1 -db -bbox -sgen 0 0 1490 980
    "PinnedBlocks":"/processing_system7_0|/axi_apb_bridge_0|/proc_sys_reset_0|/axi_vdma_0|/proc_sys_reset_1|/v_tc_0|/axi_interconnect_synth|/axi_interconnect_video_ctl|/axi_interconnect_vdma|/v_axi4s_vid_out_0|/APBSlave_Breakout_video_ctl|/VideoController_0|",
    "guistr":"# # String gsaved with Nlview 7.0r4  2019-12-20 bk=1.5203 VDI=41 GEI=36 GUI=JA:9.0 TLS
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -lvl 8 -x 1440 -y 10 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -lvl 8 -x 1440 -y 30 -defaultsOSRD
-preplace port I2C -pg 1 -lvl 8 -x 1440 -y 50 -defaultsOSRD
-preplace port I2S_DOut -pg 1 -lvl 8 -x 1440 -y 500 -defaultsOSRD
-preplace port I2S_WS -pg 1 -lvl 8 -x 1440 -y 520 -defaultsOSRD
-preplace port I2S_Clk -pg 1 -lvl 8 -x 1440 -y 480 -defaultsOSRD
+preplace port DDR -pg 1 -lvl 8 -x 1560 -y 10 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 8 -x 1560 -y 30 -defaultsOSRD
+preplace port I2C -pg 1 -lvl 8 -x 1560 -y 50 -defaultsOSRD
+preplace port I2S_DOut -pg 1 -lvl 8 -x 1560 -y 360 -defaultsOSRD
+preplace port I2S_LR -pg 1 -lvl 8 -x 1560 -y 380 -defaultsOSRD
+preplace port I2S_Clk -pg 1 -lvl 8 -x 1560 -y 340 -defaultsOSRD
 preplace port Clk12MHz -pg 1 -lvl 0 -x -2080 -y 310 -defaultsOSRD
-preplace portBus RGB -pg 1 -lvl 8 -x 1440 -y 260 -defaultsOSRD
-preplace portBus Red -pg 1 -lvl 8 -x 1440 -y 1080 -defaultsOSRD
-preplace portBus Green -pg 1 -lvl 8 -x 1440 -y 1100 -defaultsOSRD
-preplace portBus Blue -pg 1 -lvl 8 -x 1440 -y 1120 -defaultsOSRD
-preplace portBus HSync -pg 1 -lvl 8 -x 1440 -y 1140 -defaultsOSRD
-preplace portBus VSync -pg 1 -lvl 8 -x 1440 -y 1160 -defaultsOSRD
-preplace portBus PClk -pg 1 -lvl 8 -x 1440 -y 1180 -defaultsOSRD
-preplace portBus De -pg 1 -lvl 8 -x 1440 -y 1200 -defaultsOSRD
-preplace portBus Buzzer -pg 1 -lvl 8 -x 1440 -y 100 -defaultsOSRD
-preplace portBus Waveform -pg 1 -lvl 8 -x 1440 -y 380 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 3 -x -600 -y 90 -defaultsOSRD
-preplace inst axi_interconnect_video_ctl -pg 1 -lvl 3 -x -600 -y 630 -defaultsOSRD
-preplace inst axi_apb_bridge_0 -pg 1 -lvl 4 -x -100 -y 750 -defaultsOSRD
-preplace inst proc_sys_reset_0 -pg 1 -lvl 2 -x -1040 -y 460 -defaultsOSRD
-preplace inst const_LOW_0 -pg 1 -lvl 1 -x -1440 -y 480 -defaultsOSRD
-preplace inst const_HIGH_1 -pg 1 -lvl 1 -x -1440 -y 580 -defaultsOSRD
-preplace inst RGBTest_0 -pg 1 -lvl 4 -x -100 -y 260 -defaultsOSRD
-preplace inst axi_vdma_0 -pg 1 -lvl 4 -x -100 -y 1040 -defaultsOSRD
-preplace inst v_axi4s_vid_out_0 -pg 1 -lvl 5 -x 360 -y 1070 -defaultsOSRD
-preplace inst v_tc_0 -pg 1 -lvl 4 -x -100 -y 1220 -defaultsOSRD
-preplace inst proc_sys_reset_1 -pg 1 -lvl 2 -x -1040 -y 640 -defaultsOSRD
-preplace inst const_HIGH_2 -pg 1 -lvl 4 -x -100 -y 1350 -defaultsOSRD
-preplace inst APBSlave_Breakout_video_ctl -pg 1 -lvl 5 -x 360 -y 790 -defaultsOSRD
-preplace inst const_0_2 -pg 1 -lvl 7 -x 1210 -y 100 -defaultsOSRD
-preplace inst axi_interconnect_vdma -pg 1 -lvl 3 -x -600 -y 880 -defaultsOSRD
-preplace inst const_0_0 -pg 1 -lvl 4 -x -100 -y 1450 -defaultsOSRD
-preplace inst VideoController_0 -pg 1 -lvl 7 -x 1210 -y 850 -defaultsOSRD
-preplace inst VideoBreakout_0 -pg 1 -lvl 7 -x 1210 -y 1140 -defaultsOSRD
-preplace inst axi_interconnect_synth -pg 1 -lvl 3 -x -600 -y 360 -defaultsOSRD
-preplace inst axi_apb_bridge_1 -pg 1 -lvl 4 -x -100 -y 380 -defaultsOSRD
-preplace inst APBSlave_Breakout_synth -pg 1 -lvl 5 -x 360 -y 420 -defaultsOSRD
-preplace inst Synth_0 -pg 1 -lvl 6 -x 790 -y 410 -defaultsOSRD
-preplace inst AudioOutController_0 -pg 1 -lvl 7 -x 1210 -y 500 -defaultsOSRD
+preplace port DAC_Reset -pg 1 -lvl 8 -x 1560 -y 400 -defaultsOSRD
+preplace port DAC_MClk -pg 1 -lvl 8 -x 1560 -y 420 -defaultsOSRD
+preplace portBus RGB -pg 1 -lvl 8 -x 1560 -y 260 -defaultsOSRD
+preplace portBus Red -pg 1 -lvl 8 -x 1560 -y 1080 -defaultsOSRD
+preplace portBus Green -pg 1 -lvl 8 -x 1560 -y 1100 -defaultsOSRD
+preplace portBus Blue -pg 1 -lvl 8 -x 1560 -y 1120 -defaultsOSRD
+preplace portBus HSync -pg 1 -lvl 8 -x 1560 -y 1140 -defaultsOSRD
+preplace portBus VSync -pg 1 -lvl 8 -x 1560 -y 1160 -defaultsOSRD
+preplace portBus PClk -pg 1 -lvl 8 -x 1560 -y 1180 -defaultsOSRD
+preplace portBus De -pg 1 -lvl 8 -x 1560 -y 1200 -defaultsOSRD
+preplace portBus Buzzer -pg 1 -lvl 8 -x 1560 -y 100 -defaultsOSRD
+preplace portBus Waveform -pg 1 -lvl 8 -x 1560 -y 280 -defaultsOSRD
+preplace portBus DAC_Mode -pg 1 -lvl 8 -x 1560 -y 630 -defaultsOSRD
+preplace portBus I2S_Format -pg 1 -lvl 8 -x 1560 -y 530 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 3 -x -560 -y 90 -defaultsOSRD
+preplace inst axi_interconnect_video_ctl -pg 1 -lvl 3 -x -560 -y 630 -defaultsOSRD
+preplace inst axi_apb_bridge_0 -pg 1 -lvl 4 -x -70 -y 750 -defaultsOSRD
+preplace inst proc_sys_reset_0 -pg 1 -lvl 2 -x -1140 -y 430 -defaultsOSRD
+preplace inst const_LOW_0 -pg 1 -lvl 1 -x -1440 -y 460 -defaultsOSRD
+preplace inst RGBTest_0 -pg 1 -lvl 4 -x -70 -y 260 -defaultsOSRD
+preplace inst axi_vdma_0 -pg 1 -lvl 4 -x -70 -y 1040 -defaultsOSRD
+preplace inst v_axi4s_vid_out_0 -pg 1 -lvl 5 -x 390 -y 1070 -defaultsOSRD
+preplace inst v_tc_0 -pg 1 -lvl 4 -x -70 -y 1220 -defaultsOSRD
+preplace inst proc_sys_reset_1 -pg 1 -lvl 2 -x -1140 -y 620 -defaultsOSRD
+preplace inst const_HIGH_2 -pg 1 -lvl 4 -x -70 -y 1350 -defaultsOSRD
+preplace inst APBSlave_Breakout_video_ctl -pg 1 -lvl 5 -x 390 -y 790 -defaultsOSRD
+preplace inst const_0_2 -pg 1 -lvl 7 -x 1280 -y 100 -defaultsOSRD
+preplace inst axi_interconnect_vdma -pg 1 -lvl 3 -x -560 -y 880 -defaultsOSRD
+preplace inst const_0_0 -pg 1 -lvl 4 -x -70 -y 1450 -defaultsOSRD
+preplace inst VideoController_0 -pg 1 -lvl 7 -x 1280 -y 940 -defaultsOSRD
+preplace inst VideoBreakout_0 -pg 1 -lvl 7 -x 1280 -y 1230 -defaultsOSRD
+preplace inst axi_interconnect_synth -pg 1 -lvl 3 -x -560 -y 360 -defaultsOSRD
+preplace inst axi_apb_bridge_1 -pg 1 -lvl 4 -x -70 -y 380 -defaultsOSRD
+preplace inst APBSlave_Breakout_synth -pg 1 -lvl 5 -x 390 -y 420 -defaultsOSRD
+preplace inst AudioOutController_0 -pg 1 -lvl 7 -x 1280 -y 370 -defaultsOSRD
+preplace inst Synth_0 -pg 1 -lvl 6 -x 820 -y 410 -defaultsOSRD
+preplace inst const_2_1 -pg 1 -lvl 7 -x 1280 -y 630 -defaultsOSRD
+preplace inst const_HIGH_4 -pg 1 -lvl 1 -x -1440 -y 570 -defaultsOSRD
+preplace inst const_HIGH_5 -pg 1 -lvl 7 -x 1280 -y 530 -defaultsOSRD
 preplace netloc RGBTest_0_RGB 1 4 4 N 260 N 260 N 260 N
-preplace netloc xlconstant_0_dout 1 1 1 -1360 480n
-preplace netloc xlconstant_1_dout 1 1 1 -1350 460n
-preplace netloc ARESETN_1 1 2 1 -820 590n
-preplace netloc processing_system7_0_FCLK_RESET1_N 1 1 3 -1330 1010 NJ 1010 -390
-preplace netloc proc_sys_reset_1_peripheral_aresetn 1 2 3 -840J 1020 -350 890 140
-preplace netloc Net 1 3 2 -310 920 110
-preplace netloc APBSlave_Breakout_2_BusClock 1 5 2 N 740 N
-preplace netloc APBSlave_Breakout_2_BusPAddr 1 5 2 N 760 N
-preplace netloc APBSlave_Breakout_2_BusPWriteData 1 5 2 N 780 N
-preplace netloc APBSlave_Breakout_2_BusPWrite 1 5 2 N 800 N
-preplace netloc APBSlave_Breakout_2_BusPEnable 1 5 2 N 820 N
-preplace netloc APBSlave_Breakout_2_BusPSel 1 5 2 N 840 N
-preplace netloc VideoBreakout_0_BusPError 1 4 4 160 660 N 660 N 660 1420
-preplace netloc VideoBreakout_0_BusPReady 1 4 4 180 680 N 680 N 680 1400
-preplace netloc VideoBreakout_0_BusPReadData 1 4 4 170 670 N 670 N 670 1410
+preplace netloc xlconstant_0_dout 1 1 1 -1350 450n
+preplace netloc xlconstant_1_dout 1 1 1 -1360 430n
+preplace netloc ARESETN_1 1 2 1 -910 590n
+preplace netloc processing_system7_0_FCLK_RESET1_N 1 1 3 -1330 1010 NJ 1010 -350
+preplace netloc proc_sys_reset_1_peripheral_aresetn 1 2 3 -930J 1020 -320 890 170
+preplace netloc Net 1 3 2 -280 920 140
+preplace netloc APBSlave_Breakout_2_BusClock 1 5 2 N 740 1080
+preplace netloc APBSlave_Breakout_2_BusPAddr 1 5 2 N 760 1070
+preplace netloc APBSlave_Breakout_2_BusPWriteData 1 5 2 N 780 1060
+preplace netloc APBSlave_Breakout_2_BusPWrite 1 5 2 N 800 1050
+preplace netloc APBSlave_Breakout_2_BusPEnable 1 5 2 N 820 1040
+preplace netloc APBSlave_Breakout_2_BusPSel 1 5 2 N 840 1030
+preplace netloc VideoBreakout_0_BusPError 1 4 4 210 680 570 690 N 690 1490
+preplace netloc VideoBreakout_0_BusPReady 1 4 4 200 670 580 700 N 700 1480
+preplace netloc VideoBreakout_0_BusPReadData 1 4 4 190 660 N 660 1060 710 1470
 preplace netloc const_0_2_dout 1 7 1 N 100
-preplace netloc VideoBreakout_0_Red 1 7 1 N 1080
-preplace netloc VideoBreakout_0_Green 1 7 1 N 1100
-preplace netloc VideoBreakout_0_FramePTR 1 3 5 -320 900 N 900 560 910 1000 1020 1400
-preplace netloc const_0_0_dout 1 4 1 180 1110n
-preplace netloc v_axi4s_vid_out_0_locked 1 5 2 570 900 N
-preplace netloc v_axi4s_vid_out_0_status 1 5 2 590 930 1020
-preplace netloc v_axi4s_vid_out_0_vtg_ce 1 3 3 -330 910 NJ 910 540
-preplace netloc v_axi4s_vid_out_0_overflow 1 5 2 550 860 N
-preplace netloc v_axi4s_vid_out_0_underflow 1 5 2 580 880 N
-preplace netloc v_axi4s_vid_out_0_fifo_read_level 1 5 2 600 940 N
-preplace netloc axi_vdma_0_mm2s_frame_ptr_out 1 4 3 120 950 NJ 950 980
-preplace netloc VideoBreakout_0_Blue 1 7 1 N 1120
-preplace netloc VideoBreakout_0_De 1 7 1 N 1200
-preplace netloc VideoBreakout_0_PClk 1 7 1 N 1180
-preplace netloc VideoBreakout_0_VSync 1 7 1 N 1160
-preplace netloc VideoBreakout_0_HSync 1 7 1 N 1140
-preplace netloc processing_system7_0_FCLK_CLK1 1 1 6 -1340 740 -850J 490 -360 830 150 1190 570 1150 N
-preplace netloc processing_system7_0_FCLK_CLK0 1 1 5 -1330 360 -830J -80 -310 460 150 310 540
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 1 3 -1360 230 NJ 230 -400
-preplace netloc proc_sys_reset_0_interconnect_aresetn 1 2 1 -860 340n
-preplace netloc proc_sys_reset_0_peripheral_aresetn 1 2 2 -840 480 -350
+preplace netloc VideoBreakout_0_Red 1 7 1 1480 1080n
+preplace netloc VideoBreakout_0_Green 1 7 1 1490 1100n
+preplace netloc VideoBreakout_0_FramePTR 1 3 5 -290 910 N 910 N 910 1020 1110 1470
+preplace netloc const_0_0_dout 1 4 1 210 1110n
+preplace netloc v_axi4s_vid_out_0_locked 1 5 2 600 990 N
+preplace netloc v_axi4s_vid_out_0_status 1 5 2 620 1010 N
+preplace netloc v_axi4s_vid_out_0_vtg_ce 1 3 3 -300 900 NJ 900 570
+preplace netloc v_axi4s_vid_out_0_overflow 1 5 2 590 950 N
+preplace netloc v_axi4s_vid_out_0_underflow 1 5 2 610 970 N
+preplace netloc v_axi4s_vid_out_0_fifo_read_level 1 5 2 630 1040 1050
+preplace netloc axi_vdma_0_mm2s_frame_ptr_out 1 4 3 150 1190 NJ 1190 1060
+preplace netloc VideoBreakout_0_Blue 1 7 1 1500 1120n
+preplace netloc VideoBreakout_0_De 1 7 1 1540 1200n
+preplace netloc VideoBreakout_0_PClk 1 7 1 1530 1180n
+preplace netloc VideoBreakout_0_VSync 1 7 1 1520 1160n
+preplace netloc VideoBreakout_0_HSync 1 7 1 1510 1140n
+preplace netloc processing_system7_0_FCLK_CLK1 1 1 6 -1340 720 -950J 490 -330 830 180 1240 N 1240 N
+preplace netloc processing_system7_0_FCLK_CLK0 1 1 6 -1330 330 -940J -70 -280 460 180 310 580 290 1080
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 1 3 -1360 230 NJ 230 -360
+preplace netloc proc_sys_reset_0_interconnect_aresetn 1 2 1 -960 340n
+preplace netloc proc_sys_reset_0_peripheral_aresetn 1 2 2 -930 480 -320
 preplace netloc APBSlave_Breakout_synth_BusClock 1 5 1 N 370
 preplace netloc APBSlave_Breakout_synth_BusPAddr 1 5 1 N 390
 preplace netloc APBSlave_Breakout_synth_BusPWriteData 1 5 1 N 410
 preplace netloc APBSlave_Breakout_synth_BusPWrite 1 5 1 N 430
 preplace netloc APBSlave_Breakout_synth_BusPEnable 1 5 1 N 450
 preplace netloc APBSlave_Breakout_synth_BusPSel 1 5 1 N 470
-preplace netloc Synth_0_BusPReadData 1 4 3 170 280 NJ 280 990
-preplace netloc Synth_0_BusPReady 1 4 3 180 290 NJ 290 980
-preplace netloc Synth_0_BusPError 1 4 3 160 270 NJ 270 1000
-preplace netloc Synth_0_Waveform 1 6 2 1020 380 NJ
-preplace netloc AudioOutController_0_I2S_Data 1 7 1 N 500
-preplace netloc AudioOutController_0_I2S_WordSel 1 7 1 N 520
-preplace netloc AudioOutController_0_I2S_Clk 1 7 1 N 480
-preplace netloc Clk12MHz_1 1 0 7 -2060 240 NJ 240 NJ 240 -370J 200 NJ 200 NJ 200 1010J
-preplace netloc v_axi4s_vid_out_0_vid_io_out 1 5 2 N 1010 980
-preplace netloc processing_system7_0_IIC_0 1 3 5 -370 40 N 40 N 40 N 40 1420
-preplace netloc axi_interconnect_0_M00_AXI 1 3 1 -310 620n
-preplace netloc processing_system7_0_DDR 1 3 5 NJ 10 N 10 N 10 N 10 N
-preplace netloc axi_interconnect_0_M01_AXI 1 3 1 -370 640n
-preplace netloc axi_vdma_0_M_AXIS_MM2S 1 4 1 130J 1010n
+preplace netloc Synth_0_BusPReadData 1 4 3 200 270 NJ 270 1040
+preplace netloc Synth_0_BusPReady 1 4 3 210 280 NJ 280 1030
+preplace netloc Synth_0_BusPError 1 4 3 190 250 NJ 250 1060
+preplace netloc Synth_0_Waveform 1 6 2 1070 270 1490J
+preplace netloc AudioOutController_0_I2S_Data 1 7 1 1490 350n
+preplace netloc AudioOutController_0_I2S_WordSel 1 7 1 1490 370n
+preplace netloc AudioOutController_0_I2S_Clk 1 7 1 1490 330n
+preplace netloc AudioOutController_0_DAC_Reset 1 7 1 1490 390n
+preplace netloc AudioOutController_0_DAC_MClk 1 7 1 1490 410n
+preplace netloc const_2_1_dout 1 7 1 N 630
+preplace netloc const_HIGH_5_dout 1 7 1 N 530
+preplace netloc axi_vdma_0_M_AXIS_MM2S 1 4 1 150J 1010n
 preplace netloc processing_system7_0_FIXED_IO 1 3 5 NJ 30 N 30 N 30 N 30 N
 preplace netloc axi_apb_bridge_1_APB_M 1 4 1 N 380
 preplace netloc axi_apb_bridge_0_APB_M 1 4 1 N 750
-preplace netloc S00_AXI_2 1 2 3 -800 1000 -340J 930 100
-preplace netloc axi_interconnect_1_M00_AXI 1 2 2 -800 -50 -380
-preplace netloc processing_system7_0_M_AXI_GP1 1 2 2 -810 -60 -400
-preplace netloc processing_system7_0_M_AXI_GP0 1 2 2 -820 -70 -390
+preplace netloc S00_AXI_2 1 2 3 -900 1000 -310J 930 130
+preplace netloc axi_interconnect_1_M00_AXI 1 2 2 -900 240 -360
+preplace netloc processing_system7_0_M_AXI_GP1 1 2 2 -920 -60 -350
+preplace netloc processing_system7_0_M_AXI_GP0 1 2 2 -910 -50 -360
 preplace netloc axi_interconnect_synth_M00_AXI 1 3 1 N 360
-preplace netloc v_tc_0_vtiming_out 1 4 1 170 1030n
-levelinfo -pg 1 -2080 -1440 -1040 -600 -100 360 790 1210 1440
-pagesize -pg 1 -db -bbox -sgen -2200 -240 1610 2710
+preplace netloc axi_interconnect_0_M01_AXI 1 3 1 -340 640n
+preplace netloc axi_interconnect_0_M00_AXI 1 3 1 -320 620n
+preplace netloc processing_system7_0_DDR 1 3 5 NJ 10 N 10 N 10 N 10 N
+preplace netloc v_axi4s_vid_out_0_vid_io_out 1 5 2 580 1020 1010
+preplace netloc processing_system7_0_IIC_0 1 3 5 -330 40 N 40 N 40 N 40 1490
+preplace netloc v_tc_0_vtiming_out 1 4 1 160 1030n
+levelinfo -pg 1 -2080 -1440 -1140 -560 -70 390 820 1280 1560
+pagesize -pg 1 -db -bbox -sgen -2200 -240 1730 2710
 "
 }
 {

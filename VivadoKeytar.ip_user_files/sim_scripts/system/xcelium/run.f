@@ -53,7 +53,6 @@
 -endlib
 -makelib xcelium_lib/xil_defaultlib \
   "../../../bd/system/ip/system_xlconstant_0_0/sim/system_xlconstant_0_0.v" \
-  "../../../bd/system/ip/system_xlconstant_1_0/sim/system_xlconstant_1_0.v" \
   "../../../bd/system/ip/system_xlconstant_0_1/sim/system_xlconstant_0_1.v" \
 -endlib
 -makelib xcelium_lib/generic_baseblocks_v2_1_0 \
@@ -140,8 +139,11 @@
 -endlib
 -makelib xcelium_lib/xil_defaultlib \
   "../../../bd/system/ip/system_APBSlave_Breakout_2_0/sim/system_APBSlave_Breakout_2_0.v" \
-  "../../../bd/system/ip/system_AudioOutController_0_0/sim/system_AudioOutController_0_0.v" \
   "../../../bd/system/ip/system_Synth_0_0/sim/system_Synth_0_0.v" \
+  "../../../bd/system/ip/system_AudioOutController_0_1/sim/system_AudioOutController_0_1.v" \
+  "../../../bd/system/ip/system_const_2_0_0/sim/system_const_2_0_0.v" \
+  "../../../bd/system/ip/system_const_HIGH_1_3/sim/system_const_HIGH_1_3.v" \
+  "../../../bd/system/ip/system_const_HIGH_4_0/sim/system_const_HIGH_4_0.v" \
   "../../../bd/system/sim/system.v" \
 -endlib
 -makelib xcelium_lib/axi_protocol_converter_v2_1_21 \

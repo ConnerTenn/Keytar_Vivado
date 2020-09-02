@@ -75,7 +75,7 @@ module system_APBSlave_Breakout_1_0 (
   BusPError
 );
 
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME s_apb_aclk, ASSOCIATED_BUSIF APB_S, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME s_apb_aclk, ASSOCIATED_BUSIF APB_S, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 s_apb_aclk CLK" *)
 input wire s_apb_pclock;
 (* X_INTERFACE_INFO = "xilinx.com:interface:apb:1.0 APB_S PADDR" *)

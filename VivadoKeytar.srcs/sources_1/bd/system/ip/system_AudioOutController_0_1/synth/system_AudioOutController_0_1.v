@@ -60,22 +60,30 @@ module system_AudioOutController_0_1 (
   Waveform,
   I2SClk,
   I2SData,
-  I2SWordSel
+  I2SLRSel,
+  DAC_Reset,
+  DAC_MClk
 );
 
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME Clock, FREQ_HZ 12000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_Clk12MHz, INSERT_VIP 0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME Clock, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 Clock CLK" *)
 input wire Clock;
 input wire [23 : 0] Waveform;
 output wire I2SClk;
 output wire I2SData;
-output wire I2SWordSel;
+output wire I2SLRSel;
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DAC_Reset, POLARITY ACTIVE_LOW, INSERT_VIP 0" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 DAC_Reset RST" *)
+output wire DAC_Reset;
+output wire DAC_MClk;
 
   AudioOutController inst (
     .Clock(Clock),
     .Waveform(Waveform),
     .I2SClk(I2SClk),
     .I2SData(I2SData),
-    .I2SWordSel(I2SWordSel)
+    .I2SLRSel(I2SLRSel),
+    .DAC_Reset(DAC_Reset),
+    .DAC_MClk(DAC_MClk)
   );
 endmodule

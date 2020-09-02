@@ -173,12 +173,16 @@ proc create_root_design { parentCell } {
   set Blue [ create_bd_port -dir O -from 4 -to 0 -type data Blue ]
   set Buzzer [ create_bd_port -dir O -from 0 -to 0 Buzzer ]
   set Clk12MHz [ create_bd_port -dir I -type clk -freq_hz 12000000 Clk12MHz ]
+  set DAC_MClk [ create_bd_port -dir O DAC_MClk ]
+  set DAC_Mode [ create_bd_port -dir O -from 1 -to 0 -type data DAC_Mode ]
+  set DAC_Reset [ create_bd_port -dir O DAC_Reset ]
   set De [ create_bd_port -dir O -from 0 -to 0 -type data De ]
   set Green [ create_bd_port -dir O -from 5 -to 0 -type data Green ]
   set HSync [ create_bd_port -dir O -from 0 -to 0 -type data HSync ]
   set I2S_Clk [ create_bd_port -dir O -type data I2S_Clk ]
   set I2S_DOut [ create_bd_port -dir O -type data I2S_DOut ]
-  set I2S_WS [ create_bd_port -dir O -type data I2S_WS ]
+  set I2S_Format [ create_bd_port -dir O -from 0 -to 0 I2S_Format ]
+  set I2S_LR [ create_bd_port -dir O -type data I2S_LR ]
   set PClk [ create_bd_port -dir O -from 0 -to 0 -type clk PClk ]
   set RGB [ create_bd_port -dir O -from 2 -to 0 -type data RGB ]
   set Red [ create_bd_port -dir O -from 4 -to 0 -type data Red ]
@@ -296,11 +300,21 @@ proc create_root_design { parentCell } {
    CONFIG.CONST_VAL {0} \
  ] $const_0_2
 
-  # Create instance: const_HIGH_1, and set properties
-  set const_HIGH_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 const_HIGH_1 ]
+  # Create instance: const_2_1, and set properties
+  set const_2_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 const_2_1 ]
+  set_property -dict [ list \
+   CONFIG.CONST_VAL {2} \
+   CONFIG.CONST_WIDTH {2} \
+ ] $const_2_1
 
   # Create instance: const_HIGH_2, and set properties
   set const_HIGH_2 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 const_HIGH_2 ]
+
+  # Create instance: const_HIGH_4, and set properties
+  set const_HIGH_4 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 const_HIGH_4 ]
+
+  # Create instance: const_HIGH_5, and set properties
+  set const_HIGH_5 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 const_HIGH_5 ]
 
   # Create instance: const_LOW_0, and set properties
   set const_LOW_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:xlconstant:1.1 const_LOW_0 ]
@@ -330,7 +344,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ACT_DCI_PERIPHERAL_FREQMHZ {10.158730} \
    CONFIG.PCW_ACT_ENET0_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_ENET1_PERIPHERAL_FREQMHZ {10.000000} \
-   CONFIG.PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ {48.000000} \
+   CONFIG.PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ {100.000000} \
    CONFIG.PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ {150.000000} \
    CONFIG.PCW_ACT_FPGA2_PERIPHERAL_FREQMHZ {10.000000} \
    CONFIG.PCW_ACT_FPGA3_PERIPHERAL_FREQMHZ {10.000000} \
@@ -351,7 +365,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ARMPLL_CTRL_FBDIV {40} \
    CONFIG.PCW_CAN_PERIPHERAL_DIVISOR0 {1} \
    CONFIG.PCW_CAN_PERIPHERAL_DIVISOR1 {1} \
-   CONFIG.PCW_CLK0_FREQ {48000000} \
+   CONFIG.PCW_CLK0_FREQ {100000000} \
    CONFIG.PCW_CLK1_FREQ {150000000} \
    CONFIG.PCW_CLK2_FREQ {10000000} \
    CONFIG.PCW_CLK3_FREQ {10000000} \
@@ -372,6 +386,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_ENET_RESET_ENABLE {0} \
    CONFIG.PCW_EN_CLK0_PORT {1} \
    CONFIG.PCW_EN_CLK1_PORT {1} \
+   CONFIG.PCW_EN_CLK2_PORT {0} \
    CONFIG.PCW_EN_EMIO_CD_SDIO0 {0} \
    CONFIG.PCW_EN_EMIO_I2C0 {1} \
    CONFIG.PCW_EN_EMIO_WP_SDIO0 {0} \
@@ -382,8 +397,8 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_EN_SDIO0 {1} \
    CONFIG.PCW_EN_UART1 {1} \
    CONFIG.PCW_FCLK0_PERIPHERAL_CLKSRC {IO PLL} \
-   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR0 {5} \
-   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR1 {5} \
+   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR0 {4} \
+   CONFIG.PCW_FCLK0_PERIPHERAL_DIVISOR1 {3} \
    CONFIG.PCW_FCLK1_PERIPHERAL_CLKSRC {IO PLL} \
    CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR0 {8} \
    CONFIG.PCW_FCLK1_PERIPHERAL_DIVISOR1 {1} \
@@ -393,7 +408,8 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_FCLK3_PERIPHERAL_DIVISOR1 {1} \
    CONFIG.PCW_FCLK_CLK0_BUF {FALSE} \
    CONFIG.PCW_FCLK_CLK1_BUF {TRUE} \
-   CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {48} \
+   CONFIG.PCW_FCLK_CLK2_BUF {FALSE} \
+   CONFIG.PCW_FPGA0_PERIPHERAL_FREQMHZ {100} \
    CONFIG.PCW_FPGA1_PERIPHERAL_FREQMHZ {149} \
    CONFIG.PCW_FPGA_FCLK0_ENABLE {1} \
    CONFIG.PCW_FPGA_FCLK1_ENABLE {1} \
@@ -748,10 +764,11 @@ proc create_root_design { parentCell } {
   connect_bd_net -net APBSlave_Breakout_synth_BusPWrite [get_bd_pins APBSlave_Breakout_synth/BusPWrite] [get_bd_pins Synth_0/BusPWrite]
   connect_bd_net -net APBSlave_Breakout_synth_BusPWriteData [get_bd_pins APBSlave_Breakout_synth/BusPWriteData] [get_bd_pins Synth_0/BusPWriteData]
   connect_bd_net -net ARESETN_1 [get_bd_pins axi_interconnect_vdma/ARESETN] [get_bd_pins axi_interconnect_video_ctl/ARESETN] [get_bd_pins proc_sys_reset_1/interconnect_aresetn]
+  connect_bd_net -net AudioOutController_0_DAC_MClk [get_bd_ports DAC_MClk] [get_bd_pins AudioOutController_0/DAC_MClk]
+  connect_bd_net -net AudioOutController_0_DAC_Reset [get_bd_ports DAC_Reset] [get_bd_pins AudioOutController_0/DAC_Reset]
   connect_bd_net -net AudioOutController_0_I2S_Clk [get_bd_ports I2S_Clk] [get_bd_pins AudioOutController_0/I2SClk]
   connect_bd_net -net AudioOutController_0_I2S_Data [get_bd_ports I2S_DOut] [get_bd_pins AudioOutController_0/I2SData]
-  connect_bd_net -net AudioOutController_0_I2S_WordSel [get_bd_ports I2S_WS] [get_bd_pins AudioOutController_0/I2SWordSel]
-  connect_bd_net -net Clk12MHz_1 [get_bd_ports Clk12MHz] [get_bd_pins AudioOutController_0/Clock]
+  connect_bd_net -net AudioOutController_0_I2S_WordSel [get_bd_ports I2S_LR] [get_bd_pins AudioOutController_0/I2SLRSel]
   connect_bd_net -net Net [get_bd_pins const_HIGH_2/dout] [get_bd_pins v_axi4s_vid_out_0/aclken] [get_bd_pins v_axi4s_vid_out_0/vid_io_out_ce] [get_bd_pins v_tc_0/clken]
   connect_bd_net -net RGBTest_0_RGB [get_bd_ports RGB] [get_bd_pins RGBTest_0/RGB]
   connect_bd_net -net Synth_0_BusPError [get_bd_pins APBSlave_Breakout_synth/BusPError] [get_bd_pins Synth_0/BusPError]
@@ -772,10 +789,12 @@ proc create_root_design { parentCell } {
   connect_bd_net -net axi_vdma_0_mm2s_frame_ptr_out [get_bd_pins VideoController_0/VDMAFramePtr] [get_bd_pins axi_vdma_0/mm2s_frame_ptr_out]
   connect_bd_net -net const_0_0_dout [get_bd_pins const_0_0/dout] [get_bd_pins v_axi4s_vid_out_0/fid]
   connect_bd_net -net const_0_2_dout [get_bd_ports Buzzer] [get_bd_pins const_0_2/dout]
+  connect_bd_net -net const_2_1_dout [get_bd_ports DAC_Mode] [get_bd_pins const_2_1/dout]
+  connect_bd_net -net const_HIGH_5_dout [get_bd_ports I2S_Format] [get_bd_pins const_HIGH_5/dout]
   connect_bd_net -net proc_sys_reset_0_interconnect_aresetn [get_bd_pins axi_interconnect_synth/ARESETN] [get_bd_pins proc_sys_reset_0/interconnect_aresetn]
   connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins axi_apb_bridge_1/s_axi_aresetn] [get_bd_pins axi_interconnect_synth/M00_ARESETN] [get_bd_pins axi_interconnect_synth/S00_ARESETN] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
   connect_bd_net -net proc_sys_reset_1_peripheral_aresetn [get_bd_pins axi_apb_bridge_0/s_axi_aresetn] [get_bd_pins axi_interconnect_vdma/M00_ARESETN] [get_bd_pins axi_interconnect_vdma/S00_ARESETN] [get_bd_pins axi_interconnect_video_ctl/M00_ARESETN] [get_bd_pins axi_interconnect_video_ctl/M01_ARESETN] [get_bd_pins axi_interconnect_video_ctl/S00_ARESETN] [get_bd_pins axi_vdma_0/axi_resetn] [get_bd_pins proc_sys_reset_1/peripheral_aresetn] [get_bd_pins v_axi4s_vid_out_0/aresetn] [get_bd_pins v_tc_0/resetn]
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins APBSlave_Breakout_synth/s_apb_pclock] [get_bd_pins Synth_0/Clock100MHz] [get_bd_pins axi_apb_bridge_1/s_axi_aclk] [get_bd_pins axi_interconnect_synth/ACLK] [get_bd_pins axi_interconnect_synth/M00_ACLK] [get_bd_pins axi_interconnect_synth/S00_ACLK] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins APBSlave_Breakout_synth/s_apb_pclock] [get_bd_pins AudioOutController_0/Clock] [get_bd_pins Synth_0/Clock100MHz] [get_bd_pins axi_apb_bridge_1/s_axi_aclk] [get_bd_pins axi_interconnect_synth/ACLK] [get_bd_pins axi_interconnect_synth/M00_ACLK] [get_bd_pins axi_interconnect_synth/S00_ACLK] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK]
   connect_bd_net -net processing_system7_0_FCLK_CLK1 [get_bd_pins APBSlave_Breakout_video_ctl/s_apb_pclock] [get_bd_pins RGBTest_0/Clock] [get_bd_pins VideoBreakout_0/PClock] [get_bd_pins axi_apb_bridge_0/s_axi_aclk] [get_bd_pins axi_interconnect_vdma/ACLK] [get_bd_pins axi_interconnect_vdma/M00_ACLK] [get_bd_pins axi_interconnect_vdma/S00_ACLK] [get_bd_pins axi_interconnect_video_ctl/ACLK] [get_bd_pins axi_interconnect_video_ctl/M00_ACLK] [get_bd_pins axi_interconnect_video_ctl/M01_ACLK] [get_bd_pins axi_interconnect_video_ctl/S00_ACLK] [get_bd_pins axi_vdma_0/m_axi_mm2s_aclk] [get_bd_pins axi_vdma_0/m_axis_mm2s_aclk] [get_bd_pins axi_vdma_0/s_axi_lite_aclk] [get_bd_pins proc_sys_reset_1/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK1] [get_bd_pins processing_system7_0/M_AXI_GP1_ACLK] [get_bd_pins processing_system7_0/S_AXI_GP0_ACLK] [get_bd_pins v_axi4s_vid_out_0/aclk] [get_bd_pins v_tc_0/clk]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
   connect_bd_net -net processing_system7_0_FCLK_RESET1_N [get_bd_pins proc_sys_reset_1/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET1_N]
@@ -786,7 +805,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net v_axi4s_vid_out_0_underflow [get_bd_pins VideoController_0/VidUnderflow] [get_bd_pins v_axi4s_vid_out_0/underflow]
   connect_bd_net -net v_axi4s_vid_out_0_vtg_ce [get_bd_pins v_axi4s_vid_out_0/vtg_ce] [get_bd_pins v_tc_0/gen_clken]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins const_LOW_0/dout] [get_bd_pins proc_sys_reset_0/mb_debug_sys_rst] [get_bd_pins proc_sys_reset_1/mb_debug_sys_rst]
-  connect_bd_net -net xlconstant_1_dout [get_bd_pins const_HIGH_1/dout] [get_bd_pins proc_sys_reset_0/aux_reset_in] [get_bd_pins proc_sys_reset_0/dcm_locked] [get_bd_pins proc_sys_reset_1/aux_reset_in] [get_bd_pins proc_sys_reset_1/dcm_locked]
+  connect_bd_net -net xlconstant_1_dout [get_bd_pins const_HIGH_4/dout] [get_bd_pins proc_sys_reset_0/aux_reset_in] [get_bd_pins proc_sys_reset_0/dcm_locked] [get_bd_pins proc_sys_reset_1/aux_reset_in] [get_bd_pins proc_sys_reset_1/dcm_locked]
 
   # Create address segments
   assign_bd_address -offset 0x10000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces axi_vdma_0/Data_MM2S] [get_bd_addr_segs processing_system7_0/S_AXI_GP0/GP0_DDR_LOWOCM] -force

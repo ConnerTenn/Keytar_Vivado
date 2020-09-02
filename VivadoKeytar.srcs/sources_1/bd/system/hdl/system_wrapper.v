@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Tue Jul 28 22:49:48 2020
+//Date        : Wed Sep  2 00:04:13 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -13,6 +13,9 @@ module system_wrapper
    (Blue,
     Buzzer,
     Clk12MHz,
+    DAC_MClk,
+    DAC_Mode,
+    DAC_Reset,
     DDR_addr,
     DDR_ba,
     DDR_cas_n,
@@ -41,7 +44,8 @@ module system_wrapper
     I2C_sda_io,
     I2S_Clk,
     I2S_DOut,
-    I2S_WS,
+    I2S_Format,
+    I2S_LR,
     PClk,
     RGB,
     Red,
@@ -50,6 +54,9 @@ module system_wrapper
   output [4:0]Blue;
   output [0:0]Buzzer;
   input Clk12MHz;
+  output DAC_MClk;
+  output [1:0]DAC_Mode;
+  output DAC_Reset;
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -78,7 +85,8 @@ module system_wrapper
   inout I2C_sda_io;
   output I2S_Clk;
   output I2S_DOut;
-  output I2S_WS;
+  output [0:0]I2S_Format;
+  output I2S_LR;
   output [0:0]PClk;
   output [2:0]RGB;
   output [4:0]Red;
@@ -88,6 +96,9 @@ module system_wrapper
   wire [4:0]Blue;
   wire [0:0]Buzzer;
   wire Clk12MHz;
+  wire DAC_MClk;
+  wire [1:0]DAC_Mode;
+  wire DAC_Reset;
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
   wire DDR_cas_n;
@@ -122,7 +133,8 @@ module system_wrapper
   wire I2C_sda_t;
   wire I2S_Clk;
   wire I2S_DOut;
-  wire I2S_WS;
+  wire [0:0]I2S_Format;
+  wire I2S_LR;
   wire [0:0]PClk;
   wire [2:0]RGB;
   wire [4:0]Red;
@@ -143,6 +155,9 @@ module system_wrapper
        (.Blue(Blue),
         .Buzzer(Buzzer),
         .Clk12MHz(Clk12MHz),
+        .DAC_MClk(DAC_MClk),
+        .DAC_Mode(DAC_Mode),
+        .DAC_Reset(DAC_Reset),
         .DDR_addr(DDR_addr),
         .DDR_ba(DDR_ba),
         .DDR_cas_n(DDR_cas_n),
@@ -175,7 +190,8 @@ module system_wrapper
         .I2C_sda_t(I2C_sda_t),
         .I2S_Clk(I2S_Clk),
         .I2S_DOut(I2S_DOut),
-        .I2S_WS(I2S_WS),
+        .I2S_Format(I2S_Format),
+        .I2S_LR(I2S_LR),
         .PClk(PClk),
         .RGB(RGB),
         .Red(Red),

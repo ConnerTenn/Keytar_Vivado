@@ -114,7 +114,6 @@ vlog -work xlconstant_v1_1_7 -64 "+incdir+../../../../VivadoKeytar.srcs/sources_
 
 vlog -work xil_defaultlib -64 "+incdir+../../../../VivadoKeytar.srcs/sources_1/bd/system/ipshared/ec67/hdl" "+incdir+../../../../VivadoKeytar.srcs/sources_1/bd/system/ipshared/6b56/hdl" "+incdir+../../../../VivadoKeytar.srcs/sources_1/bd/system/ipshared/7af1/hdl" "+incdir+/opt/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \
 "../../../bd/system/ip/system_xlconstant_0_0/sim/system_xlconstant_0_0.v" \
-"../../../bd/system/ip/system_xlconstant_1_0/sim/system_xlconstant_1_0.v" \
 "../../../bd/system/ip/system_xlconstant_0_1/sim/system_xlconstant_0_1.v" \
 
 vlog -work generic_baseblocks_v2_1_0 -64 "+incdir+../../../../VivadoKeytar.srcs/sources_1/bd/system/ipshared/ec67/hdl" "+incdir+../../../../VivadoKeytar.srcs/sources_1/bd/system/ipshared/6b56/hdl" "+incdir+../../../../VivadoKeytar.srcs/sources_1/bd/system/ipshared/7af1/hdl" "+incdir+/opt/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \
@@ -201,8 +200,11 @@ vcom -work xil_defaultlib -64 -93 \
 
 vlog -work xil_defaultlib -64 "+incdir+../../../../VivadoKeytar.srcs/sources_1/bd/system/ipshared/ec67/hdl" "+incdir+../../../../VivadoKeytar.srcs/sources_1/bd/system/ipshared/6b56/hdl" "+incdir+../../../../VivadoKeytar.srcs/sources_1/bd/system/ipshared/7af1/hdl" "+incdir+/opt/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \
 "../../../bd/system/ip/system_APBSlave_Breakout_2_0/sim/system_APBSlave_Breakout_2_0.v" \
-"../../../bd/system/ip/system_AudioOutController_0_0/sim/system_AudioOutController_0_0.v" \
 "../../../bd/system/ip/system_Synth_0_0/sim/system_Synth_0_0.v" \
+"../../../bd/system/ip/system_AudioOutController_0_1/sim/system_AudioOutController_0_1.v" \
+"../../../bd/system/ip/system_const_2_0_0/sim/system_const_2_0_0.v" \
+"../../../bd/system/ip/system_const_HIGH_1_3/sim/system_const_HIGH_1_3.v" \
+"../../../bd/system/ip/system_const_HIGH_4_0/sim/system_const_HIGH_4_0.v" \
 "../../../bd/system/sim/system.v" \
 
 vlog -work axi_protocol_converter_v2_1_21 -64 "+incdir+../../../../VivadoKeytar.srcs/sources_1/bd/system/ipshared/ec67/hdl" "+incdir+../../../../VivadoKeytar.srcs/sources_1/bd/system/ipshared/6b56/hdl" "+incdir+../../../../VivadoKeytar.srcs/sources_1/bd/system/ipshared/7af1/hdl" "+incdir+/opt/Xilinx/Vivado/2020.1/data/xilinx_vip/include" \

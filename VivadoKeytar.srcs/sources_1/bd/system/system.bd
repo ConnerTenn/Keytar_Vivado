@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x300B31F6D273BA49",
+      "boundary_crc": "0xCC7B6F9DC74504CD",
       "device": "xc7z020clg400-1",
       "name": "system",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
@@ -22,7 +22,6 @@
       "axi_apb_bridge_0": "",
       "proc_sys_reset_0": "",
       "const_LOW_0": "",
-      "const_HIGH_1": "",
       "RGBTest_0": "",
       "axi_vdma_0": "",
       "v_axi4s_vid_out_0": "",
@@ -46,8 +45,11 @@
       },
       "axi_apb_bridge_1": "",
       "APBSlave_Breakout_synth": "",
+      "AudioOutController_0": "",
       "Synth_0": "",
-      "AudioOutController_0": ""
+      "const_2_1": "",
+      "const_HIGH_4": "",
+      "const_HIGH_5": ""
     },
     "interface_ports": {
       "DDR": {
@@ -259,7 +261,7 @@
           }
         }
       },
-      "I2S_WS": {
+      "I2S_LR": {
         "type": "data",
         "direction": "O",
         "parameters": {
@@ -315,6 +317,35 @@
             "value_src": "default"
           }
         }
+      },
+      "DAC_Mode": {
+        "type": "data",
+        "direction": "O",
+        "left": "1",
+        "right": "0",
+        "parameters": {
+          "LAYERED_METADATA": {
+            "value": "undef",
+            "value_src": "default"
+          }
+        }
+      },
+      "DAC_Reset": {
+        "direction": "O",
+        "parameters": {
+          "POLARITY": {
+            "value": "ACTIVE_LOW",
+            "value_src": "default_prop"
+          }
+        }
+      },
+      "DAC_MClk": {
+        "direction": "O"
+      },
+      "I2S_Format": {
+        "direction": "O",
+        "left": "0",
+        "right": "0"
       }
     },
     "components": {
@@ -338,7 +369,7 @@
             "value": "10.000000"
           },
           "PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ": {
-            "value": "48.000000"
+            "value": "100.000000"
           },
           "PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ": {
             "value": "150.000000"
@@ -392,7 +423,7 @@
             "value": "111.111115"
           },
           "PCW_CLK0_FREQ": {
-            "value": "48000000"
+            "value": "100000000"
           },
           "PCW_CLK1_FREQ": {
             "value": "150000000"
@@ -411,6 +442,9 @@
           },
           "PCW_EN_CLK1_PORT": {
             "value": "1"
+          },
+          "PCW_EN_CLK2_PORT": {
+            "value": "0"
           },
           "PCW_EN_EMIO_CD_SDIO0": {
             "value": "0"
@@ -452,7 +486,7 @@
             "value": "TRUE"
           },
           "PCW_FPGA0_PERIPHERAL_FREQMHZ": {
-            "value": "48"
+            "value": "100"
           },
           "PCW_FPGA1_PERIPHERAL_FREQMHZ": {
             "value": "149"
@@ -1250,16 +1284,16 @@
               }
             },
             "interface_nets": {
-              "auto_pc_to_s00_couplers": {
-                "interface_ports": [
-                  "M_AXI",
-                  "auto_pc/M_AXI"
-                ]
-              },
               "s00_couplers_to_auto_pc": {
                 "interface_ports": [
                   "S_AXI",
                   "auto_pc/S_AXI"
+                ]
+              },
+              "auto_pc_to_s00_couplers": {
+                "interface_ports": [
+                  "M_AXI",
+                  "auto_pc/M_AXI"
                 ]
               }
             },
@@ -1394,6 +1428,12 @@
               "m00_couplers/M_AXI"
             ]
           },
+          "m01_couplers_to_axi_interconnect_video_ctl": {
+            "interface_ports": [
+              "M01_AXI",
+              "m01_couplers/M_AXI"
+            ]
+          },
           "s00_couplers_to_xbar": {
             "interface_ports": [
               "s00_couplers/M_AXI",
@@ -1406,22 +1446,16 @@
               "m00_couplers/S_AXI"
             ]
           },
-          "m01_couplers_to_axi_interconnect_video_ctl": {
+          "axi_interconnect_video_ctl_to_s00_couplers": {
             "interface_ports": [
-              "M01_AXI",
-              "m01_couplers/M_AXI"
+              "S00_AXI",
+              "s00_couplers/S_AXI"
             ]
           },
           "xbar_to_m01_couplers": {
             "interface_ports": [
               "xbar/M01_AXI",
               "m01_couplers/S_AXI"
-            ]
-          },
-          "axi_interconnect_video_ctl_to_s00_couplers": {
-            "interface_ports": [
-              "S00_AXI",
-              "s00_couplers/S_AXI"
             ]
           }
         },
@@ -1524,10 +1558,6 @@
             "value": "0"
           }
         }
-      },
-      "const_HIGH_1": {
-        "vlnv": "xilinx.com:ip:xlconstant:1.1",
-        "xci_name": "system_xlconstant_1_0"
       },
       "RGBTest_0": {
         "vlnv": "xilinx.com:module_ref:RGBTest:1.0",
@@ -1818,16 +1848,16 @@
               }
             },
             "interface_nets": {
-              "s00_couplers_to_auto_pc": {
-                "interface_ports": [
-                  "S_AXI",
-                  "auto_pc/S_AXI"
-                ]
-              },
               "auto_pc_to_s00_couplers": {
                 "interface_ports": [
                   "M_AXI",
                   "auto_pc/M_AXI"
+                ]
+              },
+              "s00_couplers_to_auto_pc": {
+                "interface_ports": [
+                  "S_AXI",
+                  "auto_pc/S_AXI"
                 ]
               }
             },
@@ -2110,16 +2140,16 @@
               }
             },
             "interface_nets": {
-              "s00_couplers_to_auto_pc": {
-                "interface_ports": [
-                  "S_AXI",
-                  "auto_pc/S_AXI"
-                ]
-              },
               "auto_pc_to_s00_couplers": {
                 "interface_ports": [
                   "M_AXI",
                   "auto_pc/M_AXI"
+                ]
+              },
+              "s00_couplers_to_auto_pc": {
+                "interface_ports": [
+                  "S_AXI",
+                  "auto_pc/S_AXI"
                 ]
               }
             },
@@ -2206,6 +2236,70 @@
         "vlnv": "Independant:user:APBSlave_Breakout:1.0",
         "xci_name": "system_APBSlave_Breakout_2_0"
       },
+      "AudioOutController_0": {
+        "vlnv": "xilinx.com:module_ref:AudioOutController:1.0",
+        "xci_name": "system_AudioOutController_0_1",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "AudioOutController",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "Clock": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "CLK_DOMAIN": {
+                "value": "system_processing_system7_0_0_FCLK_CLK0",
+                "value_src": "default_prop"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "user_prop"
+              }
+            }
+          },
+          "Waveform": {
+            "direction": "I",
+            "left": "23",
+            "right": "0"
+          },
+          "I2SClk": {
+            "direction": "O",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "",
+                "value_src": "weak"
+              }
+            }
+          },
+          "I2SData": {
+            "direction": "O",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "",
+                "value_src": "weak"
+              }
+            }
+          },
+          "I2SLRSel": {
+            "direction": "O",
+            "parameters": {
+              "LAYERED_METADATA": {
+                "value": "",
+                "value_src": "weak"
+              }
+            }
+          },
+          "DAC_Reset": {
+            "type": "rst",
+            "direction": "O"
+          },
+          "DAC_MClk": {
+            "direction": "O"
+          }
+        }
+      },
       "Synth_0": {
         "vlnv": "xilinx.com:module_ref:Synth:1.0",
         "xci_name": "system_Synth_0_0",
@@ -2223,7 +2317,7 @@
                 "value_src": "default_prop"
               },
               "FREQ_HZ": {
-                "value": "48000000",
+                "value": "100000000",
                 "value_src": "user_prop"
               },
               "PHASE": {
@@ -2278,62 +2372,25 @@
           }
         }
       },
-      "AudioOutController_0": {
-        "vlnv": "xilinx.com:module_ref:AudioOutController:1.0",
-        "xci_name": "system_AudioOutController_0_1",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "AudioOutController",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "Clock": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "CLK_DOMAIN": {
-                "value": "system_Clk12MHz",
-                "value_src": "default_prop"
-              },
-              "FREQ_HZ": {
-                "value": "12000000",
-                "value_src": "user_prop"
-              }
-            }
+      "const_2_1": {
+        "vlnv": "xilinx.com:ip:xlconstant:1.1",
+        "xci_name": "system_const_2_0_0",
+        "parameters": {
+          "CONST_VAL": {
+            "value": "2"
           },
-          "Waveform": {
-            "direction": "I",
-            "left": "23",
-            "right": "0"
-          },
-          "I2SClk": {
-            "direction": "O",
-            "parameters": {
-              "LAYERED_METADATA": {
-                "value": "",
-                "value_src": "weak"
-              }
-            }
-          },
-          "I2SData": {
-            "direction": "O",
-            "parameters": {
-              "LAYERED_METADATA": {
-                "value": "",
-                "value_src": "weak"
-              }
-            }
-          },
-          "I2SWordSel": {
-            "direction": "O",
-            "parameters": {
-              "LAYERED_METADATA": {
-                "value": "",
-                "value_src": "weak"
-              }
-            }
+          "CONST_WIDTH": {
+            "value": "2"
           }
         }
+      },
+      "const_HIGH_4": {
+        "vlnv": "xilinx.com:ip:xlconstant:1.1",
+        "xci_name": "system_const_HIGH_1_3"
+      },
+      "const_HIGH_5": {
+        "vlnv": "xilinx.com:ip:xlconstant:1.1",
+        "xci_name": "system_const_HIGH_4_0"
       }
     },
     "interface_nets": {
@@ -2444,7 +2501,7 @@
       },
       "xlconstant_1_dout": {
         "ports": [
-          "const_HIGH_1/dout",
+          "const_HIGH_4/dout",
           "proc_sys_reset_0/aux_reset_in",
           "proc_sys_reset_0/dcm_locked",
           "proc_sys_reset_1/dcm_locked",
@@ -2676,6 +2733,7 @@
           "axi_interconnect_synth/M00_ACLK",
           "axi_apb_bridge_1/s_axi_aclk",
           "APBSlave_Breakout_synth/s_apb_pclock",
+          "AudioOutController_0/Clock",
           "Synth_0/Clock100MHz"
         ]
       },
@@ -2768,8 +2826,8 @@
       },
       "AudioOutController_0_I2S_WordSel": {
         "ports": [
-          "AudioOutController_0/I2SWordSel",
-          "I2S_WS"
+          "AudioOutController_0/I2SLRSel",
+          "I2S_LR"
         ]
       },
       "AudioOutController_0_I2S_Clk": {
@@ -2778,10 +2836,28 @@
           "I2S_Clk"
         ]
       },
-      "Clk12MHz_1": {
+      "AudioOutController_0_DAC_Reset": {
         "ports": [
-          "Clk12MHz",
-          "AudioOutController_0/Clock"
+          "AudioOutController_0/DAC_Reset",
+          "DAC_Reset"
+        ]
+      },
+      "AudioOutController_0_DAC_MClk": {
+        "ports": [
+          "AudioOutController_0/DAC_MClk",
+          "DAC_MClk"
+        ]
+      },
+      "const_2_1_dout": {
+        "ports": [
+          "const_2_1/dout",
+          "DAC_Mode"
+        ]
+      },
+      "const_HIGH_5_dout": {
+        "ports": [
+          "const_HIGH_5/dout",
+          "I2S_Format"
         ]
       }
     },

@@ -82,7 +82,7 @@ output wire BusPError;
 
   Synth #(
     .DEBUG(0),
-    .NUM_CHANNELS(16)
+    .NUM_CHANNELS(1)
   ) inst (
     .Clock100MHz(Clock100MHz),
     .Waveform(Waveform),
