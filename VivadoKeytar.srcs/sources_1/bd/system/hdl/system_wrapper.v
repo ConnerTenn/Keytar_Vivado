@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Wed Sep  2 00:04:13 2020
+//Date        : Sat Sep  5 15:17:29 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -46,6 +46,8 @@ module system_wrapper
     I2S_DOut,
     I2S_Format,
     I2S_LR,
+    KeyRibbonDrive,
+    KeyRibbonSense,
     PClk,
     RGB,
     Red,
@@ -87,6 +89,8 @@ module system_wrapper
   output I2S_DOut;
   output [0:0]I2S_Format;
   output I2S_LR;
+  output [7:0]KeyRibbonDrive;
+  input [7:0]KeyRibbonSense;
   output [0:0]PClk;
   output [2:0]RGB;
   output [4:0]Red;
@@ -135,6 +139,8 @@ module system_wrapper
   wire I2S_DOut;
   wire [0:0]I2S_Format;
   wire I2S_LR;
+  wire [7:0]KeyRibbonDrive;
+  wire [7:0]KeyRibbonSense;
   wire [0:0]PClk;
   wire [2:0]RGB;
   wire [4:0]Red;
@@ -192,6 +198,8 @@ module system_wrapper
         .I2S_DOut(I2S_DOut),
         .I2S_Format(I2S_Format),
         .I2S_LR(I2S_LR),
+        .KeyRibbonDrive(KeyRibbonDrive),
+        .KeyRibbonSense(KeyRibbonSense),
         .PClk(PClk),
         .RGB(RGB),
         .Red(Red),

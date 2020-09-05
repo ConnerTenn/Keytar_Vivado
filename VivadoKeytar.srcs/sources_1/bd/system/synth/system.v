@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Wed Sep  2 00:04:13 2020
+//Date        : Sat Sep  5 15:17:28 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -1017,7 +1017,7 @@ module s00_couplers_imp_LJEUBV
         .s_axi_wvalid(s00_couplers_to_auto_pc_WVALID));
 endmodule
 
-(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=34,numReposBlks=26,numNonXlnxBlks=3,numHierBlks=8,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=4,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
+(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=36,numReposBlks=28,numNonXlnxBlks=4,numHierBlks=8,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=5,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
    (Blue,
     Buzzer,
@@ -1059,6 +1059,8 @@ module system
     I2S_DOut,
     I2S_Format,
     I2S_LR,
+    KeyRibbonDrive,
+    KeyRibbonSense,
     PClk,
     RGB,
     Red,
@@ -1104,6 +1106,8 @@ module system
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.I2S_DOUT DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.I2S_DOUT, LAYERED_METADATA undef" *) output I2S_DOut;
   output [0:0]I2S_Format;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.I2S_LR DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.I2S_LR, LAYERED_METADATA undef" *) output I2S_LR;
+  output [7:0]KeyRibbonDrive;
+  input [7:0]KeyRibbonSense;
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.PCLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.PCLK, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, FREQ_HZ 150000000, FREQ_TOLERANCE_HZ 0, INSERT_VIP 0, PHASE 0.000" *) output [0:0]PClk;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.RGB DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.RGB, LAYERED_METADATA undef" *) output [2:0]RGB;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.RED DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.RED, LAYERED_METADATA undef" *) output [4:0]Red;
@@ -1116,6 +1120,12 @@ module system
   wire APBSlave_Breakout_2_BusPSel;
   wire APBSlave_Breakout_2_BusPWrite;
   wire [31:0]APBSlave_Breakout_2_BusPWriteData;
+  wire APBSlave_Breakout_Keyboard_BusClock;
+  wire [31:0]APBSlave_Breakout_Keyboard_BusPAddr;
+  wire APBSlave_Breakout_Keyboard_BusPEnable;
+  wire APBSlave_Breakout_Keyboard_BusPSel;
+  wire APBSlave_Breakout_Keyboard_BusPWrite;
+  wire [31:0]APBSlave_Breakout_Keyboard_BusPWriteData;
   wire APBSlave_Breakout_synth_BusClock;
   wire [31:0]APBSlave_Breakout_synth_BusPAddr;
   wire APBSlave_Breakout_synth_BusPEnable;
@@ -1128,6 +1138,11 @@ module system
   wire AudioOutController_0_I2S_Clk;
   wire AudioOutController_0_I2S_Data;
   wire AudioOutController_0_I2S_WordSel;
+  wire KeyboarController_0_BusPError;
+  wire [31:0]KeyboarController_0_BusPReadData;
+  wire KeyboarController_0_BusPReady;
+  wire [7:0]KeyboarController_0_KeyRibbonDrive;
+  wire [7:0]KeyboarRibbon_1;
   wire [0:0]Net;
   wire [2:0]RGBTest_0_RGB;
   wire [31:0]S00_AXI_2_ARADDR;
@@ -1166,6 +1181,10 @@ module system
   wire axi_apb_bridge_0_APB_M_PSLVERR;
   wire [31:0]axi_apb_bridge_0_APB_M_PWDATA;
   wire axi_apb_bridge_0_APB_M_PWRITE;
+  wire [31:0]axi_apb_bridge_1_APB_M2_PRDATA;
+  wire axi_apb_bridge_1_APB_M2_PREADY;
+  wire [1:1]axi_apb_bridge_1_APB_M2_PSEL;
+  wire axi_apb_bridge_1_APB_M2_PSLVERR;
   wire [31:0]axi_apb_bridge_1_APB_M_PADDR;
   wire axi_apb_bridge_1_APB_M_PENABLE;
   wire [31:0]axi_apb_bridge_1_APB_M_PRDATA;
@@ -1394,6 +1413,8 @@ module system
   assign I2S_DOut = AudioOutController_0_I2S_Data;
   assign I2S_Format[0] = const_HIGH_5_dout;
   assign I2S_LR = AudioOutController_0_I2S_WordSel;
+  assign KeyRibbonDrive[7:0] = KeyboarController_0_KeyRibbonDrive;
+  assign KeyboarRibbon_1 = KeyRibbonSense[7:0];
   assign PClk[0] = VideoBreakout_0_PClk;
   assign RGB[2:0] = RGBTest_0_RGB;
   assign Red[4:0] = VideoBreakout_0_Red;
@@ -1401,6 +1422,25 @@ module system
   assign Waveform[23:0] = Synth_0_Waveform;
   assign processing_system7_0_IIC_0_SCL_I = I2C_scl_i;
   assign processing_system7_0_IIC_0_SDA_I = I2C_sda_i;
+  system_APBSlave_Breakout_0_0 APBSlave_Breakout_Keyboard
+       (.BusClock(APBSlave_Breakout_Keyboard_BusClock),
+        .BusPAddr(APBSlave_Breakout_Keyboard_BusPAddr),
+        .BusPEnable(APBSlave_Breakout_Keyboard_BusPEnable),
+        .BusPError(KeyboarController_0_BusPError),
+        .BusPReadData(KeyboarController_0_BusPReadData),
+        .BusPReady(KeyboarController_0_BusPReady),
+        .BusPSel(APBSlave_Breakout_Keyboard_BusPSel),
+        .BusPWrite(APBSlave_Breakout_Keyboard_BusPWrite),
+        .BusPWriteData(APBSlave_Breakout_Keyboard_BusPWriteData),
+        .s_apb_paddr(axi_apb_bridge_1_APB_M_PADDR),
+        .s_apb_pclock(processing_system7_0_FCLK_CLK0),
+        .s_apb_penable(axi_apb_bridge_1_APB_M_PENABLE),
+        .s_apb_prdata(axi_apb_bridge_1_APB_M2_PRDATA),
+        .s_apb_pready(axi_apb_bridge_1_APB_M2_PREADY),
+        .s_apb_psel(axi_apb_bridge_1_APB_M2_PSEL),
+        .s_apb_pslverr(axi_apb_bridge_1_APB_M2_PSLVERR),
+        .s_apb_pwdata(axi_apb_bridge_1_APB_M_PWDATA),
+        .s_apb_pwrite(axi_apb_bridge_1_APB_M_PWRITE));
   system_APBSlave_Breakout_2_0 APBSlave_Breakout_synth
        (.BusClock(APBSlave_Breakout_synth_BusClock),
         .BusPAddr(APBSlave_Breakout_synth_BusPAddr),
@@ -1447,6 +1487,18 @@ module system
         .I2SData(AudioOutController_0_I2S_Data),
         .I2SLRSel(AudioOutController_0_I2S_WordSel),
         .Waveform(Synth_0_Waveform));
+  system_KeyboarController_0_0 KeyboarController_0
+       (.BusClock(APBSlave_Breakout_Keyboard_BusClock),
+        .BusPAddr(APBSlave_Breakout_Keyboard_BusPAddr),
+        .BusPEnable(APBSlave_Breakout_Keyboard_BusPEnable),
+        .BusPError(KeyboarController_0_BusPError),
+        .BusPReadData(KeyboarController_0_BusPReadData),
+        .BusPReady(KeyboarController_0_BusPReady),
+        .BusPSel(APBSlave_Breakout_Keyboard_BusPSel),
+        .BusPWrite(APBSlave_Breakout_Keyboard_BusPWrite),
+        .BusPWriteData(APBSlave_Breakout_Keyboard_BusPWriteData),
+        .KeyRibbonDrive(KeyboarController_0_KeyRibbonDrive),
+        .KeyRibbonSense(KeyboarRibbon_1));
   system_RGBTest_0_0 RGBTest_0
        (.Clock(processing_system7_0_FCLK_CLK1),
         .RGB(RGBTest_0_RGB));
@@ -1526,9 +1578,10 @@ module system
        (.m_apb_paddr(axi_apb_bridge_1_APB_M_PADDR),
         .m_apb_penable(axi_apb_bridge_1_APB_M_PENABLE),
         .m_apb_prdata(axi_apb_bridge_1_APB_M_PRDATA),
-        .m_apb_pready(axi_apb_bridge_1_APB_M_PREADY),
-        .m_apb_psel(axi_apb_bridge_1_APB_M_PSEL),
-        .m_apb_pslverr(axi_apb_bridge_1_APB_M_PSLVERR),
+        .m_apb_prdata2(axi_apb_bridge_1_APB_M2_PRDATA),
+        .m_apb_pready({axi_apb_bridge_1_APB_M2_PREADY,axi_apb_bridge_1_APB_M_PREADY}),
+        .m_apb_psel({axi_apb_bridge_1_APB_M2_PSEL,axi_apb_bridge_1_APB_M_PSEL}),
+        .m_apb_pslverr({axi_apb_bridge_1_APB_M2_PSLVERR,axi_apb_bridge_1_APB_M_PSLVERR}),
         .m_apb_pwdata(axi_apb_bridge_1_APB_M_PWDATA),
         .m_apb_pwrite(axi_apb_bridge_1_APB_M_PWRITE),
         .s_axi_aclk(processing_system7_0_FCLK_CLK0),

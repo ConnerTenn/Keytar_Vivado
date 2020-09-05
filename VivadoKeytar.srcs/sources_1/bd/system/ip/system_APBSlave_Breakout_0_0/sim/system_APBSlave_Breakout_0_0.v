@@ -47,17 +47,23 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: xilinx.com:module_ref:Synth:1.0
-// IP Revision: 1
+// IP VLNV: Independant:user:APBSlave_Breakout:1.0
+// IP Revision: 2
 
-(* X_CORE_INFO = "Synth,Vivado 2020.1" *)
-(* CHECK_LICENSE_TYPE = "system_Synth_0_0,Synth,{}" *)
-(* CORE_GENERATION_INFO = "system_Synth_0_0,Synth,{x_ipProduct=Vivado 2020.1,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=Synth,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,DEBUG=0,NUM_CHANNELS=4}" *)
-(* IP_DEFINITION_SOURCE = "module_ref" *)
+`timescale 1ns/1ps
+
+(* IP_DEFINITION_SOURCE = "package_project" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-module system_Synth_0_0 (
-  Clock100MHz,
-  Waveform,
+module system_APBSlave_Breakout_0_0 (
+  s_apb_pclock,
+  s_apb_paddr,
+  s_apb_pwdata,
+  s_apb_prdata,
+  s_apb_pwrite,
+  s_apb_pready,
+  s_apb_penable,
+  s_apb_psel,
+  s_apb_pslverr,
   BusClock,
   BusPAddr,
   BusPWriteData,
@@ -69,24 +75,45 @@ module system_Synth_0_0 (
   BusPError
 );
 
-input wire Clock100MHz;
-output wire [23 : 0] Waveform;
-input wire BusClock;
-input wire [31 : 0] BusPAddr;
-input wire [31 : 0] BusPWriteData;
-output wire [31 : 0] BusPReadData;
-input wire BusPWrite;
-output wire BusPReady;
-input wire BusPEnable;
-input wire BusPSel;
-output wire BusPError;
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME s_apb_aclk, ASSOCIATED_BUSIF APB_S, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 s_apb_aclk CLK" *)
+input wire s_apb_pclock;
+(* X_INTERFACE_INFO = "xilinx.com:interface:apb:1.0 APB_S PADDR" *)
+input wire [31 : 0] s_apb_paddr;
+(* X_INTERFACE_INFO = "xilinx.com:interface:apb:1.0 APB_S PWDATA" *)
+input wire [31 : 0] s_apb_pwdata;
+(* X_INTERFACE_INFO = "xilinx.com:interface:apb:1.0 APB_S PRDATA" *)
+output wire [31 : 0] s_apb_prdata;
+(* X_INTERFACE_INFO = "xilinx.com:interface:apb:1.0 APB_S PWRITE" *)
+input wire s_apb_pwrite;
+(* X_INTERFACE_INFO = "xilinx.com:interface:apb:1.0 APB_S PREADY" *)
+output wire s_apb_pready;
+(* X_INTERFACE_INFO = "xilinx.com:interface:apb:1.0 APB_S PENABLE" *)
+input wire s_apb_penable;
+(* X_INTERFACE_INFO = "xilinx.com:interface:apb:1.0 APB_S PSEL" *)
+input wire s_apb_psel;
+(* X_INTERFACE_INFO = "xilinx.com:interface:apb:1.0 APB_S PSLVERR" *)
+output wire s_apb_pslverr;
+output wire BusClock;
+output wire [31 : 0] BusPAddr;
+output wire [31 : 0] BusPWriteData;
+input wire [31 : 0] BusPReadData;
+output wire BusPWrite;
+input wire BusPReady;
+output wire BusPEnable;
+output wire BusPSel;
+input wire BusPError;
 
-  Synth #(
-    .DEBUG(0),
-    .NUM_CHANNELS(4)
-  ) inst (
-    .Clock100MHz(Clock100MHz),
-    .Waveform(Waveform),
+  Breakout inst (
+    .s_apb_pclock(s_apb_pclock),
+    .s_apb_paddr(s_apb_paddr),
+    .s_apb_pwdata(s_apb_pwdata),
+    .s_apb_prdata(s_apb_prdata),
+    .s_apb_pwrite(s_apb_pwrite),
+    .s_apb_pready(s_apb_pready),
+    .s_apb_penable(s_apb_penable),
+    .s_apb_psel(s_apb_psel),
+    .s_apb_pslverr(s_apb_pslverr),
     .BusClock(BusClock),
     .BusPAddr(BusPAddr),
     .BusPWriteData(BusPWriteData),

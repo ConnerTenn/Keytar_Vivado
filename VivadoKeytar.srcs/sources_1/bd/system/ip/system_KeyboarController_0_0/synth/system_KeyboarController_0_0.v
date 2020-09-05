@@ -47,17 +47,17 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: xilinx.com:module_ref:Synth:1.0
+// IP VLNV: xilinx.com:module_ref:KeyboarController:1.0
 // IP Revision: 1
 
-(* X_CORE_INFO = "Synth,Vivado 2020.1" *)
-(* CHECK_LICENSE_TYPE = "system_Synth_0_0,Synth,{}" *)
-(* CORE_GENERATION_INFO = "system_Synth_0_0,Synth,{x_ipProduct=Vivado 2020.1,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=Synth,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,DEBUG=0,NUM_CHANNELS=4}" *)
+(* X_CORE_INFO = "KeyboarController,Vivado 2020.1" *)
+(* CHECK_LICENSE_TYPE = "system_KeyboarController_0_0,KeyboarController,{}" *)
+(* CORE_GENERATION_INFO = "system_KeyboarController_0_0,KeyboarController,{x_ipProduct=Vivado 2020.1,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=KeyboarController,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,ADDRESS=0x40100000}" *)
 (* IP_DEFINITION_SOURCE = "module_ref" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-module system_Synth_0_0 (
-  Clock100MHz,
-  Waveform,
+module system_KeyboarController_0_0 (
+  KeyRibbonDrive,
+  KeyRibbonSense,
   BusClock,
   BusPAddr,
   BusPWriteData,
@@ -69,8 +69,8 @@ module system_Synth_0_0 (
   BusPError
 );
 
-input wire Clock100MHz;
-output wire [23 : 0] Waveform;
+output wire [7 : 0] KeyRibbonDrive;
+input wire [7 : 0] KeyRibbonSense;
 input wire BusClock;
 input wire [31 : 0] BusPAddr;
 input wire [31 : 0] BusPWriteData;
@@ -81,12 +81,11 @@ input wire BusPEnable;
 input wire BusPSel;
 output wire BusPError;
 
-  Synth #(
-    .DEBUG(0),
-    .NUM_CHANNELS(4)
+  KeyboarController #(
+    .ADDRESS(32'H40100000)
   ) inst (
-    .Clock100MHz(Clock100MHz),
-    .Waveform(Waveform),
+    .KeyRibbonDrive(KeyRibbonDrive),
+    .KeyRibbonSense(KeyRibbonSense),
     .BusClock(BusClock),
     .BusPAddr(BusPAddr),
     .BusPWriteData(BusPWriteData),

@@ -85,6 +85,7 @@ module Channel
                     ADDRESS+4*6: BusPReadData <= {31'h0, gate};
                     ADDRESS+4*7: BusPReadData <= {8'h0, envelope};
                     ADDRESS+4*8: BusPReadData <= {30'h0, adsrState};
+                    ADDRESS+4*9: BusPReadData <= {31'h0, running};
                 endcase
             end
         end
@@ -104,9 +105,11 @@ module Channel
                     ADDRESS+4*6: gate <= BusPWriteData[0:0];
                     // ADDRESS+4*7:
                     // ADDRESS+4*8:
+                    // ADDRESS+4*9:
                 endcase
             end
-
+            
+            BusPReadData <= 0;
             BusPReady <= 0;
         end
     end

@@ -25,7 +25,7 @@ module Synth #(
     input BusPEnable, BusPSel;
     output BusPError;
 
-    parameter NUM_CHANNELS = (DEBUG?2:1);
+    parameter NUM_CHANNELS = (DEBUG?2:4);
 
     reg clock1MHz = 0;
 
@@ -46,7 +46,7 @@ module Synth #(
             .Waveform(waveform),
             .BusClock(BusClock), .BusPAddr(BusPAddr), .BusPWriteData(BusPWriteData), .BusPReadData(buspreaddata), 
             .BusPWrite(BusPWrite), .BusPReady(buspready), 
-            .BusPEnable(BusPEnable), .BusPSel(BusPSel), .BusPError(busperror_OR)
+            .BusPEnable(BusPEnable), .BusPSel(BusPSel), .BusPError(busperror)
         );
 
         if (gi == 0)
@@ -63,9 +63,9 @@ module Synth #(
             //All other channels must add the previous wavegen to itself
             assign wavesum = waveform + channels[gi-1].wavesum;
 
-            assign buspreaddata_OR = buspreaddata | channels[gi-1].buspreaddata;
-            assign buspready_OR = buspready | channels[gi-1].buspready;
-            assign busperror_OR = busperror | channels[gi-1].busperror;
+            assign buspreaddata_OR = buspreaddata | channels[gi-1].buspreaddata_OR;
+            assign buspready_OR = buspready | channels[gi-1].buspready_OR;
+            assign busperror_OR = busperror | channels[gi-1].busperror_OR;
         end
     end
 
