@@ -25,7 +25,7 @@ module Synth #(
     input BusPEnable, BusPSel;
     output BusPError;
 
-    parameter NUM_CHANNELS = (DEBUG?2:4);
+    parameter NUM_CHANNELS = (DEBUG?2:16);
 
     reg clock1MHz = 0;
 
@@ -70,7 +70,7 @@ module Synth #(
     end
 
     //Rescale output
-    assign Waveform = (channels[NUM_CHANNELS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_CHANNELS)-23));
+    assign Waveform = (channels[NUM_CHANNELS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_CHANNELS)-24));
 
     assign BusPReadData = channels[NUM_CHANNELS-1].buspreaddata_OR;
     assign BusPReady = channels[NUM_CHANNELS-1].buspready_OR;

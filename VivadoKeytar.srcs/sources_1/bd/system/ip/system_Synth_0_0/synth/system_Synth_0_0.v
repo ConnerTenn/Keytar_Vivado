@@ -52,7 +52,7 @@
 
 (* X_CORE_INFO = "Synth,Vivado 2020.1" *)
 (* CHECK_LICENSE_TYPE = "system_Synth_0_0,Synth,{}" *)
-(* CORE_GENERATION_INFO = "system_Synth_0_0,Synth,{x_ipProduct=Vivado 2020.1,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=Synth,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,DEBUG=0,NUM_CHANNELS=4}" *)
+(* CORE_GENERATION_INFO = "system_Synth_0_0,Synth,{x_ipProduct=Vivado 2020.1,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=Synth,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,DEBUG=0,NUM_CHANNELS=16}" *)
 (* IP_DEFINITION_SOURCE = "module_ref" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module system_Synth_0_0 (
@@ -83,7 +83,7 @@ output wire BusPError;
 
   Synth #(
     .DEBUG(0),
-    .NUM_CHANNELS(4)
+    .NUM_CHANNELS(16)
   ) inst (
     .Clock100MHz(Clock100MHz),
     .Waveform(Waveform),
