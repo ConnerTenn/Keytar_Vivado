@@ -39,7 +39,7 @@ module Channel
     );
 
     reg [23:0] attack = 0, decay = 0, sustain = 0, releas = 0;
-    reg gate = 0;
+    reg gate = 0, gatetmp = 0;
     wire [23:0] envelope;
     wire [1:0] adsrState;
 
@@ -62,6 +62,7 @@ module Channel
 
     always @(posedge Clock1MHz)
     begin
+        gate <= gatetmp;
     end
 
 
@@ -102,13 +103,13 @@ module Channel
                     ADDRESS+4*3: decay <= BusPWriteData[23:0];
                     ADDRESS+4*4: sustain <= BusPWriteData[23:0];
                     ADDRESS+4*5: releas <= BusPWriteData[23:0];
-                    ADDRESS+4*6: gate <= BusPWriteData[0:0];
+                    ADDRESS+4*6: gatetmp <= BusPWriteData[0:0];
                     // ADDRESS+4*7:
                     // ADDRESS+4*8:
                     // ADDRESS+4*9:
                 endcase
             end
-            
+
             BusPReadData <= 0;
             BusPReady <= 0;
         end

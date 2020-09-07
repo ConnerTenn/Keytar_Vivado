@@ -26,7 +26,7 @@ module ADSR
                 2'b00: begin StepSel = attack; end
                 2'b01: begin StepSel = decay;  end
                 2'b11: begin StepSel = releas; end
-                default: begin StepSel = 0;end
+                default: begin StepSel = 0;    end
             endcase
         end
     endfunction
@@ -66,6 +66,7 @@ module ADSR
                     if (attackcompare) //(Envelope>=WAVE_MAX-step)
                     begin
                         ADSRstate <= 2'b01;
+                        Envelope <= Attack;
                     end
                     else 
                     begin
@@ -78,13 +79,17 @@ module ADSR
                     if (decaycompare) //(Envelope<=Sustain+step)
                     begin
                         ADSRstate <= 2'b10;
+                        Envelope <= Decay;
                     end
                     else
                     begin
                         Envelope <= nextdecayenvolope; //envolope-step
                     end
                 end
-            // 2'b10: //Sustain
+            2'b10: //Sustain
+                begin
+                    Envelope <= Sustain;
+                end
             // 2'b11: //Release
             endcase
         end
