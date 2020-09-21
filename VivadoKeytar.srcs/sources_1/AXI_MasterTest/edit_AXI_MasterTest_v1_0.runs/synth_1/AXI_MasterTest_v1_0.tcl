@@ -96,10 +96,8 @@ set_property ip_output_repo /NetDrive/Personal/Projects/Keytar/VivadoKeytar/Viva
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_verilog -library "" {
-  /NetDrive/Personal/Projects/Keytar/VivadoKeytar/VivadoKeytar.srcs/sources_1/AXI_MasterTest/AXI_MasterTest_1.0/hdl/AXI_MasterTest_v1_0_M00_AXI.v
-  /NetDrive/Personal/Projects/Keytar/VivadoKeytar/VivadoKeytar.srcs/sources_1/AXI_MasterTest/AXI_MasterTest_1.0/hdl/AXI_MasterTest_v1_0.v
-}
+read_verilog -library "" /NetDrive/Personal/Projects/Keytar/VivadoKeytar/VivadoKeytar.srcs/sources_1/AXI_MasterTest/AXI_MasterTest_1.0/hdl/AXI_MasterTest_v1_0.v
+read_verilog -library xil_defaultlib /NetDrive/Personal/Projects/Keytar/VivadoKeytar/VivadoKeytar.srcs/sources_1/AXI_MasterTest/AXI_MasterTest_1.0/hdl/AXI_Controller.v
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
