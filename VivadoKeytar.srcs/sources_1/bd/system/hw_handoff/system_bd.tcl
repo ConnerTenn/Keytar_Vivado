@@ -200,6 +200,9 @@ proc create_root_design { parentCell } {
   # Create instance: APBSlave_Breakout_video_ctl, and set properties
   set APBSlave_Breakout_video_ctl [ create_bd_cell -type ip -vlnv Independant:user:APBSlave_Breakout:1.0 APBSlave_Breakout_video_ctl ]
 
+  # Create instance: AXI_MasterTest_0, and set properties
+  set AXI_MasterTest_0 [ create_bd_cell -type ip -vlnv Independant:user:AXI_MasterTest:1.0 AXI_MasterTest_0 ]
+
   # Create instance: AudioOutController_0, and set properties
   set block_name AudioOutController
   set block_cell_name AudioOutController_0
@@ -271,6 +274,14 @@ proc create_root_design { parentCell } {
    CONFIG.C_APB_NUM_SLAVES {2} \
    CONFIG.C_M_APB_PROTOCOL {apb3} \
  ] $axi_apb_bridge_1
+
+  # Create instance: axi_interconnect_0, and set properties
+  set axi_interconnect_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 axi_interconnect_0 ]
+  set_property -dict [ list \
+   CONFIG.ENABLE_ADVANCED_OPTIONS {1} \
+   CONFIG.NUM_MI {1} \
+   CONFIG.XBAR_DATA_WIDTH {64} \
+ ] $axi_interconnect_0
 
   # Create instance: axi_interconnect_synth, and set properties
   set axi_interconnect_synth [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_interconnect:2.1 axi_interconnect_synth ]
@@ -404,6 +415,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_EN_CLK1_PORT {1} \
    CONFIG.PCW_EN_CLK2_PORT {0} \
    CONFIG.PCW_EN_EMIO_CD_SDIO0 {0} \
+   CONFIG.PCW_EN_EMIO_GPIO {1} \
    CONFIG.PCW_EN_EMIO_I2C0 {1} \
    CONFIG.PCW_EN_EMIO_WP_SDIO0 {0} \
    CONFIG.PCW_EN_GPIO {1} \
@@ -431,6 +443,9 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_FPGA_FCLK1_ENABLE {1} \
    CONFIG.PCW_FPGA_FCLK2_ENABLE {0} \
    CONFIG.PCW_FPGA_FCLK3_ENABLE {0} \
+   CONFIG.PCW_GPIO_EMIO_GPIO_ENABLE {1} \
+   CONFIG.PCW_GPIO_EMIO_GPIO_IO {64} \
+   CONFIG.PCW_GPIO_EMIO_GPIO_WIDTH {64} \
    CONFIG.PCW_GPIO_MIO_GPIO_ENABLE {1} \
    CONFIG.PCW_GPIO_MIO_GPIO_IO {MIO} \
    CONFIG.PCW_I2C0_GRP_INT_ENABLE {1} \
@@ -708,7 +723,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_USE_M_AXI_GP1 {1} \
    CONFIG.PCW_USE_S_AXI_GP0 {1} \
    CONFIG.PCW_USE_S_AXI_GP1 {0} \
-   CONFIG.PCW_USE_S_AXI_HP0 {0} \
+   CONFIG.PCW_USE_S_AXI_HP0 {1} \
  ] $processing_system7_0
 
   # Create instance: v_axi4s_vid_out_0, and set properties
@@ -750,11 +765,13 @@ proc create_root_design { parentCell } {
  ] $v_tc_0
 
   # Create interface connections
+  connect_bd_intf_net -intf_net AXI_MasterTest_0_M00_AXI [get_bd_intf_pins AXI_MasterTest_0/M00_AXI] [get_bd_intf_pins axi_interconnect_0/S00_AXI]
   connect_bd_intf_net -intf_net S00_AXI_2 [get_bd_intf_pins axi_interconnect_vdma/S00_AXI] [get_bd_intf_pins axi_vdma_0/M_AXI_MM2S]
   connect_bd_intf_net -intf_net axi_apb_bridge_0_APB_M [get_bd_intf_pins APBSlave_Breakout_video_ctl/APB_S] [get_bd_intf_pins axi_apb_bridge_0/APB_M]
   connect_bd_intf_net -intf_net axi_apb_bridge_1_APB_M [get_bd_intf_pins APBSlave_Breakout_synth/APB_S] [get_bd_intf_pins axi_apb_bridge_1/APB_M]
   connect_bd_intf_net -intf_net axi_apb_bridge_1_APB_M2 [get_bd_intf_pins APBSlave_Breakout_Keyboard/APB_S] [get_bd_intf_pins axi_apb_bridge_1/APB_M2]
   connect_bd_intf_net -intf_net axi_interconnect_0_M00_AXI [get_bd_intf_pins axi_apb_bridge_0/AXI4_LITE] [get_bd_intf_pins axi_interconnect_video_ctl/M00_AXI]
+  connect_bd_intf_net -intf_net axi_interconnect_0_M00_AXI1 [get_bd_intf_pins axi_interconnect_0/M00_AXI] [get_bd_intf_pins processing_system7_0/S_AXI_HP0]
   connect_bd_intf_net -intf_net axi_interconnect_0_M01_AXI [get_bd_intf_pins axi_interconnect_video_ctl/M01_AXI] [get_bd_intf_pins axi_vdma_0/S_AXI_LITE]
   connect_bd_intf_net -intf_net axi_interconnect_1_M00_AXI [get_bd_intf_pins axi_interconnect_vdma/M00_AXI] [get_bd_intf_pins processing_system7_0/S_AXI_GP0]
   connect_bd_intf_net -intf_net axi_interconnect_synth_M00_AXI [get_bd_intf_pins axi_apb_bridge_1/AXI4_LITE] [get_bd_intf_pins axi_interconnect_synth/M00_AXI]
@@ -786,7 +803,8 @@ proc create_root_design { parentCell } {
   connect_bd_net -net APBSlave_Breakout_synth_BusPSel [get_bd_pins APBSlave_Breakout_synth/BusPSel] [get_bd_pins Synth_0/BusPSel]
   connect_bd_net -net APBSlave_Breakout_synth_BusPWrite [get_bd_pins APBSlave_Breakout_synth/BusPWrite] [get_bd_pins Synth_0/BusPWrite]
   connect_bd_net -net APBSlave_Breakout_synth_BusPWriteData [get_bd_pins APBSlave_Breakout_synth/BusPWriteData] [get_bd_pins Synth_0/BusPWriteData]
-  connect_bd_net -net ARESETN_1 [get_bd_pins axi_interconnect_vdma/ARESETN] [get_bd_pins axi_interconnect_video_ctl/ARESETN] [get_bd_pins proc_sys_reset_1/interconnect_aresetn]
+  connect_bd_net -net ARESETN_1 [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins axi_interconnect_vdma/ARESETN] [get_bd_pins axi_interconnect_video_ctl/ARESETN] [get_bd_pins proc_sys_reset_1/interconnect_aresetn]
+  connect_bd_net -net AXI_MasterTest_0_GPIO_DEBUG [get_bd_pins AXI_MasterTest_0/GPIO_DEBUG] [get_bd_pins processing_system7_0/GPIO_I]
   connect_bd_net -net AudioOutController_0_DAC_MClk [get_bd_ports DAC_MClk] [get_bd_pins AudioOutController_0/DAC_MClk]
   connect_bd_net -net AudioOutController_0_DAC_Reset [get_bd_ports DAC_Reset] [get_bd_pins AudioOutController_0/DAC_Reset]
   connect_bd_net -net AudioOutController_0_I2S_Clk [get_bd_ports I2S_Clk] [get_bd_pins AudioOutController_0/I2SClk]
@@ -821,9 +839,9 @@ proc create_root_design { parentCell } {
   connect_bd_net -net const_HIGH_5_dout [get_bd_ports I2S_Format] [get_bd_pins const_HIGH_5/dout]
   connect_bd_net -net proc_sys_reset_0_interconnect_aresetn [get_bd_pins axi_interconnect_synth/ARESETN] [get_bd_pins proc_sys_reset_0/interconnect_aresetn]
   connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins axi_apb_bridge_1/s_axi_aresetn] [get_bd_pins axi_interconnect_synth/M00_ARESETN] [get_bd_pins axi_interconnect_synth/S00_ARESETN] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
-  connect_bd_net -net proc_sys_reset_1_peripheral_aresetn [get_bd_pins axi_apb_bridge_0/s_axi_aresetn] [get_bd_pins axi_interconnect_vdma/M00_ARESETN] [get_bd_pins axi_interconnect_vdma/S00_ARESETN] [get_bd_pins axi_interconnect_video_ctl/M00_ARESETN] [get_bd_pins axi_interconnect_video_ctl/M01_ARESETN] [get_bd_pins axi_interconnect_video_ctl/S00_ARESETN] [get_bd_pins axi_vdma_0/axi_resetn] [get_bd_pins proc_sys_reset_1/peripheral_aresetn] [get_bd_pins v_axi4s_vid_out_0/aresetn] [get_bd_pins v_tc_0/resetn]
+  connect_bd_net -net proc_sys_reset_1_peripheral_aresetn [get_bd_pins AXI_MasterTest_0/m00_axi_aresetn] [get_bd_pins axi_apb_bridge_0/s_axi_aresetn] [get_bd_pins axi_interconnect_vdma/M00_ARESETN] [get_bd_pins axi_interconnect_vdma/S00_ARESETN] [get_bd_pins axi_interconnect_video_ctl/M00_ARESETN] [get_bd_pins axi_interconnect_video_ctl/M01_ARESETN] [get_bd_pins axi_interconnect_video_ctl/S00_ARESETN] [get_bd_pins axi_vdma_0/axi_resetn] [get_bd_pins proc_sys_reset_1/peripheral_aresetn] [get_bd_pins v_axi4s_vid_out_0/aresetn] [get_bd_pins v_tc_0/resetn]
   connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins APBSlave_Breakout_Keyboard/s_apb_pclock] [get_bd_pins APBSlave_Breakout_synth/s_apb_pclock] [get_bd_pins AudioOutController_0/Clock] [get_bd_pins Synth_0/Clock100MHz] [get_bd_pins axi_apb_bridge_1/s_axi_aclk] [get_bd_pins axi_interconnect_synth/ACLK] [get_bd_pins axi_interconnect_synth/M00_ACLK] [get_bd_pins axi_interconnect_synth/S00_ACLK] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK]
-  connect_bd_net -net processing_system7_0_FCLK_CLK1 [get_bd_pins APBSlave_Breakout_video_ctl/s_apb_pclock] [get_bd_pins RGBTest_0/Clock] [get_bd_pins VideoBreakout_0/PClock] [get_bd_pins axi_apb_bridge_0/s_axi_aclk] [get_bd_pins axi_interconnect_vdma/ACLK] [get_bd_pins axi_interconnect_vdma/M00_ACLK] [get_bd_pins axi_interconnect_vdma/S00_ACLK] [get_bd_pins axi_interconnect_video_ctl/ACLK] [get_bd_pins axi_interconnect_video_ctl/M00_ACLK] [get_bd_pins axi_interconnect_video_ctl/M01_ACLK] [get_bd_pins axi_interconnect_video_ctl/S00_ACLK] [get_bd_pins axi_vdma_0/m_axi_mm2s_aclk] [get_bd_pins axi_vdma_0/m_axis_mm2s_aclk] [get_bd_pins axi_vdma_0/s_axi_lite_aclk] [get_bd_pins proc_sys_reset_1/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK1] [get_bd_pins processing_system7_0/M_AXI_GP1_ACLK] [get_bd_pins processing_system7_0/S_AXI_GP0_ACLK] [get_bd_pins v_axi4s_vid_out_0/aclk] [get_bd_pins v_tc_0/clk]
+  connect_bd_net -net processing_system7_0_FCLK_CLK1 [get_bd_pins APBSlave_Breakout_video_ctl/s_apb_pclock] [get_bd_pins AXI_MasterTest_0/m00_axi_aclk] [get_bd_pins RGBTest_0/Clock] [get_bd_pins VideoBreakout_0/PClock] [get_bd_pins axi_apb_bridge_0/s_axi_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins axi_interconnect_vdma/ACLK] [get_bd_pins axi_interconnect_vdma/M00_ACLK] [get_bd_pins axi_interconnect_vdma/S00_ACLK] [get_bd_pins axi_interconnect_video_ctl/ACLK] [get_bd_pins axi_interconnect_video_ctl/M00_ACLK] [get_bd_pins axi_interconnect_video_ctl/M01_ACLK] [get_bd_pins axi_interconnect_video_ctl/S00_ACLK] [get_bd_pins axi_vdma_0/m_axi_mm2s_aclk] [get_bd_pins axi_vdma_0/m_axis_mm2s_aclk] [get_bd_pins axi_vdma_0/s_axi_lite_aclk] [get_bd_pins proc_sys_reset_1/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK1] [get_bd_pins processing_system7_0/M_AXI_GP1_ACLK] [get_bd_pins processing_system7_0/S_AXI_GP0_ACLK] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK] [get_bd_pins v_axi4s_vid_out_0/aclk] [get_bd_pins v_tc_0/clk]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
   connect_bd_net -net processing_system7_0_FCLK_RESET1_N [get_bd_pins proc_sys_reset_1/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET1_N]
   connect_bd_net -net v_axi4s_vid_out_0_fifo_read_level [get_bd_pins VideoController_0/VidFifoRead] [get_bd_pins v_axi4s_vid_out_0/fifo_read_level]
@@ -836,6 +854,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net xlconstant_1_dout [get_bd_pins const_HIGH_4/dout] [get_bd_pins proc_sys_reset_0/aux_reset_in] [get_bd_pins proc_sys_reset_0/dcm_locked] [get_bd_pins proc_sys_reset_1/aux_reset_in] [get_bd_pins proc_sys_reset_1/dcm_locked]
 
   # Create address segments
+  assign_bd_address -offset 0x30000000 -range 0x00001000 -target_address_space [get_bd_addr_spaces AXI_MasterTest_0/M00_AXI] [get_bd_addr_segs processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM] -force
   assign_bd_address -offset 0x10000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces axi_vdma_0/Data_MM2S] [get_bd_addr_segs processing_system7_0/S_AXI_GP0/GP0_DDR_LOWOCM] -force
   assign_bd_address -offset 0x80010000 -range 0x00001000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs APBSlave_Breakout_video_ctl/APB_S/Reg] -force
   assign_bd_address -offset 0x40000000 -range 0x00100000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs APBSlave_Breakout_synth/APB_S/Reg] -force

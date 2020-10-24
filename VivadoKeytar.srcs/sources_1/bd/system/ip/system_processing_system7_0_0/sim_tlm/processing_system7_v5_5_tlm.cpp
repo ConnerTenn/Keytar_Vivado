@@ -144,6 +144,9 @@ void add_extensions_to_tlm(const xtlm::aximm_payload* xtlm_pay, tlm::tlm_generic
 
 processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_name name,
     xsc::common_cpp::properties& _prop): sc_module(name)//registering module name with parent
+        ,GPIO_I("GPIO_I")
+        ,GPIO_O("GPIO_O")
+        ,GPIO_T("GPIO_T")
         ,I2C0_SDA_I("I2C0_SDA_I")
         ,I2C0_SDA_O("I2C0_SDA_O")
         ,I2C0_SDA_T("I2C0_SDA_T")
@@ -153,6 +156,13 @@ processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_n
         ,M_AXI_GP0_ACLK("M_AXI_GP0_ACLK")
         ,M_AXI_GP1_ACLK("M_AXI_GP1_ACLK")
         ,S_AXI_GP0_ACLK("S_AXI_GP0_ACLK")
+        ,S_AXI_HP0_RCOUNT("S_AXI_HP0_RCOUNT")
+        ,S_AXI_HP0_WCOUNT("S_AXI_HP0_WCOUNT")
+        ,S_AXI_HP0_RACOUNT("S_AXI_HP0_RACOUNT")
+        ,S_AXI_HP0_WACOUNT("S_AXI_HP0_WACOUNT")
+        ,S_AXI_HP0_ACLK("S_AXI_HP0_ACLK")
+        ,S_AXI_HP0_RDISSUECAP1_EN("S_AXI_HP0_RDISSUECAP1_EN")
+        ,S_AXI_HP0_WRISSUECAP1_EN("S_AXI_HP0_WRISSUECAP1_EN")
         ,FCLK_CLK0("FCLK_CLK0")
         ,FCLK_CLK1("FCLK_CLK1")
         ,FCLK_RESET0_N("FCLK_RESET0_N")
@@ -179,6 +189,7 @@ processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_n
         ,PS_CLK("PS_CLK")
         ,PS_PORB("PS_PORB")
     ,S_AXI_GP0_xtlm_brdg("S_AXI_GP0_xtlm_brdg")
+    ,S_AXI_HP0_xtlm_brdg("S_AXI_HP0_xtlm_brdg")
     ,m_rp_bridge_M_AXI_GP0("m_rp_bridge_M_AXI_GP0")     
     ,m_rp_bridge_M_AXI_GP1("m_rp_bridge_M_AXI_GP1")     
         ,FCLK_CLK0_clk("FCLK_CLK0_clk", sc_time(10000.0,sc_core::SC_PS))//clock period in picoseconds = 1000000/freq(in MZ)
@@ -188,6 +199,8 @@ processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_n
         //creating instances of xtlm slave sockets
         S_AXI_GP0_wr_socket = new xtlm::xtlm_aximm_target_socket("S_AXI_GP0_wr_socket", 32);
         S_AXI_GP0_rd_socket =  new xtlm::xtlm_aximm_target_socket("S_AXI_GP0_rd_socket", 32);
+        S_AXI_HP0_wr_socket = new xtlm::xtlm_aximm_target_socket("S_AXI_HP0_wr_socket", 64);
+        S_AXI_HP0_rd_socket = new xtlm::xtlm_aximm_target_socket("S_AXI_HP0_rd_socket", 64);
         //creating instances of xtlm master sockets
         M_AXI_GP0_wr_socket = new xtlm::xtlm_aximm_initiator_socket("M_AXI_GP0_wr_socket", 32);
         M_AXI_GP0_rd_socket = new xtlm::xtlm_aximm_initiator_socket("M_AXI_GP0_rd_socket", 32);
@@ -230,6 +243,15 @@ processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_n
         S_AXI_GP0_buff->out_rd_socket->bind(*S_AXI_GP0_xtlm_brdg.rd_socket);
         m_zynq_tlm_model->s_axi_gp[0]->bind(S_AXI_GP0_xtlm_brdg.initiator_socket);
 
+        //instantiating XTLM2TLM bridge and stiching it between 
+        //S_AXI_HP0_wr_socket/rd_socket sockets to s_axi_hp[0] target socket of Zynq Qemu tlm wrapper
+        S_AXI_HP0_buff = new zynq_tlm::xsc_xtlm_aximm_tran_buffer("S_AXI_HP0_buff");
+        S_AXI_HP0_rd_socket->bind(*S_AXI_HP0_buff->in_rd_socket);
+        S_AXI_HP0_wr_socket->bind(*S_AXI_HP0_buff->in_wr_socket);
+        S_AXI_HP0_buff->out_wr_socket->bind(*S_AXI_HP0_xtlm_brdg.wr_socket);
+        S_AXI_HP0_buff->out_rd_socket->bind(*S_AXI_HP0_xtlm_brdg.rd_socket);
+        m_zynq_tlm_model->s_axi_hp[0]->bind(S_AXI_HP0_xtlm_brdg.initiator_socket);
+
         //instantiating TLM2XTLM bridge and stiching it between 
         //s_axi_gp[0] initiator socket of zynq Qemu tlm wrapper to M_AXI_GP0_wr_socket/rd_socket sockets 
         m_rp_bridge_M_AXI_GP0.wr_socket->bind(*M_AXI_GP0_wr_socket);
@@ -251,6 +273,7 @@ processing_system7_v5_5_tlm :: processing_system7_v5_5_tlm (sc_core::sc_module_n
         sensitive << FCLK_CLK1_clk;
         dont_initialize();
         S_AXI_GP0_xtlm_brdg.registerUserExtensionHandlerCallback(&add_extensions_to_tlm);
+        S_AXI_HP0_xtlm_brdg.registerUserExtensionHandlerCallback(&add_extensions_to_tlm);
         m_rp_bridge_M_AXI_GP0.registerUserExtensionHandlerCallback(&get_extensions_from_tlm);
         m_rp_bridge_M_AXI_GP1.registerUserExtensionHandlerCallback(&get_extensions_from_tlm);
         m_zynq_tlm_model->rst(qemu_rst);
@@ -260,6 +283,9 @@ processing_system7_v5_5_tlm :: ~processing_system7_v5_5_tlm() {
         delete S_AXI_GP0_wr_socket;
         delete S_AXI_GP0_rd_socket;
         delete S_AXI_GP0_buff;
+        delete S_AXI_HP0_wr_socket;
+        delete S_AXI_HP0_rd_socket;
+        delete S_AXI_HP0_buff;
         delete M_AXI_GP0_wr_socket;
         delete M_AXI_GP0_rd_socket;
         delete M_AXI_GP1_wr_socket;

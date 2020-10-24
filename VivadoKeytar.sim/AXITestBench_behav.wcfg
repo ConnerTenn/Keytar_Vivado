@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="AXIMasterTestBench_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="AXIMasterTestBench" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="12521fs"></ZoomEndTime>
+      <Cursor1Time time="0fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="176"></NameColumnWidth>
+      <ValueColumnWidth column_width="141"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="4" />
+   <wvobject type="logic" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/AXI_ACLK">
+      <obj_property name="ElementShortName">AXI_ACLK</obj_property>
+      <obj_property name="ObjectShortName">AXI_ACLK</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group113">
+      <obj_property name="label">Write Control Interface</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/WriteAddress">
+         <obj_property name="ElementShortName">WriteAddress[31:0]</obj_property>
+         <obj_property name="ObjectShortName">WriteAddress[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/WriteBurstLen">
+         <obj_property name="ElementShortName">WriteBurstLen[7:0]</obj_property>
+         <obj_property name="ObjectShortName">WriteBurstLen[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/WriteData">
+         <obj_property name="ElementShortName">WriteData[63:0]</obj_property>
+         <obj_property name="ObjectShortName">WriteData[63:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/WriteDataRequest">
+         <obj_property name="ElementShortName">WriteDataRequest</obj_property>
+         <obj_property name="ObjectShortName">WriteDataRequest</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group116">
+      <obj_property name="label">AXI Write Interface</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/AWVALID">
+         <obj_property name="ElementShortName">AWVALID</obj_property>
+         <obj_property name="ObjectShortName">AWVALID</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/AWREADY">
+         <obj_property name="ElementShortName">AWREADY</obj_property>
+         <obj_property name="ObjectShortName">AWREADY</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/AWADDR">
+         <obj_property name="ElementShortName">AWADDR[31:0]</obj_property>
+         <obj_property name="ObjectShortName">AWADDR[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/WVALID">
+         <obj_property name="ElementShortName">WVALID</obj_property>
+         <obj_property name="ObjectShortName">WVALID</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/WREADY">
+         <obj_property name="ElementShortName">WREADY</obj_property>
+         <obj_property name="ObjectShortName">WREADY</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/WDATA">
+         <obj_property name="ElementShortName">WDATA[63:0]</obj_property>
+         <obj_property name="ObjectShortName">WDATA[63:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/WLAST">
+         <obj_property name="ElementShortName">WLAST</obj_property>
+         <obj_property name="ObjectShortName">WLAST</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/BVALID">
+         <obj_property name="ElementShortName">BVALID</obj_property>
+         <obj_property name="ObjectShortName">BVALID</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/BREADY">
+         <obj_property name="ElementShortName">BREADY</obj_property>
+         <obj_property name="ObjectShortName">BREADY</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group128">
+      <obj_property name="label">AXI Write Internal</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/writeLen">
+         <obj_property name="ElementShortName">writeLen[7:0]</obj_property>
+         <obj_property name="ObjectShortName">writeLen[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/AXIMasterTestBench/AxiMaster/AXI_Master_Controller/writeState">
+         <obj_property name="ElementShortName">writeState[1:0]</obj_property>
+         <obj_property name="ObjectShortName">writeState[1:0]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
