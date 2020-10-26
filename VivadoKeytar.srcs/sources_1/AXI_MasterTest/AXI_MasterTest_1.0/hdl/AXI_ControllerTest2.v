@@ -14,7 +14,7 @@ module AXI_ControllerTest
     input [7:0] ReadBurstLen,
     output [63:0] ReadData,
     input ReadTransfer,
-    input ReadTransferComplete,
+    output ReadValid,
 
     input [31:0] WriteAddress,
     input [7:0] WriteBurstLen,
@@ -75,8 +75,7 @@ module AXI_ControllerTest
 
     //== Analytics & Debugging ==
     output reg [15:0] AWReadyCount = 0,
-    output reg [15:0] WReadyCount = 0,
-    output [11:0] States
+    output reg [15:0] ARReadyCount = 0
 );
 
     //Write Channels
@@ -113,6 +112,7 @@ module AXI_ControllerTest
                 AWVALID <= 1;
 
                 WVALID <= 0;
+                WLAST <= 0;
             end
             if (writeState==2'b01 && AWREADY) //Now in write state
             begin
@@ -131,17 +131,18 @@ module AXI_ControllerTest
                 WDATA <= WriteData;
                 WVALID <= 1;
                 writeLen <= writeLen + 1;
+
+                //Assert WLAST when last data has been posted
+                if (writeLen >= AWLEN)
+                begin
+                    WLAST <= 1;
+                end
             end
             else if (WREADY)
             begin
                 WVALID <= 0;
             end
 
-            //Assert WLAST when last data has been posted
-            if ((writeLen >= AWLEN) && WREADY)
-            begin
-                WLAST <= 1;
-            end
             if (WLAST && WREADY) //Reset WLAST when it is acknowledged
             begin
                 WLAST <= 0;
@@ -149,89 +150,83 @@ module AXI_ControllerTest
 
         end
 
-
-        // if ((WLAST && WREADY) || AXI_ARESETN) //Reset after transaction
-        // begin
-        //     // writeActive <= 0; //Write active d-asserted in Write Response Channel (BVALID)
-        //     writeInProgress <= 0;
-        //     writeLen <= 0;
-        //     AWLEN <= 0;
-        //     AWADDR <= 0;
-        //     AWVALID <= 0;
-        //     WVALID <= 0;
-        //     WDATA <= 0;
-        // end
-        // else if (WriteTransfer && !writeActive) //Initiate Transaction
-        // begin
-        //     AWSIZE <= 3; //8 Bytes (64 bits) per transfer. Constant
-        //     AWBURST <= 2'b01; //INCR Mode. Constant
-
-        //     writeActive <= 1;
-        //     writeInProgress <= 0;
-        //     writeLen <= 0;
-
-        //     AWLEN <= WriteBurstLen;
-        //     AWADDR <= WriteAddress;
-        //     AWVALID <= 1;
-
-        //     WVALID <= 0;
-        // end
-
-        // if (writeActive && AWREADY && !writeInProgress) //Address has been acknowledged, time to transfer data
-        // begin
-        //     AWVALID <= 0;
-        //     writeInProgress <= 1;
-        //     BREADY <= 1;
-        // end
     end
 
 
 
     //Read Channels
 
-    // reg readActive = 0;
-    // reg readInProgress = 0;
+    reg [1:0] readState = 2'b0;
     // reg [7:0] readLen = 0;
+    assign ReadValid = RVALID && RREADY;
+    assign ReadData = RDATA;
 
-    // always @(posedge AXI_ACLK)
-    // begin
-    //     //Initiate Transaction
-    //     if (ReadTransfer && !readActive)
-    //     begin
-    //         ARSIZE <= 3; //8 Bytes (64 bits) per transfer. Constant
-    //         ARBURST <= 2'b01; //INCR Mode. Constant
+    always @(posedge AXI_ACLK)
+    begin
+        if (AXI_ARESETN==0)
+        begin
+            readState <= 2'b00;
+            // readLen <= 0;
+            ARLEN <= 0;
+            ARADDR <= 0;
+            ARVALID <= 0;
+            RREADY <= 0;
+        end
+        else
+        begin
+            if (ReadTransfer && readState==2'b00)
+            begin
+                ARSIZE <= 3; //8 Bytes (64 bits) per transfer. Constant
+                ARBURST <= 2'b01; //INCR Mode. Constant
 
-    //         readActive <= 1;
-    //         readInProgress <= 0;
-    //         readLen <= 0;
+                readState <= 2'b01;
+                // readLen <= 0;
 
-    //         ARLEN <= ReadBurstLen;
-    //         ARADDR <= ReadAddress;
-    //         ARVALID <= 1;
+                ARLEN <= ReadBurstLen;
+                ARADDR <= ReadAddress;
+                ARVALID <= 1;
 
-    //         RREADY <= 0;
-    //     end
-    //     else if (RLAST && RVALID)
-    //     begin
-    //         readActive <= 0;
-    //         readInProgress <= 0;
-    //         readLen <= 0;
-    //         ARLEN <= 0;
-    //         ARADDR <= 0;
-    //         ARVALID <= 0;
-    //         RREADY <= 0;
-    //     end
+                RREADY <= 0;
+            end
+            if (readState==2'b01 && ARREADY) //Now in read state
+            begin
+                readState <= 2'b10;
+                ARVALID <= 0;
+                RREADY <= 1;
+            end
+            if (readState==2'b10 && RLAST) //End of Transaction
+            begin
+                RREADY <= 0;
+                readState <= 2'b00;
+            end
 
-    //     if (AWREADY) //Address has been acknowledged, time to read data
-    //     begin
-    //         ARVALID <= 0;
-    //         readInProgress <= 1;
-    //     end
-    // end
+            // if (WriteDataRequest) // && !WLAST) //Latch in data and increment counter when more data is to be read.
+            // begin
+            //     WDATA <= WriteData;
+            //     WVALID <= 1;
+            //     writeLen <= writeLen + 1;
+            // end
+            // else if (WREADY)
+            // begin
+            //     WVALID <= 0;
+            // end
+
+            // //Assert WLAST when last data has been posted
+            // if ((writeLen >= AWLEN) && WREADY)
+            // begin
+            //     WLAST <= 1;
+            // end
+            // if (WLAST && WREADY) //Reset WLAST when it is acknowledged
+            // begin
+            //     WLAST <= 0;
+            // end
+
+        end
+    end
 
 
     reg awready_once = 0;
-    reg wready_once = 0;
+    reg arready_once = 0;
     always @(AXI_ACLK)
     begin
         if (AWREADY && awready_once==0)
@@ -244,21 +239,16 @@ module AXI_ControllerTest
             awready_once <= 0;
         end
         
-        if (WREADY && wready_once==0)
+        if (ARREADY && arready_once==0)
         begin
-            WReadyCount <= WReadyCount+1;
-            wready_once <= 1;
+            ARReadyCount <= ARReadyCount+1;
+            arready_once <= 1;
         end
-        else if (WREADY==0)
+        else if (ARREADY==0)
         begin
-            wready_once <= 0;
+            arready_once <= 0;
         end
     end
-
-    assign States[7:0] = writeLen;
-    assign States[9:8] = writeState;
-    assign States[10] = WREADY;
-    assign States[11] = AWREADY;
 
 endmodule
 

@@ -48,7 +48,7 @@
 
 
 // IP VLNV: Independant:user:AXI_MasterTest:1.0
-// IP Revision: 19
+// IP Revision: 36
 
 (* X_CORE_INFO = "AXI_MasterTest_v1_0,Vivado 2020.1" *)
 (* CHECK_LICENSE_TYPE = "system_AXI_MasterTest_0_0,AXI_MasterTest_v1_0,{}" *)

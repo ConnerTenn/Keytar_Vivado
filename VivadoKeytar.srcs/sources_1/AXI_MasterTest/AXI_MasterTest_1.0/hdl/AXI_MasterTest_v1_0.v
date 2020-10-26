@@ -174,7 +174,7 @@ module AXI_MasterTest_v1_0 #
     wire [7:0] readBurstLen;
     wire [63:0] readData;
     wire readTransfer;
-    wire readTransferComplete;
+    wire readValid;
 
     wire [31:0] writeAddress;
     wire [7:0] writeBurstLen;
@@ -184,8 +184,9 @@ module AXI_MasterTest_v1_0 #
 
     //== Debug ==
     wire [15:0] awready_count;
-    wire [15:0] wready_count;
-    wire [11:0] states;
+    wire [15:0] arready_count;
+    wire [15:0] val1;
+    wire [15:0] val2;
 
 
     AXI_ControllerTest AXI_Master_Controller (
@@ -198,7 +199,7 @@ module AXI_MasterTest_v1_0 #
         .ReadBurstLen(readBurstLen),
         .ReadData(readData),
         .ReadTransfer(readTransfer),
-        .ReadTransferComplete(readTransferComplete),
+        .ReadValid(readValid),
         //Write
         .WriteAddress(writeAddress),
         .WriteBurstLen(writeBurstLen),
@@ -232,16 +233,13 @@ module AXI_MasterTest_v1_0 #
         .BRESP(m00_axi_bresp),
 
         .AWReadyCount(awready_count),
-        .WReadyCount(wready_count),
-        .States(states)
+        .ARReadyCount(arready_count)
     );
 
     assign GPIO_DEBUG[63:48] = awready_count;
-    assign GPIO_DEBUG[47:32] = wready_count;
-    assign GPIO_DEBUG[11:0] = states;
-    assign GPIO_DEBUG[31:13] = writeData[18:0];
-    assign GPIO_DEBUG[12] = m00_axi_aresetn;
-    // assign GPIO_DEBUG[31:11] = 0;
+    assign GPIO_DEBUG[47:32] = arready_count;
+    assign GPIO_DEBUG[31:16] = val1;
+    assign GPIO_DEBUG[15:0] = val2;
 
     AXI_DataControllerTest DataController (
         .Clock(m00_axi_aclk),
@@ -251,13 +249,16 @@ module AXI_MasterTest_v1_0 #
         .ReadBurstLen(readBurstLen),
         .ReadData(readData),
         .ReadTransfer(readTransfer),
-        .ReadTransferComplete(readTransferComplete),
+        .ReadValid(readValid),
         //Write
         .WriteAddress(writeAddress),
         .WriteBurstLen(writeBurstLen),
         .WriteData(writeData),
         .WriteTransfer(writeTransfer),
-        .WriteDataRequest(writeDataRequest)
+        .WriteDataRequest(writeDataRequest),
+
+        .Val1(val1),
+        .Val2(val2)
     );
 
 endmodule

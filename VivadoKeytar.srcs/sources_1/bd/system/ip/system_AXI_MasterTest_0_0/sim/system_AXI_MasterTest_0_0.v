@@ -48,7 +48,7 @@
 
 
 // IP VLNV: Independant:user:AXI_MasterTest:1.0
-// IP Revision: 19
+// IP Revision: 36
 
 `timescale 1ns/1ps
 

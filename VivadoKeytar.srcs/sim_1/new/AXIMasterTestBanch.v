@@ -18,7 +18,7 @@ module AXIMasterTestBench;
 
     AXI_MasterTest_v1_0 AxiMaster(
         .m00_axi_aclk(clock),
-        .m00_axi_aresetn(0),
+        .m00_axi_aresetn(1),
         .m00_axi_awid(),
         .m00_axi_awaddr(),
         .m00_axi_awlen(),
