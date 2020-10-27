@@ -1,0 +1,125 @@
+
+module VideoController # 
+(
+    parameter SAXI_SLAVE_BASE_ADDR = 32'hFFFFFFFF,
+    parameter MAXI_ID_WIDTH = 1,
+    parameter SAXI_ID_WIDTH = 1
+)
+(
+    // input Clk, input Reset,
+
+    //== AXI Master ==
+    input MAXI_aclk, input MAXI_resetn,
+    //Read Address Channel
+    output MAXI_arvalid, input MAXI_arready,
+    output [31:0] MAXI_araddr, output [7:0] MAXI_arlen,
+    output [MAXI_ID_WIDTH-1:0] MAXI_arid, output MAXI_arlock, output [3:0] MAXI_arcache, output [2:0] MAXI_arprot, output [3:0] MAXI_arqos,
+    output [2:0] MAXI_arsize, output [1:0] MAXI_arburst, 
+    //Read Data Channel
+    input MAXI_rvalid, output MAXI_rready, input MAXI_rlast,
+    input [63:0] MAXI_rdata,
+    input [MAXI_ID_WIDTH-1:0] MAXI_rid, input [1:0] MAXI_rresp,
+    //Write Address Channel
+    output MAXI_awvalid, input MAXI_awready,
+    output [31:0] MAXI_awaddr, output [7:0] MAXI_awlen,
+    output [MAXI_ID_WIDTH-1:0] MAXI_awid, output MAXI_awlock, output [3:0] MAXI_awcache, output [2:0] MAXI_awprot, output [3:0] MAXI_awqos,
+    output [2:0] MAXI_awsize, output [1:0] MAXI_awburst,
+    //Write Data Channel
+    output MAXI_wvalid, input MAXI_wready, output MAXI_wlast,
+    output [63:0] MAXI_wdata,
+    output [7:0] MAXI_wstrb,
+    //Write Response Channel
+    input MAXI_bvalid, output MAXI_bready,
+    input [MAXI_ID_WIDTH-1:0] MAXI_bid, input [1:0] MAXI_bresp,
+
+    //== AXI Slave ==
+    input SAXI_aclk, input SAXI_resetn,
+    //Read Address Channel
+    input SAXI_arvalid, output SAXI_arready,
+    input [31:0] SAXI_araddr, input [7:0] SAXI_arlen,
+    input [SAXI_ID_WIDTH-1:0] SAXI_arid, input SAXI_arlock, input [3:0] SAXI_arcache, input [2:0] SAXI_arprot, input [3:0] SAXI_arqos,
+    input [2:0] SAXI_arsize, input [1:0] SAXI_arburst, 
+    //Read Data Channel
+    output SAXI_rvalid, input SAXI_rready, output SAXI_rlast,
+    output [31:0] SAXI_rdata,
+    output [SAXI_ID_WIDTH-1:0] SAXI_rid, output [1:0] SAXI_rresp,
+    //Write Address Channel
+    input SAXI_awvalid, output SAXI_awready,
+    input [31:0] SAXI_awaddr, input [7:0] SAXI_awlen,
+    input [SAXI_ID_WIDTH-1:0] SAXI_awid, input SAXI_awlock, input [3:0] SAXI_awcache, input [2:0] SAXI_awprot, input [3:0] SAXI_awqos,
+    input [2:0] SAXI_awsize, input [1:0] SAXI_awburst,
+    //Write Data Channel
+    input SAXI_wvalid, output SAXI_wready, input SAXI_wlast,
+    input [31:0] SAXI_wdata,
+    input [7:0] SAXI_wstrb,
+    //Write Response Channel
+    output SAXI_bvalid, input SAXI_bready,
+    output [SAXI_ID_WIDTH-1:0] SAXI_bid, output [1:0] SAXI_bresp,
+    
+    //== HDMI Signals ==
+    output [4:0] Red, output [5:0] Green, output [4:0] Blue,
+    output HSync, output VSync,
+    output PClk,
+    output De
+);
+
+    //== AXI Master ==
+    //Read Address Channel
+    assign MAXI_arid = 0; //Exclusive access ID
+    assign MAXI_arlock = 0; //Normal Access mode; Atomic access disabled
+    assign MAXI_arcache = 4'b0000; //Device Non-bufferable
+    assign MAXI_arprot = 3'b000; //Unprivlaged, non-secure, data access
+    assign MAXI_arqos = 4'h0; //Quality of Service Disabled
+    assign MAXI_arsize = 3; //8 Bytes (64 bits) per transfer
+    assign MAXI_arburst = 2'b01; //INCR Mode
+    //Write Address channel
+    assign MAXI_awid = 0; //Exclusive access ID 
+    assign MAXI_awlock = 0; //Normal Access mode; Atomic access disabled
+    assign MAXI_awcache = 4'b0000; //Device Non-bufferable
+    assign MAXI_awprot = 3'b000; //Unprivlaged, non-secure, data access
+    assign MAXI_awqos= 4'h0; //Quality of Service Disabled
+    assign MAXI_awsize = 3; //8 Bytes (64 bits) per transfer
+    assign MAXI_awburst = 2'b01; //INCR Mode
+
+    //== AXI Slave ==
+    //Read Address Channel
+    assign SAXI_arid = 0; //Exclusive access ID
+    assign SAXI_arlock = 0; //Normal Access mode; Atomic access disabled
+    assign SAXI_arcache = 4'b0000; //Device Non-bufferable
+    assign SAXI_arprot = 3'b000; //Unprivlaged, non-secure, data access
+    assign SAXI_arqos = 4'h0; //Quality of Service Disabled
+    assign SAXI_arsize = 2; //4 Bytes (32 bits) per transfer
+    assign SAXI_arburst = 2'b01; //INCR Mode
+    //Write Address channel
+    assign SAXI_awid = 0; //Exclusive access ID 
+    assign SAXI_awlock = 0; //Normal Access mode; Atomic access disabled
+    assign SAXI_awcache = 4'b0000; //Device Non-bufferable
+    assign SAXI_awprot = 3'b000; //Unprivlaged, non-secure, data access
+    assign SAXI_awqos= 4'h0; //Quality of Service Disabled
+    assign SAXI_awsize = 2; //4 Bytes (32 bits) per transfer
+    assign SAXI_awburst = 2'b01; //INCR Mode
+
+
+    TimingController TimingCtl (
+        .Clock(Clk),
+        //== Interface Signals ==
+        .StartFrame(0),
+        .ColourData(0),
+        .DataRequest(),
+        //== HDMI Signals ==
+        .Red(Red), .Green(Green), .Blue(Blue),
+        .HSync(HSync), .VSync(VSync),
+        .PClk(PClk), .De(De)
+    );
+
+    DataFIFO Fifo (
+        .Clock(Clk),
+        //== Read Channel ==
+        .Read(0),
+        .DataOut(),
+        //== Read Channel ==
+        .Write(0),
+        .DataIn(0)
+    );
+
+endmodule
