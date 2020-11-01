@@ -1,18 +1,18 @@
 
 module RegsiterBank # 
 (
-    parameter BASE_ADDR = 32'hFFFFFFFF
+    parameter BASE_ADDR = 32'h00000000
 )
 (
     input Clock, input ResetN,
 
     //== Read Channel ==
     input [31:0] ReadAddress,
-    output reg [63:0] ReadData,
+    output reg [31:0] ReadData,
     input ReadEN,
     //== Write Channel ==
     input [31:0] WriteAddress,
-    input [63:0] WriteData,
+    input [31:0] WriteData,
     input WriteEN,
 
     //== Registers ==
@@ -36,21 +36,23 @@ module RegsiterBank #
             if (ReadEN)
             begin
                 case (ReadAddress)
-                    BASE_ADDR+8*0: ReadData <= {0,Activate};
-                    BASE_ADDR+8*1: ReadData <= {0,FB1Addr};
-                    BASE_ADDR+8*2: ReadData <= {0,FB2Addr};
-                    BASE_ADDR+8*3: ReadData <= {0,FBSize};
-                    BASE_ADDR+8*4: ReadData <= {0,CurrentFB};
+                    BASE_ADDR+4*0: ReadData <= {{31{1'b0}},Activate};
+                    BASE_ADDR+4*1: ReadData <= FB1Addr;
+                    BASE_ADDR+4*2: ReadData <= FB2Addr;
+                    BASE_ADDR+4*3: ReadData <= FBSize;
+                    BASE_ADDR+4*4: ReadData <= {{31{1'b0}},CurrentFB};
+                    default:;
                 endcase
             end
             if (WriteEN)
             begin
                 case (WriteAddress)
-                    BASE_ADDR+8*0: Activate <= ReadData[0];
-                    BASE_ADDR+8*0: FB1Addr <= ReadData[31:0];
-                    BASE_ADDR+8*0: FB2Addr <= ReadData[31:0];
-                    BASE_ADDR+8*0: FBSize <= ReadData[31:0];
-                    BASE_ADDR+8*4: FBselect <= ReadData[0];
+                    BASE_ADDR+4*0: Activate <= WriteData[0];
+                    BASE_ADDR+4*1: FB1Addr <= WriteData;
+                    BASE_ADDR+4*2: FB2Addr <= WriteData;
+                    BASE_ADDR+4*3: FBSize <= WriteData;
+                    BASE_ADDR+4*4: FBselect <= WriteData[0];
+                    default:;
                 endcase
             end
         end

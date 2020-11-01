@@ -9,11 +9,11 @@ module AxiSlaveController
 
     //== External Control Signals ==
     output reg [31:0] ReadAddress,
-    input [63:0] ReadData,
+    input [31:0] ReadData,
     output ReadEN,
 
     output reg [31:0] WriteAddress,
-    output [63:0] WriteData,
+    output [31:0] WriteData,
     output WriteEN,
 
     //== Read Address Channel ==
@@ -30,7 +30,7 @@ module AxiSlaveController
     //Last transfer in burst
     input Rlast,
     //Data
-    output [63:0] Rdata,
+    output [31:0] Rdata,
 
 
     //== Write Address Channel ==
@@ -47,7 +47,7 @@ module AxiSlaveController
     //Last transfer in burst
     input Wlast,
     //Data
-    input [63:0] Wdata,
+    input [31:0] Wdata,
 
     //== Write Response Channel ==
     //Handshakes

@@ -1,7 +1,7 @@
 
 module VideoController # 
 (
-    parameter SAXI_SLAVE_BASE_ADDR = 32'hFFFFFFFF,
+    parameter SAXI_SLAVE_BASE_ADDR = 32'h00000000,
     parameter MAXI_ID_WIDTH = 1,
     parameter SAXI_ID_WIDTH = 1
 )
@@ -84,25 +84,6 @@ module VideoController #
     //Write Data Channel
     assign MAXI_wstrb = 8'b1111_1111; //Vailid byte lanes mask; The bytes of the entire word that are valid
 
-    //== AXI Slave ==
-    //Read Address Channel
-    assign SAXI_arid = 0; //Exclusive access ID
-    assign SAXI_arlock = 0; //Normal Access mode; Atomic access disabled
-    assign SAXI_arcache = 4'b0000; //Device Non-bufferable
-    assign SAXI_arprot = 3'b000; //Unprivlaged, non-secure, data access
-    assign SAXI_arqos = 4'h0; //Quality of Service Disabled
-    assign SAXI_arsize = 2; //4 Bytes (32 bits) per transfer
-    assign SAXI_arburst = 2'b01; //INCR Mode
-    //Write Address channel
-    assign SAXI_awid = 0; //Exclusive access ID 
-    assign SAXI_awlock = 0; //Normal Access mode; Atomic access disabled
-    assign SAXI_awcache = 4'b0000; //Device Non-bufferable
-    assign SAXI_awprot = 3'b000; //Unprivlaged, non-secure, data access
-    assign SAXI_awqos= 4'h0; //Quality of Service Disabled
-    assign SAXI_awsize = 2; //4 Bytes (32 bits) per transfer
-    assign SAXI_awburst = 2'b01; //INCR Mode
-    //Write Data Channel
-    assign SAXI_wstrb = 8'b1111_1111; //Vailid byte lanes mask; The bytes of the entire word that are valid
 
     wire [31:0] maxiReadAddress; wire [7:0] maxiReadBurstLen;
     wire [63:0] maxiReadData;
@@ -113,11 +94,11 @@ module VideoController #
     wire maxiWriteTransfer; wire maxiWriteDataRequest;
 
     wire [31:0] saxiReadAddress;
-    wire [63:0] saxiReadData;
+    wire [31:0] saxiReadData;
     wire saxiReadEN;
 
     wire [31:0] saxiWriteAddress;
-    wire [63:0] saxiWriteData;
+    wire [31:0] saxiWriteData;
     wire saxiWriteEN;
 
 
@@ -161,7 +142,7 @@ module VideoController #
         //== Status and Control ==
         .Run(activate),
         .FB1Addr(fb1Addr), .FB2Addr(fb2Addr),
-        .FrameBuffSize(fbSize),
+        .FBSize(fbSize),
         .FBSelect(fbSelect), .CurrentFB(currentFB),
 
         //== AXI Read ==
