@@ -135,6 +135,7 @@ module VideoController #
         .FrameBuffSize(1920*1080*2),
         .FBSelect(0),
         .Run(0),
+        
         //== AXI Read ==
         .ReadAddress(maxiReadAddress), .ReadBurstLen(maxiReadBurstLen),
         .ReadData(maxiReadData),
@@ -220,41 +221,41 @@ module VideoController #
         .Bvalid(MAXI_bvalid), .Bready(MAXI_bready)
     );
 
-    // AxiSlaveController AxiSlave (
-    //     //== Global Signals ==
-    //     .AxiAClk(SAXI_aclk),
-    //     .AxiAResetN(SAXI_resetn),
+    AxiSlaveController AxiSlave (
+        //== Global Signals ==
+        .AxiAClk(SAXI_aclk),
+        .AxiAResetN(SAXI_resetn),
 
-    //     //== External Control Signals ==
-    //     .ReadAddress(saxiReadAddress), .ReadBurstLen(saxiReadBurstLen),
-    //     .ReadData(saxiReadData),
-    //     .ReadTransfer(saxiReadTransfer), .ReadValid(saxiReadValid),
+        //== External Control Signals ==
+        .ReadAddress(),
+        .ReadData(),
+        .ReadEN(),
 
-    //     .WriteAddress(saxiWriteAddress), .WriteBurstLen(saxiWriteBurstLen),
-    //     .WriteData(saxiWriteData),
-    //     .WriteTransfer(saxiWriteTransfer), .WriteDataRequest(saxiWriteDataRequest),
+        .WriteAddress(),
+        .WriteData(),
+        .WriteEN(),
 
-    //     //== Read Address Channel ==
-    //     .ARvalid(SAXI_arvalid), .ARready(SAXI_arready),
-    //     .ARaddr(SAXI_araddr), .ARlen(SAXI_arlen),
+        //== Read Address Channel ==
+        .ARvalid(SAXI_arvalid), .ARready(SAXI_arready),
+        .ARaddr(SAXI_araddr), .ARlen(SAXI_arlen),
 
-    //     //== Read Data Channel ==
-    //     .Rvalid(SAXI_rvalid), .Rready(SAXI_rready),
-    //     .Rlast(SAXI_rlast),
-    //     .Rdata(SAXI_rdata),
+        //== Read Data Channel ==
+        .Rvalid(SAXI_rvalid), .Rready(SAXI_rready),
+        .Rlast(SAXI_rlast),
+        .Rdata(SAXI_rdata),
 
 
-    //     //== Write Address Channel ==
-    //     .AWvalid(SAXI_awvalid), .AWready(SAXI_awready),
-    //     .AWaddr(SAXI_awaddr),.AWlen(SAXI_awlen),
+        //== Write Address Channel ==
+        .AWvalid(SAXI_awvalid), .AWready(SAXI_awready),
+        .AWaddr(SAXI_awaddr),.AWlen(SAXI_awlen),
 
-    //     //== Write Data Channel ==
-    //     .Wvalid(SAXI_wvalid), .Wready(SAXI_wready),
-    //     .Wlast(SAXI_wlast),
-    //     .Wdata(SAXI_wdata),
+        //== Write Data Channel ==
+        .Wvalid(SAXI_wvalid), .Wready(SAXI_wready),
+        .Wlast(SAXI_wlast),
+        .Wdata(SAXI_wdata),
 
-    //     //== Write Response Channel ==
-    //     .Bvalid(SAXI_bvalid), .Bready(SAXI_bready)
-    // );
+        //== Write Response Channel ==
+        .Bvalid(SAXI_bvalid), .Bready(SAXI_bready)
+    );
 
 endmodule
