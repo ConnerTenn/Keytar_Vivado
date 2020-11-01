@@ -2,10 +2,12 @@
 module FrameBufferController 
 (
     input Clock,
-    input [31:0] FB1Addr, input [31:0] FB2Addr,
-    input [31:0] FrameBuffSize,
-    input FBSelect,
     input Run,
+
+    //== Status and Control ==
+    input [31:0] FB1Addr, input [31:0] FB2Addr,
+    input [31:0] FBSize,
+    input FBSelect, output reg CurrentFB = 0,
 
     //== AXI Read ==
     output reg [31:0] ReadAddress = 0, output reg [7:0] ReadBurstLen = 1,
@@ -38,11 +40,12 @@ module FrameBufferController
         if (StartFrame)
         begin
             ReadAddress <= FBSelect==0 ? FB1Addr : FB2Addr;
+            CurrentFB <= FBSelect;
         end
-        else
+        else if (Run)
         begin
             //Start Read Operation
-            if (!readInProgress && ReadAddress<FrameBuffSize)
+            if (!readInProgress && ReadAddress<FBSize)
             begin
                 ReadTransfer <= 1;
                 ReadBurstLen <= 32-FifoFillLevel-10;

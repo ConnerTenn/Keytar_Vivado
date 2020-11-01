@@ -112,13 +112,39 @@ module VideoController #
     wire [63:0] maxiWriteData;
     wire maxiWriteTransfer; wire maxiWriteDataRequest;
 
-    // wire [31:0] saxiReadAddress; wire [7:0] saxiReadBurstLen;
-    // wire [63:0] saxiReadData;
-    // wire saxiReadTransfer; wire saxiReadValid;
+    wire [31:0] saxiReadAddress;
+    wire [63:0] saxiReadData;
+    wire saxiReadEN;
 
-    // wire [31:0] saxiWriteAddress; wire [7:0] saxiWriteBurstLen;
-    // wire [63:0] saxiWriteData;
-    // wire saxiWriteTransfer; wire saxiWriteDataRequest;
+    wire [31:0] saxiWriteAddress;
+    wire [63:0] saxiWriteData;
+    wire saxiWriteEN;
+
+
+    wire activate;
+    wire [31:0] fb1Addr, fb2Addr;
+    wire [31:0] fbSize;
+    wire fbSelect; wire currentFB;
+
+    RegsiterBank #( .BASE_ADDR(SAXI_SLAVE_BASE_ADDR) ) Registers
+    (
+        .Clock(SAXI_aclk), .ResetN(SAXI_resetn),
+
+        .ReadAddress(saxiReadAddress),
+        .ReadData(saxiReadData),
+        .ReadEN(saxiReadEN),
+        //== Write Channel ==
+        .WriteAddress(saxiWriteAddress),
+        .WriteData(saxiWriteData),
+        .WriteEN(saxiWriteEN),
+
+        //== Registers ==
+        .Activate(activate),
+        .FB1Addr(fb1Addr), .FB2Addr(fb2Addr),
+        .FBSize(fbSize),
+        .FBselect(fbSelect), .CurrentFB(currentFB)
+    );
+
 
     wire fifoReset;
     wire fifoRead; wire [63:0] dataFromFifo;
@@ -129,13 +155,15 @@ module VideoController #
     wire colourDataRequest;
     wire [15:0] colourData;
 
-    FrameBufferController FrameBufferCtl  (
+    FrameBufferController FrameBufferCtl (
         .Clock(Clk),
-        .FB1Addr(32'h1000_0000), .FB2Addr(32'h1070_0000),
-        .FrameBuffSize(1920*1080*2),
-        .FBSelect(0),
-        .Run(0),
-        
+
+        //== Status and Control ==
+        .Run(activate),
+        .FB1Addr(fb1Addr), .FB2Addr(fb2Addr),
+        .FrameBuffSize(fbSize),
+        .FBSelect(fbSelect), .CurrentFB(currentFB),
+
         //== AXI Read ==
         .ReadAddress(maxiReadAddress), .ReadBurstLen(maxiReadBurstLen),
         .ReadData(maxiReadData),
@@ -227,13 +255,13 @@ module VideoController #
         .AxiAResetN(SAXI_resetn),
 
         //== External Control Signals ==
-        .ReadAddress(),
-        .ReadData(),
-        .ReadEN(),
+        .ReadAddress(saxiReadAddress),
+        .ReadData(saxiReadData),
+        .ReadEN(saxiReadEN),
 
-        .WriteAddress(),
-        .WriteData(),
-        .WriteEN(),
+        .WriteAddress(saxiWriteAddress),
+        .WriteData(saxiWriteData),
+        .WriteEN(saxiWriteEN),
 
         //== Read Address Channel ==
         .ARvalid(SAXI_arvalid), .ARready(SAXI_arready),
