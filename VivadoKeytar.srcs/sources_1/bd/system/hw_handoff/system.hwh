@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Oct 28 03:11:23 2020" VIVADOVERSION="2020.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Oct 28 17:29:24 2020" VIVADOVERSION="2020.1">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z020" NAME="system" PACKAGE="clg400" SPEEDGRADE="-2"/>
 
@@ -724,7 +724,7 @@
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE COREREVISION="22" FULLNAME="/VideoController_0" HWVERSION="1.0" INSTANCE="VideoController_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="VideoController" VLNV="Independant:user:VideoController:1.0">
+    <MODULE COREREVISION="23" FULLNAME="/VideoController_0" HWVERSION="1.0" INSTANCE="VideoController_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="VideoController" VLNV="Independant:user:VideoController:1.0">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="SAXI_ControlInterface" NAME="Registers" RANGE="4096" USAGE=""/>
@@ -4177,10 +4177,10 @@
         </PORT>
         <PORT DIR="O" LEFT="0" NAME="peripheral_aresetn" POLARITY="ACTIVE_LOW" RIGHT="0" SIGIS="rst" SIGNAME="proc_sys_reset_1_peripheral_aresetn">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_resetn"/>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_resetn"/>
             <CONNECTION INSTANCE="axi_interconnect_video_ctl" PORT="S00_ARESETN"/>
             <CONNECTION INSTANCE="axi_interconnect_video_ctl" PORT="M00_ARESETN"/>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_resetn"/>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_resetn"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -5774,8 +5774,6 @@
         <PORT CLKFREQUENCY="150000000" DIR="O" NAME="FCLK_CLK1" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK1">
           <CONNECTIONS>
             <CONNECTION INSTANCE="RGBTest_0" PORT="Clock"/>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_aclk"/>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_aclk"/>
             <CONNECTION INSTANCE="axi_interconnect_video_ctl" PORT="ACLK"/>
             <CONNECTION INSTANCE="axi_interconnect_video_ctl" PORT="S00_ACLK"/>
             <CONNECTION INSTANCE="axi_interconnect_video_ctl" PORT="M00_ACLK"/>
@@ -5785,6 +5783,8 @@
             <CONNECTION INSTANCE="proc_sys_reset_1" PORT="slowest_sync_clk"/>
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP1_ACLK"/>
             <CONNECTION INSTANCE="processing_system7_0" PORT="S_AXI_HP0_ACLK"/>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_aclk"/>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_aclk"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="FCLK_RESET0_N" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="processing_system7_0_FCLK_RESET0_N">

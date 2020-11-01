@@ -5,7 +5,7 @@ module DataFIFO #
     FIFO_DEPTH = 5
 )
 (
-    input Clock,
+    input Clock, input Reset,
 
     //== Read Channel ==
     input Read,
@@ -17,6 +17,7 @@ module DataFIFO #
 
 
     //== Status ==
+    output [FIFO_DEPTH-1:0] FifoFillLevel,
     output FifoFull,
     output FifoEmpty
 );
@@ -30,39 +31,51 @@ module DataFIFO #
 
     assign FifoEmpty = (headI==tailI);
     assign FifoFull = (headIincr==tailI);
+    assign FifoFillLevel = headI-tailI;
 
     always @(posedge Clock)
     begin
-        if (Read && Write && FifoEmpty)
+        if (Reset)
         begin
-            //Straight pass through if read and write to head
-            DataOut <= DataIn;
+            headI <= 0;
+            tailI <= 0;
+            DataOut <= 0;
         end
-        else 
+        else
         begin
-            if (Read)
-            begin
-                //Read from fifo
-                DataOut <= FifoEmpty ? 0 : fifoMem[tailI];
-            end
 
+            if (Read && Write && FifoEmpty)
+            begin
+                //Straight pass through if read and write to head
+                DataOut <= DataIn;
+            end
+            else 
+            begin
+                if (Read)
+                begin
+                    //Read from fifo
+                    DataOut <= FifoEmpty ? 0 : fifoMem[tailI];
+                end
+
+                if (Write)
+                begin
+                    //write to fifo
+                    fifoMem[headI] <= DataIn;
+                end
+            end
+            
             if (Write)
             begin
-                //write to fifo
-                fifoMem[headI] <= DataIn;
+                //Increment head
+                headI <= headIincr;
             end
-        end
-        
-        if (Write)
-        begin
-            //Increment head
-            headI <= headIincr;
-        end
-        if (Read || (Write && FifoFull))
-        begin
-            //Increment Read
-            //Also increment if overwrite is occuring
-            tailI <= tailIincr;
+            if (Read || (Write && FifoFull))
+            begin
+                //Increment Read
+                //Also increment if overwrite is occuring
+                tailI <= tailIincr;
+            end
+
         end
     end
 

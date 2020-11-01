@@ -49,7 +49,7 @@ module TimingController
     assign De = (!vblank && !hblank); //(vblank) ? 1'b0 : de;
 
     assign StartFrame = VSync; //Vcounter==0 && Hcounter==0;
-    assign ColourDataRequest = (!prevblank && !prehblank);
+    assign ColourDataRequest = (!vblank && !prehblank);
 
 
     reg [11:0] Hcounter = 0;

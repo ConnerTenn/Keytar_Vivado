@@ -32,7 +32,6 @@
     <Option Name="IPRepoPath" Val="$PSRCDIR/sources_1/AXI_MasterTest/AXI_MasterTest_1.0"/>
     <Option Name="IPRepoPath" Val="$PSRCDIR/sources_1/AXI_SlaveExample/AXI_SlaveExample_1.0"/>
     <Option Name="IPRepoPath" Val="$PSRCDIR/sources_1/AXI_MasterExample/AXI_MasterExample_1.0"/>
-    <Option Name="IPRepoPath" Val="$PSRCDIR/sources_1/AXI_SlaveTest/AXI_SlaveTest_1.0"/>
     <Option Name="IPRepoPath" Val="$PSRCDIR/sources_1/Video_Breakout"/>
     <Option Name="IPRepoPath" Val="$PSRCDIR/sources_1/APB_SlaveBreakout"/>
     <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>

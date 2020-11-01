@@ -17,6 +17,7 @@ module DataFIFO #
 
 
     //== Status ==
+    output [FIFO_DEPTH-1:0] FifoFillLevel,
     output FifoFull,
     output FifoEmpty
 );
@@ -30,6 +31,7 @@ module DataFIFO #
 
     assign FifoEmpty = (headI==tailI);
     assign FifoFull = (headIincr==tailI);
+    assign FifoFillLevel = headI-tailI;
 
     always @(posedge Clock)
     begin
