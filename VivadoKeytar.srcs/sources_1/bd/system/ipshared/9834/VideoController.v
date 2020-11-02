@@ -1,7 +1,7 @@
 
 module VideoController # 
 (
-    parameter SAXI_SLAVE_BASE_ADDR = 32'hFFFFFFFF,
+    parameter SAXI_SLAVE_BASE_ADDR = 32'h00000000,
     parameter MAXI_ID_WIDTH = 1,
     parameter SAXI_ID_WIDTH = 1
 )
@@ -84,25 +84,12 @@ module VideoController #
     //Write Data Channel
     assign MAXI_wstrb = 8'b1111_1111; //Vailid byte lanes mask; The bytes of the entire word that are valid
 
+
     //== AXI Slave ==
-    //Read Address Channel
-    assign SAXI_arid = 0; //Exclusive access ID
-    assign SAXI_arlock = 0; //Normal Access mode; Atomic access disabled
-    assign SAXI_arcache = 4'b0000; //Device Non-bufferable
-    assign SAXI_arprot = 3'b000; //Unprivlaged, non-secure, data access
-    assign SAXI_arqos = 4'h0; //Quality of Service Disabled
-    assign SAXI_arsize = 2; //4 Bytes (32 bits) per transfer
-    assign SAXI_arburst = 2'b01; //INCR Mode
-    //Write Address channel
-    assign SAXI_awid = 0; //Exclusive access ID 
-    assign SAXI_awlock = 0; //Normal Access mode; Atomic access disabled
-    assign SAXI_awcache = 4'b0000; //Device Non-bufferable
-    assign SAXI_awprot = 3'b000; //Unprivlaged, non-secure, data access
-    assign SAXI_awqos= 4'h0; //Quality of Service Disabled
-    assign SAXI_awsize = 2; //4 Bytes (32 bits) per transfer
-    assign SAXI_awburst = 2'b01; //INCR Mode
-    //Write Data Channel
-    assign SAXI_wstrb = 8'b1111_1111; //Vailid byte lanes mask; The bytes of the entire word that are valid
+    //Write Response Channel
+    assign SAXI_bid = 0;
+    assign SAXI_bresp = 2'b00;
+
 
     wire [31:0] maxiReadAddress; wire [7:0] maxiReadBurstLen;
     wire [63:0] maxiReadData;
@@ -112,27 +99,58 @@ module VideoController #
     wire [63:0] maxiWriteData;
     wire maxiWriteTransfer; wire maxiWriteDataRequest;
 
-    // wire [31:0] saxiReadAddress; wire [7:0] saxiReadBurstLen;
-    // wire [63:0] saxiReadData;
-    // wire saxiReadTransfer; wire saxiReadValid;
+    wire [31:0] saxiReadAddress;
+    wire [31:0] saxiReadData;
+    wire saxiReadEN;
 
-    // wire [31:0] saxiWriteAddress; wire [7:0] saxiWriteBurstLen;
-    // wire [63:0] saxiWriteData;
-    // wire saxiWriteTransfer; wire saxiWriteDataRequest;
+    wire [31:0] saxiWriteAddress;
+    wire [31:0] saxiWriteData;
+    wire saxiWriteEN;
 
-    wire fifoWrite;
-    wire [15:0] fifoData;
-    wire [4:0] fifoFillLevel;
-    wire fifoFull;
-    wire fifoEmpty;
+
+    wire activate;
+    wire [31:0] fb1Addr, fb2Addr;
+    wire [31:0] fbSize;
+    wire fbSelect; wire currentFB;
+
+    RegsiterBank #( .BASE_ADDR(SAXI_SLAVE_BASE_ADDR) ) Registers
+    (
+        .Clock(SAXI_aclk), .ResetN(SAXI_resetn),
+
+        .ReadAddress(saxiReadAddress),
+        .ReadData(saxiReadData),
+        .ReadEN(saxiReadEN),
+        //== Write Channel ==
+        .WriteAddress(saxiWriteAddress),
+        .WriteData(saxiWriteData),
+        .WriteEN(saxiWriteEN),
+
+        //== Registers ==
+        .Activate(activate),
+        .FB1Addr(fb1Addr), .FB2Addr(fb2Addr),
+        .FBSize(fbSize),
+        .FBselect(fbSelect), .CurrentFB(currentFB)
+    );
+
+
+    wire fifoReset;
+    wire fifoRead; wire [63:0] dataFromFifo;
+    wire fifoWrite; wire [63:0] dataToFifo;
+    wire [4:0] fifoFillLevel; wire fifoFull; wire fifoEmpty;
 
     wire startFrame;
+    wire colourDataRequest;
+    wire [15:0] colourData;
 
-    FrameBufferController FrameBufferCtl  (
+    FrameBufferController FrameBufferCtl (
         .Clock(Clk),
-        .FB1Addr(32'h1000_0000), .FB2Addr(32'h1070_0000),
-        .FrameBuffSize(1920*1080*2),
-        .Run(0),
+
+        //== Status and Control ==
+        .Run(activate),
+        .FB1Addr(fb1Addr), .FB2Addr(fb2Addr),
+        .FBSize(fbSize),
+        .FBSelect(fbSelect), .CurrentFB(currentFB),
+
         //== AXI Read ==
         .ReadAddress(maxiReadAddress), .ReadBurstLen(maxiReadBurstLen),
         .ReadData(maxiReadData),
@@ -143,18 +161,16 @@ module VideoController #
         .WriteTransfer(maxiWriteTransfer), .WriteDataRequest(maxiWriteDataRequest),
 
         //== FIFO ==
-        .FifoWrite(fifoWrite),
-        .FifoData(fifoData),
-        .FifoFillLevel(fifoFillLevel),
-        .FifoFull(fifoFull),
-        .FifoEmpty(fifoEmpty),
+        .FifoReset(fifoReset),
+        .FifoRead(fifoRead), .FifoDataIn(dataFromFifo),
+        .FifoWrite(fifoWrite), .FifoDataOut(dataToFifo),
+        .FifoFillLevel(fifoFillLevel), .FifoFull(fifoFull), .FifoEmpty(fifoEmpty),
 
         //== Timing Controller ==
-        .StartFrame(startFrame)
+        .StartFrame(startFrame),
+        .ColourDataRequest(colourDataRequest),
+        .ColourData(colourData)
     );
-
-    wire colourDataRequest;
-    wire [15:0] colourData;
 
     TimingController TimingCtl (
         .Clock(Clk),
@@ -168,14 +184,14 @@ module VideoController #
         .PClk(PClk), .De(De)
     );
 
-    DataFIFO #(.DATA_WIDTH(16)) Fifo (
-        .Clock(Clk),
+    DataFIFO #(.DATA_WIDTH(64)) Fifo (
+        .Clock(Clk), .Reset(fifoReset),
         //== Read Channel ==
-        .Read(colourDataRequest),
-        .DataOut(colourData),
+        .Read(fifoRead),
+        .DataOut(dataFromFifo),
         //== Read Channel ==
         .Write(fifoWrite),
-        .DataIn(fifoData),
+        .DataIn(dataToFifo),
         //== Status ==
         .FifoFillLevel(fifoFillLevel),
         .FifoFull(fifoFull),
@@ -220,41 +236,41 @@ module VideoController #
         .Bvalid(MAXI_bvalid), .Bready(MAXI_bready)
     );
 
-    // AxiSlaveController AxiSlave (
-    //     //== Global Signals ==
-    //     .AxiAClk(SAXI_aclk),
-    //     .AxiAResetN(SAXI_resetn),
+    AxiSlaveController AxiSlave (
+        //== Global Signals ==
+        .AxiAClk(SAXI_aclk),
+        .AxiAResetN(SAXI_resetn),
 
-    //     //== External Control Signals ==
-    //     .ReadAddress(saxiReadAddress), .ReadBurstLen(saxiReadBurstLen),
-    //     .ReadData(saxiReadData),
-    //     .ReadTransfer(saxiReadTransfer), .ReadValid(saxiReadValid),
+        //== External Control Signals ==
+        .ReadAddress(saxiReadAddress),
+        .ReadData(saxiReadData),
+        .ReadEN(saxiReadEN),
 
-    //     .WriteAddress(saxiWriteAddress), .WriteBurstLen(saxiWriteBurstLen),
-    //     .WriteData(saxiWriteData),
-    //     .WriteTransfer(saxiWriteTransfer), .WriteDataRequest(saxiWriteDataRequest),
+        .WriteAddress(saxiWriteAddress),
+        .WriteData(saxiWriteData),
+        .WriteEN(saxiWriteEN),
 
-    //     //== Read Address Channel ==
-    //     .ARvalid(SAXI_arvalid), .ARready(SAXI_arready),
-    //     .ARaddr(SAXI_araddr), .ARlen(SAXI_arlen),
+        //== Read Address Channel ==
+        .ARvalid(SAXI_arvalid), .ARready(SAXI_arready),
+        .ARaddr(SAXI_araddr), .ARlen(SAXI_arlen), .ARBurstType(SAXI_arburst),
 
-    //     //== Read Data Channel ==
-    //     .Rvalid(SAXI_rvalid), .Rready(SAXI_rready),
-    //     .Rlast(SAXI_rlast),
-    //     .Rdata(SAXI_rdata),
+        //== Read Data Channel ==
+        .Rvalid(SAXI_rvalid), .Rready(SAXI_rready),
+        .Rlast(SAXI_rlast),
+        .Rdata(SAXI_rdata),
 
 
-    //     //== Write Address Channel ==
-    //     .AWvalid(SAXI_awvalid), .AWready(SAXI_awready),
-    //     .AWaddr(SAXI_awaddr),.AWlen(SAXI_awlen),
+        //== Write Address Channel ==
+        .AWvalid(SAXI_awvalid), .AWready(SAXI_awready),
+        .AWaddr(SAXI_awaddr), .AWlen(SAXI_awlen), .AWBurstType(SAXI_awburst),
 
-    //     //== Write Data Channel ==
-    //     .Wvalid(SAXI_wvalid), .Wready(SAXI_wready),
-    //     .Wlast(SAXI_wlast),
-    //     .Wdata(SAXI_wdata),
+        //== Write Data Channel ==
+        .Wvalid(SAXI_wvalid), .Wready(SAXI_wready),
+        .Wlast(SAXI_wlast),
+        .Wdata(SAXI_wdata),
 
-    //     //== Write Response Channel ==
-    //     .Bvalid(SAXI_bvalid), .Bready(SAXI_bready)
-    // );
+        //== Write Response Channel ==
+        .Bvalid(SAXI_bvalid), .Bready(SAXI_bready)
+    );
 
 endmodule

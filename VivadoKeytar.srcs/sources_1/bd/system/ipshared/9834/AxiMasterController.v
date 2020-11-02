@@ -54,6 +54,54 @@ module AxiMasterController
     input Bvalid, output reg Bready = 0
 );
 
+    //Read Channels
+
+    reg [1:0] readState = 2'b0;
+    // reg [7:0] readLen = 0;
+    assign ReadValid = Rvalid && Rready;
+    assign ReadData = Rdata;
+
+    always @(posedge AxiAClk)
+    begin
+        if (AxiAResetN==0)
+        begin
+            readState <= 2'b00;
+            // readLen <= 0;
+            ARlen <= 0;
+            ARaddr <= 0;
+            ARvalid <= 0;
+            Rready <= 0;
+        end
+        else
+        begin
+            if (ReadTransfer && readState==2'b00)
+            begin
+                readState <= 2'b01;
+                // readLen <= 0;
+
+                ARlen <= ReadBurstLen;
+                ARaddr <= ReadAddress;
+                ARvalid <= 1;
+
+                Rready <= 0;
+            end
+            if (readState==2'b01 && ARready) //Now in read state
+            begin
+                readState <= 2'b10;
+                ARvalid <= 0;
+                Rready <= 1;
+            end
+            if (readState==2'b10 && Rlast) //End of Transaction
+            begin
+                Rready <= 0;
+                readState <= 2'b00;
+            end
+
+        end
+    end
+
+
+
     //Write Channels
 
     reg [1:0] writeState = 2'b0;
@@ -123,54 +171,6 @@ module AxiMasterController
 
         end
 
-    end
-
-
-
-    //Read Channels
-
-    reg [1:0] readState = 2'b0;
-    // reg [7:0] readLen = 0;
-    assign ReadValid = Rvalid && Rready;
-    assign ReadData = Rdata;
-
-    always @(posedge AxiAClk)
-    begin
-        if (AxiAResetN==0)
-        begin
-            readState <= 2'b00;
-            // readLen <= 0;
-            ARlen <= 0;
-            ARaddr <= 0;
-            ARvalid <= 0;
-            Rready <= 0;
-        end
-        else
-        begin
-            if (ReadTransfer && readState==2'b00)
-            begin
-                readState <= 2'b01;
-                // readLen <= 0;
-
-                ARlen <= ReadBurstLen;
-                ARaddr <= ReadAddress;
-                ARvalid <= 1;
-
-                Rready <= 0;
-            end
-            if (readState==2'b01 && ARready) //Now in read state
-            begin
-                readState <= 2'b10;
-                ARvalid <= 0;
-                Rready <= 1;
-            end
-            if (readState==2'b10 && Rlast) //End of Transaction
-            begin
-                Rready <= 0;
-                readState <= 2'b00;
-            end
-
-        end
     end
 
 endmodule

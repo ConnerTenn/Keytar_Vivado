@@ -85,6 +85,12 @@ module VideoController #
     assign MAXI_wstrb = 8'b1111_1111; //Vailid byte lanes mask; The bytes of the entire word that are valid
 
 
+    //== AXI Slave ==
+    //Write Response Channel
+    assign SAXI_bid = 0;
+    assign SAXI_bresp = 2'b00;
+
+
     wire [31:0] maxiReadAddress; wire [7:0] maxiReadBurstLen;
     wire [63:0] maxiReadData;
     wire maxiReadTransfer; wire maxiReadValid;
@@ -246,7 +252,7 @@ module VideoController #
 
         //== Read Address Channel ==
         .ARvalid(SAXI_arvalid), .ARready(SAXI_arready),
-        .ARaddr(SAXI_araddr), .ARlen(SAXI_arlen),
+        .ARaddr(SAXI_araddr), .ARlen(SAXI_arlen), .ARBurstType(SAXI_arburst),
 
         //== Read Data Channel ==
         .Rvalid(SAXI_rvalid), .Rready(SAXI_rready),
@@ -256,7 +262,7 @@ module VideoController #
 
         //== Write Address Channel ==
         .AWvalid(SAXI_awvalid), .AWready(SAXI_awready),
-        .AWaddr(SAXI_awaddr),.AWlen(SAXI_awlen),
+        .AWaddr(SAXI_awaddr), .AWlen(SAXI_awlen), .AWBurstType(SAXI_awburst),
 
         //== Write Data Channel ==
         .Wvalid(SAXI_wvalid), .Wready(SAXI_wready),

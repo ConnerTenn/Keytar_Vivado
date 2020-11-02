@@ -48,7 +48,7 @@
 
 
 // IP VLNV: Independant:user:VideoController:1.0
-// IP Revision: 23
+// IP Revision: 26
 
 (* X_CORE_INFO = "VideoController,Vivado 2020.1" *)
 (* CHECK_LICENSE_TYPE = "system_VideoController_0_1,VideoController,{}" *)
@@ -315,7 +315,7 @@ output wire PClk;
 output wire De;
 
   VideoController #(
-    .SAXI_SLAVE_BASE_ADDR(32'HFFFFFFFF),
+    .SAXI_SLAVE_BASE_ADDR(32'H00000000),
     .MAXI_ID_WIDTH(1),
     .SAXI_ID_WIDTH(12)
   ) inst (

@@ -48,7 +48,7 @@
 
 
 // IP VLNV: Independant:user:VideoController:1.0
-// IP Revision: 23
+// IP Revision: 26
 
 `timescale 1ns/1ps
 
@@ -315,7 +315,7 @@ output wire PClk;
 output wire De;
 
   VideoController #(
-    .SAXI_SLAVE_BASE_ADDR(32'HFFFFFFFF),
+    .SAXI_SLAVE_BASE_ADDR(32'H00000000),
     .MAXI_ID_WIDTH(1),
     .SAXI_ID_WIDTH(12)
   ) inst (
