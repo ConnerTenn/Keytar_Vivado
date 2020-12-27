@@ -182,6 +182,9 @@ void system_auto_pc_1::before_end_of_elaboration()
     mp_impl->target_rd_socket->bind(*(mp_S_AXI_transactor->rd_socket));
     mp_impl->target_wr_socket->bind(*(mp_S_AXI_transactor->wr_socket));
   }
+  else
+  {
+  }
 
   // configure 'M_AXI' transactor
 
@@ -284,6 +287,9 @@ void system_auto_pc_1::before_end_of_elaboration()
 
     mp_impl->initiator_rd_socket->bind(*(mp_M_AXI_transactor->rd_socket));
     mp_impl->initiator_wr_socket->bind(*(mp_M_AXI_transactor->wr_socket));
+  }
+  else
+  {
   }
 
 }
@@ -415,6 +421,9 @@ void system_auto_pc_1::before_end_of_elaboration()
     mp_impl->target_rd_socket->bind(*(mp_S_AXI_transactor->rd_socket));
     mp_impl->target_wr_socket->bind(*(mp_S_AXI_transactor->wr_socket));
   }
+  else
+  {
+  }
 
   // configure 'M_AXI' transactor
 
@@ -517,6 +526,9 @@ void system_auto_pc_1::before_end_of_elaboration()
 
     mp_impl->initiator_rd_socket->bind(*(mp_M_AXI_transactor->rd_socket));
     mp_impl->initiator_wr_socket->bind(*(mp_M_AXI_transactor->wr_socket));
+  }
+  else
+  {
   }
 
 }
@@ -648,6 +660,9 @@ void system_auto_pc_1::before_end_of_elaboration()
     mp_impl->target_rd_socket->bind(*(mp_S_AXI_transactor->rd_socket));
     mp_impl->target_wr_socket->bind(*(mp_S_AXI_transactor->wr_socket));
   }
+  else
+  {
+  }
 
   // configure 'M_AXI' transactor
 
@@ -751,6 +766,9 @@ void system_auto_pc_1::before_end_of_elaboration()
     mp_impl->initiator_rd_socket->bind(*(mp_M_AXI_transactor->rd_socket));
     mp_impl->initiator_wr_socket->bind(*(mp_M_AXI_transactor->wr_socket));
   }
+  else
+  {
+  }
 
 }
 
@@ -775,6 +793,7 @@ system_auto_pc_1::system_auto_pc_1(const sc_core::sc_module_name& nm) : system_a
   mp_m_axi_awlock_converter = NULL;
   mp_m_axi_arlen_converter = NULL;
   mp_m_axi_arlock_converter = NULL;
+
   // Instantiate Socket Stubs
 
   // configure S_AXI_transactor
@@ -860,7 +879,6 @@ system_auto_pc_1::system_auto_pc_1(const sc_core::sc_module_name& nm) : system_a
   mp_S_AXI_transactor->RREADY(s_axi_rready);
   mp_S_AXI_transactor->CLK(aclk);
   mp_S_AXI_transactor->RST(aresetn);
-
   // configure M_AXI_transactor
     xsc::common_cpp::properties M_AXI_transactor_param_props;
     M_AXI_transactor_param_props.addLong("DATA_WIDTH", "64");
@@ -949,7 +967,6 @@ system_auto_pc_1::system_auto_pc_1(const sc_core::sc_module_name& nm) : system_a
   mp_M_AXI_transactor->CLK(aclk);
   mp_M_AXI_transactor->RST(aresetn);
 
-
   // initialize transactors stubs
   S_AXI_transactor_target_wr_socket_stub = nullptr;
   S_AXI_transactor_target_rd_socket_stub = nullptr;
@@ -965,6 +982,7 @@ void system_auto_pc_1::before_end_of_elaboration()
   {
     mp_impl->target_rd_socket->bind(*(mp_S_AXI_transactor->rd_socket));
     mp_impl->target_wr_socket->bind(*(mp_S_AXI_transactor->wr_socket));
+  
   }
   else
   {
@@ -980,6 +998,7 @@ void system_auto_pc_1::before_end_of_elaboration()
   {
     mp_impl->initiator_rd_socket->bind(*(mp_M_AXI_transactor->rd_socket));
     mp_impl->initiator_wr_socket->bind(*(mp_M_AXI_transactor->wr_socket));
+  
   }
   else
   {
@@ -1013,6 +1032,7 @@ system_auto_pc_1::system_auto_pc_1(const sc_core::sc_module_name& nm) : system_a
   mp_m_axi_awlock_converter = NULL;
   mp_m_axi_arlen_converter = NULL;
   mp_m_axi_arlock_converter = NULL;
+
   // Instantiate Socket Stubs
 
   // configure S_AXI_transactor
@@ -1098,7 +1118,6 @@ system_auto_pc_1::system_auto_pc_1(const sc_core::sc_module_name& nm) : system_a
   mp_S_AXI_transactor->RREADY(s_axi_rready);
   mp_S_AXI_transactor->CLK(aclk);
   mp_S_AXI_transactor->RST(aresetn);
-
   // configure M_AXI_transactor
     xsc::common_cpp::properties M_AXI_transactor_param_props;
     M_AXI_transactor_param_props.addLong("DATA_WIDTH", "64");
@@ -1187,7 +1206,6 @@ system_auto_pc_1::system_auto_pc_1(const sc_core::sc_module_name& nm) : system_a
   mp_M_AXI_transactor->CLK(aclk);
   mp_M_AXI_transactor->RST(aresetn);
 
-
   // initialize transactors stubs
   S_AXI_transactor_target_wr_socket_stub = nullptr;
   S_AXI_transactor_target_rd_socket_stub = nullptr;
@@ -1203,6 +1221,7 @@ void system_auto_pc_1::before_end_of_elaboration()
   {
     mp_impl->target_rd_socket->bind(*(mp_S_AXI_transactor->rd_socket));
     mp_impl->target_wr_socket->bind(*(mp_S_AXI_transactor->wr_socket));
+  
   }
   else
   {
@@ -1218,6 +1237,7 @@ void system_auto_pc_1::before_end_of_elaboration()
   {
     mp_impl->initiator_rd_socket->bind(*(mp_M_AXI_transactor->rd_socket));
     mp_impl->initiator_wr_socket->bind(*(mp_M_AXI_transactor->wr_socket));
+  
   }
   else
   {

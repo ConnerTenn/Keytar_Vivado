@@ -153,6 +153,7 @@ module AxiSlaveController
             begin
                 Bvalid <= 1;
                 writeState <= 2'b00;
+                Wready <= 0;
             end
             else if (Bvalid)
             begin

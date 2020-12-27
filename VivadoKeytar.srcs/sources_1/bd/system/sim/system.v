@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
-//Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-//Date        : Sun Nov  1 19:14:16 2020
+//Tool Version: Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
+//Date        : Sat Dec 26 11:17:52 2020
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -1331,7 +1331,7 @@ module system
   wire [3:0]axi_interconnect_video_ctl_M00_AXI_ARCACHE;
   wire [11:0]axi_interconnect_video_ctl_M00_AXI_ARID;
   wire [7:0]axi_interconnect_video_ctl_M00_AXI_ARLEN;
-  wire [0:0]axi_interconnect_video_ctl_M00_AXI_ARLOCK;
+  wire axi_interconnect_video_ctl_M00_AXI_ARLOCK;
   wire [2:0]axi_interconnect_video_ctl_M00_AXI_ARPROT;
   wire [3:0]axi_interconnect_video_ctl_M00_AXI_ARQOS;
   wire axi_interconnect_video_ctl_M00_AXI_ARREADY;
@@ -1342,7 +1342,7 @@ module system
   wire [3:0]axi_interconnect_video_ctl_M00_AXI_AWCACHE;
   wire [11:0]axi_interconnect_video_ctl_M00_AXI_AWID;
   wire [7:0]axi_interconnect_video_ctl_M00_AXI_AWLEN;
-  wire [0:0]axi_interconnect_video_ctl_M00_AXI_AWLOCK;
+  wire axi_interconnect_video_ctl_M00_AXI_AWLOCK;
   wire [2:0]axi_interconnect_video_ctl_M00_AXI_AWPROT;
   wire [3:0]axi_interconnect_video_ctl_M00_AXI_AWQOS;
   wire axi_interconnect_video_ctl_M00_AXI_AWREADY;
@@ -1566,7 +1566,7 @@ module system
   system_RGBTest_0_0 RGBTest_0
        (.Clock(processing_system7_0_FCLK_CLK1),
         .RGB(RGBTest_0_RGB));
-  system_Synth_0_0 Synth_0
+  system_Synth_0_1 Synth_0
        (.BusClock(APBSlave_Breakout_synth_BusClock),
         .BusPAddr(APBSlave_Breakout_synth_BusPAddr),
         .BusPEnable(APBSlave_Breakout_synth_BusPEnable),
@@ -2189,7 +2189,7 @@ module system_axi_interconnect_0_0
   output [3:0]M00_AXI_arcache;
   output [11:0]M00_AXI_arid;
   output [7:0]M00_AXI_arlen;
-  output [0:0]M00_AXI_arlock;
+  output M00_AXI_arlock;
   output [2:0]M00_AXI_arprot;
   output [3:0]M00_AXI_arqos;
   input M00_AXI_arready;
@@ -2200,7 +2200,7 @@ module system_axi_interconnect_0_0
   output [3:0]M00_AXI_awcache;
   output [11:0]M00_AXI_awid;
   output [7:0]M00_AXI_awlen;
-  output [0:0]M00_AXI_awlock;
+  output M00_AXI_awlock;
   output [2:0]M00_AXI_awprot;
   output [3:0]M00_AXI_awqos;
   input M00_AXI_awready;
@@ -2347,7 +2347,7 @@ module system_axi_interconnect_0_0
   assign M00_AXI_arcache[3:0] = s00_couplers_to_axi_interconnect_video_ctl_ARCACHE;
   assign M00_AXI_arid[11:0] = s00_couplers_to_axi_interconnect_video_ctl_ARID;
   assign M00_AXI_arlen[7:0] = s00_couplers_to_axi_interconnect_video_ctl_ARLEN;
-  assign M00_AXI_arlock[0] = s00_couplers_to_axi_interconnect_video_ctl_ARLOCK;
+  assign M00_AXI_arlock = s00_couplers_to_axi_interconnect_video_ctl_ARLOCK;
   assign M00_AXI_arprot[2:0] = s00_couplers_to_axi_interconnect_video_ctl_ARPROT;
   assign M00_AXI_arqos[3:0] = s00_couplers_to_axi_interconnect_video_ctl_ARQOS;
   assign M00_AXI_arsize[2:0] = s00_couplers_to_axi_interconnect_video_ctl_ARSIZE;
@@ -2357,7 +2357,7 @@ module system_axi_interconnect_0_0
   assign M00_AXI_awcache[3:0] = s00_couplers_to_axi_interconnect_video_ctl_AWCACHE;
   assign M00_AXI_awid[11:0] = s00_couplers_to_axi_interconnect_video_ctl_AWID;
   assign M00_AXI_awlen[7:0] = s00_couplers_to_axi_interconnect_video_ctl_AWLEN;
-  assign M00_AXI_awlock[0] = s00_couplers_to_axi_interconnect_video_ctl_AWLOCK;
+  assign M00_AXI_awlock = s00_couplers_to_axi_interconnect_video_ctl_AWLOCK;
   assign M00_AXI_awprot[2:0] = s00_couplers_to_axi_interconnect_video_ctl_AWPROT;
   assign M00_AXI_awqos[3:0] = s00_couplers_to_axi_interconnect_video_ctl_AWQOS;
   assign M00_AXI_awsize[2:0] = s00_couplers_to_axi_interconnect_video_ctl_AWSIZE;
@@ -2634,7 +2634,7 @@ module system_axi_interconnect_0_2
   input [3:0]S00_AXI_arcache;
   input [0:0]S00_AXI_arid;
   input [7:0]S00_AXI_arlen;
-  input [0:0]S00_AXI_arlock;
+  input S00_AXI_arlock;
   input [2:0]S00_AXI_arprot;
   input [3:0]S00_AXI_arqos;
   output S00_AXI_arready;
@@ -2645,7 +2645,7 @@ module system_axi_interconnect_0_2
   input [3:0]S00_AXI_awcache;
   input [0:0]S00_AXI_awid;
   input [7:0]S00_AXI_awlen;
-  input [0:0]S00_AXI_awlock;
+  input S00_AXI_awlock;
   input [2:0]S00_AXI_awprot;
   input [3:0]S00_AXI_awqos;
   output S00_AXI_awready;
@@ -2676,7 +2676,7 @@ module system_axi_interconnect_0_2
   wire [3:0]axi_interconnect_0_to_s00_couplers_ARCACHE;
   wire [0:0]axi_interconnect_0_to_s00_couplers_ARID;
   wire [7:0]axi_interconnect_0_to_s00_couplers_ARLEN;
-  wire [0:0]axi_interconnect_0_to_s00_couplers_ARLOCK;
+  wire axi_interconnect_0_to_s00_couplers_ARLOCK;
   wire [2:0]axi_interconnect_0_to_s00_couplers_ARPROT;
   wire [3:0]axi_interconnect_0_to_s00_couplers_ARQOS;
   wire axi_interconnect_0_to_s00_couplers_ARREADY;
@@ -2687,7 +2687,7 @@ module system_axi_interconnect_0_2
   wire [3:0]axi_interconnect_0_to_s00_couplers_AWCACHE;
   wire [0:0]axi_interconnect_0_to_s00_couplers_AWID;
   wire [7:0]axi_interconnect_0_to_s00_couplers_AWLEN;
-  wire [0:0]axi_interconnect_0_to_s00_couplers_AWLOCK;
+  wire axi_interconnect_0_to_s00_couplers_AWLOCK;
   wire [2:0]axi_interconnect_0_to_s00_couplers_AWPROT;
   wire [3:0]axi_interconnect_0_to_s00_couplers_AWQOS;
   wire axi_interconnect_0_to_s00_couplers_AWREADY;
@@ -2794,7 +2794,7 @@ module system_axi_interconnect_0_2
   assign axi_interconnect_0_to_s00_couplers_ARCACHE = S00_AXI_arcache[3:0];
   assign axi_interconnect_0_to_s00_couplers_ARID = S00_AXI_arid[0];
   assign axi_interconnect_0_to_s00_couplers_ARLEN = S00_AXI_arlen[7:0];
-  assign axi_interconnect_0_to_s00_couplers_ARLOCK = S00_AXI_arlock[0];
+  assign axi_interconnect_0_to_s00_couplers_ARLOCK = S00_AXI_arlock;
   assign axi_interconnect_0_to_s00_couplers_ARPROT = S00_AXI_arprot[2:0];
   assign axi_interconnect_0_to_s00_couplers_ARQOS = S00_AXI_arqos[3:0];
   assign axi_interconnect_0_to_s00_couplers_ARSIZE = S00_AXI_arsize[2:0];
@@ -2804,7 +2804,7 @@ module system_axi_interconnect_0_2
   assign axi_interconnect_0_to_s00_couplers_AWCACHE = S00_AXI_awcache[3:0];
   assign axi_interconnect_0_to_s00_couplers_AWID = S00_AXI_awid[0];
   assign axi_interconnect_0_to_s00_couplers_AWLEN = S00_AXI_awlen[7:0];
-  assign axi_interconnect_0_to_s00_couplers_AWLOCK = S00_AXI_awlock[0];
+  assign axi_interconnect_0_to_s00_couplers_AWLOCK = S00_AXI_awlock;
   assign axi_interconnect_0_to_s00_couplers_AWPROT = S00_AXI_awprot[2:0];
   assign axi_interconnect_0_to_s00_couplers_AWQOS = S00_AXI_awqos[3:0];
   assign axi_interconnect_0_to_s00_couplers_AWSIZE = S00_AXI_awsize[2:0];

@@ -50,7 +50,7 @@
 // IP VLNV: Independant:user:APBSlave_Breakout:1.0
 // IP Revision: 2
 
-(* X_CORE_INFO = "Breakout,Vivado 2020.1" *)
+(* X_CORE_INFO = "Breakout,Vivado 2020.2" *)
 (* CHECK_LICENSE_TYPE = "system_APBSlave_Breakout_0_0,Breakout,{}" *)
 (* IP_DEFINITION_SOURCE = "package_project" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)

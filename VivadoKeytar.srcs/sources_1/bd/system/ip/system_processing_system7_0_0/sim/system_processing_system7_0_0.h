@@ -238,6 +238,9 @@ public:
   sc_core::sc_out< bool > PS_CLK;
   sc_core::sc_out< bool > PS_PORB;
 
+  // Dummy Signals for IP Ports
+
+
 protected:
 
   virtual void before_end_of_elaboration();
@@ -449,6 +452,9 @@ public:
   sc_core::sc_out< bool > PS_CLK;
   sc_core::sc_out< bool > PS_PORB;
 
+  // Dummy Signals for IP Ports
+
+
 protected:
 
   virtual void before_end_of_elaboration();
@@ -659,6 +665,9 @@ public:
   sc_core::sc_out< bool > PS_SRSTB;
   sc_core::sc_out< bool > PS_CLK;
   sc_core::sc_out< bool > PS_PORB;
+
+  // Dummy Signals for IP Ports
+
 
 protected:
 
@@ -874,6 +883,9 @@ public:
   sc_core::sc_out< bool > PS_SRSTB;
   sc_core::sc_out< bool > PS_CLK;
   sc_core::sc_out< bool > PS_PORB;
+
+  // Dummy Signals for IP Ports
+
 
 protected:
 
@@ -1099,6 +1111,9 @@ public:
   sc_core::sc_out< bool > PS_SRSTB;
   sc_core::sc_out< bool > PS_CLK;
   sc_core::sc_out< bool > PS_PORB;
+
+  // Dummy Signals for IP Ports
+
 
 protected:
 

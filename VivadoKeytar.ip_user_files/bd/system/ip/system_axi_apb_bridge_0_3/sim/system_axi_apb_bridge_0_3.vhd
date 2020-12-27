@@ -47,14 +47,14 @@
 -- DO NOT MODIFY THIS FILE.
 
 -- IP VLNV: xilinx.com:ip:axi_apb_bridge:3.0
--- IP Revision: 16
+-- IP Revision: 17
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 
-LIBRARY axi_apb_bridge_v3_0_16;
-USE axi_apb_bridge_v3_0_16.axi_apb_bridge;
+LIBRARY axi_apb_bridge_v3_0_17;
+USE axi_apb_bridge_v3_0_17.axi_apb_bridge;
 
 ENTITY system_axi_apb_bridge_0_3 IS
   PORT (

@@ -120,7 +120,7 @@ system_processing_system7_0_0_sc::system_processing_system7_0_0_sc(const sc_core
 
   mp_impl = new processing_system7_v5_5_tlm("inst", model_param_props);
 
-  // initialize sockets
+  // initialize AXI sockets
   M_AXI_GP0_rd_socket = mp_impl->M_AXI_GP0_rd_socket;
   M_AXI_GP0_wr_socket = mp_impl->M_AXI_GP0_wr_socket;
   M_AXI_GP1_rd_socket = mp_impl->M_AXI_GP1_rd_socket;

@@ -25,7 +25,7 @@ module Synth #(
     input BusPEnable, BusPSel;
     output BusPError;
 
-    parameter NUM_CHANNELS = (DEBUG?2:16);
+    localparam NUM_CHANNELS = (DEBUG?2:16);
 
     reg clock1MHz = 0;
 
