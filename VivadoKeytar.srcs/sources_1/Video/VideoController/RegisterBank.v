@@ -8,7 +8,7 @@ module RegsiterBank #
 
     //== Read Channel ==
     input [31:0] ReadAddress,
-    output reg [31:0] ReadData,
+    output reg [31:0] ReadData = 32'h00000000,
     input ReadEN,
     //== Write Channel ==
     input [31:0] WriteAddress,
@@ -41,7 +41,7 @@ module RegsiterBank #
                     BASE_ADDR+4*2: ReadData <= FB2Addr;
                     BASE_ADDR+4*3: ReadData <= FBSize;
                     BASE_ADDR+4*4: ReadData <= {{31{1'b0}},CurrentFB};
-                    default:;
+                    default: ReadData <= 32'h00000000;
                 endcase
             end
             if (WriteEN)

@@ -36,17 +36,16 @@ module VideoController #
     input SAXI_aclk, input SAXI_resetn,
     //Read Address Channel
     input SAXI_arvalid, output SAXI_arready,
-    input [31:0] SAXI_araddr, input [7:0] SAXI_arlen,
-    input [SAXI_ID_WIDTH-1:0] SAXI_arid, input SAXI_arlock, input [3:0] SAXI_arcache, input [2:0] SAXI_arprot, input [3:0] SAXI_arqos,
-    input [2:0] SAXI_arsize, input [1:0] SAXI_arburst, 
+    input [31:0] SAXI_araddr,
+    input [SAXI_ID_WIDTH-1:0] SAXI_arid, input [2:0] SAXI_arprot,
     //Read Data Channel
-    output SAXI_rvalid, input SAXI_rready, output SAXI_rlast,
+    output SAXI_rvalid, input SAXI_rready,
     output [31:0] SAXI_rdata,
     output [SAXI_ID_WIDTH-1:0] SAXI_rid, output [1:0] SAXI_rresp,
     //Write Address Channel
     input SAXI_awvalid, output SAXI_awready,
-    input [31:0] SAXI_awaddr, input [7:0] SAXI_awlen,
-    input [SAXI_ID_WIDTH-1:0] SAXI_awid, input SAXI_awlock, input [3:0] SAXI_awcache, input [2:0] SAXI_awprot, input [3:0] SAXI_awqos,
+    input [31:0] SAXI_awaddr,
+    input [SAXI_ID_WIDTH-1:0] SAXI_awid,
     input [2:0] SAXI_awsize, input [1:0] SAXI_awburst,
     //Write Data Channel
     input SAXI_wvalid, output SAXI_wready, input SAXI_wlast,
@@ -252,21 +251,19 @@ module VideoController #
 
         //== Read Address Channel ==
         .ARvalid(SAXI_arvalid), .ARready(SAXI_arready),
-        .ARaddr(SAXI_araddr), .ARlen(SAXI_arlen), .ARBurstType(SAXI_arburst),
+        .ARaddr(SAXI_araddr),
 
         //== Read Data Channel ==
         .Rvalid(SAXI_rvalid), .Rready(SAXI_rready),
-        .Rlast(SAXI_rlast),
         .Rdata(SAXI_rdata),
 
 
         //== Write Address Channel ==
         .AWvalid(SAXI_awvalid), .AWready(SAXI_awready),
-        .AWaddr(SAXI_awaddr), .AWlen(SAXI_awlen), .AWBurstType(SAXI_awburst),
+        .AWaddr(SAXI_awaddr),
 
         //== Write Data Channel ==
         .Wvalid(SAXI_wvalid), .Wready(SAXI_wready),
-        .Wlast(SAXI_wlast),
         .Wdata(SAXI_wdata),
 
         //== Write Response Channel ==

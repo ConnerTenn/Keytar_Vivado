@@ -48,7 +48,7 @@
 
 
 // IP VLNV: Independant:user:VideoController:1.0
-// IP Revision: 26
+// IP Revision: 45
 
 `timescale 1ns/1ps
 
@@ -99,29 +99,17 @@ module system_VideoController_0_1 (
   SAXI_arvalid,
   SAXI_arready,
   SAXI_araddr,
-  SAXI_arlen,
   SAXI_arid,
-  SAXI_arlock,
-  SAXI_arcache,
   SAXI_arprot,
-  SAXI_arqos,
-  SAXI_arsize,
-  SAXI_arburst,
   SAXI_rvalid,
   SAXI_rready,
-  SAXI_rlast,
   SAXI_rdata,
   SAXI_rid,
   SAXI_rresp,
   SAXI_awvalid,
   SAXI_awready,
   SAXI_awaddr,
-  SAXI_awlen,
   SAXI_awid,
-  SAXI_awlock,
-  SAXI_awcache,
-  SAXI_awprot,
-  SAXI_awqos,
   SAXI_awsize,
   SAXI_awburst,
   SAXI_wvalid,
@@ -236,28 +224,14 @@ input wire SAXI_arvalid;
 output wire SAXI_arready;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface ARADDR" *)
 input wire [31 : 0] SAXI_araddr;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface ARLEN" *)
-input wire [7 : 0] SAXI_arlen;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface ARID" *)
 input wire [11 : 0] SAXI_arid;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface ARLOCK" *)
-input wire SAXI_arlock;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface ARCACHE" *)
-input wire [3 : 0] SAXI_arcache;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface ARPROT" *)
 input wire [2 : 0] SAXI_arprot;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface ARQOS" *)
-input wire [3 : 0] SAXI_arqos;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface ARSIZE" *)
-input wire [2 : 0] SAXI_arsize;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface ARBURST" *)
-input wire [1 : 0] SAXI_arburst;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface RVALID" *)
 output wire SAXI_rvalid;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface RREADY" *)
 input wire SAXI_rready;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface RLAST" *)
-output wire SAXI_rlast;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface RDATA" *)
 output wire [31 : 0] SAXI_rdata;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface RID" *)
@@ -270,18 +244,8 @@ input wire SAXI_awvalid;
 output wire SAXI_awready;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface AWADDR" *)
 input wire [31 : 0] SAXI_awaddr;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface AWLEN" *)
-input wire [7 : 0] SAXI_awlen;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface AWID" *)
 input wire [11 : 0] SAXI_awid;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface AWLOCK" *)
-input wire SAXI_awlock;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface AWCACHE" *)
-input wire [3 : 0] SAXI_awcache;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface AWPROT" *)
-input wire [2 : 0] SAXI_awprot;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface AWQOS" *)
-input wire [3 : 0] SAXI_awqos;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface AWSIZE" *)
 input wire [2 : 0] SAXI_awsize;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface AWBURST" *)
@@ -302,8 +266,8 @@ output wire SAXI_bvalid;
 input wire SAXI_bready;
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface BID" *)
 output wire [11 : 0] SAXI_bid;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_ControlInterface, DATA_WIDTH 32, PROTOCOL AXI4, ID_WIDTH 12, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 1, HAS_LOCK 1, HAS_PROT 1, HAS_CACHE 1, HAS_QOS 1, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 1, NUM_READ_OUTSTANDING 2, NUM_WRITE_OUTSTANDING 2, MAX_BURST_LENGTH 256, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, NUM_READ_THREADS 4, N\
-UM_WRITE_THREADS 4, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_ControlInterface, DATA_WIDTH 32, PROTOCOL AXI4LITE, ID_WIDTH 12, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 1, HAS_LOCK 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK1, NUM_READ_THREADS 4,\
+ NUM_WRITE_THREADS 4, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface BRESP" *)
 output wire [1 : 0] SAXI_bresp;
 output wire [4 : 0] Red;
@@ -315,7 +279,7 @@ output wire PClk;
 output wire De;
 
   VideoController #(
-    .SAXI_SLAVE_BASE_ADDR(32'H00000000),
+    .SAXI_SLAVE_BASE_ADDR(32'H80000000),
     .MAXI_ID_WIDTH(1),
     .SAXI_ID_WIDTH(12)
   ) inst (
@@ -363,29 +327,17 @@ output wire De;
     .SAXI_arvalid(SAXI_arvalid),
     .SAXI_arready(SAXI_arready),
     .SAXI_araddr(SAXI_araddr),
-    .SAXI_arlen(SAXI_arlen),
     .SAXI_arid(SAXI_arid),
-    .SAXI_arlock(SAXI_arlock),
-    .SAXI_arcache(SAXI_arcache),
     .SAXI_arprot(SAXI_arprot),
-    .SAXI_arqos(SAXI_arqos),
-    .SAXI_arsize(SAXI_arsize),
-    .SAXI_arburst(SAXI_arburst),
     .SAXI_rvalid(SAXI_rvalid),
     .SAXI_rready(SAXI_rready),
-    .SAXI_rlast(SAXI_rlast),
     .SAXI_rdata(SAXI_rdata),
     .SAXI_rid(SAXI_rid),
     .SAXI_rresp(SAXI_rresp),
     .SAXI_awvalid(SAXI_awvalid),
     .SAXI_awready(SAXI_awready),
     .SAXI_awaddr(SAXI_awaddr),
-    .SAXI_awlen(SAXI_awlen),
     .SAXI_awid(SAXI_awid),
-    .SAXI_awlock(SAXI_awlock),
-    .SAXI_awcache(SAXI_awcache),
-    .SAXI_awprot(SAXI_awprot),
-    .SAXI_awqos(SAXI_awqos),
     .SAXI_awsize(SAXI_awsize),
     .SAXI_awburst(SAXI_awburst),
     .SAXI_wvalid(SAXI_wvalid),

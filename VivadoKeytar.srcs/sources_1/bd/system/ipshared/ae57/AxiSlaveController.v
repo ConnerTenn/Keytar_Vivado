@@ -21,16 +21,10 @@ module AxiSlaveController
     input ARvalid, output reg ARready = 0,
     //Read Address
     input [31:0] ARaddr,
-    //Burst length
-    input [7:0] ARlen,
-    //Burst Type  00:Fixed  01:Increment  10:Wrap  11:Reserved
-    input [1:0] ARBurstType,
 
     //== Read Data Channel ==
     //Handshakes
     output reg Rvalid = 0, input Rready,
-    //Last transfer in burst
-    input Rlast,
     //Data
     output [31:0] Rdata,
 
@@ -40,16 +34,10 @@ module AxiSlaveController
     input AWvalid, output reg AWready = 0,
     //Write Address
     input [31:0] AWaddr,
-    //Burst length
-    input [7:0] AWlen,
-    //Burst Type  00:Fixed  01:Increment  10:Wrap  11:Reserved
-    input [1:0] AWBurstType,
 
     //== Write Data Channel ==
     //Handshakes
-    input Wvalid, output reg Wready,
-    //Last transfer in burst
-    input Wlast,
+    input Wvalid, output reg Wready = 0,
     //Data
     input [31:0] Wdata,
 
@@ -58,12 +46,12 @@ module AxiSlaveController
     output reg Bvalid = 0, input Bready
 );
 
+
     //Read Channels
 
     reg [1:0] readState = 2'b0;
-    // reg [7:0] readLen = 0;
 
-    assign ReadEN = (readState==2'b01 && ARready) || (readState==2'b10 && Rready && !Rlast);
+    assign ReadEN = (readState==2'b01 && ARready);
     assign Rdata = ReadData;
 
     always @(posedge AxiAClk)
@@ -71,7 +59,6 @@ module AxiSlaveController
         if (AxiAResetN==0)
         begin
             readState <= 2'b00;
-            // readLen <= 0;
             ARready <= 0;
             Rvalid <= 0;
         end
@@ -80,7 +67,6 @@ module AxiSlaveController
             if (ARvalid && readState==2'b00)
             begin
                 readState <= 2'b01;
-                // readLen <= 0;
 
                 ReadAddress <= ARaddr;
 
@@ -91,14 +77,13 @@ module AxiSlaveController
                 readState <= 2'b10;
                 ARready <= 0;
             end
-            if (readState==2'b10 && Rlast) //End of transaction
+            if (readState==2'b10 && Rready) //Transaction acknowledged
             begin
                 readState <= 2'b00;
             end
 
             if (ReadEN)
             begin
-                if (ARBurstType==2'b01) begin ReadAddress <= ReadAddress+8; end
                 Rvalid <= 1;
             end
             else if (Rready)
@@ -114,7 +99,6 @@ module AxiSlaveController
     //Write Channels
 
     reg [1:0] writeState = 2'b0;
-    // reg [7:0] writeLen = 0;
 
     assign WriteEN = Wvalid && Wready;
     assign WriteData = Wdata;
@@ -124,7 +108,6 @@ module AxiSlaveController
         if (AxiAResetN==0)
         begin
             writeState <= 2'b00;
-            // writeLen <= 0;
             AWready <= 0;
             Wready <= 0;
             Bvalid <= 0;
@@ -134,7 +117,6 @@ module AxiSlaveController
             if (AWvalid && writeState==2'b00)
             begin
                 writeState <= 2'b01;
-                // writeLen <= 0;
 
                 WriteAddress <= AWaddr;
                 AWready <= 1;
@@ -149,7 +131,7 @@ module AxiSlaveController
 
                 Wready <= 1;
             end
-            if (writeState==2'b10 && Wlast) //Transaction acknowledged
+            if (writeState==2'b10 && Wvalid) //Transaction acknowledged
             begin
                 Bvalid <= 1;
                 writeState <= 2'b00;
@@ -158,11 +140,6 @@ module AxiSlaveController
             else if (Bvalid)
             begin
                 Bvalid <= 0;
-            end
-
-            if (WriteEN)
-            begin
-                if (AWBurstType==2'b01) begin WriteAddress <= WriteAddress+8; end
             end
 
         end

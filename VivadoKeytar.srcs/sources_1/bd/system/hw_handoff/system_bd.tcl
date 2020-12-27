@@ -245,7 +245,7 @@ proc create_root_design { parentCell } {
   set VideoController_0 [ create_bd_cell -type ip -vlnv Independant:user:VideoController:1.0 VideoController_0 ]
   set_property -dict [ list \
    CONFIG.SAXI_ID_WIDTH {12} \
-   CONFIG.SAXI_SLAVE_BASE_ADDR {0x00000000} \
+   CONFIG.SAXI_SLAVE_BASE_ADDR {0x80000000} \
  ] $VideoController_0
 
   # Create instance: axi_apb_bridge_1, and set properties
@@ -375,7 +375,7 @@ proc create_root_design { parentCell } {
    CONFIG.PCW_CORE0_IRQ_INTR {0} \
    CONFIG.PCW_CORE1_FIQ_INTR {0} \
    CONFIG.PCW_CORE1_IRQ_INTR {0} \
-   CONFIG.PCW_CPU_CPU_6X4X_MAX_RANGE {667} \
+   CONFIG.PCW_CPU_CPU_6X4X_MAX_RANGE {767} \
    CONFIG.PCW_CPU_CPU_PLL_FREQMHZ {1333.333} \
    CONFIG.PCW_CPU_PERIPHERAL_CLKSRC {ARM PLL} \
    CONFIG.PCW_CPU_PERIPHERAL_DIVISOR0 {2} \
