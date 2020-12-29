@@ -10,7 +10,7 @@ module FrameBufferController
     input FBSelect, output reg CurrentFB = 0,
 
     //== AXI Read ==
-    output reg [31:0] ReadAddress = 0, output reg [7:0] ReadBurstLen = 1,
+    output reg [31:0] ReadAddress = 0, output reg [7:0] ReadBurstLen = 0,
     input [63:0] ReadData,
     output reg ReadTransfer, input ReadValid,
     //== AXI Write ==
@@ -34,21 +34,26 @@ module FrameBufferController
 
     assign FifoReset = StartFrame;
 
+    wire [31:0] activeFBAddr = FBSelect==0 ? FB1Addr : FB2Addr;
+
     always @(posedge Clock)
     begin
         //Start of frame
         if (StartFrame)
         begin
-            ReadAddress <= FBSelect==0 ? FB1Addr : FB2Addr;
+            ReadAddress <= activeFBAddr;
             CurrentFB <= FBSelect;
+            ReadBurstLen <= 0;
+            readInProgress <= 0;
         end
         else if (Run)
         begin
             //Start Read Operation
-            if (!readInProgress && ReadAddress<FBSize)
+            if (!readInProgress && ReadAddress<FBSize+activeFBAddr && FifoFillLevel<20)
             begin
                 ReadTransfer <= 1;
-                ReadBurstLen <= 32-FifoFillLevel-10;
+                ReadBurstLen <= 10; //32-FifoFillLevel-10;
+                readInProgress <= 1;
             end
             if (ReadTransfer)
             begin
@@ -58,27 +63,27 @@ module FrameBufferController
             //Read in progress. Handle Keep track of number of transfers
             if (readInProgress && ReadValid)
             begin
-                if (ReadBurstLen>0)
+                if (ReadBurstLen>1)
                 begin
                     ReadBurstLen <= ReadBurstLen-1;
-                    ReadAddress <= ReadAddress+8;
                 end
                 else
                 begin
                     readInProgress <= 0;
                 end
             end
-        end
 
-        //Read data in handler
-        if (ReadValid)
-        begin
-            FifoDataOut <= ReadData;
-            FifoWrite <= 1;
-        end
-        else
-        begin
-            FifoWrite <= 0;
+            //Read data in handler
+            if (ReadValid)
+            begin
+                FifoDataOut <= ReadData;
+                ReadAddress <= ReadAddress+8;
+                FifoWrite <= 1;
+            end
+            else
+            begin
+                FifoWrite <= 0;
+            end
         end
     end
 

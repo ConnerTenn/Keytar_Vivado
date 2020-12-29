@@ -128,7 +128,15 @@ module VideoController #
         .Activate(activate),
         .FB1Addr(fb1Addr), .FB2Addr(fb2Addr),
         .FBSize(fbSize),
-        .FBselect(fbSelect), .CurrentFB(currentFB)
+        .FBselect(fbSelect), .CurrentFB(currentFB),
+
+
+        //== Status Values ==
+        .FbReadAddr(maxiReadAddress),
+        .FifoFill(fifoFillLevel),
+        .DataToFifo(dataToFifo),
+        .DataFromFifo(dataFromFifo),
+        .ReadLen(maxiReadBurstLen)
     );
 
 
@@ -188,7 +196,7 @@ module VideoController #
         //== Read Channel ==
         .Read(fifoRead),
         .DataOut(dataFromFifo),
-        //== Read Channel ==
+        //== Write Channel ==
         .Write(fifoWrite),
         .DataIn(dataToFifo),
         //== Status ==

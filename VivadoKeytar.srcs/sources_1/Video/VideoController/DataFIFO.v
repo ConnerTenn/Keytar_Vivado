@@ -69,7 +69,7 @@ module DataFIFO #
                 //Increment head
                 headI <= headIincr;
             end
-            if (Read || (Write && FifoFull))
+            if ((Read && !FifoEmpty) || (Write && FifoFull))
             begin
                 //Increment Read
                 //Also increment if overwrite is occuring
