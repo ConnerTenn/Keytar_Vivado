@@ -2,7 +2,7 @@
 module DataFIFO #
 (
     DATA_WIDTH = 16,
-    FIFO_DEPTH = 5
+    FIFO_DEPTH = 6
 )
 (
     input Clock, input Reset,

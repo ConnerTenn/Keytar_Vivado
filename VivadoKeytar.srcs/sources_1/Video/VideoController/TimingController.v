@@ -39,8 +39,8 @@ module TimingController
     end
 
 
-    reg prehblank = 1, hblank = 1;
-    reg prevblank = 1, vblank = 1;
+    reg preHblank = 1, hblank = 1;
+    reg preVblank = 1, vblank = 1;
     // reg de = 0;
 
     assign Red = (vblank||hblank) ? 5'h0 : red;
@@ -49,7 +49,7 @@ module TimingController
     assign De = (!vblank && !hblank); //(vblank) ? 1'b0 : de;
 
     assign StartFrame = VSync; //Vcounter==0 && Hcounter==0;
-    assign ColourDataRequest = (!vblank && !prehblank);
+    assign ColourDataRequest = (!vblank && !preHblank);
 
 
     reg [11:0] Hcounter = 0;
@@ -71,12 +71,12 @@ module TimingController
         //End of Back Porch
         if (Hcounter == HSYNC+LMARGIN-1 - 1)
         begin
-            prehblank <= 0;
+            preHblank <= 0;
         end
         //End of Active
         if (Hcounter == HSYNC+LMARGIN+XRES-1 - 1)
         begin
-            prehblank <= 1;
+            preHblank <= 1;
         end
         //End of Front Porch
         if (Hcounter == HSYNC+LMARGIN+XRES+RMARGIN-1)
@@ -92,12 +92,12 @@ module TimingController
         //End of Back Porch
         if (Vcounter == VSYNC+TMARGIN-1 - 1)
         begin
-            prevblank <= 0;
+            preVblank <= 0;
         end
         //End of Active
         if (Vcounter == VSYNC+TMARGIN+YRES-1 - 1)
         begin
-            prevblank <= 1;
+            preVblank <= 1;
         end
         //End of Front Porch
         if (Vcounter == VSYNC+TMARGIN+YRES+BMARGIN-1)
@@ -105,8 +105,8 @@ module TimingController
             VSync <= 1;
         end
 
-        vblank <= prevblank;
-        hblank <= prehblank;
+        vblank <= preVblank;
+        hblank <= preHblank;
 
         //Counters
         if (Hcounter < HSYNC+LMARGIN+XRES+RMARGIN-1)

@@ -143,7 +143,7 @@ module VideoController #
     wire fifoReset;
     wire fifoRead; wire [63:0] dataFromFifo;
     wire fifoWrite; wire [63:0] dataToFifo;
-    wire [4:0] fifoFillLevel; wire fifoFull; wire fifoEmpty;
+    wire [5:0] fifoFillLevel; wire fifoFull; wire fifoEmpty;
 
     wire startFrame;
     wire colourDataRequest;

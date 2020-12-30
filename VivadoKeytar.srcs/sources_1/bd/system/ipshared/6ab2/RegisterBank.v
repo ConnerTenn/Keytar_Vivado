@@ -23,7 +23,7 @@ module RegsiterBank #
 
     //== Status Values ==
     input [31:0] FbReadAddr,
-    input [4:0] FifoFill,
+    input [5:0] FifoFill,
     input [63:0] DataToFifo,
     input [63:0] DataFromFifo,
     input [7:0] ReadLen
@@ -49,7 +49,7 @@ module RegsiterBank #
                     BASE_ADDR+4*3: ReadData <= FBSize;
                     BASE_ADDR+4*4: ReadData <= {{31{1'b0}},CurrentFB};
                     BASE_ADDR+4*10: ReadData <= FbReadAddr;
-                    BASE_ADDR+4*11: ReadData <= {{27{1'b0}},FifoFill};
+                    BASE_ADDR+4*11: ReadData <= {{26{1'b0}},FifoFill};
                     BASE_ADDR+4*12: ReadData <= DataToFifo[31:0];
                     BASE_ADDR+4*13: ReadData <= DataFromFifo[31:0];
                     BASE_ADDR+4*14: ReadData <= {{24{1'b0}},ReadLen};

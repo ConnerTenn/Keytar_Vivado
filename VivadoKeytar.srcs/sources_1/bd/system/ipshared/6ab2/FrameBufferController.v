@@ -22,7 +22,7 @@ module FrameBufferController
     output FifoReset,
     output FifoRead, input [63:0] FifoDataIn,
     output reg FifoWrite, output reg [63:0] FifoDataOut,
-    input [4:0] FifoFillLevel, input FifoFull, input FifoEmpty,
+    input [5:0] FifoFillLevel, input FifoFull, input FifoEmpty,
 
     //== Timing Controller ==
     input StartFrame,
@@ -88,8 +88,8 @@ module FrameBufferController
     end
 
 
-    reg [1:0] colourBufferFill = 0;
-    assign FifoRead = ColourDataRequest && (colourBufferFill==0);
+    reg [1:0] colourBufferFill = 3;
+    assign FifoRead = ColourDataRequest && (colourBufferFill==3);
 
     wire [15:0] colourDataTmp [3:0];
     assign colourDataTmp[0] = FifoDataIn[15:0];

@@ -22,7 +22,7 @@ module FrameBufferController
     output FifoReset,
     output FifoRead, input [63:0] FifoDataIn,
     output reg FifoWrite, output reg [63:0] FifoDataOut,
-    input [4:0] FifoFillLevel, input FifoFull, input FifoEmpty,
+    input [5:0] FifoFillLevel, input FifoFull, input FifoEmpty,
 
     //== Timing Controller ==
     input StartFrame,
@@ -34,14 +34,19 @@ module FrameBufferController
 
     assign FifoReset = StartFrame;
 
-    wire [31:0] activeFBAddr = FBSelect==0 ? FB1Addr : FB2Addr;
+    wire [31:0] selectedFBAddr = FBSelect==0 ? FB1Addr : FB2Addr;
+    reg [31:0] activeFBAddress = 0;
+
+    wire [31:0] remainingBytes = FBSize - (ReadAddress-activeFBAddress);
+    wire [31:0] nextReadlen = (remainingBytes>30 ? 30 : remainingBytes);
 
     always @(posedge Clock)
     begin
         //Start of frame
         if (StartFrame)
         begin
-            ReadAddress <= activeFBAddr;
+            ReadAddress <= selectedFBAddr;
+            activeFBAddress <= selectedFBAddr;
             CurrentFB <= FBSelect;
             ReadBurstLen <= 0;
             readInProgress <= 0;
@@ -49,10 +54,10 @@ module FrameBufferController
         else if (Run)
         begin
             //Start Read Operation
-            if (!readInProgress && ReadAddress<FBSize+activeFBAddr && FifoFillLevel<20)
+            if (!readInProgress && ReadAddress-activeFBAddress<FBSize && FifoFillLevel<30)
             begin
                 ReadTransfer <= 1;
-                ReadBurstLen <= 10; //32-FifoFillLevel-10;
+                ReadBurstLen <= nextReadlen[5:0];
                 readInProgress <= 1;
             end
             if (ReadTransfer)
@@ -88,8 +93,8 @@ module FrameBufferController
     end
 
 
-    reg [1:0] colourBufferFill = 0;
-    assign FifoRead = ColourDataRequest && (colourBufferFill==0);
+    reg [1:0] colourBufferFill = 3;
+    assign FifoRead = ColourDataRequest && (colourBufferFill==3);
 
     wire [15:0] colourDataTmp [3:0];
     assign colourDataTmp[0] = FifoDataIn[15:0];
@@ -101,7 +106,15 @@ module FrameBufferController
 
     always @(posedge Clock)
     begin
-        colourBufferFill <= colourBufferFill+1;
+        //Start of frame
+        if (StartFrame)
+        begin
+            colourBufferFill <= 3;
+        end
+        else
+        begin
+            colourBufferFill <= colourBufferFill+1;
+        end
     end
 
 
