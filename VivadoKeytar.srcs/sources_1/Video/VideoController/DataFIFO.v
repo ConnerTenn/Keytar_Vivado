@@ -9,7 +9,7 @@ module DataFIFO #
 
     //== Read Channel ==
     input Read,
-    output reg [DATA_WIDTH-1:0] DataOut,
+    output reg [DATA_WIDTH-1:0] DataOut = 0,
 
     //== Write Channel ==
     input Write,
@@ -31,7 +31,7 @@ module DataFIFO #
 
     assign FifoEmpty = (headI==tailI);
     assign FifoFull = (headIincr==tailI);
-    assign FifoFillLevel = headI-tailI;
+    assign FifoFillLevel = (headI-tailI);
 
     always @(posedge Clock)
     begin
@@ -62,18 +62,18 @@ module DataFIFO #
                     //write to fifo
                     fifoMem[headI] <= DataIn;
                 end
-            end
             
-            if (Write)
-            begin
-                //Increment head
-                headI <= headIincr;
-            end
-            if ((Read && !FifoEmpty) || (Write && FifoFull))
-            begin
-                //Increment Read
-                //Also increment if overwrite is occuring
-                tailI <= tailIincr;
+                if ((Read && !FifoEmpty) || (Write && FifoFull))
+                begin
+                    //Increment Read
+                    //Also increment if overwrite is occuring
+                    tailI <= tailIincr;
+                end
+                if (Write)
+                begin
+                    //Increment head
+                    headI <= headIincr;
+                end
             end
 
         end

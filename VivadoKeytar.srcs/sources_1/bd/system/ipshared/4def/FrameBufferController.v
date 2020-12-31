@@ -34,25 +34,31 @@ module FrameBufferController
 
     assign FifoReset = StartFrame;
 
-    wire [31:0] activeFBAddr = FBSelect==0 ? FB1Addr : FB2Addr;
+    wire [31:0] selectedFBAddr = FBSelect==0 ? FB1Addr : FB2Addr;
+    reg [31:0] activeFBAddress = 0;
+
+    wire [31:0] remainingBytes = FBSize - (ReadAddress-activeFBAddress);
+    wire [31:0] nextReadlen = (remainingBytes>30 ? 30 : remainingBytes);
 
     always @(posedge Clock)
     begin
         //Start of frame
         if (StartFrame)
         begin
-            ReadAddress <= activeFBAddr;
+            ReadAddress <= selectedFBAddr;
+            activeFBAddress <= selectedFBAddr;
             CurrentFB <= FBSelect;
             ReadBurstLen <= 0;
             readInProgress <= 0;
+            ReadTransfer <= 0;
         end
         else if (Run)
         begin
             //Start Read Operation
-            if (!readInProgress && ReadAddress<FBSize+activeFBAddr && FifoFillLevel<20)
+            if (!readInProgress && ReadAddress-activeFBAddress<FBSize && FifoFillLevel<30)
             begin
                 ReadTransfer <= 1;
-                ReadBurstLen <= 10; //32-FifoFillLevel-10;
+                ReadBurstLen <= nextReadlen[5:0];
                 readInProgress <= 1;
             end
             if (ReadTransfer)
@@ -101,7 +107,15 @@ module FrameBufferController
 
     always @(posedge Clock)
     begin
-        colourBufferFill <= colourBufferFill+1;
+        //Start of frame
+        if (StartFrame)
+        begin
+            colourBufferFill <= 3;
+        end
+        else
+        begin
+            colourBufferFill <= colourBufferFill+1;
+        end
     end
 
 

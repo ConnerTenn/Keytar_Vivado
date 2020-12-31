@@ -31,45 +31,45 @@ module DataFIFO #
 
     assign FifoEmpty = (headI==tailI);
     assign FifoFull = (headIincr==tailI);
-    assign FifoFillLevel = headI-tailI;
+    assign FifoFillLevel = (headI-tailI);
 
     always @(posedge Clock)
     begin
         if (Reset)
         begin
-            headI <= 0;
-            tailI <= 0;
-            DataOut <= 0;
+            // headI <= 0;
+            tailI <= headI;//0;
+            DataOut <= 64'H07E007E007E007E0;
         end
         else
         begin
 
-            if (Read && Write && FifoEmpty)
+            // if (Read && Write && FifoEmpty)
+            // begin
+            //     //Straight pass through if read and write to head
+            //     DataOut <= DataIn;
+            // end
+            // else 
+            // begin
+            if (Read)
             begin
-                //Straight pass through if read and write to head
-                DataOut <= DataIn;
+                //Read from fifo
+                DataOut <= FifoEmpty ? DataIn : fifoMem[tailI];
             end
-            else 
-            begin
-                if (Read)
-                begin
-                    //Read from fifo
-                    DataOut <= FifoEmpty ? 0 : fifoMem[tailI];
-                end
 
-                if (Write)
-                begin
-                    //write to fifo
-                    fifoMem[headI] <= DataIn;
-                end
+            if (Write)
+            begin
+                //write to fifo
+                fifoMem[headI] <= DataIn;
             end
+            // end
             
             if (Write)
             begin
                 //Increment head
                 headI <= headIincr;
             end
-            if ((Read && !FifoEmpty) || (Write && FifoFull))
+            if ((Read && !FifoEmpty) || (Read && Write && FifoEmpty) || (Write && FifoFull))
             begin
                 //Increment Read
                 //Also increment if overwrite is occuring

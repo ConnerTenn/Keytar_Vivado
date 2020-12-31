@@ -26,6 +26,8 @@ module TimingController
     parameter YRES = 1080;
     parameter BMARGIN = 4;
 
+    parameter PREDELAY = LMARGIN-1;
+
 
     reg [4:0] red = 0;
     reg [5:0] green = 0;
@@ -33,14 +35,14 @@ module TimingController
 
     always @(negedge PClk)
     begin
-        red <= ColourData[15:11];
+        red <= (Hcounter - (HSYNC+LMARGIN-1 - 1))>>4; //ColourData[15:11];
         green <= ColourData[10:5];
         blue <= ColourData[4:0];
     end
 
 
     reg preHblank = 1, hblank = 1;
-    reg preVblank = 1, vblank = 1;
+    reg /*preVblank = 1,*/ vblank = 1;
     // reg de = 0;
 
     assign Red = (vblank||hblank) ? 5'h0 : red;
@@ -68,15 +70,25 @@ module TimingController
         begin
             HSync <= 0;
         end
-        //End of Back Porch
-        if (Hcounter == HSYNC+LMARGIN-1 - 1)
+        //End Pre H Blank
+        if (Hcounter == HSYNC+PREDELAY-1)
         begin
             preHblank <= 0;
         end
-        //End of Active
-        if (Hcounter == HSYNC+LMARGIN+XRES-1 - 1)
+        //End of Back Porch
+        if (Hcounter == HSYNC+LMARGIN-1)
+        begin
+            hblank <= 0;
+        end
+        //Begin Pre H Blank
+        if (Hcounter == HSYNC+PREDELAY+XRES-1)
         begin
             preHblank <= 1;
+        end
+        //End of Active
+        if (Hcounter == HSYNC+LMARGIN+XRES-1)
+        begin
+            hblank <= 1;
         end
         //End of Front Porch
         if (Hcounter == HSYNC+LMARGIN+XRES+RMARGIN-1)
@@ -90,14 +102,14 @@ module TimingController
             VSync <= 0;
         end
         //End of Back Porch
-        if (Vcounter == VSYNC+TMARGIN-1 - 1)
+        if (Vcounter == VSYNC+TMARGIN-1)
         begin
-            preVblank <= 0;
+            vblank <= 0;
         end
         //End of Active
-        if (Vcounter == VSYNC+TMARGIN+YRES-1 - 1)
+        if (Vcounter == VSYNC+TMARGIN+YRES-1)
         begin
-            preVblank <= 1;
+            vblank <= 1;
         end
         //End of Front Porch
         if (Vcounter == VSYNC+TMARGIN+YRES+BMARGIN-1)
@@ -105,8 +117,6 @@ module TimingController
             VSync <= 1;
         end
 
-        vblank <= preVblank;
-        hblank <= preHblank;
 
         //Counters
         if (Hcounter < HSYNC+LMARGIN+XRES+RMARGIN-1)

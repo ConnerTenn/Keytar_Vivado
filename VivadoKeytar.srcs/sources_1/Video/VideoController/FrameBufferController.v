@@ -50,6 +50,8 @@ module FrameBufferController
             CurrentFB <= FBSelect;
             ReadBurstLen <= 0;
             readInProgress <= 0;
+            ReadTransfer <= 0;
+            FifoWrite <= 0;
         end
         else if (Run)
         begin
@@ -68,7 +70,7 @@ module FrameBufferController
             //Read in progress. Handle Keep track of number of transfers
             if (readInProgress && ReadValid)
             begin
-                if (ReadBurstLen>1)
+                if (ReadBurstLen>0)
                 begin
                     ReadBurstLen <= ReadBurstLen-1;
                 end
@@ -79,7 +81,7 @@ module FrameBufferController
             end
 
             //Read data in handler
-            if (ReadValid)
+            if (readInProgress && ReadValid)
             begin
                 FifoDataOut <= ReadData;
                 ReadAddress <= ReadAddress+8;
@@ -104,10 +106,23 @@ module FrameBufferController
 
     assign ColourData = colourDataTmp[colourBufferFill];
 
+    reg firstRead = 0;
+
     always @(posedge Clock)
     begin
+
         //Start of frame
         if (StartFrame)
+        begin
+            firstRead <= 0;
+        end
+        else if (ColourDataRequest)
+        begin
+            firstRead <= 1;
+        end
+
+        //Start of Data
+        if (!firstRead)
         begin
             colourBufferFill <= 3;
         end
