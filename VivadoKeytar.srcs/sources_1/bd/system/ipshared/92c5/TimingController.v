@@ -11,7 +11,9 @@ module TimingController
     //== HDMI Signals ==
     output [4:0] Red, output [5:0] Green, output [4:0] Blue,
     output reg HSync = 1, output reg VSync = 1,
-    output PClk, output De
+    output PClk, output De,
+
+    output [11:0] HCounterOut, output [11:0] VCounterOut
 );
 
     assign PClk = Clock;
@@ -26,7 +28,7 @@ module TimingController
     parameter YRES = 1080;
     parameter BMARGIN = 4;
 
-    parameter PREDELAY = LMARGIN-1;
+    parameter PREDELAY = LMARGIN-2;
 
 
     reg [4:0] red = 0;
@@ -56,6 +58,9 @@ module TimingController
 
     reg [11:0] Hcounter = 0;
     reg [11:0] Vcounter = 0;
+
+    assign HCounterOut = Hcounter;
+    assign VCounterOut = Vcounter;
 
     // output [11:0] xpos,
     // output [11:0] ypos,

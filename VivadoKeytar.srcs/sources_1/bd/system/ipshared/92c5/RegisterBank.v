@@ -26,7 +26,9 @@ module RegsiterBank #
     input [5:0] FifoFill,
     input [63:0] DataToFifo,
     input [63:0] DataFromFifo,
-    input [7:0] ReadLen
+    input [7:0] ReadLen,
+    input [31:0] DelayCounter1, input [31:0] DelayCounter2, input [31:0] DelayCounter3, input [31:0] DelayCounter4,
+    input [31:0] DataPeaker1, input [31:0] DataPeaker2
 );
 
     always @(posedge Clock)
@@ -53,6 +55,13 @@ module RegsiterBank #
                     BASE_ADDR+4*12: ReadData <= DataToFifo[31:0];
                     BASE_ADDR+4*13: ReadData <= DataFromFifo[31:0];
                     BASE_ADDR+4*14: ReadData <= {{24{1'b0}},ReadLen};
+
+                    BASE_ADDR+4*20: ReadData <= DelayCounter1;
+                    BASE_ADDR+4*21: ReadData <= DelayCounter2;
+                    BASE_ADDR+4*22: ReadData <= DelayCounter3;
+                    BASE_ADDR+4*23: ReadData <= DelayCounter4;
+                    BASE_ADDR+4*30: ReadData <= DataPeaker1;
+                    BASE_ADDR+4*31: ReadData <= DataPeaker2;
                     default: ReadData <= 32'h00000000;
                 endcase
             end

@@ -40,6 +40,8 @@ module FrameBufferController
     wire [31:0] remainingBytes = FBSize - (ReadAddress-activeFBAddress);
     wire [31:0] nextReadlen = (remainingBytes>30 ? 30 : remainingBytes);
 
+    reg [11:0] readCounter = 0;
+
     always @(posedge Clock)
     begin
         //Start of frame
@@ -52,6 +54,7 @@ module FrameBufferController
             readInProgress <= 0;
             ReadTransfer <= 0;
             FifoWrite <= 0;
+            readCounter <= 0;
         end
         else if (Run)
         begin
@@ -85,7 +88,17 @@ module FrameBufferController
             begin
                 FifoDataOut <= ReadData;
                 ReadAddress <= ReadAddress+8;
-                FifoWrite <= 1;
+
+                //Delay for FifoWrite since the first transfer seems to be filled with junk data
+                //Still not sure why
+                if (readCounter > 30-1)
+                begin
+                    FifoWrite <= 1;
+                end
+                else
+                begin
+                    readCounter <= readCounter + 1;
+                end
             end
             else
             begin
@@ -93,6 +106,7 @@ module FrameBufferController
             end
         end
     end
+
 
 
     reg [1:0] colourBufferFill = 3;

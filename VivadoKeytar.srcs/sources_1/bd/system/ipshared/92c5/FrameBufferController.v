@@ -40,6 +40,8 @@ module FrameBufferController
     wire [31:0] remainingBytes = FBSize - (ReadAddress-activeFBAddress);
     wire [31:0] nextReadlen = (remainingBytes>30 ? 30 : remainingBytes);
 
+    reg [11:0] readCounter = 0;
+
     always @(posedge Clock)
     begin
         //Start of frame
@@ -51,6 +53,8 @@ module FrameBufferController
             ReadBurstLen <= 0;
             readInProgress <= 0;
             ReadTransfer <= 0;
+            FifoWrite <= 0;
+            readCounter <= 0;
         end
         else if (Run)
         begin
@@ -69,7 +73,7 @@ module FrameBufferController
             //Read in progress. Handle Keep track of number of transfers
             if (readInProgress && ReadValid)
             begin
-                if (ReadBurstLen>1)
+                if (ReadBurstLen>0)
                 begin
                     ReadBurstLen <= ReadBurstLen-1;
                 end
@@ -80,11 +84,18 @@ module FrameBufferController
             end
 
             //Read data in handler
-            if (ReadValid)
+            if (readInProgress && ReadValid)
             begin
                 FifoDataOut <= ReadData;
                 ReadAddress <= ReadAddress+8;
-                FifoWrite <= 1;
+                if (readCounter > 30-1)
+                begin
+                    FifoWrite <= 1;
+                end
+                else
+                begin
+                    readCounter <= readCounter + 1;
+                end
             end
             else
             begin
@@ -92,6 +103,7 @@ module FrameBufferController
             end
         end
     end
+
 
 
     reg [1:0] colourBufferFill = 3;
@@ -105,10 +117,23 @@ module FrameBufferController
 
     assign ColourData = colourDataTmp[colourBufferFill];
 
+    reg firstRead = 0;
+
     always @(posedge Clock)
     begin
+
         //Start of frame
         if (StartFrame)
+        begin
+            firstRead <= 0;
+        end
+        else if (ColourDataRequest)
+        begin
+            firstRead <= 1;
+        end
+
+        //Start of Data
+        if (!firstRead)
         begin
             colourBufferFill <= 3;
         end

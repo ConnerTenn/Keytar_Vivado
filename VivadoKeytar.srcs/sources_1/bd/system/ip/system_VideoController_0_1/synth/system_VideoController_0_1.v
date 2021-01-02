@@ -1,4 +1,4 @@
-// (c) Copyright 1995-2020 Xilinx, Inc. All rights reserved.
+// (c) Copyright 1995-2021 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -48,7 +48,7 @@
 
 
 // IP VLNV: Independant:user:VideoController:1.0
-// IP Revision: 108
+// IP Revision: 141
 
 (* X_CORE_INFO = "VideoController,Vivado 2020.2" *)
 (* CHECK_LICENSE_TYPE = "system_VideoController_0_1,VideoController,{}" *)
