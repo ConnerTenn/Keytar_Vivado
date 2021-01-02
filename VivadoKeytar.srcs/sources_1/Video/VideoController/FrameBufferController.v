@@ -30,6 +30,8 @@ module FrameBufferController
     output [15:0] ColourData
 );
 
+    parameter MAXREADSIZE = 30;
+
     reg readInProgress = 0;
 
     assign FifoReset = StartFrame;
@@ -38,9 +40,9 @@ module FrameBufferController
     reg [31:0] activeFBAddress = 0;
 
     wire [31:0] remainingBytes = FBSize - (ReadAddress-activeFBAddress);
-    wire [31:0] nextReadlen = (remainingBytes>30 ? 30 : remainingBytes);
+    wire [31:0] nextReadlen = (remainingBytes>MAXREADSIZE ? MAXREADSIZE : remainingBytes);
 
-    reg [11:0] readCounter = 0;
+    reg [5:0] readCounter = 0;
 
     always @(posedge Clock)
     begin
@@ -59,7 +61,7 @@ module FrameBufferController
         else if (Run)
         begin
             //Start Read Operation
-            if (!readInProgress && ReadAddress-activeFBAddress<FBSize && FifoFillLevel<30)
+            if (!readInProgress && ReadAddress-activeFBAddress<FBSize && FifoFillLevel<MAXREADSIZE)
             begin
                 ReadTransfer <= 1;
                 ReadBurstLen <= nextReadlen[5:0];
@@ -91,7 +93,7 @@ module FrameBufferController
 
                 //Delay for FifoWrite since the first transfer seems to be filled with junk data
                 //Still not sure why
-                if (readCounter > 30-1)
+                if (readCounter > MAXREADSIZE-1)
                 begin
                     FifoWrite <= 1;
                 end

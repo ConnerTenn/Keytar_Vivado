@@ -48,7 +48,7 @@
 
 
 // IP VLNV: Independant:user:VideoController:1.0
-// IP Revision: 141
+// IP Revision: 148
 
 `timescale 1ns/1ps
 

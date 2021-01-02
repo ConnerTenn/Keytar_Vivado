@@ -19,10 +19,7 @@ module DataFIFO #
     //== Status ==
     output [FIFO_DEPTH-1:0] FifoFillLevel,
     output FifoFull,
-    output FifoEmpty,
-
-    output [FIFO_DEPTH-1:0] HeadI,
-    output [FIFO_DEPTH-1:0] TailI
+    output FifoEmpty
 );
 
     reg [DATA_WIDTH-1:0] fifoMem [2**FIFO_DEPTH-1:0];
@@ -36,16 +33,13 @@ module DataFIFO #
     assign FifoFull = (headIincr==tailI);
     assign FifoFillLevel = (headI-tailI);
 
-    assign HeadI = headI;
-    assign TailI = tailI;
-
     always @(posedge Clock)
     begin
         if (Reset)
         begin
             headI <= 0;
             tailI <= 0;
-            DataOut <= 0;//64'H07E007E007E007E0;
+            DataOut <= 0;
         end
         else
         begin

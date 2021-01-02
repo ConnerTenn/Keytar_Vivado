@@ -11,9 +11,7 @@ module TimingController
     //== HDMI Signals ==
     output [4:0] Red, output [5:0] Green, output [4:0] Blue,
     output reg HSync = 1, output reg VSync = 1,
-    output PClk, output De,
-
-    output [11:0] HCounterOut, output [11:0] VCounterOut
+    output PClk, output De
 );
 
     assign PClk = Clock;
@@ -37,7 +35,7 @@ module TimingController
 
     always @(negedge PClk)
     begin
-        red <= (Hcounter - (HSYNC+LMARGIN-1 - 1))>>4; //ColourData[15:11];
+        red <= ColourData[15:11];
         green <= ColourData[10:5];
         blue <= ColourData[4:0];
     end
@@ -58,9 +56,6 @@ module TimingController
 
     reg [11:0] Hcounter = 0;
     reg [11:0] Vcounter = 0;
-
-    assign HCounterOut = Hcounter;
-    assign VCounterOut = Vcounter;
 
     // output [11:0] xpos,
     // output [11:0] ypos,

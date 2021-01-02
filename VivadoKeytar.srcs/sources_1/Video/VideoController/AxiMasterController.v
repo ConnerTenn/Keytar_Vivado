@@ -57,7 +57,6 @@ module AxiMasterController
     //Read Channels
 
     reg [1:0] readState = 2'b0;
-    // reg [7:0] readLen = 0;
     assign ReadValid = Rvalid && Rready;
     assign ReadData = Rdata;
 
@@ -66,7 +65,6 @@ module AxiMasterController
         if (AxiAResetN==0)
         begin
             readState <= 2'b00;
-            // readLen <= 0;
             ARlen <= 0;
             ARaddr <= 0;
             ARvalid <= 0;
@@ -77,19 +75,17 @@ module AxiMasterController
             if (ReadTransfer && readState==2'b00)
             begin
                 readState <= 2'b01;
-                // readLen <= 0;
 
                 ARlen <= ReadBurstLen;
                 ARaddr <= ReadAddress;
                 ARvalid <= 1;
 
-                Rready <= 0;
+                Rready <= 1;
             end
             if (readState==2'b01 && ARready) //Now in read state
             begin
                 readState <= 2'b10;
                 ARvalid <= 0;
-                Rready <= 1;
             end
             if (readState==2'b10 && Rlast) //End of Transaction
             begin

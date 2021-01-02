@@ -134,17 +134,7 @@ module VideoController #
         .Activate(activate),
         .FB1Addr(fb1Addr), .FB2Addr(fb2Addr),
         .FBSize(fbSize),
-        .FBselect(fbSelect), .CurrentFB(currentFB),
-
-
-        //== Status Values ==
-        .FbReadAddr(maxiReadAddress),
-        .FifoFill(fifoFillLevel),
-        .DataToFifo(dataToFifo),
-        .DataFromFifo(dataFromFifo),
-        .ReadLen(maxiReadBurstLen),
-        .DelayCounter1(delayCounter1), .DelayCounter2(delayCounter2), .DelayCounter3(delayCounter3), .DelayCounter4(delayCounter4),
-        .DataPeaker1(dataPeaker1), .DataPeaker2(dataPeaker2)
+        .FBselect(fbSelect), .CurrentFB(currentFB)
     );
 
 
@@ -197,9 +187,7 @@ module VideoController #
         //== HDMI Signals ==
         .Red(Red), .Green(Green), .Blue(Blue),
         .HSync(HSync), .VSync(VSync),
-        .PClk(PClk), .De(De),
-
-        .HCounterOut(hcounter), .VCounterOut(vcounter)
+        .PClk(PClk), .De(De)
     );
 
     DataFIFO #(.DATA_WIDTH(64), .FIFO_DEPTH(6)) Fifo (
@@ -213,9 +201,7 @@ module VideoController #
         //== Status ==
         .FifoFillLevel(fifoFillLevel),
         .FifoFull(fifoFull),
-        .FifoEmpty(fifoEmpty),
-
-        .HeadI(headI), .TailI(tailI)
+        .FifoEmpty(fifoEmpty)
     );
 
 
@@ -290,50 +276,5 @@ module VideoController #
         //== Write Response Channel ==
         .Bvalid(SAXI_bvalid), .Bready(SAXI_bready)
     );
-
-
-    reg prevVSync = 0;
-    reg firstmatch1 = 0, firstmatch2 = 0, firstmatch3 = 0, firstmatch4 = 0;
-    always @(posedge Clk)
-    begin
-        if (!VSync && prevVSync) //Reset after VSync
-        begin
-            firstmatch1 <= 0;
-            firstmatch2 <= 0;
-            firstmatch3 <= 0;
-            firstmatch4 <= 0;
-        end
-        else
-        begin
-
-            if (dataToFifo!=0 && !firstmatch1)
-            begin
-                firstmatch1 <= 1;
-                delayCounter1 <= headI | (tailI<<16);
-                dataPeaker1 <= dataToFifo;
-            end
-
-            if (dataFromFifo!=0 && !firstmatch2)
-            begin
-                firstmatch2 <= 1;
-                delayCounter2 <= headI | (tailI<<16);
-                dataPeaker2 <= dataFromFifo;
-            end
-
-            if (fifoRead && !firstmatch3)
-            begin
-                firstmatch3 <= 1;
-                delayCounter3 <= headI | (tailI<<16);
-            end
-
-            if (fifoWrite && !firstmatch4)
-            begin
-                firstmatch4 <= 1;
-                delayCounter4 <= headI | (tailI<<16);
-            end
-        end
-
-        prevVSync <= VSync;
-    end
 
 endmodule

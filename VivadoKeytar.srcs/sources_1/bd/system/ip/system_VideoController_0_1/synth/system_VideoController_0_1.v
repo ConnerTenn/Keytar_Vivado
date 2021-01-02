@@ -48,7 +48,7 @@
 
 
 // IP VLNV: Independant:user:VideoController:1.0
-// IP Revision: 141
+// IP Revision: 148
 
 (* X_CORE_INFO = "VideoController,Vivado 2020.2" *)
 (* CHECK_LICENSE_TYPE = "system_VideoController_0_1,VideoController,{}" *)
