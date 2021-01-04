@@ -40,6 +40,71 @@ module Synth #
     assign SAXI_rresp = 2'b00;
     //Write Response Channel
     assign SAXI_bresp = 2'b00;
+    //Read Interface
+    wire [31:0] saxiReadAddress;
+    wire [31:0] saxiReadData;
+    wire saxiReadEN;
+    //Write Interface
+    wire [31:0] saxiWriteAddress;
+    wire [31:0] saxiWriteData;
+    wire saxiWriteEN;
 
+    localparam NUM_BANKS = 16;
+
+    genvar gi;
+    for (gi=0; gi<NUM_BANKS; gi=gi+1)
+    begin:banks
+        wire signed [23:0] waveform;
+
+        Bank #(.ADDRESS(32'h6000_0000 + 32'h1000 * gi)) banki
+        (
+            .Clock1MHz(clock100MHz),
+            .Waveform(waveform),
+            //== AXI Read ==
+            .ReadAddress(maxiReadAddress), .ReadBurstLen(maxiReadBurstLen),
+            .ReadData(maxiReadData),
+            .ReadTransfer(maxiReadTransfer), .ReadValid(maxiReadValid),
+            //== AXI Write ==
+            .WriteAddress(maxiWriteAddress), .WriteBurstLen(maxiWriteBurstLen),
+            .WriteData(maxiWriteData),
+            .WriteTransfer(maxiWriteTransfer), .WriteDataRequest(maxiWriteDataRequest)
+        );
+    end
+
+
+    AxiSlaveController AxiSlave (
+        //== Global Signals ==
+        .AxiAClk(SAXI_aclk),
+        .AxiAResetN(SAXI_resetn),
+
+        //== External Control Signals ==
+        .ReadAddress(saxiReadAddress),
+        .ReadData(saxiReadData),
+        .ReadEN(saxiReadEN),
+
+        .WriteAddress(saxiWriteAddress),
+        .WriteData(saxiWriteData),
+        .WriteEN(saxiWriteEN),
+
+        //== Read Address Channel ==
+        .ARvalid(SAXI_arvalid), .ARready(SAXI_arready),
+        .ARaddr(SAXI_araddr),
+
+        //== Read Data Channel ==
+        .Rvalid(SAXI_rvalid), .Rready(SAXI_rready),
+        .Rdata(SAXI_rdata),
+
+
+        //== Write Address Channel ==
+        .AWvalid(SAXI_awvalid), .AWready(SAXI_awready),
+        .AWaddr(SAXI_awaddr),
+
+        //== Write Data Channel ==
+        .Wvalid(SAXI_wvalid), .Wready(SAXI_wready),
+        .Wdata(SAXI_wdata),
+
+        //== Write Response Channel ==
+        .Bvalid(SAXI_bvalid), .Bready(SAXI_bready)
+    );
 
 endmodule
