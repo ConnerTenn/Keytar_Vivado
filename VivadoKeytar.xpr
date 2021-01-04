@@ -35,6 +35,7 @@
     <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
+    <Option Name="IPRepoPath" Val="$PSRCDIR/sources_1/Synth"/>
     <Option Name="IPRepoPath" Val="$PSRCDIR/sources_1/Video/VideoController"/>
     <Option Name="IPRepoPath" Val="$PSRCDIR/sources_1/AXI_MasterTest/AXI_MasterTest_1.0"/>
     <Option Name="IPRepoPath" Val="$PSRCDIR/sources_1/AXI_SlaveExample/AXI_SlaveExample_1.0"/>
@@ -128,7 +129,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/SynthOld/Synth.v">
+      <File Path="$PSRCDIR/sources_1/SynthOld/SynthOld.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -338,9 +339,9 @@
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2020"/>
         <Step Id="synth_design">
-          <Option Id="ControlSetOptThreshold">8</Option>
           <Option Id="ReTiming">1</Option>
           <Option Id="Directive">1</Option>
+          <Option Id="ControlSetOptThreshold">8</Option>
         </Step>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>

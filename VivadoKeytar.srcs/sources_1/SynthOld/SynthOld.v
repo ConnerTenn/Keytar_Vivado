@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 
-module Synth #(
+module SynthOld #(
     DEBUG = 0
 )
 (

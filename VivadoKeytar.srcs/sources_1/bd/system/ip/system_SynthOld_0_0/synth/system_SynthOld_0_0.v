@@ -1,4 +1,4 @@
-// (c) Copyright 1995-2020 Xilinx, Inc. All rights reserved.
+// (c) Copyright 1995-2021 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
 // of Xilinx, Inc. and is protected under U.S. and
@@ -47,14 +47,15 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: xilinx.com:module_ref:Synth:1.0
+// IP VLNV: xilinx.com:module_ref:SynthOld:1.0
 // IP Revision: 1
 
-`timescale 1ns/1ps
-
+(* X_CORE_INFO = "SynthOld,Vivado 2020.2" *)
+(* CHECK_LICENSE_TYPE = "system_SynthOld_0_0,SynthOld,{}" *)
+(* CORE_GENERATION_INFO = "system_SynthOld_0_0,SynthOld,{x_ipProduct=Vivado 2020.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=SynthOld,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,DEBUG=0}" *)
 (* IP_DEFINITION_SOURCE = "module_ref" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-module system_Synth_0_1 (
+module system_SynthOld_0_0 (
   Clock100MHz,
   Waveform,
   BusClock,
@@ -80,7 +81,7 @@ input wire BusPEnable;
 input wire BusPSel;
 output wire BusPError;
 
-  Synth #(
+  SynthOld #(
     .DEBUG(0)
   ) inst (
     .Clock100MHz(Clock100MHz),
