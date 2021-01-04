@@ -229,7 +229,7 @@
 						"RRESP": { "actual": "M_AXI_rresp"},
 						"RVALID": { "actual": "M_AXI_rvalid"},
 						"WDATA": { "actual": "M_AXI_wdata"},
-						"WID": { "actual": "M_AXI_wid[0:0]"},
+						"WID": { "actual": "M_AXI_wid"},
 						"WLAST": { "actual": "M_AXI_wlast"},
 						"WREADY": { "actual": "M_AXI_wready"},
 						"WSTRB": { "actual": "M_AXI_wstrb"},
