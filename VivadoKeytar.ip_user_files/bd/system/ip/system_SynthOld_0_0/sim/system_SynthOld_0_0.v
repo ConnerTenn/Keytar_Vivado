@@ -1,6 +1,3 @@
-#ifndef IP_SYSTEM_AUTO_PC_0_SC_H_
-#define IP_SYSTEM_AUTO_PC_0_SC_H_
-
 // (c) Copyright 1995-2021 Xilinx, Inc. All rights reserved.
 // 
 // This file contains confidential and proprietary information
@@ -50,49 +47,52 @@
 // DO NOT MODIFY THIS FILE.
 
 
-#ifndef XTLM
-#include "xtlm.h"
-#endif
-#ifndef SYSTEMC_INCLUDED
-#include <systemc>
-#endif
+// IP VLNV: xilinx.com:module_ref:SynthOld:1.0
+// IP Revision: 1
 
-#if defined(_MSC_VER)
-#define DllExport __declspec(dllexport)
-#elif defined(__GNUC__)
-#define DllExport __attribute__ ((visibility("default")))
-#else
-#define DllExport
-#endif
+`timescale 1ns/1ps
 
-class axi_protocol_converter;
+(* IP_DEFINITION_SOURCE = "module_ref" *)
+(* DowngradeIPIdentifiedWarnings = "yes" *)
+module system_SynthOld_0_0 (
+  Clock100MHz,
+  Waveform,
+  BusClock,
+  BusPAddr,
+  BusPWriteData,
+  BusPReadData,
+  BusPWrite,
+  BusPReady,
+  BusPEnable,
+  BusPSel,
+  BusPError
+);
 
-class DllExport system_auto_pc_0_sc : public sc_core::sc_module
-{
-public:
+input wire Clock100MHz;
+output wire [23 : 0] Waveform;
+input wire BusClock;
+input wire [31 : 0] BusPAddr;
+input wire [31 : 0] BusPWriteData;
+output wire [31 : 0] BusPReadData;
+input wire BusPWrite;
+output wire BusPReady;
+input wire BusPEnable;
+input wire BusPSel;
+output wire BusPError;
 
-  system_auto_pc_0_sc(const sc_core::sc_module_name& nm);
-  virtual ~system_auto_pc_0_sc();
-
-  // module socket-to-socket AXI TLM interfaces
-
-  xtlm::xtlm_aximm_target_socket* target_rd_socket;
-  xtlm::xtlm_aximm_target_socket* target_wr_socket;
-  xtlm::xtlm_aximm_initiator_socket* initiator_rd_socket;
-  xtlm::xtlm_aximm_initiator_socket* initiator_wr_socket;
-
-  // module socket-to-socket TLM interfaces
-
-
-protected:
-
-  axi_protocol_converter* mp_impl;
-
-private:
-
-  system_auto_pc_0_sc(const system_auto_pc_0_sc&);
-  const system_auto_pc_0_sc& operator=(const system_auto_pc_0_sc&);
-
-};
-
-#endif // IP_SYSTEM_AUTO_PC_0_SC_H_
+  SynthOld #(
+    .DEBUG(0)
+  ) inst (
+    .Clock100MHz(Clock100MHz),
+    .Waveform(Waveform),
+    .BusClock(BusClock),
+    .BusPAddr(BusPAddr),
+    .BusPWriteData(BusPWriteData),
+    .BusPReadData(BusPReadData),
+    .BusPWrite(BusPWrite),
+    .BusPReady(BusPReady),
+    .BusPEnable(BusPEnable),
+    .BusPSel(BusPSel),
+    .BusPError(BusPError)
+  );
+endmodule
