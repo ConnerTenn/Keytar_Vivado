@@ -55,21 +55,43 @@ module Synth #
     for (gi=0; gi<NUM_BANKS; gi=gi+1)
     begin:banks
         wire signed [23:0] waveform;
+        wire signed [clog2(24'hFFFFFF*NUM_CHANNELS):0] wavesum;
+
+        wire [31:0] readdata;
+        wire [31:0] readdata_OR;
 
         Bank #(.ADDRESS(32'h6000_0000 + 32'h1000 * gi)) banki
         (
             .Clock1MHz(clock100MHz),
             .Waveform(waveform),
             //== AXI Read ==
-            .ReadAddress(maxiReadAddress), .ReadBurstLen(maxiReadBurstLen),
-            .ReadData(maxiReadData),
-            .ReadTransfer(maxiReadTransfer), .ReadValid(maxiReadValid),
+            .ReadAddress(saxiReadAddress),
+            .ReadData(readdata),
+            .ReadEN(saxiReadEN),
             //== AXI Write ==
-            .WriteAddress(maxiWriteAddress), .WriteBurstLen(maxiWriteBurstLen),
-            .WriteData(maxiWriteData),
-            .WriteTransfer(maxiWriteTransfer), .WriteDataRequest(maxiWriteDataRequest)
+            .WriteAddress(saxiWriteAddress),
+            .WriteData(saxiWriteData),
+            .WriteEN(saxiWriteEN),
         );
+
+        if (gi == 0)
+        begin
+            //First wavegen sum is equal to itself; no previous channels
+            assign wavesum = waveform;
+
+            assign readdata_OR = readdata;
+        end
+        else if (gi > 0)
+        begin
+            //All other channels must add the previous wavegen to itself
+            assign wavesum = waveform + channels[gi-1].wavesum;
+
+            assign readdata_OR = readdata | banks[gi-1].readdata_OR;
+        end
     end
+
+    //Rescale output
+    assign Waveform = (channels[NUM_CHANNELS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_CHANNELS)-24));
 
 
     AxiSlaveController AxiSlave (

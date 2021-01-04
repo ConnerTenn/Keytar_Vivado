@@ -16,6 +16,18 @@ module Bank #
     input [31:0] WriteData,
     input WriteEN
 );
-    parameter WAVE_MAX = 24'hFFFFFF;
+    Channel #(.ADDRESS(ADDRESS)) channel
+    (
+        .Clock1MHz(clock1MHz),
+        .Waveform(waveform),
+        //== AXI Read ==
+        .ReadAddress(ReadData),
+        .ReadData(ReadData),
+        .ReadEN(ReadEN),
+        //== AXI Write ==
+        .WriteAddress(WriteAddress),
+        .WriteData(WriteData),
+        .WriteEN(WriteEN),
+    );
 
 endmodule
