@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module Channel 
+module ChannelOld
 #(
     parameter ADDRESS=0
 )
@@ -30,7 +30,7 @@ module Channel
     reg [1:0] wavetype = 0;
     wire [23:0] wavegenout;
 
-    WaveGen wavegen(
+    WaveGenOld wavegen(
         .Clock(Clock1MHz),
         .Run(running),
         .Increment(increment),
@@ -43,7 +43,7 @@ module Channel
     wire [23:0] envelope;
     wire [1:0] adsrState;
 
-    ADSR adsr(
+    ADSROld adsr(
         .Clock(Clock1MHz),
         .Gate(gate),
         .Running(running),

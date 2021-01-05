@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 
-module WaveGen(
+module WaveGenOld 
+(
     Clock,
     Run,
     Increment,

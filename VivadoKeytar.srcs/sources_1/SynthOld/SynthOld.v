@@ -40,7 +40,7 @@ module SynthOld #(
         wire buspready, busperror;
         wire buspready_OR, busperror_OR;
 
-        Channel #(.ADDRESS(32'h4000_0000 + 32'h100 * gi)) channel0
+        ChannelOld #(.ADDRESS(32'h4000_0000 + 32'h100 * gi)) channel0
         (
             .Clock1MHz(clock1MHz),
             .Waveform(waveform),

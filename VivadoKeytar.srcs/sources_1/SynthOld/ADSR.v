@@ -1,5 +1,5 @@
 
-module ADSR
+module ADSROld
 (
     Clock,
     Gate,
