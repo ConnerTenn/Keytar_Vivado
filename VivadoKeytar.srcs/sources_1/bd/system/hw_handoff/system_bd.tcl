@@ -1156,7 +1156,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net SynthOld_0_BusPError [get_bd_pins APBSlave_Breakout_synth/BusPError] [get_bd_pins SynthOld_0/BusPError]
   connect_bd_net -net SynthOld_0_BusPReadData [get_bd_pins APBSlave_Breakout_synth/BusPReadData] [get_bd_pins SynthOld_0/BusPReadData]
   connect_bd_net -net SynthOld_0_BusPReady [get_bd_pins APBSlave_Breakout_synth/BusPReady] [get_bd_pins SynthOld_0/BusPReady]
-  connect_bd_net -net Synth_0_Waveform [get_bd_ports Waveform] [get_bd_pins AudioOutController_0/Waveform] [get_bd_pins SynthOld_0/Waveform]
+  connect_bd_net -net Synth_0_Waveform [get_bd_ports Waveform] [get_bd_pins AudioOutController_0/Waveform] [get_bd_pins Synth/Waveform]
   connect_bd_net -net VideoController_0_Blue [get_bd_ports Blue] [get_bd_pins VideoController_0/Blue]
   connect_bd_net -net VideoController_0_De [get_bd_ports De] [get_bd_pins VideoController_0/De]
   connect_bd_net -net VideoController_0_Green [get_bd_ports Green] [get_bd_pins VideoController_0/Green]

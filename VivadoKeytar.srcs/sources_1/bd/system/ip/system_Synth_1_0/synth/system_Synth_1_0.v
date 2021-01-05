@@ -48,7 +48,7 @@
 
 
 // IP VLNV: Independant:user:Synth:2.0
-// IP Revision: 9
+// IP Revision: 10
 
 (* X_CORE_INFO = "Synth,Vivado 2020.2" *)
 (* CHECK_LICENSE_TYPE = "system_Synth_1_0,Synth,{}" *)
@@ -124,9 +124,7 @@ S_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *)
 output wire [1 : 0] SAXI_bresp;
 
   Synth #(
-    .SAXI_SLAVE_BASE_ADDR(32'H60000000),
-    .MAXI_ID_WIDTH(1),
-    .SAXI_ID_WIDTH(1)
+    .SAXI_SLAVE_BASE_ADDR(32'H60000000)
   ) inst (
     .Clock100MHz(Clock100MHz),
     .Waveform(Waveform),

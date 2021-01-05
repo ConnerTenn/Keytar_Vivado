@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Jan  4 20:43:43 2021" VIVADOVERSION="2020.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Jan  4 21:14:47 2021" VIVADOVERSION="2020.2">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z020" NAME="system" PACKAGE="clg400" SPEEDGRADE="-2"/>
 
@@ -49,9 +49,9 @@
         <CONNECTION INSTANCE="const_0_2" PORT="dout"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" LEFT="23" NAME="Waveform" RIGHT="0" SIGIS="data" SIGNAME="SynthOld_0_Waveform">
+    <PORT DIR="O" LEFT="23" NAME="Waveform" RIGHT="0" SIGIS="data" SIGNAME="Synth_Waveform">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="SynthOld_0" PORT="Waveform"/>
+        <CONNECTION INSTANCE="Synth" PORT="Waveform"/>
       </CONNECTIONS>
     </PORT>
     <PORT DIR="O" NAME="I2S_DOut" SIGIS="data" SIGNAME="AudioOutController_0_I2SData">
@@ -537,9 +537,9 @@
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="23" NAME="Waveform" RIGHT="0" SIGIS="undef" SIGNAME="SynthOld_0_Waveform">
+        <PORT DIR="I" LEFT="23" NAME="Waveform" RIGHT="0" SIGIS="undef" SIGNAME="Synth_Waveform">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="SynthOld_0" PORT="Waveform"/>
+            <CONNECTION INSTANCE="Synth" PORT="Waveform"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="I2SClk" SIGIS="undef" SIGNAME="AudioOutController_0_I2SClk">
@@ -656,15 +656,13 @@
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE COREREVISION="9" FULLNAME="/Synth" HWVERSION="2.0" INSTANCE="Synth" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="Synth" VLNV="Independant:user:Synth:2.0">
+    <MODULE COREREVISION="10" FULLNAME="/Synth" HWVERSION="2.0" INSTANCE="Synth" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="Synth" VLNV="Independant:user:Synth:2.0">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="SAXI_ControlInterface" NAME="Reg" RANGE="4G" USAGE="register"/>
       </ADDRESSBLOCKS>
       <PARAMETERS>
         <PARAMETER NAME="SAXI_SLAVE_BASE_ADDR" VALUE="0x60000000"/>
-        <PARAMETER NAME="MAXI_ID_WIDTH" VALUE="1"/>
-        <PARAMETER NAME="SAXI_ID_WIDTH" VALUE="1"/>
         <PARAMETER NAME="Component_Name" VALUE="system_Synth_1_0"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
         <PARAMETER NAME="C_BASEADDR" VALUE="0x60000000"/>
@@ -676,7 +674,12 @@
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="23" NAME="Waveform" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="O" LEFT="23" NAME="Waveform" RIGHT="0" SIGIS="undef" SIGNAME="Synth_Waveform">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="Waveform"/>
+            <CONNECTION INSTANCE="AudioOutController_0" PORT="Waveform"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT CLKFREQUENCY="100000000" DIR="I" NAME="SAXI_aclk" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
@@ -841,12 +844,7 @@
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="23" NAME="Waveform" RIGHT="0" SIGIS="undef" SIGNAME="SynthOld_0_Waveform">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="External_Ports" PORT="Waveform"/>
-            <CONNECTION INSTANCE="AudioOutController_0" PORT="Waveform"/>
-          </CONNECTIONS>
-        </PORT>
+        <PORT DIR="O" LEFT="23" NAME="Waveform" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="I" NAME="BusClock" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_BusClock">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="BusClock"/>

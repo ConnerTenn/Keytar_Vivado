@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
-//Date        : Mon Jan  4 20:43:42 2021
+//Date        : Mon Jan  4 21:14:46 2021
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -1761,7 +1761,8 @@ module system
         .SAXI_wdata(axi_interconnect_synth_M01_AXI_WDATA),
         .SAXI_wready(axi_interconnect_synth_M01_AXI_WREADY),
         .SAXI_wstrb({1'b1,1'b1,1'b1,1'b1,axi_interconnect_synth_M01_AXI_WSTRB}),
-        .SAXI_wvalid(axi_interconnect_synth_M01_AXI_WVALID));
+        .SAXI_wvalid(axi_interconnect_synth_M01_AXI_WVALID),
+        .Waveform(Synth_0_Waveform));
   system_SynthOld_0_0 SynthOld_0
        (.BusClock(APBSlave_Breakout_synth_BusClock),
         .BusPAddr(APBSlave_Breakout_synth_BusPAddr),
@@ -1772,8 +1773,7 @@ module system
         .BusPSel(APBSlave_Breakout_synth_BusPSel),
         .BusPWrite(APBSlave_Breakout_synth_BusPWrite),
         .BusPWriteData(APBSlave_Breakout_synth_BusPWriteData),
-        .Clock100MHz(processing_system7_0_FCLK_CLK0),
-        .Waveform(Synth_0_Waveform));
+        .Clock100MHz(processing_system7_0_FCLK_CLK0));
   system_VideoController_0_1 VideoController_0
        (.Blue(VideoController_0_Blue),
         .De(VideoController_0_De),

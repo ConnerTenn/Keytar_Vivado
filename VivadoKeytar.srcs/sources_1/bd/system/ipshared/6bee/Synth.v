@@ -3,9 +3,7 @@
 
 module Synth # 
 (
-    parameter SAXI_SLAVE_BASE_ADDR = 32'h00000000,
-    parameter MAXI_ID_WIDTH = 1,
-    parameter SAXI_ID_WIDTH = 1
+    parameter SAXI_SLAVE_BASE_ADDR = 32'h00000000
 )
 (
     input Clock100MHz,

@@ -63,7 +63,7 @@ pagesize -pg 1 -db -bbox -sgen 0 0 1490 980
    "Color Coded_TopLeft":"0,-12",
    "Default View_Layers":"/processing_system7_0_FCLK_CLK0:true|/ARESETN_1:true|/proc_sys_reset_0_peripheral_aresetn:true|/processing_system7_0_FCLK_CLK1:true|",
    "Default View_ScaleFactor":"0.892857",
-   "Default View_TopLeft":"-363,150",
+   "Default View_TopLeft":"-329,101",
    "Display-PortTypeClock":"true",
    "Display-PortTypeOthers":"true",
    "Display-PortTypeReset":"true",
@@ -133,7 +133,7 @@ preplace netloc processing_system7_0_FCLK_CLK0 1 1 6 -1860 330 -1370J 820 -840 1
 preplace netloc processing_system7_0_FCLK_RESET0_N 1 1 3 -1870 860 NJ 860 -860
 preplace netloc proc_sys_reset_0_interconnect_aresetn 1 2 1 -1380 380n
 preplace netloc proc_sys_reset_0_peripheral_aresetn 1 2 3 -1350 560 -810 560 N
-preplace netloc Synth_0_Waveform 1 6 2 600 150 N
+preplace netloc Synth_0_Waveform 1 5 3 90 160 600 150 N
 preplace netloc AudioOutController_0_I2S_Data 1 7 1 N 230
 preplace netloc AudioOutController_0_I2S_WordSel 1 7 1 N 250
 preplace netloc AudioOutController_0_I2S_Clk 1 7 1 N 210
@@ -150,7 +150,7 @@ preplace netloc APBSlave_Breakout_Keyboard_BusPSel 1 5 1 N -110
 preplace netloc KeyboarController_0_BusPError 1 4 3 -360 -310 N -310 600
 preplace netloc KeyboarController_0_BusPReady 1 4 3 -340 -290 N -290 580
 preplace netloc KeyboarController_0_BusPReadData 1 4 3 -350 -300 N -300 590
-preplace netloc KeyboarRibbon_1 1 0 6 NJ -270 N -270 NJ -270 NJ -270 NJ -270 80
+preplace netloc KeyboarRibbon_1 1 0 6 NJ -270 N -270 NJ -270 NJ -270 NJ -270 90
 preplace netloc KeyboarController_0_KeyRibbonDrive 1 6 2 N -200 N
 preplace netloc proc_sys_reset_1_peripheral_reset 1 2 1 N 750
 preplace netloc VideoController_0_Red 1 4 4 N 700 NJ 700 NJ 700 NJ
@@ -168,7 +168,7 @@ preplace netloc APBSlave_Breakout_synth_BusPEnable 1 5 1 N 330
 preplace netloc APBSlave_Breakout_synth_BusPSel 1 5 1 N 350
 preplace netloc SynthOld_0_BusPError 1 4 3 -340 410 NJ 410 580
 preplace netloc SynthOld_0_BusPReady 1 4 3 -350 420 NJ 420 600
-preplace netloc SynthOld_0_BusPReadData 1 4 3 -340 160 NJ 160 580
+preplace netloc SynthOld_0_BusPReadData 1 4 3 -340 150 NJ 150 580
 preplace netloc axi_apb_bridge_1_APB_M2 1 4 1 -380 -200n
 preplace netloc axi_interconnect_video_ctl_M00_AXI 1 3 1 -830 690n
 preplace netloc processing_system7_0_FIXED_IO 1 3 5 NJ 70 N 70 N 70 N 70 N
