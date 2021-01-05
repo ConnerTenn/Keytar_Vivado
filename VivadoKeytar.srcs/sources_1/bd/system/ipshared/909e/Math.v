@@ -1,6 +1,6 @@
 
-`ifndef MATH_V
-`define MATH_V
+// `ifndef MATH_V
+// `define MATH_V
 
 // module math;
 function integer clog2;
@@ -15,4 +15,4 @@ function integer clog2;
 endfunction
 // endmodule
 
-`endif
+// `endif

@@ -7,7 +7,14 @@ module Channel #
 (
     input Clock,
     output signed [23:0] Waveform,
+    input [1:0] WaveType,
     
+    //== ADSR ==
+    input [23:0] Attack, 
+    input [23:0] Decay, 
+    input [23:0] Sustain, 
+    input [23:0] Release,
+
     //== AXI Clock ==
     input BusClock,
     //== AXI Read ==
@@ -25,18 +32,16 @@ module Channel #
     wire running;
 
     reg [23:0] increment = 219;
-    reg [1:0] wavetype = 0;
     wire [23:0] wavegenout;
 
     WaveGen wavegen(
         .Clock(Clock),
         .Run(running),
         .Increment(increment),
-        .WaveType(wavetype),
+        .WaveType(WaveType),
         .Waveform(wavegenout)
     );
 
-    reg [23:0] attack = 0, decay = 0, sustain = 0, releas = 0;
     reg gate = 0, gatetmp = 0;
     wire [23:0] envelope;
     wire [1:0] adsrState;
@@ -46,7 +51,7 @@ module Channel #
         .Gate(gate),
         .Running(running),
         .ADSRstate(adsrState),
-        .Attack(attack), .Decay(decay), .Sustain(sustain), .Release(releas),
+        .Attack(Attack), .Decay(Decay), .Sustain(Sustain), .Release(Release),
         .Envelope(envelope)
     );
 
@@ -69,32 +74,22 @@ module Channel #
         if (ReadEN)
         begin
             case (ReadAddress)
-                ADDRESS+4*0: ReadData <= {8'h0, increment};
-                ADDRESS+4*1: ReadData <= {30'h0, wavetype};
-                ADDRESS+4*2: ReadData <= {8'h0, attack};
-                ADDRESS+4*3: ReadData <= {8'h0, decay};
-                ADDRESS+4*4: ReadData <= {8'h0, sustain};
-                ADDRESS+4*5: ReadData <= {8'h0, releas};
-                ADDRESS+4*6: ReadData <= {31'h0, gate};
-                ADDRESS+4*7: ReadData <= {8'h0, envelope};
-                ADDRESS+4*8: ReadData <= {30'h0, adsrState};
-                ADDRESS+4*9: ReadData <= {31'h0, running};
+                ADDRESS+4*0: ReadData <= {31'h0, gate};
+                ADDRESS+4*1: ReadData <= {8'h0, increment};
+                ADDRESS+4*2: ReadData <= {31'h0, running};
+                ADDRESS+4*3: ReadData <= {8'h0, envelope};
+                ADDRESS+4*4: ReadData <= {30'h0, adsrState};
                 default: ReadData <= 32'h00000000;
             endcase
         end
         if (WriteEN)
         begin
             case (WriteAddress)
-                ADDRESS+4*0: increment <= WriteData[23:0];
-                ADDRESS+4*1: wavetype <= WriteData[1:0];
-                ADDRESS+4*2: attack <= WriteData[23:0];
-                ADDRESS+4*3: decay <= WriteData[23:0];
-                ADDRESS+4*4: sustain <= WriteData[23:0];
-                ADDRESS+4*5: releas <= WriteData[23:0];
-                ADDRESS+4*6: gatetmp <= WriteData[0:0];
-                // ADDRESS+4*7:
-                // ADDRESS+4*8:
-                // ADDRESS+4*9:
+                ADDRESS+4*0: gatetmp <= WriteData[0:0];
+                ADDRESS+4*1: increment <= WriteData[23:0];
+                // ADDRESS+4*2:
+                // ADDRESS+4*3:
+                // ADDRESS+4*4:
                 default:;
             endcase
         end

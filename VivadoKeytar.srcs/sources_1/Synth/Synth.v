@@ -30,7 +30,6 @@ module Synth #
     output SAXI_bvalid, input SAXI_bready,
     output [1:0] SAXI_bresp
 );
-
     `include "Math.v"
 
 
@@ -95,10 +94,11 @@ module Synth #
         end
     end
 
-    assign saxiReadData = banks[NUM_BANKS-1].readdata_OR;
-
     //Rescale output
     assign Waveform = (banks[NUM_BANKS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_BANKS)-24));
+
+
+    assign saxiReadData = banks[NUM_BANKS-1].readdata_OR;
 
 
     AxiSlaveController AxiSlave (

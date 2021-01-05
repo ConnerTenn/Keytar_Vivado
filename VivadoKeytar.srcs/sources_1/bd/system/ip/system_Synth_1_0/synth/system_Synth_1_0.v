@@ -48,7 +48,7 @@
 
 
 // IP VLNV: Independant:user:Synth:2.0
-// IP Revision: 16
+// IP Revision: 28
 
 (* X_CORE_INFO = "Synth,Vivado 2020.2" *)
 (* CHECK_LICENSE_TYPE = "system_Synth_1_0,Synth,{}" *)
