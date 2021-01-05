@@ -7,6 +7,8 @@ module Bank #
     input Clock,
     output signed [23:0] Waveform,
 
+    //== AXI Clock ==
+    input BusClock,
     //== AXI Read ==
     input [31:0] ReadAddress,
     output [31:0] ReadData,
@@ -19,9 +21,11 @@ module Bank #
     Channel #(.ADDRESS(ADDRESS)) channel
     (
         .Clock(Clock),
-        .Waveform(waveform),
+        .Waveform(Waveform),
+        //== AXI Clock ==
+        .BusClock(BusClock),
         //== AXI Read ==
-        .ReadAddress(ReadData),
+        .ReadAddress(ReadAddress),
         .ReadData(ReadData),
         .ReadEN(ReadEN),
         //== AXI Write ==

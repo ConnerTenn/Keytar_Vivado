@@ -11,7 +11,6 @@
     },
     "design_tree": {
       "APBSlave_Breakout_Keyboard": "",
-      "APBSlave_Breakout_synth": "",
       "AudioOutController_0": "",
       "KeyboarController_0": "",
       "RGBTest_0": "",
@@ -43,7 +42,6 @@
         "m01_couplers": {}
       },
       "VideoController_0": "",
-      "SynthOld_0": "",
       "Synth": ""
     },
     "interface_ports": {
@@ -341,10 +339,6 @@
       "APBSlave_Breakout_Keyboard": {
         "vlnv": "Independant:user:APBSlave_Breakout:1.0",
         "xci_name": "system_APBSlave_Breakout_0_0"
-      },
-      "APBSlave_Breakout_synth": {
-        "vlnv": "Independant:user:APBSlave_Breakout:1.0",
-        "xci_name": "system_APBSlave_Breakout_2_0"
       },
       "AudioOutController_0": {
         "vlnv": "xilinx.com:module_ref:AudioOutController:1.0",
@@ -2302,7 +2296,7 @@
         "xci_name": "system_axi_apb_bridge_0_3",
         "parameters": {
           "C_APB_NUM_SLAVES": {
-            "value": "2"
+            "value": "1"
           },
           "C_M_APB_PROTOCOL": {
             "value": "apb3"
@@ -2312,8 +2306,7 @@
           "AXI4_LITE": {
             "mode": "Slave",
             "bridges": [
-              "APB_M",
-              "APB_M2"
+              "APB_M"
             ]
           }
         }
@@ -2455,16 +2448,16 @@
               }
             },
             "interface_nets": {
-              "s00_couplers_to_auto_pc": {
-                "interface_ports": [
-                  "S_AXI",
-                  "auto_pc/S_AXI"
-                ]
-              },
               "auto_pc_to_s00_couplers": {
                 "interface_ports": [
                   "M_AXI",
                   "auto_pc/M_AXI"
+                ]
+              },
+              "s00_couplers_to_auto_pc": {
+                "interface_ports": [
+                  "S_AXI",
+                  "auto_pc/S_AXI"
                 ]
               }
             },
@@ -3054,28 +3047,10 @@
           }
         },
         "interface_nets": {
-          "xbar_to_m00_couplers": {
-            "interface_ports": [
-              "xbar/M00_AXI",
-              "m00_couplers/S_AXI"
-            ]
-          },
-          "axi_interconnect_synth_to_s00_couplers": {
-            "interface_ports": [
-              "S00_AXI",
-              "s00_couplers/S_AXI"
-            ]
-          },
           "s00_couplers_to_xbar": {
             "interface_ports": [
               "s00_couplers/M_AXI",
               "xbar/S00_AXI"
-            ]
-          },
-          "m01_couplers_to_axi_interconnect_synth": {
-            "interface_ports": [
-              "M01_AXI",
-              "m01_couplers/M_AXI"
             ]
           },
           "m00_couplers_to_axi_interconnect_synth": {
@@ -3084,10 +3059,28 @@
               "m00_couplers/M_AXI"
             ]
           },
+          "m01_couplers_to_axi_interconnect_synth": {
+            "interface_ports": [
+              "M01_AXI",
+              "m01_couplers/M_AXI"
+            ]
+          },
           "xbar_to_m01_couplers": {
             "interface_ports": [
               "xbar/M01_AXI",
               "m01_couplers/S_AXI"
+            ]
+          },
+          "axi_interconnect_synth_to_s00_couplers": {
+            "interface_ports": [
+              "S00_AXI",
+              "s00_couplers/S_AXI"
+            ]
+          },
+          "xbar_to_m00_couplers": {
+            "interface_ports": [
+              "xbar/M00_AXI",
+              "m00_couplers/S_AXI"
             ]
           }
         },
@@ -3179,72 +3172,6 @@
           }
         }
       },
-      "SynthOld_0": {
-        "vlnv": "xilinx.com:module_ref:SynthOld:1.0",
-        "xci_name": "system_SynthOld_0_0",
-        "reference_info": {
-          "ref_type": "hdl",
-          "ref_name": "SynthOld",
-          "boundary_crc": "0x0"
-        },
-        "ports": {
-          "Clock100MHz": {
-            "direction": "I",
-            "parameters": {
-              "FREQ_HZ": {
-                "value": "100000000",
-                "value_src": "user_prop"
-              },
-              "PHASE": {
-                "value": "0.000",
-                "value_src": "default_prop"
-              },
-              "CLK_DOMAIN": {
-                "value": "system_processing_system7_0_0_FCLK_CLK0",
-                "value_src": "default_prop"
-              }
-            }
-          },
-          "Waveform": {
-            "direction": "O",
-            "left": "23",
-            "right": "0"
-          },
-          "BusClock": {
-            "direction": "I"
-          },
-          "BusPAddr": {
-            "direction": "I",
-            "left": "31",
-            "right": "0"
-          },
-          "BusPWriteData": {
-            "direction": "I",
-            "left": "31",
-            "right": "0"
-          },
-          "BusPReadData": {
-            "direction": "O",
-            "left": "31",
-            "right": "0"
-          },
-          "BusPWrite": {
-            "direction": "I"
-          },
-          "BusPReady": {
-            "direction": "O"
-          },
-          "BusPEnable": {
-            "direction": "I"
-          },
-          "BusPSel": {
-            "direction": "I"
-          },
-          "BusPError": {
-            "direction": "O"
-          }
-        }
-      },
       "Synth": {
         "vlnv": "Independant:user:Synth:2.0",
         "xci_name": "system_Synth_1_0",
@@ -3256,12 +3183,6 @@
       }
     },
     "interface_nets": {
-      "axi_apb_bridge_1_APB_M2": {
-        "interface_ports": [
-          "axi_apb_bridge_1/APB_M2",
-          "APBSlave_Breakout_Keyboard/APB_S"
-        ]
-      },
       "axi_interconnect_video_ctl_M00_AXI": {
         "interface_ports": [
           "axi_interconnect_video_ctl/M00_AXI",
@@ -3272,12 +3193,6 @@
         "interface_ports": [
           "FIXED_IO",
           "processing_system7_0/FIXED_IO"
-        ]
-      },
-      "axi_apb_bridge_1_APB_M": {
-        "interface_ports": [
-          "axi_apb_bridge_1/APB_M",
-          "APBSlave_Breakout_synth/APB_S"
         ]
       },
       "processing_system7_0_IIC_0": {
@@ -3326,6 +3241,12 @@
         "interface_ports": [
           "processing_system7_0/M_AXI_GP0",
           "axi_interconnect_synth/S00_AXI"
+        ]
+      },
+      "axi_apb_bridge_1_APB_M": {
+        "interface_ports": [
+          "axi_apb_bridge_1/APB_M",
+          "APBSlave_Breakout_Keyboard/APB_S"
         ]
       }
     },
@@ -3403,7 +3324,6 @@
         "ports": [
           "processing_system7_0/FCLK_CLK0",
           "APBSlave_Breakout_Keyboard/s_apb_pclock",
-          "APBSlave_Breakout_synth/s_apb_pclock",
           "AudioOutController_0/Clock",
           "proc_sys_reset_0/slowest_sync_clk",
           "processing_system7_0/M_AXI_GP0_ACLK",
@@ -3412,7 +3332,6 @@
           "axi_interconnect_synth/S00_ACLK",
           "axi_interconnect_synth/M00_ACLK",
           "axi_interconnect_synth/M01_ACLK",
-          "SynthOld_0/Clock100MHz",
           "Synth/Clock100MHz",
           "Synth/SAXI_aclk"
         ]
@@ -3600,60 +3519,6 @@
           "VideoController_0/De",
           "De"
         ]
-      },
-      "APBSlave_Breakout_synth_BusPAddr": {
-        "ports": [
-          "APBSlave_Breakout_synth/BusPAddr",
-          "SynthOld_0/BusPAddr"
-        ]
-      },
-      "APBSlave_Breakout_synth_BusClock": {
-        "ports": [
-          "APBSlave_Breakout_synth/BusClock",
-          "SynthOld_0/BusClock"
-        ]
-      },
-      "APBSlave_Breakout_synth_BusPWrite": {
-        "ports": [
-          "APBSlave_Breakout_synth/BusPWrite",
-          "SynthOld_0/BusPWrite"
-        ]
-      },
-      "APBSlave_Breakout_synth_BusPWriteData": {
-        "ports": [
-          "APBSlave_Breakout_synth/BusPWriteData",
-          "SynthOld_0/BusPWriteData"
-        ]
-      },
-      "APBSlave_Breakout_synth_BusPEnable": {
-        "ports": [
-          "APBSlave_Breakout_synth/BusPEnable",
-          "SynthOld_0/BusPEnable"
-        ]
-      },
-      "APBSlave_Breakout_synth_BusPSel": {
-        "ports": [
-          "APBSlave_Breakout_synth/BusPSel",
-          "SynthOld_0/BusPSel"
-        ]
-      },
-      "SynthOld_0_BusPError": {
-        "ports": [
-          "SynthOld_0/BusPError",
-          "APBSlave_Breakout_synth/BusPError"
-        ]
-      },
-      "SynthOld_0_BusPReady": {
-        "ports": [
-          "SynthOld_0/BusPReady",
-          "APBSlave_Breakout_synth/BusPReady"
-        ]
-      },
-      "SynthOld_0_BusPReadData": {
-        "ports": [
-          "SynthOld_0/BusPReadData",
-          "APBSlave_Breakout_synth/BusPReadData"
-        ]
       }
     },
     "addressing": {
@@ -3661,11 +3526,6 @@
         "address_spaces": {
           "Data": {
             "segments": {
-              "SEG_APBSlave_Breakout_3_Reg": {
-                "address_block": "/APBSlave_Breakout_synth/APB_S/Reg",
-                "offset": "0x40000000",
-                "range": "1M"
-              },
               "SEG_APBSlave_Breakout_Keyboard_Reg": {
                 "address_block": "/APBSlave_Breakout_Keyboard/APB_S/Reg",
                 "offset": "0x40100000",

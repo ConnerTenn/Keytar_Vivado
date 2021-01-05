@@ -48,7 +48,7 @@
 
 
 // IP VLNV: Independant:user:Synth:2.0
-// IP Revision: 10
+// IP Revision: 15
 
 `timescale 1ns/1ps
 

@@ -1,13 +1,15 @@
 `timescale 1ns / 1ps
 
-module Channel 
-#(
+module Channel #
+(
     parameter ADDRESS=0
 )
 (
     input Clock,
     output signed [23:0] Waveform,
     
+    //== AXI Clock ==
+    input BusClock,
     //== AXI Read ==
     input [31:0] ReadAddress,
     output reg [31:0] ReadData,
@@ -62,7 +64,7 @@ module Channel
     end
 
 
-    always @(posedge Clock)
+    always @(posedge BusClock)
     begin
         if (ReadEN)
         begin

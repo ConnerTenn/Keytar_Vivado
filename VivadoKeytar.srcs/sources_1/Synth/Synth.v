@@ -48,6 +48,10 @@ module Synth #
     wire [31:0] saxiWriteData;
     wire saxiWriteEN;
 
+
+    reg clock1MHz = 0;
+
+
     localparam NUM_BANKS = 16;
 
     genvar gi;
@@ -59,10 +63,12 @@ module Synth #
         wire [31:0] readdata;
         wire [31:0] readdata_OR;
 
-        Bank #(.ADDRESS(32'h6000_0000 + 32'h1000 * gi)) banki
+        Bank #(.ADDRESS(SAXI_SLAVE_BASE_ADDR + 32'h1000 * gi)) banki
         (
-            .Clock(Clock100MHz),
+            .Clock(clock1MHz),
             .Waveform(waveform),
+            //== AXI Clock ==
+            .BusClock(Clock100MHz),
             //== AXI Read ==
             .ReadAddress(saxiReadAddress),
             .ReadData(readdata),
@@ -88,6 +94,8 @@ module Synth #
             assign readdata_OR = readdata | banks[gi-1].readdata_OR;
         end
     end
+
+    assign saxiReadData = banks[NUM_BANKS-1].readdata_OR;
 
     //Rescale output
     assign Waveform = (banks[NUM_BANKS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_BANKS)-24));
@@ -127,5 +135,21 @@ module Synth #
         //== Write Response Channel ==
         .Bvalid(SAXI_bvalid), .Bready(SAXI_bready)
     );
+
+
+    reg [7:0] clkdiv = 0;
+
+    always @(posedge Clock100MHz)
+    begin
+        if (clkdiv < 100)
+        begin
+            clkdiv <= clkdiv + 1;
+        end
+        else
+        begin
+            clkdiv <= 0;
+            clock1MHz <= !clock1MHz;
+        end
+    end
 
 endmodule

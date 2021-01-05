@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Jan  4 21:14:47 2021" VIVADOVERSION="2020.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Jan  5 02:30:49 2021" VIVADOVERSION="2020.2">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z020" NAME="system" PACKAGE="clg400" SPEEDGRADE="-2"/>
 
@@ -321,7 +321,7 @@
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="s_apb_prdata" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_Keyboard_s_apb_prdata">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_apb_bridge_1" PORT="m_apb_prdata2"/>
+            <CONNECTION INSTANCE="axi_apb_bridge_1" PORT="m_apb_prdata"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="s_apb_pwrite" SIGIS="undef" SIGNAME="APBSlave_Breakout_Keyboard_s_apb_pwrite">
@@ -392,121 +392,6 @@
         <PORT DIR="I" NAME="BusPError" SIGIS="undef" SIGNAME="KeyboarController_0_BusPError">
           <CONNECTIONS>
             <CONNECTION INSTANCE="KeyboarController_0" PORT="BusPError"/>
-          </CONNECTIONS>
-        </PORT>
-      </PORTS>
-      <BUSINTERFACES>
-        <BUSINTERFACE BUSNAME="axi_apb_bridge_1_APB_M2" NAME="APB_S" TYPE="SLAVE" VLNV="xilinx.com:interface:apb:1.0">
-          <PORTMAPS>
-            <PORTMAP LOGICAL="PADDR" PHYSICAL="s_apb_paddr"/>
-            <PORTMAP LOGICAL="PSEL" PHYSICAL="s_apb_psel"/>
-            <PORTMAP LOGICAL="PENABLE" PHYSICAL="s_apb_penable"/>
-            <PORTMAP LOGICAL="PWRITE" PHYSICAL="s_apb_pwrite"/>
-            <PORTMAP LOGICAL="PWDATA" PHYSICAL="s_apb_pwdata"/>
-            <PORTMAP LOGICAL="PREADY" PHYSICAL="s_apb_pready"/>
-            <PORTMAP LOGICAL="PRDATA" PHYSICAL="s_apb_prdata"/>
-            <PORTMAP LOGICAL="PSLVERR" PHYSICAL="s_apb_pslverr"/>
-          </PORTMAPS>
-        </BUSINTERFACE>
-      </BUSINTERFACES>
-    </MODULE>
-    <MODULE COREREVISION="2" FULLNAME="/APBSlave_Breakout_synth" HWVERSION="1.0" INSTANCE="APBSlave_Breakout_synth" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="APBSlave_Breakout" VLNV="Independant:user:APBSlave_Breakout:1.0">
-      <DOCUMENTS/>
-      <PARAMETERS>
-        <PARAMETER NAME="Component_Name" VALUE="system_APBSlave_Breakout_2_0"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-        <PARAMETER NAME="C_BASEADDR" VALUE="0x40000000"/>
-        <PARAMETER NAME="C_HIGHADDR" VALUE="0x400FFFFF"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT DIR="I" NAME="s_apb_pclock" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="s_apb_paddr" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_paddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_apb_bridge_1" PORT="m_apb_paddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="s_apb_pwdata" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_pwdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_apb_bridge_1" PORT="m_apb_pwdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="s_apb_prdata" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_prdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_apb_bridge_1" PORT="m_apb_prdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="s_apb_pwrite" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_pwrite">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_apb_bridge_1" PORT="m_apb_pwrite"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="s_apb_pready" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_pready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_apb_bridge_1" PORT="m_apb_pready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="s_apb_penable" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_penable">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_apb_bridge_1" PORT="m_apb_penable"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="s_apb_psel" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_psel">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_apb_bridge_1" PORT="m_apb_psel"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="s_apb_pslverr" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_pslverr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_apb_bridge_1" PORT="m_apb_pslverr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="BusClock" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_BusClock">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="SynthOld_0" PORT="BusClock"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="BusPAddr" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_BusPAddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="SynthOld_0" PORT="BusPAddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="BusPWriteData" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_BusPWriteData">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="SynthOld_0" PORT="BusPWriteData"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="BusPReadData" RIGHT="0" SIGIS="undef" SIGNAME="SynthOld_0_BusPReadData">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="SynthOld_0" PORT="BusPReadData"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="BusPWrite" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_BusPWrite">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="SynthOld_0" PORT="BusPWrite"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="BusPReady" SIGIS="undef" SIGNAME="SynthOld_0_BusPReady">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="SynthOld_0" PORT="BusPReady"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="BusPEnable" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_BusPEnable">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="SynthOld_0" PORT="BusPEnable"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="BusPSel" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_BusPSel">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="SynthOld_0" PORT="BusPSel"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="BusPError" SIGIS="undef" SIGNAME="SynthOld_0_BusPError">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="SynthOld_0" PORT="BusPError"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -656,7 +541,7 @@
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE COREREVISION="10" FULLNAME="/Synth" HWVERSION="2.0" INSTANCE="Synth" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="Synth" VLNV="Independant:user:Synth:2.0">
+    <MODULE COREREVISION="15" FULLNAME="/Synth" HWVERSION="2.0" INSTANCE="Synth" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="Synth" VLNV="Independant:user:Synth:2.0">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
         <ADDRESSBLOCK ACCESS="" INTERFACE="SAXI_ControlInterface" NAME="Reg" RANGE="4G" USAGE="register"/>
@@ -830,68 +715,6 @@
           </PORTMAPS>
         </BUSINTERFACE>
       </BUSINTERFACES>
-    </MODULE>
-    <MODULE COREREVISION="1" FULLNAME="/SynthOld_0" HWVERSION="1.0" INSTANCE="SynthOld_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="SynthOld" VLNV="xilinx.com:module_ref:SynthOld:1.0">
-      <DOCUMENTS/>
-      <PARAMETERS>
-        <PARAMETER NAME="DEBUG" VALUE="0"/>
-        <PARAMETER NAME="Component_Name" VALUE="system_SynthOld_0_0"/>
-        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
-      </PARAMETERS>
-      <PORTS>
-        <PORT DIR="I" NAME="Clock100MHz" SIGIS="undef" SIGNAME="processing_system7_0_FCLK_CLK0">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="23" NAME="Waveform" RIGHT="0" SIGIS="undef"/>
-        <PORT DIR="I" NAME="BusClock" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_BusClock">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="BusClock"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="BusPAddr" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_BusPAddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="BusPAddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="BusPWriteData" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_BusPWriteData">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="BusPWriteData"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="BusPReadData" RIGHT="0" SIGIS="undef" SIGNAME="SynthOld_0_BusPReadData">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="BusPReadData"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="BusPWrite" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_BusPWrite">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="BusPWrite"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="BusPReady" SIGIS="undef" SIGNAME="SynthOld_0_BusPReady">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="BusPReady"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="BusPEnable" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_BusPEnable">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="BusPEnable"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="BusPSel" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_BusPSel">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="BusPSel"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="BusPError" SIGIS="undef" SIGNAME="SynthOld_0_BusPError">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="BusPError"/>
-          </CONNECTIONS>
-        </PORT>
-      </PORTS>
-      <BUSINTERFACES/>
     </MODULE>
     <MODULE COREREVISION="149" FULLNAME="/VideoController_0" HWVERSION="1.0" INSTANCE="VideoController_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="VideoController" VLNV="Independant:user:VideoController:1.0">
       <DOCUMENTS/>
@@ -1398,7 +1221,7 @@
         <PARAMETER NAME="C_S_AXI_DATA_WIDTH" VALUE="32"/>
         <PARAMETER NAME="C_M_APB_ADDR_WIDTH" VALUE="32"/>
         <PARAMETER NAME="C_M_APB_DATA_WIDTH" VALUE="32"/>
-        <PARAMETER NAME="C_APB_NUM_SLAVES" VALUE="2"/>
+        <PARAMETER NAME="C_APB_NUM_SLAVES" VALUE="1"/>
         <PARAMETER NAME="C_M_APB_PROTOCOL" VALUE="apb3"/>
         <PARAMETER NAME="C_S_AXI_RNG2_BASEADDR" VALUE="0x0000000040100000"/>
         <PARAMETER NAME="C_S_AXI_RNG2_HIGHADDR" VALUE="0x0000000040100FFF"/>
@@ -1526,70 +1349,44 @@
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M00_AXI_rready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="m_apb_paddr" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_paddr">
+        <PORT DIR="O" LEFT="31" NAME="m_apb_paddr" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_Keyboard_s_apb_paddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_Keyboard" PORT="s_apb_paddr"/>
           </CONNECTIONS>
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="s_apb_paddr"/>
-          </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="1" NAME="m_apb_psel" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_psel">
+        <PORT DIR="O" LEFT="0" NAME="m_apb_psel" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_Keyboard_s_apb_psel">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_Keyboard" PORT="s_apb_psel"/>
           </CONNECTIONS>
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="s_apb_psel"/>
-          </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="m_apb_penable" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_penable">
+        <PORT DIR="O" NAME="m_apb_penable" SIGIS="undef" SIGNAME="APBSlave_Breakout_Keyboard_s_apb_penable">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_Keyboard" PORT="s_apb_penable"/>
           </CONNECTIONS>
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="s_apb_penable"/>
-          </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="m_apb_pwrite" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_pwrite">
+        <PORT DIR="O" NAME="m_apb_pwrite" SIGIS="undef" SIGNAME="APBSlave_Breakout_Keyboard_s_apb_pwrite">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_Keyboard" PORT="s_apb_pwrite"/>
           </CONNECTIONS>
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="s_apb_pwrite"/>
-          </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="m_apb_pwdata" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_pwdata">
+        <PORT DIR="O" LEFT="31" NAME="m_apb_pwdata" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_Keyboard_s_apb_pwdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_Keyboard" PORT="s_apb_pwdata"/>
           </CONNECTIONS>
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="s_apb_pwdata"/>
-          </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="1" NAME="m_apb_pready" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_pready">
+        <PORT DIR="I" LEFT="0" NAME="m_apb_pready" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_Keyboard_s_apb_pready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_Keyboard" PORT="s_apb_pready"/>
           </CONNECTIONS>
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="s_apb_pready"/>
-          </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="31" NAME="m_apb_prdata" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_prdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="s_apb_prdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="m_apb_prdata2" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_Keyboard_s_apb_prdata">
+        <PORT DIR="I" LEFT="31" NAME="m_apb_prdata" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_Keyboard_s_apb_prdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_Keyboard" PORT="s_apb_prdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="1" NAME="m_apb_pslverr" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_synth_s_apb_pslverr">
+        <PORT DIR="I" LEFT="0" NAME="m_apb_pslverr" RIGHT="0" SIGIS="undef" SIGNAME="APBSlave_Breakout_Keyboard_s_apb_pslverr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_Keyboard" PORT="s_apb_pslverr"/>
-          </CONNECTIONS>
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="s_apb_pslverr"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -1650,18 +1447,6 @@
             <PORTMAP LOGICAL="PADDR" PHYSICAL="m_apb_paddr"/>
             <PORTMAP LOGICAL="PENABLE" PHYSICAL="m_apb_penable"/>
             <PORTMAP LOGICAL="PRDATA" PHYSICAL="m_apb_prdata"/>
-            <PORTMAP LOGICAL="PREADY" PHYSICAL="m_apb_pready"/>
-            <PORTMAP LOGICAL="PSEL" PHYSICAL="m_apb_psel"/>
-            <PORTMAP LOGICAL="PSLVERR" PHYSICAL="m_apb_pslverr"/>
-            <PORTMAP LOGICAL="PWDATA" PHYSICAL="m_apb_pwdata"/>
-            <PORTMAP LOGICAL="PWRITE" PHYSICAL="m_apb_pwrite"/>
-          </PORTMAPS>
-        </BUSINTERFACE>
-        <BUSINTERFACE BUSNAME="axi_apb_bridge_1_APB_M2" NAME="APB_M2" TYPE="MASTER" VLNV="xilinx.com:interface:apb:1.0">
-          <PORTMAPS>
-            <PORTMAP LOGICAL="PADDR" PHYSICAL="m_apb_paddr"/>
-            <PORTMAP LOGICAL="PENABLE" PHYSICAL="m_apb_penable"/>
-            <PORTMAP LOGICAL="PRDATA" PHYSICAL="m_apb_prdata2"/>
             <PORTMAP LOGICAL="PREADY" PHYSICAL="m_apb_pready"/>
             <PORTMAP LOGICAL="PSEL" PHYSICAL="m_apb_psel"/>
             <PORTMAP LOGICAL="PSLVERR" PHYSICAL="m_apb_pslverr"/>
@@ -5803,7 +5588,6 @@
         <PORT CLKFREQUENCY="100000000" DIR="O" NAME="FCLK_CLK0" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="APBSlave_Breakout_Keyboard" PORT="s_apb_pclock"/>
-            <CONNECTION INSTANCE="APBSlave_Breakout_synth" PORT="s_apb_pclock"/>
             <CONNECTION INSTANCE="AudioOutController_0" PORT="Clock"/>
             <CONNECTION INSTANCE="proc_sys_reset_0" PORT="slowest_sync_clk"/>
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP0_ACLK"/>
@@ -5812,7 +5596,6 @@
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="S00_ACLK"/>
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M00_ACLK"/>
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_ACLK"/>
-            <CONNECTION INSTANCE="SynthOld_0" PORT="Clock100MHz"/>
             <CONNECTION INSTANCE="Synth" PORT="Clock100MHz"/>
             <CONNECTION INSTANCE="Synth" PORT="SAXI_aclk"/>
           </CONNECTIONS>
@@ -6242,13 +6025,11 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
       <MEMORYMAP>
-        <MEMRANGE ADDRESSBLOCK="Reg" BASENAME="C_BASEADDR" BASEVALUE="0x40000000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x400FFFFF" INSTANCE="APBSlave_Breakout_synth" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="APB_S"/>
         <MEMRANGE ADDRESSBLOCK="Reg" BASENAME="C_BASEADDR" BASEVALUE="0x40100000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40100FFF" INSTANCE="APBSlave_Breakout_Keyboard" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="APB_S"/>
         <MEMRANGE ADDRESSBLOCK="Reg" BASENAME="C_BASEADDR" BASEVALUE="0x60000000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x7FFFFFFF" INSTANCE="Synth" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="SAXI_ControlInterface"/>
         <MEMRANGE ADDRESSBLOCK="Registers" BASENAME="C_BASEADDR" BASEVALUE="0x80000000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x80000FFF" INSTANCE="VideoController_0" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP1" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="SAXI_ControlInterface"/>
       </MEMORYMAP>
       <PERIPHERALS>
-        <PERIPHERAL INSTANCE="APBSlave_Breakout_synth"/>
         <PERIPHERAL INSTANCE="APBSlave_Breakout_Keyboard"/>
         <PERIPHERAL INSTANCE="Synth"/>
         <PERIPHERAL INSTANCE="VideoController_0"/>

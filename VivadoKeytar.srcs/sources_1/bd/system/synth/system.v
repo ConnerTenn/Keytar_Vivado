@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
-//Date        : Mon Jan  4 21:14:46 2021
+//Date        : Tue Jan  5 02:30:46 2021
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -1268,7 +1268,7 @@ module s00_couplers_imp_Y9JEWS
         .s_axi_wvalid(s00_couplers_to_auto_pc_WVALID));
 endmodule
 
-(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=29,numReposBlks=21,numNonXlnxBlks=4,numHierBlks=8,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=4,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
+(* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=27,numReposBlks=19,numNonXlnxBlks=3,numHierBlks=8,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
    (Blue,
     Buzzer,
@@ -1371,12 +1371,6 @@ module system
   wire APBSlave_Breakout_Keyboard_BusPSel;
   wire APBSlave_Breakout_Keyboard_BusPWrite;
   wire [31:0]APBSlave_Breakout_Keyboard_BusPWriteData;
-  wire APBSlave_Breakout_synth_BusClock;
-  wire [31:0]APBSlave_Breakout_synth_BusPAddr;
-  wire APBSlave_Breakout_synth_BusPEnable;
-  wire APBSlave_Breakout_synth_BusPSel;
-  wire APBSlave_Breakout_synth_BusPWrite;
-  wire [31:0]APBSlave_Breakout_synth_BusPWriteData;
   wire [0:0]ARESETN_1;
   wire AudioOutController_0_DAC_MClk;
   wire AudioOutController_0_DAC_Reset;
@@ -1389,9 +1383,6 @@ module system
   wire [7:0]KeyboarController_0_KeyRibbonDrive;
   wire [7:0]KeyboarRibbon_1;
   wire [2:0]RGBTest_0_RGB;
-  wire SynthOld_0_BusPError;
-  wire [31:0]SynthOld_0_BusPReadData;
-  wire SynthOld_0_BusPReady;
   wire [23:0]Synth_0_Waveform;
   wire [4:0]VideoController_0_Blue;
   wire VideoController_0_De;
@@ -1437,18 +1428,14 @@ module system
   wire VideoController_0_PClk;
   wire [4:0]VideoController_0_Red;
   wire VideoController_0_VSync;
-  wire [31:0]axi_apb_bridge_1_APB_M2_PADDR;
-  wire axi_apb_bridge_1_APB_M2_PENABLE;
-  wire [31:0]axi_apb_bridge_1_APB_M2_PRDATA;
-  wire axi_apb_bridge_1_APB_M2_PREADY;
-  wire [1:1]axi_apb_bridge_1_APB_M2_PSEL;
-  wire axi_apb_bridge_1_APB_M2_PSLVERR;
-  wire [31:0]axi_apb_bridge_1_APB_M2_PWDATA;
-  wire axi_apb_bridge_1_APB_M2_PWRITE;
+  wire [31:0]axi_apb_bridge_1_APB_M_PADDR;
+  wire axi_apb_bridge_1_APB_M_PENABLE;
   wire [31:0]axi_apb_bridge_1_APB_M_PRDATA;
   wire axi_apb_bridge_1_APB_M_PREADY;
   wire [0:0]axi_apb_bridge_1_APB_M_PSEL;
   wire axi_apb_bridge_1_APB_M_PSLVERR;
+  wire [31:0]axi_apb_bridge_1_APB_M_PWDATA;
+  wire axi_apb_bridge_1_APB_M_PWRITE;
   wire [31:0]axi_interconnect_0_M00_AXI1_ARADDR;
   wire [1:0]axi_interconnect_0_M00_AXI1_ARBURST;
   wire [3:0]axi_interconnect_0_M00_AXI1_ARCACHE;
@@ -1690,34 +1677,15 @@ module system
         .BusPSel(APBSlave_Breakout_Keyboard_BusPSel),
         .BusPWrite(APBSlave_Breakout_Keyboard_BusPWrite),
         .BusPWriteData(APBSlave_Breakout_Keyboard_BusPWriteData),
-        .s_apb_paddr(axi_apb_bridge_1_APB_M2_PADDR),
+        .s_apb_paddr(axi_apb_bridge_1_APB_M_PADDR),
         .s_apb_pclock(processing_system7_0_FCLK_CLK0),
-        .s_apb_penable(axi_apb_bridge_1_APB_M2_PENABLE),
-        .s_apb_prdata(axi_apb_bridge_1_APB_M2_PRDATA),
-        .s_apb_pready(axi_apb_bridge_1_APB_M2_PREADY),
-        .s_apb_psel(axi_apb_bridge_1_APB_M2_PSEL),
-        .s_apb_pslverr(axi_apb_bridge_1_APB_M2_PSLVERR),
-        .s_apb_pwdata(axi_apb_bridge_1_APB_M2_PWDATA),
-        .s_apb_pwrite(axi_apb_bridge_1_APB_M2_PWRITE));
-  system_APBSlave_Breakout_2_0 APBSlave_Breakout_synth
-       (.BusClock(APBSlave_Breakout_synth_BusClock),
-        .BusPAddr(APBSlave_Breakout_synth_BusPAddr),
-        .BusPEnable(APBSlave_Breakout_synth_BusPEnable),
-        .BusPError(SynthOld_0_BusPError),
-        .BusPReadData(SynthOld_0_BusPReadData),
-        .BusPReady(SynthOld_0_BusPReady),
-        .BusPSel(APBSlave_Breakout_synth_BusPSel),
-        .BusPWrite(APBSlave_Breakout_synth_BusPWrite),
-        .BusPWriteData(APBSlave_Breakout_synth_BusPWriteData),
-        .s_apb_paddr(axi_apb_bridge_1_APB_M2_PADDR),
-        .s_apb_pclock(processing_system7_0_FCLK_CLK0),
-        .s_apb_penable(axi_apb_bridge_1_APB_M2_PENABLE),
+        .s_apb_penable(axi_apb_bridge_1_APB_M_PENABLE),
         .s_apb_prdata(axi_apb_bridge_1_APB_M_PRDATA),
         .s_apb_pready(axi_apb_bridge_1_APB_M_PREADY),
         .s_apb_psel(axi_apb_bridge_1_APB_M_PSEL),
         .s_apb_pslverr(axi_apb_bridge_1_APB_M_PSLVERR),
-        .s_apb_pwdata(axi_apb_bridge_1_APB_M2_PWDATA),
-        .s_apb_pwrite(axi_apb_bridge_1_APB_M2_PWRITE));
+        .s_apb_pwdata(axi_apb_bridge_1_APB_M_PWDATA),
+        .s_apb_pwrite(axi_apb_bridge_1_APB_M_PWRITE));
   system_AudioOutController_0_1 AudioOutController_0
        (.Clock(processing_system7_0_FCLK_CLK0),
         .DAC_MClk(AudioOutController_0_DAC_MClk),
@@ -1763,17 +1731,6 @@ module system
         .SAXI_wstrb({1'b1,1'b1,1'b1,1'b1,axi_interconnect_synth_M01_AXI_WSTRB}),
         .SAXI_wvalid(axi_interconnect_synth_M01_AXI_WVALID),
         .Waveform(Synth_0_Waveform));
-  system_SynthOld_0_0 SynthOld_0
-       (.BusClock(APBSlave_Breakout_synth_BusClock),
-        .BusPAddr(APBSlave_Breakout_synth_BusPAddr),
-        .BusPEnable(APBSlave_Breakout_synth_BusPEnable),
-        .BusPError(SynthOld_0_BusPError),
-        .BusPReadData(SynthOld_0_BusPReadData),
-        .BusPReady(SynthOld_0_BusPReady),
-        .BusPSel(APBSlave_Breakout_synth_BusPSel),
-        .BusPWrite(APBSlave_Breakout_synth_BusPWrite),
-        .BusPWriteData(APBSlave_Breakout_synth_BusPWriteData),
-        .Clock100MHz(processing_system7_0_FCLK_CLK0));
   system_VideoController_0_1 VideoController_0
        (.Blue(VideoController_0_Blue),
         .De(VideoController_0_De),
@@ -1847,15 +1804,14 @@ module system
         .SAXI_wvalid(axi_interconnect_video_ctl_M00_AXI_WVALID),
         .VSync(VideoController_0_VSync));
   system_axi_apb_bridge_0_3 axi_apb_bridge_1
-       (.m_apb_paddr(axi_apb_bridge_1_APB_M2_PADDR),
-        .m_apb_penable(axi_apb_bridge_1_APB_M2_PENABLE),
+       (.m_apb_paddr(axi_apb_bridge_1_APB_M_PADDR),
+        .m_apb_penable(axi_apb_bridge_1_APB_M_PENABLE),
         .m_apb_prdata(axi_apb_bridge_1_APB_M_PRDATA),
-        .m_apb_prdata2(axi_apb_bridge_1_APB_M2_PRDATA),
-        .m_apb_pready({axi_apb_bridge_1_APB_M2_PREADY,axi_apb_bridge_1_APB_M_PREADY}),
-        .m_apb_psel({axi_apb_bridge_1_APB_M2_PSEL,axi_apb_bridge_1_APB_M_PSEL}),
-        .m_apb_pslverr({axi_apb_bridge_1_APB_M2_PSLVERR,axi_apb_bridge_1_APB_M_PSLVERR}),
-        .m_apb_pwdata(axi_apb_bridge_1_APB_M2_PWDATA),
-        .m_apb_pwrite(axi_apb_bridge_1_APB_M2_PWRITE),
+        .m_apb_pready(axi_apb_bridge_1_APB_M_PREADY),
+        .m_apb_psel(axi_apb_bridge_1_APB_M_PSEL),
+        .m_apb_pslverr(axi_apb_bridge_1_APB_M_PSLVERR),
+        .m_apb_pwdata(axi_apb_bridge_1_APB_M_PWDATA),
+        .m_apb_pwrite(axi_apb_bridge_1_APB_M_PWRITE),
         .s_axi_aclk(processing_system7_0_FCLK_CLK0),
         .s_axi_araddr(axi_interconnect_synth_M00_AXI_ARADDR),
         .s_axi_aresetn(proc_sys_reset_0_peripheral_aresetn),
