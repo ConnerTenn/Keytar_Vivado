@@ -52,7 +52,7 @@ module Synth #
     reg clock1MHz = 0;
 
 
-    localparam NUM_BANKS = 16;
+    localparam NUM_BANKS = 4;
 
     genvar gi;
     for (gi=0; gi<NUM_BANKS; gi=gi+1)
