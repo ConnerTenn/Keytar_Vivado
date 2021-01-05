@@ -19,7 +19,7 @@ module Channel #
     input [31:0] WriteData,
     input WriteEN
 );
-    parameter WAVE_MAX = 24'hFFFFFF;
+    localparam WAVE_MAX = 24'hFFFFFF;
 
 
     wire running;

@@ -15,9 +15,9 @@ module ADSR
     output reg Running = 0;
     output reg [1:0] ADSRstate = 2'b00;
     input [23:0] Attack, Decay, Sustain, Release;
-    output reg [24:0] Envelope = 0;
+    output reg [23:0] Envelope = 0;
 
-    wire [24:0] step = StepSel(ADSRstate, Attack, Decay, Release);
+    wire [23:0] step = StepSel(ADSRstate, Attack, Decay, Release);
     function automatic [23:0] StepSel;
         input [1:0] adsrstate;
         input [23:0] attack; input [23:0] decay; input [23:0] releas;
@@ -31,9 +31,9 @@ module ADSR
         end
     endfunction
 
-    wire [24:0] nextattackenvolope = Envelope + step;
-    wire [24:0] nextdecayenvolope = Envelope - step;
-    wire [24:0] nextreleaseenvolope = Envelope - step;
+    wire [23:0] nextattackenvolope = Envelope + step;
+    wire [23:0] nextdecayenvolope = Envelope - step;
+    wire [23:0] nextreleaseenvolope = Envelope - step;
 
     wire attackcompare = Envelope>=WAVE_MAX-step;
     wire decaycompare = Envelope<=Sustain+step;
