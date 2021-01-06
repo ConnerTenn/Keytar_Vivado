@@ -95,7 +95,7 @@ module Synth #
     end
 
     //Rescale output
-    assign Waveform = (banks[NUM_BANKS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_BANKS)-24));
+    assign Waveform = (banks[NUM_BANKS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_BANKS)-24+1));
 
 
     assign saxiReadData = banks[NUM_BANKS-1].readdata_OR;
