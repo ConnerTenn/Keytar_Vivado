@@ -7,7 +7,10 @@ module Channel #
 (
     input Clock,
     output signed [23:0] Waveform,
+
+    //== Control ==
     input [1:0] WaveType,
+    input signed [23:0] Lfo,
     
     //== ADSR ==
     input [23:0] Attack, 
@@ -31,13 +34,13 @@ module Channel #
 
     wire running;
 
-    reg [23:0] increment = 219;
+    reg [23:0] increment = 0;
     wire [23:0] wavegenout;
 
     WaveGen wavegen(
         .Clock(Clock),
         .Run(running),
-        .Increment(increment),
+        .Increment(increment+Lfo),
         .WaveType(WaveType),
         .Waveform(wavegenout)
     );
