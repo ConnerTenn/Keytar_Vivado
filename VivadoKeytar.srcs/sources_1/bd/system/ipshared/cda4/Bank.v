@@ -25,6 +25,7 @@ module Bank #
     reg [1:0] wavetype = 0;
 
     wire signed [23:0] lfoWaveform;
+    reg [1:0] lfoSelection = 0;
 
 
     localparam NUM_CHANNELS = 8;
@@ -44,8 +45,9 @@ module Bank #
             .Waveform(waveform),
             //== Control ==
             .WaveType(wavetype),
-            .Lfo(lfoWaveform),
             .PulseWidth(pulsewidth),
+            .Lfo(lfoWaveform),
+            .LfoSelection(lfoSelection),
             //== ADSR ==
             .Attack(attack), .Decay(decay), .Sustain(sustain), .Release(releas),
             //== AXI Clock ==
@@ -118,6 +120,7 @@ module Bank #
                 ADDRESS+4*7: readData <= {8'h0, lfoIncrement};
                 ADDRESS+4*8: readData <= {8'h0, lfoAmplitude};
                 ADDRESS+4*9: readData <= {30'h0, lfoWaveType};
+                ADDRESS+4*10: readData <= {30'h0, lfoSelection};
                 default: readData <= 32'h00000000;
             endcase
         end
@@ -134,6 +137,7 @@ module Bank #
                 ADDRESS+4*7: lfoIncrement <= WriteData[23:0];
                 ADDRESS+4*8: lfoAmplitude <= WriteData[23:0];
                 ADDRESS+4*9: lfoWaveType <= WriteData[1:0];
+                ADDRESS+4*10: lfoSelection <= WriteData[1:0];
                 default:;
             endcase
         end

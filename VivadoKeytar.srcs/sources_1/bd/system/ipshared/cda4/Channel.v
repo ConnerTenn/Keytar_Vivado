@@ -10,8 +10,9 @@ module Channel #
 
     //== Control ==
     input [1:0] WaveType,
-    input signed [23:0] Lfo,
     input signed [23:0] PulseWidth,
+    input signed [23:0] Lfo,
+    input [1:0] LfoSelection,
     
     //== ADSR ==
     input [23:0] Attack, 
@@ -38,12 +39,15 @@ module Channel #
     reg [23:0] increment = 0;
     wire [23:0] wavegenout;
 
+    wire [23:0] waveincrement = increment + (LfoSelection[0] ? Lfo : 0);
+    wire signed [23:0] wavepulsewidth = PulseWidth + (LfoSelection[1] ? Lfo : 0);
+
     WaveGen wavegen(
         .Clock(Clock),
         .Run(running),
-        .Increment(increment+Lfo),
+        .Increment(waveincrement),
         .WaveType(WaveType),
-        .PulseWidth(PulseWidth),
+        .PulseWidth(wavepulsewidth),
         .Waveform(wavegenout)
     );
 

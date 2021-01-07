@@ -18,7 +18,7 @@ module WaveGen(
 
     wire signed [23:0] triangleCompHigh = (24'hFFFFFF*1/4);
     wire signed [23:0] triangleCompLow = (24'hFFFFFF*3/4);
-    assign Waveform = WaveTypeSelect(1, WaveType, counter, PulseWidth);
+    assign Waveform = WaveTypeSelect(Run, WaveType, counter, PulseWidth);
     function automatic [23:0] WaveTypeSelect(
         input run,
         input [1:0] wavetype,
@@ -51,6 +51,10 @@ module WaveGen(
         if (Run)
         begin
             counter <= counter + Increment;
+        end
+        else
+        begin
+            counter <= 0;
         end
     end
 
