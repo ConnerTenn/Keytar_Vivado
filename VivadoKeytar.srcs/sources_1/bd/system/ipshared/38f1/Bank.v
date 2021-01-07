@@ -20,7 +20,7 @@ module Bank #
 );
     `include "Math.v"
 
-
+    reg signed [23:0] pulsewidth = 0;
     reg [23:0] attack = 0, decay = 0, sustain = 0, releas = 0;
     reg [1:0] wavetype = 0;
 
@@ -45,6 +45,7 @@ module Bank #
             //== Control ==
             .WaveType(wavetype),
             .Lfo(lfoWaveform),
+            .PulseWidth(pulsewidth),
             //== ADSR ==
             .Attack(attack), .Decay(decay), .Sustain(sustain), .Release(releas),
             //== AXI Clock ==
@@ -94,6 +95,7 @@ module Bank #
         .Run(lfoRunning),
         .Increment(lfoIncrement),
         .WaveType(lfoWaveType),
+        .PulseWidth(24'h000000),
         .Waveform(lfoWavegenout)
     );
 
@@ -107,14 +109,15 @@ module Bank #
         begin
             case (ReadAddress)
                 ADDRESS+4*0: readData <= {30'h0, wavetype};
-                ADDRESS+4*1: readData <= {8'h0, attack};
-                ADDRESS+4*2: readData <= {8'h0, decay};
-                ADDRESS+4*3: readData <= {8'h0, sustain};
-                ADDRESS+4*4: readData <= {8'h0, releas};
-                ADDRESS+4*5: readData <= {31'h0, lfoRunning};
-                ADDRESS+4*6: readData <= {8'h0, lfoIncrement};
-                ADDRESS+4*7: readData <= {8'h0, lfoAmplitude};
-                ADDRESS+4*8: readData <= {30'h0, lfoWaveType};
+                ADDRESS+4*1: readData <= {8'h0, pulsewidth};
+                ADDRESS+4*2: readData <= {8'h0, attack};
+                ADDRESS+4*3: readData <= {8'h0, decay};
+                ADDRESS+4*4: readData <= {8'h0, sustain};
+                ADDRESS+4*5: readData <= {8'h0, releas};
+                ADDRESS+4*6: readData <= {31'h0, lfoRunning};
+                ADDRESS+4*7: readData <= {8'h0, lfoIncrement};
+                ADDRESS+4*8: readData <= {8'h0, lfoAmplitude};
+                ADDRESS+4*9: readData <= {30'h0, lfoWaveType};
                 default: readData <= 32'h00000000;
             endcase
         end
@@ -122,14 +125,15 @@ module Bank #
         begin
             case (WriteAddress)
                 ADDRESS+4*0: wavetype <= WriteData[1:0];
-                ADDRESS+4*1: attack <= WriteData[23:0];
-                ADDRESS+4*2: decay <= WriteData[23:0];
-                ADDRESS+4*3: sustain <= WriteData[23:0];
-                ADDRESS+4*4: releas <= WriteData[23:0];
-                ADDRESS+4*5: lfoRunning <= WriteData[0:0];
-                ADDRESS+4*6: lfoIncrement <= WriteData[23:0];
-                ADDRESS+4*7: lfoAmplitude <= WriteData[23:0];
-                ADDRESS+4*8: lfoWaveType <= WriteData[1:0];
+                ADDRESS+4*1: pulsewidth <= WriteData[23:0];
+                ADDRESS+4*2: attack <= WriteData[23:0];
+                ADDRESS+4*3: decay <= WriteData[23:0];
+                ADDRESS+4*4: sustain <= WriteData[23:0];
+                ADDRESS+4*5: releas <= WriteData[23:0];
+                ADDRESS+4*6: lfoRunning <= WriteData[0:0];
+                ADDRESS+4*7: lfoIncrement <= WriteData[23:0];
+                ADDRESS+4*8: lfoAmplitude <= WriteData[23:0];
+                ADDRESS+4*9: lfoWaveType <= WriteData[1:0];
                 default:;
             endcase
         end

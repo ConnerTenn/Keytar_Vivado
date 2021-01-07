@@ -1,27 +1,24 @@
 `timescale 1ns / 1ps
 
 module WaveGen(
-    Clock,
-    Run,
-    Increment,
-    WaveType,
-    Waveform
+    input Clock,
+    input Run,
+    input signed [23:0] Increment,
+    input [1:0] WaveType,
+    input signed [23:0] PulseWidth,
+    output signed [23:0] Waveform
 );
     parameter WAVE_MAX = 24'hFFFFFF;
     parameter WAVE_HIGH = 24'h7FFFFF;
     parameter WAVE_LOW = 24'h800000;
     
-    input Clock;
-    input Run;
-    input signed [23:0] Increment;
-    input [1:0] WaveType;
-    output signed [23:0] Waveform;
+    
 
     reg signed [23:0] counter = 0;
 
     wire signed [23:0] triangleCompHigh = (24'hFFFFFF*1/4);
     wire signed [23:0] triangleCompLow = (24'hFFFFFF*3/4);
-    assign Waveform = WaveTypeSelect(1, WaveType, counter, 24'h000000);
+    assign Waveform = WaveTypeSelect(1, WaveType, counter, PulseWidth);
     function automatic [23:0] WaveTypeSelect(
         input run,
         input [1:0] wavetype,

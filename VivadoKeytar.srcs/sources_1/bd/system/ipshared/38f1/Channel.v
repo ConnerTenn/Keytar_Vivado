@@ -11,6 +11,7 @@ module Channel #
     //== Control ==
     input [1:0] WaveType,
     input signed [23:0] Lfo,
+    input signed [23:0] PulseWidth,
     
     //== ADSR ==
     input [23:0] Attack, 
@@ -42,6 +43,7 @@ module Channel #
         .Run(running),
         .Increment(increment+Lfo),
         .WaveType(WaveType),
+        .PulseWidth(PulseWidth),
         .Waveform(wavegenout)
     );
 
