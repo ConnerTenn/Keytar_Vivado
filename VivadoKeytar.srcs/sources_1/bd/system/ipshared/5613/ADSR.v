@@ -31,9 +31,8 @@ module ADSR
         end
     endfunction
 
-    wire [23:0] nextattackenvolope = Envelope + step;
-    wire [23:0] nextdecayenvolope = Envelope - step;
-    wire [23:0] nextreleaseenvolope = Envelope - step;
+    wire [23:0] increnvolope = Envelope + step;
+    wire [23:0] decrenvolope = Envelope - step;
 
     wire attackcompare = Envelope>=WAVE_MAX-step;
     wire decaycompare = Envelope<=Sustain+step;
@@ -66,11 +65,10 @@ module ADSR
                     if (attackcompare) //(Envelope>=WAVE_MAX-step)
                     begin
                         ADSRstate <= 2'b01;
-                        Envelope <= Attack;
                     end
                     else 
                     begin
-                        Envelope <= nextattackenvolope; //envolope+step
+                        Envelope <= increnvolope; //envolope+step
                     end
                 end
                 
@@ -79,11 +77,11 @@ module ADSR
                     if (decaycompare) //(Envelope<=Sustain+step)
                     begin
                         ADSRstate <= 2'b10;
-                        Envelope <= Decay;
+                        Envelope <= Sustain;
                     end
                     else
                     begin
-                        Envelope <= nextdecayenvolope; //envolope-step
+                        Envelope <= decrenvolope; //envolope-step
                     end
                 end
             2'b10: //Sustain
@@ -102,7 +100,7 @@ module ADSR
             end
             else
             begin
-                Envelope <= nextreleaseenvolope; //envolope-step
+                Envelope <= decrenvolope; //envolope-step
             end
         end
     end
