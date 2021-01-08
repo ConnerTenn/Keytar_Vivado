@@ -37,7 +37,7 @@ module Channel #
     wire running;
 
     reg [23:0] increment = 0;
-    wire [23:0] wavegenout;
+    wire signed [23:0] wavegenout;
 
     wire [23:0] waveincrement = increment + (LfoSelection[0] ? Lfo : 0);
     wire signed [23:0] wavepulsewidth = PulseWidth + (LfoSelection[1] ? Lfo : 0);
@@ -69,7 +69,9 @@ module Channel #
     To computer multiplication, wavegenout must be sign extended
     Signed right shift is also used to rescale the output
     */
-    wire [47:0] wavemul = { {24{wavegenout[23]}}, wavegenout} * {24'd0, envelope};
+    wire signed [47:0] mulArg1 = {{24{wavegenout[23]}}, wavegenout};
+    wire signed [47:0] mulArg2 = {24'd0, envelope};
+    wire signed [47:0] wavemul = mulArg1 * mulArg2;
     assign Waveform = (wavemul>>>24);
 
     always @(posedge Clock)

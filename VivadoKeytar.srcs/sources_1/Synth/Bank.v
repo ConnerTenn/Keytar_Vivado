@@ -89,7 +89,7 @@ module Bank #
     reg lfoRunning = 0;
     reg [23:0] lfoIncrement = 0;
     reg [23:0] lfoAmplitude = 0;
-    wire [23:0] lfoWavegenout;
+    wire signed [23:0] lfoWavegenout;
     reg [1:0] lfoWaveType = 0;
 
     WaveGen lfo(
@@ -101,7 +101,9 @@ module Bank #
         .Waveform(lfoWavegenout)
     );
 
-    wire [47:0] lfomul = { {24{lfoWavegenout[23]}}, lfoWavegenout} * {24'd0, lfoAmplitude};
+    wire signed [47:0] mulArg1 = { {24{lfoWavegenout[23]}}, lfoWavegenout};
+    wire signed [47:0] mulArg2 = {24'd0, lfoAmplitude};
+    wire signed [47:0] lfomul = mulArg1 * mulArg2;
     assign lfoWaveform = (lfomul>>>24);
 
 
