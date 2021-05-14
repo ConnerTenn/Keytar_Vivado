@@ -343,9 +343,9 @@
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2020"/>
         <Step Id="synth_design">
-          <Option Id="ControlSetOptThreshold">8</Option>
           <Option Id="ReTiming">1</Option>
           <Option Id="Directive">1</Option>
+          <Option Id="ControlSetOptThreshold">8</Option>
         </Step>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>

@@ -99,14 +99,14 @@ set_property -dict {IOSTANDARD LVCMOS33   PACKAGE_PIN L16} [get_ports {KeyRibbon
 set_property -dict {IOSTANDARD LVCMOS33   PACKAGE_PIN L20} [get_ports {KeyRibbonDrive[6]}]
 set_property -dict {IOSTANDARD LVCMOS33   PACKAGE_PIN L19} [get_ports {KeyRibbonDrive[7]}]
 
-set_property DRIVE 16 [get_ports {KeyRibbonDrive[0]}]
-set_property DRIVE 16 [get_ports {KeyRibbonDrive[1]}]
-set_property DRIVE 16 [get_ports {KeyRibbonDrive[2]}]
-set_property DRIVE 16 [get_ports {KeyRibbonDrive[3]}]
-set_property DRIVE 16 [get_ports {KeyRibbonDrive[4]}]
-set_property DRIVE 16 [get_ports {KeyRibbonDrive[5]}]
-set_property DRIVE 16 [get_ports {KeyRibbonDrive[6]}]
-set_property DRIVE 16 [get_ports {KeyRibbonDrive[7]}]
+set_property -dict {DRIVE 24   SLEW FAST} [get_ports {KeyRibbonDrive[0]}]
+set_property -dict {DRIVE 24   SLEW FAST} [get_ports {KeyRibbonDrive[1]}]
+set_property -dict {DRIVE 24   SLEW FAST} [get_ports {KeyRibbonDrive[2]}]
+set_property -dict {DRIVE 24   SLEW FAST} [get_ports {KeyRibbonDrive[3]}]
+set_property -dict {DRIVE 24   SLEW FAST} [get_ports {KeyRibbonDrive[4]}]
+set_property -dict {DRIVE 24   SLEW FAST} [get_ports {KeyRibbonDrive[5]}]
+set_property -dict {DRIVE 24   SLEW FAST} [get_ports {KeyRibbonDrive[6]}]
+set_property -dict {DRIVE 24   SLEW FAST} [get_ports {KeyRibbonDrive[7]}]
 
 
 
