@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
-//Date        : Fri Jan  8 15:36:47 2021
+//Date        : Sun May 16 01:43:01 2021
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -43,6 +43,7 @@ module system_wrapper
     I2C_scl_io,
     I2C_sda_io,
     I2S_Clk,
+    I2S_DIn,
     I2S_DOut,
     I2S_Format,
     I2S_LR,
@@ -86,6 +87,7 @@ module system_wrapper
   inout I2C_scl_io;
   inout I2C_sda_io;
   output I2S_Clk;
+  input I2S_DIn;
   output I2S_DOut;
   output [0:0]I2S_Format;
   output I2S_LR;
@@ -136,6 +138,7 @@ module system_wrapper
   wire I2C_sda_o;
   wire I2C_sda_t;
   wire I2S_Clk;
+  wire I2S_DIn;
   wire I2S_DOut;
   wire [0:0]I2S_Format;
   wire I2S_LR;
@@ -195,6 +198,7 @@ module system_wrapper
         .I2C_sda_o(I2C_sda_o),
         .I2C_sda_t(I2C_sda_t),
         .I2S_Clk(I2S_Clk),
+        .I2S_DIn(I2S_DIn),
         .I2S_DOut(I2S_DOut),
         .I2S_Format(I2S_Format),
         .I2S_LR(I2S_LR),

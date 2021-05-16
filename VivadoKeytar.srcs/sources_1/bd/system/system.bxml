@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="39">
   <CompositeFile CompositeFileTopName="system" CanBeSetAsTop="true" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1610138208"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1610138208"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1610138208"/>
-    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1610138208"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1621143782"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1621143782"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1621143782"/>
+    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1621143782"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip/system_processing_system7_0_0/system_processing_system7_0_0.xci" Type="IP">
         <Instance HierarchyPath="processing_system7_0"/>
@@ -24,6 +24,7 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/system_axi_interconnect_0_0/system_axi_interconnect_0_0.xci" Type="IP">
+        <Instance HierarchyPath="axi_interconnect_video_ctl"/>
         <Properties IsEditable="false" IsVisible="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -63,6 +64,7 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/system_axi_interconnect_2_0/system_axi_interconnect_2_0.xci" Type="IP">
+        <Instance HierarchyPath="axi_interconnect_synth"/>
         <Properties IsEditable="false" IsVisible="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -77,32 +79,8 @@
         <UsedIn Val="IMPLEMENTATION"/>
         <UsedIn Val="SIMULATION"/>
       </File>
-      <File Name="ip/system_AudioOutController_0_1/system_AudioOutController_0_1.xci" Type="IP">
-        <Instance HierarchyPath="AudioOutController_0"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/system_const_2_0_0/system_const_2_0_0.xci" Type="IP">
-        <Instance HierarchyPath="const_2_1"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
       <File Name="ip/system_const_HIGH_1_3/system_const_HIGH_1_3.xci" Type="IP">
         <Instance HierarchyPath="const_HIGH_4"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/system_const_HIGH_4_0/system_const_HIGH_4_0.xci" Type="IP">
-        <Instance HierarchyPath="const_HIGH_5"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -126,6 +104,7 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/system_axi_interconnect_0_2/system_axi_interconnect_0_2.xci" Type="IP">
+        <Instance HierarchyPath="axi_interconnect_0"/>
         <Properties IsEditable="false" IsVisible="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -150,6 +129,22 @@
       </File>
       <File Name="ip/system_xbar_0/system_xbar_0.xci" Type="IP">
         <Instance HierarchyPath="axi_interconnect_synth/xbar"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_AnalogController_0_0/system_AnalogController_0_0.xci" Type="IP">
+        <Instance HierarchyPath="AnalogController_0"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/system_IOController_1_0/system_IOController_1_0.xci" Type="IP">
+        <Instance HierarchyPath="IOController_1"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
