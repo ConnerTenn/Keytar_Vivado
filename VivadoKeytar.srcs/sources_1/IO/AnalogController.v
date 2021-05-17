@@ -62,15 +62,13 @@ module AnalogController (
                 outSampleL <= LeftOut;
                 outSampleR <= RightOut;
 
-                //Latch right since left just began
-                inSampleR <= 0; //Reset accumulator
-                RightIn <= inSampleR[30:7]; //Upper 24 bits
+                //Reset right accumulator since left just started (right just finished)
+                inSampleR <= 0;
             end
             else if (I2SLRSel == 1)
             begin
-                //Latch left since right just began
+                //Reset left accumulator since right just started (left just finished)
                 inSampleL <= 0; //Reset accumulator
-                LeftIn <= inSampleL[30:7]; //Upper 24 bits
             end
         end
         else
@@ -99,6 +97,11 @@ module AnalogController (
 
         if (state == 32-1)
         begin
+            case (I2SLRSel)
+                0: LeftIn <= inSampleL[30:7]; //Upper 24 bits
+                1: RightIn <= inSampleR[30:7]; //Upper 24 bits
+            endcase
+
             I2SLRSel <= !I2SLRSel;
             DAC_Reset <= 1;
         end

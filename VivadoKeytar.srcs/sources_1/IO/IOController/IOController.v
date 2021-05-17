@@ -49,8 +49,8 @@ module IOController #
         if (saxiReadEN)
         begin
             case (saxiReadAddress)
-                SAXI_SLAVE_BASE_ADDR+4*0: saxiReadData <= {8'h0, StripPosition};
-                SAXI_SLAVE_BASE_ADDR+4*1: saxiReadData <= {8'h0, StripPressure};
+                SAXI_SLAVE_BASE_ADDR+4*0: saxiReadData <= { {8{StripPosition[23]}}, StripPosition };
+                SAXI_SLAVE_BASE_ADDR+4*1: saxiReadData <= { {8{StripPressure[23]}}, StripPressure };
                 default: saxiReadData <= 32'h00000000;
             endcase
         end

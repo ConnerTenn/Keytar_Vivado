@@ -48,7 +48,7 @@
 
 
 // IP VLNV: Independant:user:IOController:1.0
-// IP Revision: 10
+// IP Revision: 14
 
 (* X_CORE_INFO = "IOController,Vivado 2020.2" *)
 (* CHECK_LICENSE_TYPE = "system_IOController_1_0,IOController,{}" *)
