@@ -1,0 +1,19 @@
+==========
+== TODO ==
+==========
+
+== Notes ==
+Notes should reuse the same wavegen if they are pressed multiple times. Therefore you don't get the same note being played multiple times.
+This could be a configurable setting.
+
+== Sustain Petal ==
+Sustain petal modifies the release of the ADSR. Mostly controlled in software but can have hardware support.
+When sustain petal is active, the release can be swapped out for the sustain-decay value. Then swapped back once petal is released.
+
+== Digital Filter ==
+
+== More LFO control ==
+
+== Keyboard Controller Remake ==
+
+
