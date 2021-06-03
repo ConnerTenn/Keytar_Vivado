@@ -79,11 +79,14 @@ module Bank #
     end
 
     //Rescale output
-    assign Waveform = (channels[NUM_CHANNELS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_CHANNELS)-24+1));
+    wire signed [23:0] channelSumWaveform = (channels[NUM_CHANNELS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_CHANNELS)-24+1));
 
 
-    reg [31:0] readData = 0;
-    assign ReadData = channels[NUM_CHANNELS-1].readdata_OR | readData;
+    DigitalFilter filter(
+        .Clock(Clock),
+        .InWaveform(channelSumWaveform),
+        .OutWaveform(Waveform)
+    );
 
 
     reg lfoRunning = 0;
@@ -106,6 +109,9 @@ module Bank #
     wire signed [47:0] lfomul = mulArg1 * mulArg2;
     assign lfoWaveform = (lfomul>>>24);
 
+
+    reg [31:0] readData = 0;
+    assign ReadData = channels[NUM_CHANNELS-1].readdata_OR | readData;
 
     always @(posedge BusClock)
     begin
