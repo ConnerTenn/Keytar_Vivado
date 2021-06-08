@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
-//Date        : Sun May 16 03:51:24 2021
+//Date        : Sat Jun  5 21:48:20 2021
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -1402,11 +1402,13 @@ endmodule
 
 (* CORE_GENERATION_INFO = "system,IP_Integrator,{x_ipVendor=xilinx.com,x_ipLibrary=BlockDiagram,x_ipName=system,x_ipVersion=1.00.a,x_ipLanguage=VERILOG,numBlks=27,numReposBlks=18,numNonXlnxBlks=4,numHierBlks=9,maxHierDepth=0,numSysgenBlks=0,numHlsBlks=0,numHdlrefBlks=3,numPkgbdBlks=0,bdsource=USER,da_clkrst_cnt=2,synth_mode=Global}" *) (* HW_HANDOFF = "system.hwdef" *) 
 module system
-   (Blue,
+   (Analog_CClk,
+    Analog_CS_n,
+    Analog_MoSi,
+    Blue,
     Buzzer,
     Clk12MHz,
     DAC_MClk,
-    DAC_Mode,
     DAC_Reset,
     DDR_addr,
     DDR_ba,
@@ -1441,7 +1443,6 @@ module system
     I2S_Clk,
     I2S_DIn,
     I2S_DOut,
-    I2S_Format,
     I2S_LR,
     KeyRibbonDrive,
     KeyRibbonSense,
@@ -1450,11 +1451,13 @@ module system
     Red,
     VSync,
     Waveform);
+  output Analog_CClk;
+  output Analog_CS_n;
+  output Analog_MoSi;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.BLUE DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.BLUE, LAYERED_METADATA undef" *) output [4:0]Blue;
   output [0:0]Buzzer;
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK.CLK12MHZ CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK.CLK12MHZ, CLK_DOMAIN system_Clk12MHz, FREQ_HZ 12000000, FREQ_TOLERANCE_HZ 0, INSERT_VIP 0, PHASE 0.000" *) input Clk12MHz;
   output DAC_MClk;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.DAC_MODE DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.DAC_MODE, LAYERED_METADATA undef" *) output [1:0]DAC_Mode;
   output DAC_Reset;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR ADDR" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DDR, AXI_ARBITRATION_SCHEME TDM, BURST_LENGTH 8, CAN_DEBUG false, CAS_LATENCY 11, CAS_WRITE_LATENCY 11, CS_ENABLED true, DATA_MASK_ENABLED true, DATA_WIDTH 8, MEMORY_TYPE COMPONENTS, MEM_ADDR_MAP ROW_COLUMN_BANK, SLOT Single, TIMEPERIOD_PS 1250" *) inout [14:0]DDR_addr;
   (* X_INTERFACE_INFO = "xilinx.com:interface:ddrx:1.0 DDR BA" *) inout [2:0]DDR_ba;
@@ -1489,7 +1492,6 @@ module system
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.I2S_CLK DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.I2S_CLK, LAYERED_METADATA undef" *) output I2S_Clk;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.I2S_DIN DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.I2S_DIN, LAYERED_METADATA undef" *) input I2S_DIn;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.I2S_DOUT DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.I2S_DOUT, LAYERED_METADATA undef" *) output I2S_DOut;
-  output [0:0]I2S_Format;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.I2S_LR DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.I2S_LR, LAYERED_METADATA undef" *) output I2S_LR;
   output [7:0]KeyRibbonDrive;
   input [7:0]KeyRibbonSense;
@@ -1506,16 +1508,22 @@ module system
   wire APBSlave_Breakout_Keyboard_BusPWrite;
   wire [31:0]APBSlave_Breakout_Keyboard_BusPWriteData;
   wire [0:0]ARESETN_1;
+  wire AnalogController_0_CClk;
+  wire AnalogController_0_CS_n;
+  wire AnalogController_0_CtrlPortRunning;
   wire AnalogController_0_DAC_MClk;
-  wire [1:0]AnalogController_0_DAC_Mode;
   wire AnalogController_0_DAC_Reset;
   wire AnalogController_0_I2SClk;
   wire AnalogController_0_I2SData;
   wire AnalogController_0_I2SLRSel;
-  wire AnalogController_0_I2S_Format;
   wire [23:0]AnalogController_0_LeftIn;
+  wire AnalogController_0_MoSi;
   wire [23:0]AnalogController_0_RightIn;
   wire I2S_DIn_1;
+  wire [3:0]IOController_1_CtrlPortAddr;
+  wire [7:0]IOController_1_CtrlPortData;
+  wire IOController_1_CtrlPortReset;
+  wire IOController_1_CtrlPortTrigger;
   wire KeyboarController_0_BusPError;
   wire [31:0]KeyboarController_0_BusPReadData;
   wire KeyboarController_0_BusPReady;
@@ -1796,10 +1804,12 @@ module system
   wire [0:0]xlconstant_0_dout;
   wire [0:0]xlconstant_1_dout;
 
+  assign Analog_CClk = AnalogController_0_CClk;
+  assign Analog_CS_n = AnalogController_0_CS_n;
+  assign Analog_MoSi = AnalogController_0_MoSi;
   assign Blue[4:0] = VideoController_0_Blue;
   assign Buzzer[0] = const_0_2_dout;
   assign DAC_MClk = AnalogController_0_DAC_MClk;
-  assign DAC_Mode[1:0] = AnalogController_0_DAC_Mode;
   assign DAC_Reset = AnalogController_0_DAC_Reset;
   assign De[0] = VideoController_0_De;
   assign Green[5:0] = VideoController_0_Green;
@@ -1811,7 +1821,6 @@ module system
   assign I2S_Clk = AnalogController_0_I2SClk;
   assign I2S_DIn_1 = I2S_DIn;
   assign I2S_DOut = AnalogController_0_I2SData;
-  assign I2S_Format[0] = AnalogController_0_I2S_Format;
   assign I2S_LR = AnalogController_0_I2SLRSel;
   assign KeyRibbonDrive[7:0] = KeyboarController_0_KeyRibbonDrive;
   assign KeyboarRibbon_1 = KeyRibbonSense[7:0];
@@ -1842,21 +1851,32 @@ module system
         .s_apb_pwdata(axi_apb_bridge_1_APB_M_PWDATA),
         .s_apb_pwrite(axi_apb_bridge_1_APB_M_PWRITE));
   system_AnalogController_0_0 AnalogController_0
-       (.Clock(processing_system7_0_FCLK_CLK0),
+       (.CClk(AnalogController_0_CClk),
+        .CS_n(AnalogController_0_CS_n),
+        .Clock(processing_system7_0_FCLK_CLK0),
+        .CtrlPortAddr(IOController_1_CtrlPortAddr),
+        .CtrlPortData(IOController_1_CtrlPortData),
+        .CtrlPortReset(IOController_1_CtrlPortReset),
+        .CtrlPortRunning(AnalogController_0_CtrlPortRunning),
+        .CtrlPortTrigger(IOController_1_CtrlPortTrigger),
         .DAC_MClk(AnalogController_0_DAC_MClk),
-        .DAC_Mode(AnalogController_0_DAC_Mode),
         .DAC_Reset(AnalogController_0_DAC_Reset),
         .I2SClk(AnalogController_0_I2SClk),
         .I2SDin(I2S_DIn_1),
         .I2SDout(AnalogController_0_I2SData),
         .I2SLRSel(AnalogController_0_I2SLRSel),
-        .I2S_Format(AnalogController_0_I2S_Format),
         .LeftIn(AnalogController_0_LeftIn),
         .LeftOut(Synth_0_Waveform),
+        .MoSi(AnalogController_0_MoSi),
         .RightIn(AnalogController_0_RightIn),
         .RightOut(Synth_0_Waveform));
   system_IOController_1_0 IOController_1
-       (.SAXI_aclk(processing_system7_0_FCLK_CLK0),
+       (.CtrlPortAddr(IOController_1_CtrlPortAddr),
+        .CtrlPortData(IOController_1_CtrlPortData),
+        .CtrlPortReset(IOController_1_CtrlPortReset),
+        .CtrlPortRunning(AnalogController_0_CtrlPortRunning),
+        .CtrlPortTrigger(IOController_1_CtrlPortTrigger),
+        .SAXI_aclk(processing_system7_0_FCLK_CLK0),
         .SAXI_araddr(axi_interconnect_synth_M02_AXI_ARADDR),
         .SAXI_arready(axi_interconnect_synth_M02_AXI_ARREADY),
         .SAXI_arvalid(axi_interconnect_synth_M02_AXI_ARVALID),

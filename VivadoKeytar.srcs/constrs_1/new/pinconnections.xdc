@@ -83,9 +83,9 @@ set_property -dict {IOSTANDARD LVCMOS33   PACKAGE_PIN E18} [get_ports I2S_DOut]
 set_property -dict {IOSTANDARD LVCMOS33   PACKAGE_PIN D18} [get_ports I2S_DIn]
 set_property -dict {IOSTANDARD LVCMOS33   PACKAGE_PIN B20} [get_ports I2S_LR]
 set_property -dict {IOSTANDARD LVCMOS33   PACKAGE_PIN L19} [get_ports DAC_Reset]
-set_property -dict {IOSTANDARD LVCMOS33   PACKAGE_PIN M20} [get_ports I2S_Format]
-set_property -dict {IOSTANDARD LVCMOS33   PACKAGE_PIN E19} [get_ports {DAC_Mode[0]}]
-set_property -dict {IOSTANDARD LVCMOS33   PACKAGE_PIN M19} [get_ports {DAC_Mode[1]}]
+set_property -dict {IOSTANDARD LVCMOS33   PACKAGE_PIN M20} [get_ports Analog_CS_n]
+set_property -dict {IOSTANDARD LVCMOS33   PACKAGE_PIN E19} [get_ports Analog_CClk]
+set_property -dict {IOSTANDARD LVCMOS33   PACKAGE_PIN M19} [get_ports Analog_MoSi]
 
 
 

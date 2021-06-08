@@ -48,7 +48,7 @@
 
 
 // IP VLNV: Independant:user:IOController:1.0
-// IP Revision: 14
+// IP Revision: 19
 
 (* X_CORE_INFO = "IOController,Vivado 2020.2" *)
 (* CHECK_LICENSE_TYPE = "system_IOController_1_0,IOController,{}" *)
@@ -57,6 +57,11 @@
 module system_IOController_1_0 (
   StripPosition,
   StripPressure,
+  CtrlPortAddr,
+  CtrlPortData,
+  CtrlPortTrigger,
+  CtrlPortRunning,
+  CtrlPortReset,
   SAXI_aclk,
   SAXI_resetn,
   SAXI_arvalid,
@@ -80,6 +85,11 @@ module system_IOController_1_0 (
 
 input wire [23 : 0] StripPosition;
 input wire [23 : 0] StripPressure;
+output wire [3 : 0] CtrlPortAddr;
+output wire [7 : 0] CtrlPortData;
+output wire CtrlPortTrigger;
+input wire CtrlPortRunning;
+output wire CtrlPortReset;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_aclk, ASSOCIATED_RESET SAXI_resetn, ASSOCIATED_BUSIF SAXI_Interface, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 SAXI_aclk CLK" *)
 input wire SAXI_aclk;
@@ -128,6 +138,11 @@ output wire [1 : 0] SAXI_bresp;
   ) inst (
     .StripPosition(StripPosition),
     .StripPressure(StripPressure),
+    .CtrlPortAddr(CtrlPortAddr),
+    .CtrlPortData(CtrlPortData),
+    .CtrlPortTrigger(CtrlPortTrigger),
+    .CtrlPortRunning(CtrlPortRunning),
+    .CtrlPortReset(CtrlPortReset),
     .SAXI_aclk(SAXI_aclk),
     .SAXI_resetn(SAXI_resetn),
     .SAXI_arvalid(SAXI_arvalid),

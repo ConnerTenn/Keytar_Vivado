@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
-//Date        : Sun May 16 03:51:25 2021
+//Date        : Sat Jun  5 21:48:21 2021
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -10,11 +10,13 @@
 `timescale 1 ps / 1 ps
 
 module system_wrapper
-   (Blue,
+   (Analog_CClk,
+    Analog_CS_n,
+    Analog_MoSi,
+    Blue,
     Buzzer,
     Clk12MHz,
     DAC_MClk,
-    DAC_Mode,
     DAC_Reset,
     DDR_addr,
     DDR_ba,
@@ -45,7 +47,6 @@ module system_wrapper
     I2S_Clk,
     I2S_DIn,
     I2S_DOut,
-    I2S_Format,
     I2S_LR,
     KeyRibbonDrive,
     KeyRibbonSense,
@@ -54,11 +55,13 @@ module system_wrapper
     Red,
     VSync,
     Waveform);
+  output Analog_CClk;
+  output Analog_CS_n;
+  output Analog_MoSi;
   output [4:0]Blue;
   output [0:0]Buzzer;
   input Clk12MHz;
   output DAC_MClk;
-  output [1:0]DAC_Mode;
   output DAC_Reset;
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
@@ -89,7 +92,6 @@ module system_wrapper
   output I2S_Clk;
   input I2S_DIn;
   output I2S_DOut;
-  output [0:0]I2S_Format;
   output I2S_LR;
   output [7:0]KeyRibbonDrive;
   input [7:0]KeyRibbonSense;
@@ -99,11 +101,13 @@ module system_wrapper
   output [0:0]VSync;
   output [23:0]Waveform;
 
+  wire Analog_CClk;
+  wire Analog_CS_n;
+  wire Analog_MoSi;
   wire [4:0]Blue;
   wire [0:0]Buzzer;
   wire Clk12MHz;
   wire DAC_MClk;
-  wire [1:0]DAC_Mode;
   wire DAC_Reset;
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -140,7 +144,6 @@ module system_wrapper
   wire I2S_Clk;
   wire I2S_DIn;
   wire I2S_DOut;
-  wire [0:0]I2S_Format;
   wire I2S_LR;
   wire [7:0]KeyRibbonDrive;
   wire [7:0]KeyRibbonSense;
@@ -161,11 +164,13 @@ module system_wrapper
         .O(I2C_sda_i),
         .T(I2C_sda_t));
   system system_i
-       (.Blue(Blue),
+       (.Analog_CClk(Analog_CClk),
+        .Analog_CS_n(Analog_CS_n),
+        .Analog_MoSi(Analog_MoSi),
+        .Blue(Blue),
         .Buzzer(Buzzer),
         .Clk12MHz(Clk12MHz),
         .DAC_MClk(DAC_MClk),
-        .DAC_Mode(DAC_Mode),
         .DAC_Reset(DAC_Reset),
         .DDR_addr(DDR_addr),
         .DDR_ba(DDR_ba),
@@ -200,7 +205,6 @@ module system_wrapper
         .I2S_Clk(I2S_Clk),
         .I2S_DIn(I2S_DIn),
         .I2S_DOut(I2S_DOut),
-        .I2S_Format(I2S_Format),
         .I2S_LR(I2S_LR),
         .KeyRibbonDrive(KeyRibbonDrive),
         .KeyRibbonSense(KeyRibbonSense),

@@ -4,7 +4,11 @@ module IOController #
     parameter SAXI_SLAVE_BASE_ADDR = 32'h00000000
 )
 (
+    //== Touch Strip ==
     input [23:0] StripPosition, input [23:0] StripPressure,
+    //== Analog Controller ==
+    output reg [3:0] CtrlPortAddr=0, output reg [7:0] CtrlPortData=0, output reg CtrlPortTrigger=0, input CtrlPortRunning, output reg CtrlPortReset=0,
+
 
     //== AXI Slave ==
     input SAXI_aclk, input SAXI_resetn,
@@ -49,21 +53,30 @@ module IOController #
         if (saxiReadEN)
         begin
             case (saxiReadAddress)
+                //== Touch Strip ==
                 SAXI_SLAVE_BASE_ADDR+4*0: saxiReadData <= { {8{StripPosition[23]}}, StripPosition };
                 SAXI_SLAVE_BASE_ADDR+4*1: saxiReadData <= { {8{StripPressure[23]}}, StripPressure };
+                //== Analog Controller ==
+                SAXI_SLAVE_BASE_ADDR+4*2: saxiReadData <= {31'h00000000, CtrlPortRunning};
+                // SAXI_SLAVE_BASE_ADDR+4*3:
                 default: saxiReadData <= 32'h00000000;
             endcase
         end
         if (saxiWriteEN)
         begin
             case (saxiWriteAddress)
+                //== Touch Strip ==
                 // SAXI_SLAVE_BASE_ADDR+4*0:
                 // SAXI_SLAVE_BASE_ADDR+4*1:
-                // SAXI_SLAVE_BASE_ADDR+4*2:
-                // SAXI_SLAVE_BASE_ADDR+4*3:
-                // SAXI_SLAVE_BASE_ADDR+4*4:
+                //== Analog Controller ==
+                SAXI_SLAVE_BASE_ADDR+4*2: begin {CtrlPortAddr, CtrlPortData} <= saxiWriteData[11:0]; CtrlPortTrigger <= 1; end
+                SAXI_SLAVE_BASE_ADDR+4*3: begin CtrlPortReset <= saxiWriteData[0]; end
                 default:;
             endcase
+        end
+        else if (CtrlPortRunning)
+        begin
+            CtrlPortTrigger <= 0;
         end
     end
 

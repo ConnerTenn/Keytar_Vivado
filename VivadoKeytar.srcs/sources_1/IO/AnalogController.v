@@ -7,12 +7,10 @@ module AnalogController (
     output reg I2SClk=0, output reg I2SLRSel=0,
     output reg I2SDout=0,
     input I2SDin,
-    output reg DAC_Reset=0, output reg DAC_MClk=0,
-    output I2S_Format, output [1:0] DAC_Mode
+    output DAC_Reset, output reg DAC_MClk=0,
+    input [3:0] CtrlPortAddr, input [7:0] CtrlPortData, input CtrlPortTrigger, output reg CtrlPortRunning=0, input CtrlPortReset,
+    output CClk, output reg MoSi, output reg CS_n
 );
-
-    assign I2S_Format = 1; //I2S mode (Format 1)
-    assign DAC_Mode = 2; //Double Speed Mode (50kHz - 100KHz)
 
     reg [3:0] clkdivMClk = 0;
     reg [3:0] clkdivI2S = 0;
@@ -103,10 +101,50 @@ module AnalogController (
             endcase
 
             I2SLRSel <= !I2SLRSel;
-            DAC_Reset <= 1;
         end
     end
-    
+
+
+    //== Controller Interface ==
+
+    assign DAC_Reset = CtrlPortReset;
+
+    wire [6:0] chipAddr = 7'b0010000;
+    reg [5:0] ctrlState = 6'b111111;
+    reg [23:0] ctrlDataBuffer;
+
+    assign CClk = DAC_MClk;
+
+    always @(negedge DAC_MClk)
+    begin
+        if (CtrlPortTrigger==1 && ctrlState==6'b111111)
+        begin
+            ctrlState <= 0;
+            CtrlPortRunning <= 1;
+
+            ctrlDataBuffer <= {chipAddr, 1'b0, 4'h0, CtrlPortAddr, CtrlPortData};
+        end
+        else if (ctrlState!=6'b111111)
+        begin
+            CS_n <= 0;
+            MoSi <= ctrlDataBuffer[23];
+            ctrlDataBuffer <= ctrlDataBuffer<<1;
+
+            if (ctrlState == 23) 
+            begin 
+                ctrlState <= 6'b111111;
+            end
+            else 
+            begin 
+                ctrlState <= ctrlState+1;
+            end
+        end
+        else
+        begin
+            CtrlPortRunning <= 0;
+            CS_n <= 1;
+        end
+    end
 endmodule
 
 

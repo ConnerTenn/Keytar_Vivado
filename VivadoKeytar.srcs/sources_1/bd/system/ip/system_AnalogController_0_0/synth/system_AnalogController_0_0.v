@@ -67,8 +67,14 @@ module system_AnalogController_0_0 (
   I2SDin,
   DAC_Reset,
   DAC_MClk,
-  I2S_Format,
-  DAC_Mode
+  CtrlPortAddr,
+  CtrlPortData,
+  CtrlPortTrigger,
+  CtrlPortRunning,
+  CtrlPortReset,
+  CClk,
+  MoSi,
+  CS_n
 );
 
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME Clock, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
@@ -86,8 +92,14 @@ input wire I2SDin;
 (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 DAC_Reset RST" *)
 output wire DAC_Reset;
 output wire DAC_MClk;
-output wire I2S_Format;
-output wire [1 : 0] DAC_Mode;
+input wire [3 : 0] CtrlPortAddr;
+input wire [7 : 0] CtrlPortData;
+input wire CtrlPortTrigger;
+output wire CtrlPortRunning;
+input wire CtrlPortReset;
+output wire CClk;
+output wire MoSi;
+output wire CS_n;
 
   AnalogController inst (
     .Clock(Clock),
@@ -101,7 +113,13 @@ output wire [1 : 0] DAC_Mode;
     .I2SDin(I2SDin),
     .DAC_Reset(DAC_Reset),
     .DAC_MClk(DAC_MClk),
-    .I2S_Format(I2S_Format),
-    .DAC_Mode(DAC_Mode)
+    .CtrlPortAddr(CtrlPortAddr),
+    .CtrlPortData(CtrlPortData),
+    .CtrlPortTrigger(CtrlPortTrigger),
+    .CtrlPortRunning(CtrlPortRunning),
+    .CtrlPortReset(CtrlPortReset),
+    .CClk(CClk),
+    .MoSi(MoSi),
+    .CS_n(CS_n)
   );
 endmodule
