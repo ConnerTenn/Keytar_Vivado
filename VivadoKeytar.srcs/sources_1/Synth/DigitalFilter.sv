@@ -4,7 +4,7 @@ module DigitalFilter #
     parameter DEPTH = 2**8
 )
 (
-    input Clock,
+    input Clock100MHz,
     input signed [23:0] InWaveform,
     output reg signed [23:0] OutWaveform
 );
@@ -16,7 +16,7 @@ module DigitalFilter #
     //== Shift Process ==
     for (genvar gi=0; gi<DEPTH-1; gi=gi+1)
     begin:shifts
-        always @(posedge Clock)
+        always @(posedge Clock100MHz)
         begin
             delayMem[gi+1] <= delayMem[gi];
         end
@@ -41,7 +41,7 @@ module DigitalFilter #
 
 
     //== IO ==
-    always @(posedge Clock)
+    always @(posedge Clock100MHz)
     begin
         delayMem[0] <= InWaveform;
 

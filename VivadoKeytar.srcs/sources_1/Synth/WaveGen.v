@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
 module WaveGen(
-    input Clock,
+    input Clock1MHz,
     input Run,
     input signed [23:0] Increment,
     input [1:0] WaveType,
@@ -46,7 +46,7 @@ module WaveGen(
         end
     endfunction
 
-    always @(posedge Clock)
+    always @(posedge Clock1MHz)
     begin
         if (Run)
         begin
