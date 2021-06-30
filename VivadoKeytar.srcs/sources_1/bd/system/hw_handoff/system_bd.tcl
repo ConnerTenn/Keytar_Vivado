@@ -40,7 +40,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 
 # The design that will be created by this Tcl script contains the following 
 # module references:
-# AnalogController, KeyboarController, RGBTest
+# AnalogController, KeyboarController, RGBTest, Synth
 
 # Please add the sources of those modules before sourcing this Tcl script.
 
@@ -236,8 +236,16 @@ proc create_root_design { parentCell } {
    }
   
   # Create instance: Synth, and set properties
-  set Synth [ create_bd_cell -type ip -vlnv Independant:user:Synth:2.0 Synth ]
-  set_property -dict [ list \
+  set block_name Synth
+  set block_cell_name Synth
+  if { [catch {set Synth [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   } elseif { $Synth eq "" } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   }
+    set_property -dict [ list \
    CONFIG.SAXI_SLAVE_BASE_ADDR {0x60000000} \
  ] $Synth
 
@@ -1166,7 +1174,7 @@ proc create_root_design { parentCell } {
   assign_bd_address -offset 0x10000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces VideoController_0/MAXI_FrameBufferReader] [get_bd_addr_segs processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM] -force
   assign_bd_address -offset 0x40100000 -range 0x00001000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs APBSlave_Breakout_Keyboard/APB_S/Reg] -force
   assign_bd_address -offset 0x40200000 -range 0x00001000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs IOController_1/SAXI_Interface/Registers] -force
-  assign_bd_address -offset 0x60000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs Synth/SAXI_ControlInterface/Reg] -force
+  assign_bd_address -offset 0x60000000 -range 0x20000000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs Synth/SAXI_ControlInterface/reg0] -force
   assign_bd_address -offset 0x80000000 -range 0x00001000 -target_address_space [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs VideoController_0/SAXI_ControlInterface/Registers] -force
 
 

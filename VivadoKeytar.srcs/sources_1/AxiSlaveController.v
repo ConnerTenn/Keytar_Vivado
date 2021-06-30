@@ -18,32 +18,32 @@ module AxiSlaveController
 
     //== Read Address Channel ==
     //Handshakes
-    input ARvalid, output reg ARready = 0,
+    output reg ARready = 0, input ARvalid,
     //Read Address
     input [31:0] ARaddr,
 
     //== Read Data Channel ==
     //Handshakes
-    output reg Rvalid = 0, input Rready,
+    input Rready, output reg Rvalid = 0,
     //Data
     output [31:0] Rdata,
 
 
     //== Write Address Channel ==
     //Handshakes
-    input AWvalid, output reg AWready = 0,
+    output reg AWready = 0, input AWvalid,
     //Write Address
     input [31:0] AWaddr,
 
     //== Write Data Channel ==
     //Handshakes
-    input Wvalid, output reg Wready = 0,
+    output reg Wready = 0, input Wvalid,
     //Data
     input [31:0] Wdata,
 
     //== Write Response Channel ==
     //Handshakes
-    output reg Bvalid = 0, input Bready
+    input Bready, output reg Bvalid = 0
 );
 
 

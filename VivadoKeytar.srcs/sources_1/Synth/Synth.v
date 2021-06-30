@@ -11,33 +11,52 @@ module Synth #
 
 
     //== AXI Slave ==
-    input SAXI_aclk, input SAXI_resetn,
+    (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_aclk, ASSOCIATED_RESET SAXI_resetn, ASSOCIATED_BUSIF SAXI_ControlInterface, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, INSERT_VIP 0" *)
+    (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 SAXI_aclk CLK" *)
+    input SAXI_aclk, 
+    (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_resetn, POLARITY ACTIVE_LOW, INSERT_VIP 0" *)
+    (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 SAXI_resetn RST" *)
+    input SAXI_resetn,
+
+    (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_ControlInterface, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 100000000, ID_WIDTH 0, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 0, HAS_BRESP 0, HAS_RRESP 0, SUPPORTS_NARROW_BURST 0, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *)
     //Read Address Channel
-    input SAXI_arvalid, output SAXI_arready,
+    (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface ARREADY" *)
+    output SAXI_arready,
+    (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface ARVALID" *)
+    input SAXI_arvalid,
+    (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface ARADDR" *)
     input [31:0] SAXI_araddr,
     //Read Data Channel
-    output SAXI_rvalid, input SAXI_rready,
+    (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface RREADY" *)
+    input SAXI_rready,
+    (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface RVALID" *)
+    output SAXI_rvalid,
+    (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface RDATA" *)
     output [31:0] SAXI_rdata,
-    output [1:0] SAXI_rresp,
     //Write Address Channel
-    input SAXI_awvalid, output SAXI_awready,
+    (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface AWREADY" *)
+    output SAXI_awready,
+    (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface AWVALID" *)
+    input SAXI_awvalid,
+    (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface AWADDR" *)
     input [31:0] SAXI_awaddr,
     //Write Data Channel
-    input SAXI_wvalid, output SAXI_wready,
+    (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface WREADY" *)
+    output SAXI_wready,
+    (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface WVALID" *)
+    input SAXI_wvalid,
+    (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface WDATA" *)
     input [31:0] SAXI_wdata,
-    input [7:0] SAXI_wstrb,
     //Write Response Channel
-    output SAXI_bvalid, input SAXI_bready,
-    output [1:0] SAXI_bresp
+    (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface BREADY" *)
+    input SAXI_bready,
+    (* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface BVALID" *)
+    output SAXI_bvalid
 );
     `include "Math.v"
 
 
     //== AXI Slave ==
-    //Read Response Channel
-    assign SAXI_rresp = 2'b00;
-    //Write Response Channel
-    assign SAXI_bresp = 2'b00;
     //Read Interface
     wire [31:0] saxiReadAddress;
     wire [31:0] saxiReadData;
@@ -117,20 +136,20 @@ module Synth #
         .WriteEN(saxiWriteEN),
 
         //== Read Address Channel ==
-        .ARvalid(SAXI_arvalid), .ARready(SAXI_arready),
+        .ARready(SAXI_arready), .ARvalid(SAXI_arvalid),
         .ARaddr(SAXI_araddr),
 
         //== Read Data Channel ==
-        .Rvalid(SAXI_rvalid), .Rready(SAXI_rready),
+        .Rready(SAXI_rready), .Rvalid(SAXI_rvalid),
         .Rdata(SAXI_rdata),
 
 
         //== Write Address Channel ==
-        .AWvalid(SAXI_awvalid), .AWready(SAXI_awready),
+        .AWready(SAXI_awready), .AWvalid(SAXI_awvalid),
         .AWaddr(SAXI_awaddr),
 
         //== Write Data Channel ==
-        .Wvalid(SAXI_wvalid), .Wready(SAXI_wready),
+        .Wready(SAXI_wready), .Wvalid(SAXI_wvalid),
         .Wdata(SAXI_wdata),
 
         //== Write Response Channel ==

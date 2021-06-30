@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Tue Jun 29 22:38:56 2021" VIVADOVERSION="2020.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jun 30 02:11:39 2021" VIVADOVERSION="2020.2">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z020" NAME="system" PACKAGE="clg400" SPEEDGRADE="-2"/>
 
@@ -810,14 +810,14 @@
       </PORTS>
       <BUSINTERFACES/>
     </MODULE>
-    <MODULE COREREVISION="63" FULLNAME="/Synth" HWVERSION="2.0" INSTANCE="Synth" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="Synth" VLNV="Independant:user:Synth:2.0">
+    <MODULE COREREVISION="1" FULLNAME="/Synth" HWVERSION="1.0" INSTANCE="Synth" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="Synth" VLNV="xilinx.com:module_ref:Synth:1.0">
       <DOCUMENTS/>
       <ADDRESSBLOCKS>
-        <ADDRESSBLOCK ACCESS="" INTERFACE="SAXI_ControlInterface" NAME="Reg" RANGE="4G" USAGE="register"/>
+        <ADDRESSBLOCK ACCESS="" INTERFACE="SAXI_ControlInterface" NAME="reg0" RANGE="4294967296" USAGE="register"/>
       </ADDRESSBLOCKS>
       <PARAMETERS>
         <PARAMETER NAME="SAXI_SLAVE_BASE_ADDR" VALUE="0x60000000"/>
-        <PARAMETER NAME="Component_Name" VALUE="system_Synth_1_0"/>
+        <PARAMETER NAME="Component_Name" VALUE="system_Synth_0_1"/>
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
         <PARAMETER NAME="C_BASEADDR" VALUE="0x60000000"/>
         <PARAMETER NAME="C_HIGHADDR" VALUE="0x7FFFFFFF"/>
@@ -845,14 +845,14 @@
             <CONNECTION INSTANCE="proc_sys_reset_0" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="SAXI_arvalid" SIGIS="undef" SIGNAME="Synth_SAXI_arvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_arvalid"/>
-          </CONNECTIONS>
-        </PORT>
         <PORT DIR="O" NAME="SAXI_arready" SIGIS="undef" SIGNAME="Synth_SAXI_arready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_arready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="SAXI_arvalid" SIGIS="undef" SIGNAME="Synth_SAXI_arvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_arvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" LEFT="31" NAME="SAXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_araddr">
@@ -860,14 +860,14 @@
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_araddr"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="SAXI_rvalid" SIGIS="undef" SIGNAME="Synth_SAXI_rvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_rvalid"/>
-          </CONNECTIONS>
-        </PORT>
         <PORT DIR="I" NAME="SAXI_rready" SIGIS="undef" SIGNAME="Synth_SAXI_rready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_rready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="SAXI_rvalid" SIGIS="undef" SIGNAME="Synth_SAXI_rvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_rvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="31" NAME="SAXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_rdata">
@@ -875,9 +875,9 @@
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_rdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="1" NAME="SAXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_rresp">
+        <PORT DIR="O" NAME="SAXI_awready" SIGIS="undef" SIGNAME="Synth_SAXI_awready">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_rresp"/>
+            <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_awready"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="SAXI_awvalid" SIGIS="undef" SIGNAME="Synth_SAXI_awvalid">
@@ -885,19 +885,9 @@
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_awvalid"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="SAXI_awready" SIGIS="undef" SIGNAME="Synth_SAXI_awready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_awready"/>
-          </CONNECTIONS>
-        </PORT>
         <PORT DIR="I" LEFT="31" NAME="SAXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_awaddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_awaddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="SAXI_wvalid" SIGIS="undef" SIGNAME="Synth_SAXI_wvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_wvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="SAXI_wready" SIGIS="undef" SIGNAME="Synth_SAXI_wready">
@@ -905,19 +895,14 @@
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_wready"/>
           </CONNECTIONS>
         </PORT>
+        <PORT DIR="I" NAME="SAXI_wvalid" SIGIS="undef" SIGNAME="Synth_SAXI_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_wvalid"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="I" LEFT="31" NAME="SAXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_wdata">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_wdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="7" NAME="SAXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_wstrb">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_wstrb"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="SAXI_bvalid" SIGIS="undef" SIGNAME="Synth_SAXI_bvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_bvalid"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="SAXI_bready" SIGIS="undef" SIGNAME="Synth_SAXI_bready">
@@ -925,16 +910,14 @@
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_bready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="1" NAME="SAXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_bresp">
+        <PORT DIR="O" NAME="SAXI_bvalid" SIGIS="undef" SIGNAME="Synth_SAXI_bvalid">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_bresp"/>
+            <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_AXI_bvalid"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
       <BUSINTERFACES>
         <BUSINTERFACE BUSNAME="axi_interconnect_synth_M01_AXI" DATAWIDTH="32" NAME="SAXI_ControlInterface" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
-          <PARAMETER NAME="NUM_READ_OUTSTANDING"/>
-          <PARAMETER NAME="NUM_WRITE_OUTSTANDING"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
           <PARAMETER NAME="PROTOCOL" VALUE="AXI4LITE"/>
           <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
@@ -952,36 +935,35 @@
           <PARAMETER NAME="HAS_CACHE" VALUE="0"/>
           <PARAMETER NAME="HAS_QOS" VALUE="0"/>
           <PARAMETER NAME="HAS_REGION" VALUE="0"/>
-          <PARAMETER NAME="HAS_WSTRB" VALUE="1"/>
-          <PARAMETER NAME="HAS_BRESP" VALUE="1"/>
-          <PARAMETER NAME="HAS_RRESP" VALUE="1"/>
+          <PARAMETER NAME="HAS_WSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_BRESP" VALUE="0"/>
+          <PARAMETER NAME="HAS_RRESP" VALUE="0"/>
           <PARAMETER NAME="SUPPORTS_NARROW_BURST" VALUE="0"/>
           <PARAMETER NAME="MAX_BURST_LENGTH" VALUE="1"/>
           <PARAMETER NAME="PHASE" VALUE="0.000"/>
-          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_processing_system7_0_0_FCLK_CLK0"/>
           <PARAMETER NAME="NUM_READ_THREADS" VALUE="1"/>
           <PARAMETER NAME="NUM_WRITE_THREADS" VALUE="1"/>
           <PARAMETER NAME="RUSER_BITS_PER_BYTE" VALUE="0"/>
           <PARAMETER NAME="WUSER_BITS_PER_BYTE" VALUE="0"/>
           <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
+          <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="1"/>
+          <PARAMETER NAME="NUM_WRITE_OUTSTANDING" VALUE="1"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="system_processing_system7_0_0_FCLK_CLK0"/>
           <PORTMAPS>
             <PORTMAP LOGICAL="AWADDR" PHYSICAL="SAXI_awaddr"/>
-            <PORTMAP LOGICAL="RREADY" PHYSICAL="SAXI_rready"/>
-            <PORTMAP LOGICAL="BVALID" PHYSICAL="SAXI_bvalid"/>
-            <PORTMAP LOGICAL="BREADY" PHYSICAL="SAXI_bready"/>
             <PORTMAP LOGICAL="AWVALID" PHYSICAL="SAXI_awvalid"/>
             <PORTMAP LOGICAL="AWREADY" PHYSICAL="SAXI_awready"/>
             <PORTMAP LOGICAL="WDATA" PHYSICAL="SAXI_wdata"/>
-            <PORTMAP LOGICAL="RRESP" PHYSICAL="SAXI_rresp"/>
-            <PORTMAP LOGICAL="RVALID" PHYSICAL="SAXI_rvalid"/>
-            <PORTMAP LOGICAL="ARADDR" PHYSICAL="SAXI_araddr"/>
-            <PORTMAP LOGICAL="ARREADY" PHYSICAL="SAXI_arready"/>
             <PORTMAP LOGICAL="WVALID" PHYSICAL="SAXI_wvalid"/>
             <PORTMAP LOGICAL="WREADY" PHYSICAL="SAXI_wready"/>
+            <PORTMAP LOGICAL="BVALID" PHYSICAL="SAXI_bvalid"/>
+            <PORTMAP LOGICAL="BREADY" PHYSICAL="SAXI_bready"/>
+            <PORTMAP LOGICAL="ARADDR" PHYSICAL="SAXI_araddr"/>
             <PORTMAP LOGICAL="ARVALID" PHYSICAL="SAXI_arvalid"/>
-            <PORTMAP LOGICAL="WSTRB" PHYSICAL="SAXI_wstrb"/>
-            <PORTMAP LOGICAL="BRESP" PHYSICAL="SAXI_bresp"/>
+            <PORTMAP LOGICAL="ARREADY" PHYSICAL="SAXI_arready"/>
             <PORTMAP LOGICAL="RDATA" PHYSICAL="SAXI_rdata"/>
+            <PORTMAP LOGICAL="RVALID" PHYSICAL="SAXI_rvalid"/>
+            <PORTMAP LOGICAL="RREADY" PHYSICAL="SAXI_rready"/>
           </PORTMAPS>
         </BUSINTERFACE>
       </BUSINTERFACES>
@@ -3216,11 +3198,7 @@
             <CONNECTION INSTANCE="Synth" PORT="SAXI_wdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="3" NAME="M01_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_wstrb">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_wstrb"/>
-          </CONNECTIONS>
-        </PORT>
+        <PORT DIR="O" LEFT="3" NAME="M01_AXI_wstrb" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="O" NAME="M01_AXI_wvalid" SIGIS="undef" SIGNAME="Synth_SAXI_wvalid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="Synth" PORT="SAXI_wvalid"/>
@@ -3231,11 +3209,7 @@
             <CONNECTION INSTANCE="Synth" PORT="SAXI_wready"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M01_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_bresp">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_bresp"/>
-          </CONNECTIONS>
-        </PORT>
+        <PORT DIR="I" LEFT="1" NAME="M01_AXI_bresp" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="I" NAME="M01_AXI_bvalid" SIGIS="undef" SIGNAME="Synth_SAXI_bvalid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="Synth" PORT="SAXI_bvalid"/>
@@ -3267,11 +3241,7 @@
             <CONNECTION INSTANCE="Synth" PORT="SAXI_rdata"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M01_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_rresp">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_rresp"/>
-          </CONNECTIONS>
-        </PORT>
+        <PORT DIR="I" LEFT="1" NAME="M01_AXI_rresp" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="I" NAME="M01_AXI_rvalid" SIGIS="undef" SIGNAME="Synth_SAXI_rvalid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="Synth" PORT="SAXI_rvalid"/>
@@ -6387,7 +6357,7 @@
       <MEMORYMAP>
         <MEMRANGE ADDRESSBLOCK="Reg" BASENAME="C_BASEADDR" BASEVALUE="0x40100000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40100FFF" INSTANCE="APBSlave_Breakout_Keyboard" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="APB_S"/>
         <MEMRANGE ADDRESSBLOCK="Registers" BASENAME="C_BASEADDR" BASEVALUE="0x40200000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x40200FFF" INSTANCE="IOController_1" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="SAXI_Interface"/>
-        <MEMRANGE ADDRESSBLOCK="Reg" BASENAME="C_BASEADDR" BASEVALUE="0x60000000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x7FFFFFFF" INSTANCE="Synth" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="SAXI_ControlInterface"/>
+        <MEMRANGE ADDRESSBLOCK="reg0" BASENAME="C_BASEADDR" BASEVALUE="0x60000000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x7FFFFFFF" INSTANCE="Synth" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP0" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="SAXI_ControlInterface"/>
         <MEMRANGE ADDRESSBLOCK="Registers" BASENAME="C_BASEADDR" BASEVALUE="0x80000000" HIGHNAME="C_HIGHADDR" HIGHVALUE="0x80000FFF" INSTANCE="VideoController_0" IS_DATA="TRUE" IS_INSTRUCTION="TRUE" MASTERBUSINTERFACE="M_AXI_GP1" MEMTYPE="REGISTER" SLAVEBUSINTERFACE="SAXI_ControlInterface"/>
       </MEMORYMAP>
       <PERIPHERALS>

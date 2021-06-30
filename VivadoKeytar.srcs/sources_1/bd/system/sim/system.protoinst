@@ -39,15 +39,12 @@
 						"AWREADY": { "actual": "SAXI_awready"},
 						"AWVALID": { "actual": "SAXI_awvalid"},
 						"BREADY": { "actual": "SAXI_bready"},
-						"BRESP": { "actual": "SAXI_bresp"},
 						"BVALID": { "actual": "SAXI_bvalid"},
 						"RDATA": { "actual": "SAXI_rdata"},
 						"RREADY": { "actual": "SAXI_rready"},
-						"RRESP": { "actual": "SAXI_rresp"},
 						"RVALID": { "actual": "SAXI_rvalid"},
 						"WDATA": { "actual": "SAXI_wdata"},
 						"WREADY": { "actual": "SAXI_wready"},
-						"WSTRB": { "actual": "SAXI_wstrb"},
 						"WVALID": { "actual": "SAXI_wvalid"}
 					}
 				},
@@ -454,15 +451,12 @@
 						"AWREADY": { "actual": "M01_AXI_awready"},
 						"AWVALID": { "actual": "M01_AXI_awvalid"},
 						"BREADY": { "actual": "M01_AXI_bready"},
-						"BRESP": { "actual": "M01_AXI_bresp[3:2]"},
 						"BVALID": { "actual": "M01_AXI_bvalid"},
 						"RDATA": { "actual": "M01_AXI_rdata[63:32]"},
 						"RREADY": { "actual": "M01_AXI_rready"},
-						"RRESP": { "actual": "M01_AXI_rresp[3:2]"},
 						"RVALID": { "actual": "M01_AXI_rvalid"},
 						"WDATA": { "actual": "M01_AXI_wdata[63:32]"},
 						"WREADY": { "actual": "M01_AXI_wready"},
-						"WSTRB": { "actual": "M01_AXI_wstrb[7:4]"},
 						"WVALID": { "actual": "M01_AXI_wvalid"}
 					}
 				},
@@ -593,15 +587,12 @@
 						"AWREADY": { "actual": "M_AXI_awready"},
 						"AWVALID": { "actual": "M_AXI_awvalid"},
 						"BREADY": { "actual": "M_AXI_bready"},
-						"BRESP": { "actual": "M_AXI_bresp[3:2]"},
 						"BVALID": { "actual": "M_AXI_bvalid"},
 						"RDATA": { "actual": "M_AXI_rdata[63:32]"},
 						"RREADY": { "actual": "M_AXI_rready"},
-						"RRESP": { "actual": "M_AXI_rresp[3:2]"},
 						"RVALID": { "actual": "M_AXI_rvalid"},
 						"WDATA": { "actual": "M_AXI_wdata[63:32]"},
 						"WREADY": { "actual": "M_AXI_wready"},
-						"WSTRB": { "actual": "M_AXI_wstrb[7:4]"},
 						"WVALID": { "actual": "M_AXI_wvalid"}
 					}
 				},
@@ -617,15 +608,12 @@
 						"AWREADY": { "actual": "S_AXI_awready"},
 						"AWVALID": { "actual": "S_AXI_awvalid"},
 						"BREADY": { "actual": "S_AXI_bready"},
-						"BRESP": { "actual": "S_AXI_bresp[3:2]"},
 						"BVALID": { "actual": "S_AXI_bvalid"},
 						"RDATA": { "actual": "S_AXI_rdata[63:32]"},
 						"RREADY": { "actual": "S_AXI_rready"},
-						"RRESP": { "actual": "S_AXI_rresp[3:2]"},
 						"RVALID": { "actual": "S_AXI_rvalid"},
 						"WDATA": { "actual": "S_AXI_wdata[63:32]"},
 						"WREADY": { "actual": "S_AXI_wready"},
-						"WSTRB": { "actual": "S_AXI_wstrb[7:4]"},
 						"WVALID": { "actual": "S_AXI_wvalid"}
 					}
 				},
