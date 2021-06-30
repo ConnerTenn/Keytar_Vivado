@@ -64,7 +64,8 @@ module Synth #
 
         Bank #(.ADDRESS(SAXI_SLAVE_BASE_ADDR + 32'h1000 * gi)) banki
         (
-            .Clock(clock1MHz),
+            .Clock100MHz(Clock100MHz),
+            .Clock1MHz(clock1MHz),
             .Waveform(waveform),
             //== AXI Clock ==
             .BusClock(SAXI_aclk),
@@ -141,7 +142,7 @@ module Synth #
 
     always @(posedge Clock100MHz)
     begin
-        if (clkdiv < 100)
+        if (clkdiv < 100/2-1)
         begin
             clkdiv <= clkdiv + 1;
         end

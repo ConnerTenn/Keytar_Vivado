@@ -47,16 +47,21 @@
 // DO NOT MODIFY THIS FILE.
 
 
-// IP VLNV: Independant:user:Synth:2.0
-// IP Revision: 60
+// IP VLNV: Independant:user:IOController:1.0
+// IP Revision: 19
 
 `timescale 1ns/1ps
 
 (* IP_DEFINITION_SOURCE = "package_project" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
-module system_Synth_1_0 (
-  Clock100MHz,
-  Waveform,
+module system_IOController_1_0 (
+  StripPosition,
+  StripPressure,
+  CtrlPortAddr,
+  CtrlPortData,
+  CtrlPortTrigger,
+  CtrlPortRunning,
+  CtrlPortReset,
   SAXI_aclk,
   SAXI_resetn,
   SAXI_arvalid,
@@ -78,56 +83,66 @@ module system_Synth_1_0 (
   SAXI_bresp
 );
 
-input wire Clock100MHz;
-output wire [23 : 0] Waveform;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_aclk, ASSOCIATED_RESET SAXI_resetn, ASSOCIATED_BUSIF SAXI_ControlInterface, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
+input wire [23 : 0] StripPosition;
+input wire [23 : 0] StripPressure;
+output wire [3 : 0] CtrlPortAddr;
+output wire [7 : 0] CtrlPortData;
+output wire CtrlPortTrigger;
+input wire CtrlPortRunning;
+output wire CtrlPortReset;
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_aclk, ASSOCIATED_RESET SAXI_resetn, ASSOCIATED_BUSIF SAXI_Interface, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 SAXI_aclk CLK" *)
 input wire SAXI_aclk;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_resetn, POLARITY ACTIVE_LOW, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 SAXI_resetn RST" *)
 input wire SAXI_resetn;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface ARVALID" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface ARVALID" *)
 input wire SAXI_arvalid;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface ARREADY" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface ARREADY" *)
 output wire SAXI_arready;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface ARADDR" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface ARADDR" *)
 input wire [31 : 0] SAXI_araddr;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface RVALID" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface RVALID" *)
 output wire SAXI_rvalid;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface RREADY" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface RREADY" *)
 input wire SAXI_rready;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface RDATA" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface RDATA" *)
 output wire [31 : 0] SAXI_rdata;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface RRESP" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface RRESP" *)
 output wire [1 : 0] SAXI_rresp;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface AWVALID" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface AWVALID" *)
 input wire SAXI_awvalid;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface AWREADY" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface AWREADY" *)
 output wire SAXI_awready;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface AWADDR" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface AWADDR" *)
 input wire [31 : 0] SAXI_awaddr;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface WVALID" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface WVALID" *)
 input wire SAXI_wvalid;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface WREADY" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface WREADY" *)
 output wire SAXI_wready;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface WDATA" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface WDATA" *)
 input wire [31 : 0] SAXI_wdata;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface WSTRB" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface WSTRB" *)
 input wire [7 : 0] SAXI_wstrb;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface BVALID" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface BVALID" *)
 output wire SAXI_bvalid;
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface BREADY" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface BREADY" *)
 input wire SAXI_bready;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_ControlInterface, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 100000000, ID_WIDTH 0, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BIT\
-S_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *)
-(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_ControlInterface BRESP" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_Interface, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 100000000, ID_WIDTH 0, ADDR_WIDTH 32, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 0, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, SUPPORTS_NARROW_BURST 0, MAX_BURST_LENGTH 1, PHASE 0.000, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_B\
+YTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *)
+(* X_INTERFACE_INFO = "xilinx.com:interface:aximm:1.0 SAXI_Interface BRESP" *)
 output wire [1 : 0] SAXI_bresp;
 
-  Synth #(
-    .SAXI_SLAVE_BASE_ADDR(32'H60000000)
+  IOController #(
+    .SAXI_SLAVE_BASE_ADDR(32'H40200000)
   ) inst (
-    .Clock100MHz(Clock100MHz),
-    .Waveform(Waveform),
+    .StripPosition(StripPosition),
+    .StripPressure(StripPressure),
+    .CtrlPortAddr(CtrlPortAddr),
+    .CtrlPortData(CtrlPortData),
+    .CtrlPortTrigger(CtrlPortTrigger),
+    .CtrlPortRunning(CtrlPortRunning),
+    .CtrlPortReset(CtrlPortReset),
     .SAXI_aclk(SAXI_aclk),
     .SAXI_resetn(SAXI_resetn),
     .SAXI_arvalid(SAXI_arvalid),

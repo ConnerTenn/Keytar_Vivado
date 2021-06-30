@@ -1,13 +1,13 @@
-`timescale 1ns / 1ps
 
-
-module Synth # 
+module IOController # 
 (
     parameter SAXI_SLAVE_BASE_ADDR = 32'h00000000
 )
 (
-    input Clock100MHz,
-    output signed [23:0] Waveform,
+    //== Touch Strip ==
+    input [23:0] StripPosition, input [23:0] StripPressure,
+    //== Analog Controller ==
+    output reg [3:0] CtrlPortAddr=0, output reg [7:0] CtrlPortData=0, output reg CtrlPortTrigger=0, input CtrlPortRunning, output reg CtrlPortReset=0,
 
 
     //== AXI Slave ==
@@ -30,8 +30,6 @@ module Synth #
     output SAXI_bvalid, input SAXI_bready,
     output [1:0] SAXI_bresp
 );
-    `include "Math.v"
-
 
     //== AXI Slave ==
     //Read Response Channel
@@ -40,7 +38,7 @@ module Synth #
     assign SAXI_bresp = 2'b00;
     //Read Interface
     wire [31:0] saxiReadAddress;
-    wire [31:0] saxiReadData;
+    reg [31:0] saxiReadData;
     wire saxiReadEN;
     //Write Interface
     wire [31:0] saxiWriteAddress;
@@ -48,58 +46,39 @@ module Synth #
     wire saxiWriteEN;
 
 
-    reg clock1MHz = 0;
 
 
-    localparam NUM_BANKS = 4;
-
-    genvar gi;
-    for (gi=0; gi<NUM_BANKS; gi=gi+1)
-    begin:banks
-        wire signed [23:0] waveform;
-        wire signed [clog2(24'hFFFFFF*NUM_BANKS):0] wavesum;
-
-        wire [31:0] readdata;
-        wire [31:0] readdata_OR;
-
-        Bank #(.ADDRESS(SAXI_SLAVE_BASE_ADDR + 32'h1000 * gi)) banki
-        (
-            .Clock(clock1MHz),
-            .Waveform(waveform),
-            //== AXI Clock ==
-            .BusClock(SAXI_aclk),
-            //== AXI Read ==
-            .ReadAddress(saxiReadAddress),
-            .ReadData(readdata),
-            .ReadEN(saxiReadEN),
-            //== AXI Write ==
-            .WriteAddress(saxiWriteAddress),
-            .WriteData(saxiWriteData),
-            .WriteEN(saxiWriteEN)
-        );
-
-        if (gi == 0)
+    always @(posedge SAXI_aclk)
+    begin
+        if (saxiReadEN)
         begin
-            //First waveform sum is equal to itself; no previous banks
-            assign wavesum = waveform;
-
-            assign readdata_OR = readdata;
+            case (saxiReadAddress)
+                //== Touch Strip ==
+                SAXI_SLAVE_BASE_ADDR+4*0: saxiReadData <= { {8{StripPosition[23]}}, StripPosition };
+                SAXI_SLAVE_BASE_ADDR+4*1: saxiReadData <= { {8{StripPressure[23]}}, StripPressure };
+                //== Analog Controller ==
+                SAXI_SLAVE_BASE_ADDR+4*2: saxiReadData <= {31'h00000000, CtrlPortRunning};
+                // SAXI_SLAVE_BASE_ADDR+4*3:
+                default: saxiReadData <= 32'h00000000;
+            endcase
         end
-        else if (gi > 0)
+        if (saxiWriteEN)
         begin
-            //All other banks must add the previous waveform to itself
-            assign wavesum = waveform + banks[gi-1].wavesum;
-
-            assign readdata_OR = readdata | banks[gi-1].readdata_OR;
+            case (saxiWriteAddress)
+                //== Touch Strip ==
+                // SAXI_SLAVE_BASE_ADDR+4*0:
+                // SAXI_SLAVE_BASE_ADDR+4*1:
+                //== Analog Controller ==
+                SAXI_SLAVE_BASE_ADDR+4*2: begin {CtrlPortAddr, CtrlPortData} <= saxiWriteData[11:0]; CtrlPortTrigger <= 1; end
+                SAXI_SLAVE_BASE_ADDR+4*3: begin CtrlPortReset <= saxiWriteData[0]; end
+                default:;
+            endcase
+        end
+        else if (CtrlPortRunning)
+        begin
+            CtrlPortTrigger <= 0;
         end
     end
-
-    //Rescale output
-    assign Waveform = (banks[NUM_BANKS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_BANKS)-24+1));
-
-
-    assign saxiReadData = banks[NUM_BANKS-1].readdata_OR;
-
 
     AxiSlaveController AxiSlave (
         //== Global Signals ==
@@ -135,21 +114,5 @@ module Synth #
         //== Write Response Channel ==
         .Bvalid(SAXI_bvalid), .Bready(SAXI_bready)
     );
-
-
-    reg [7:0] clkdiv = 0;
-
-    always @(posedge Clock100MHz)
-    begin
-        if (clkdiv < 100)
-        begin
-            clkdiv <= clkdiv + 1;
-        end
-        else
-        begin
-            clkdiv <= 0;
-            clock1MHz <= !clock1MHz;
-        end
-    end
 
 endmodule
