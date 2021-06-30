@@ -5,6 +5,7 @@ module Bank #
 )
 (
     input Clock100MHz,
+    input Clock1MHz,
     output signed [23:0] Waveform,
 
     //== AXI Clock ==
@@ -21,22 +22,6 @@ module Bank #
     `include "Math.v"
 
     localparam USE_FILTER = 0;
-
-    reg clock1MHz = 0;
-    reg [7:0] clockDiv = 0;
-    always @(posedge Clock100MHz)
-    begin
-        if (clockDiv<100/2-1) //Divide by 100
-        begin
-            clockDiv <= clockDiv+1;
-        end
-        else
-        begin
-            clockDiv <= 0;
-            clock1MHz <= !clock1MHz;
-        end
-    end
-
 
     reg signed [23:0] pulsewidth = 0;
     reg [23:0] attack = 0, decay = 0, sustain = 0, releas = 0;
@@ -59,7 +44,7 @@ module Bank #
 
         Channel #(.ADDRESS(ADDRESS + 32'h100 * gi + 32'h100)) channel
         (
-            .Clock1MHz(clock1MHz),
+            .Clock1MHz(Clock1MHz),
             .Waveform(waveform),
             //== Control ==
             .WaveType(wavetype),
@@ -120,7 +105,7 @@ module Bank #
     reg [1:0] lfoWaveType = 0;
 
     WaveGen lfo(
-        .Clock1MHz(clock1MHz),
+        .Clock1MHz(Clock1MHz),
         .Run(lfoRunning),
         .Increment(lfoIncrement),
         .WaveType(lfoWaveType),

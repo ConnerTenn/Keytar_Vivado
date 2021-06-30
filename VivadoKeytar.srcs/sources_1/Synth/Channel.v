@@ -74,7 +74,7 @@ module Channel #
     wire signed [47:0] wavemul = mulArg1 * mulArg2;
     assign Waveform = (wavemul>>>24);
 
-    always @(posedge Clock)
+    always @(posedge Clock1MHz)
     begin
         gate <= gatetmp;
     end
