@@ -21,7 +21,7 @@ module Bank #
 );
     `include "Math.v"
 
-    localparam USE_FILTER = 0;
+    localparam USE_FILTER = 1;
 
     reg signed [23:0] pulsewidth = 0;
     reg [23:0] attack = 0, decay = 0, sustain = 0, releas = 0;
@@ -88,6 +88,7 @@ module Bank #
     begin
         DigitalFilter filter(
             .Clock100MHz(Clock100MHz),
+            .Clock1MHz(Clock1MHz),
             .InWaveform(channelSumWaveform),
             .OutWaveform(Waveform)
         );
