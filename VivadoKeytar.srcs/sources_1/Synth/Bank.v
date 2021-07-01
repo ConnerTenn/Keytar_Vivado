@@ -84,18 +84,33 @@ module Bank #
     //Rescale output
     wire signed [23:0] channelSumWaveform = (channels[NUM_CHANNELS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_CHANNELS)-24+1));
 
+
+    wire [31:0] filterReadData;
+
     if (USE_FILTER)
     begin
-        DigitalFilter filter(
+        DigitalFilter #(.ADDRESS(ADDRESS + 32'h1000)) filter
+        (
             .Clock100MHz(Clock100MHz),
             .Clock1MHz(Clock1MHz),
             .InWaveform(channelSumWaveform),
-            .OutWaveform(Waveform)
+            .OutWaveform(Waveform),
+            //== AXI Clock ==
+            .BusClock(BusClock),
+            //== AXI Read ==
+            .ReadAddress(ReadAddress),
+            .ReadData(filterReadData),
+            .ReadEN(ReadEN),
+            //== AXI Write ==
+            .WriteAddress(WriteAddress),
+            .WriteData(WriteData),
+            .WriteEN(WriteEN)
         );
     end
     else
     begin
         assign Waveform = channelSumWaveform;
+        assign filterReadData = 32'h00000000;
     end
 
 
@@ -121,7 +136,7 @@ module Bank #
 
 
     reg [31:0] readData = 0;
-    assign ReadData = channels[NUM_CHANNELS-1].readdata_OR | readData;
+    assign ReadData = channels[NUM_CHANNELS-1].readdata_OR | readData | filterReadData;
 
     always @(posedge BusClock)
     begin

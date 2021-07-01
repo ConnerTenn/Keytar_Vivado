@@ -1,17 +1,30 @@
 
 module DigitalFilter #
 (
+    parameter ADDRESS=0,
     parameter DEPTH = 50//2**8
 )
 (
     input Clock100MHz,
     input Clock1MHz,
     input signed [23:0] InWaveform,
-    output reg signed [23:0] OutWaveform
+    output reg signed [23:0] OutWaveform,
+
+    //== AXI Clock ==
+    input BusClock,
+    //== AXI Read ==
+    input [31:0] ReadAddress,
+    output reg [31:0] ReadData,
+    input ReadEN,
+    //== AXI Write ==
+    input [31:0] WriteAddress,
+    input [31:0] WriteData,
+    input WriteEN
 );
     `include "Math.v"
 
     reg signed [23:0] delayMem [DEPTH];
+    reg signed [23:0] coeff [DEPTH];
 
     reg signed [23:0] accum = 0;
     reg [7:0] incr = 0;
@@ -55,7 +68,7 @@ module DigitalFilter #
 
 
     //== Sequence ==
-    wire signed [23:0] mul = (delayMem[state==RUN ? incr : 0] * 5)>>>24;
+    wire signed [23:0] mul = (delayMem[incr] * coeff[incr])>>>24;
 
     always @(posedge Clock100MHz)
     begin
@@ -72,10 +85,13 @@ module DigitalFilter #
         begin
             accum <= accum + mul;
 
-            if (incr < DEPTH)
+            if (incr == DEPTH-1)
+            begin
+                state <= WAIT;
+            end
+            else
             begin
                 incr <= incr + 1;
-                state <= WAIT;
             end
         end
 
@@ -87,6 +103,29 @@ module DigitalFilter #
     end
 
 
+
+
+    always @(posedge BusClock)
+    begin
+        if (ReadEN)
+        begin
+            if (ADDRESS<=ReadAddress && ReadAddress<ADDRESS+DEPTH)
+            begin
+                ReadData <= {8'h0, coeff[ReadAddress-ADDRESS]};
+            end
+            else
+            begin
+                ReadData <= 32'h00000000;
+            end
+        end
+        if (WriteEN)
+        begin
+            if (ADDRESS<=ReadAddress && ReadAddress<ADDRESS+DEPTH)
+            begin
+                coeff[ReadAddress-ADDRESS] <= WriteData[23:0];
+            end
+        end
+    end
 
 endmodule
 

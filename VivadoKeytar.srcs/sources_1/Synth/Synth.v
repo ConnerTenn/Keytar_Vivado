@@ -81,7 +81,7 @@ module Synth #
         wire [31:0] readdata;
         wire [31:0] readdata_OR;
 
-        Bank #(.ADDRESS(SAXI_SLAVE_BASE_ADDR + 32'h1000 * gi)) banki
+        Bank #(.ADDRESS(SAXI_SLAVE_BASE_ADDR + 32'h2000 * gi)) banki
         (
             .Clock100MHz(Clock100MHz),
             .Clock1MHz(clock1MHz),
