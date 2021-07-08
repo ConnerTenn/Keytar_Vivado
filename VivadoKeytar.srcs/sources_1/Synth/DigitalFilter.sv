@@ -68,38 +68,44 @@ module DigitalFilter #
 
 
     //== Sequence ==
-    wire signed [23:0] mul = (delayMem[incr] * coeff[incr])>>>24;
+    wire signed [23:0] mul = (delayMem[incr] * coeff[incr]);//>>>24;
 
     always @(posedge Clock100MHz)
     begin
         //Initalize Sequence
-        if (Clock1MHz && state==IDLE)
-        begin
-            accum <= 0;
-            incr <= 0;
-            state <= RUN;
-        end
-
-        //Run sequence
-        if (state==RUN)
-        begin
-            accum <= accum + mul;
-
-            if (incr == DEPTH-1)
+        case (state)
+        IDLE:
             begin
-                state <= WAIT;
+                if (Clock1MHz)
+                begin
+                    accum <= 0;
+                    incr <= 0;
+                    state <= RUN;
+                end
             end
-            else
-            begin
-                incr <= incr + 1;
-            end
-        end
 
-        //Done sequence
-        if (state == WAIT && !Clock1MHz)
-        begin
-            state = IDLE;
-        end
+        RUN:
+            begin
+                accum <= accum + mul;
+
+                if (incr == DEPTH-1)
+                begin
+                    state <= WAIT;
+                end
+                else
+                begin
+                    incr <= incr + 1;
+                end
+            end
+
+        WAIT:
+            begin
+                if (!Clock1MHz)
+                begin
+                    state = IDLE;
+                end
+            end
+        endcase
     end
 
 
