@@ -7,7 +7,7 @@ module Synth #
 )
 (
     input Clock100MHz,
-    output signed [23:0] Waveform,
+    output reg signed [23:0] Waveform,
 
 
     //== AXI Slave ==
@@ -115,7 +115,12 @@ module Synth #
     end
 
     //Rescale output
-    assign Waveform = (banks[NUM_BANKS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_BANKS)-24+1));
+    wire signed [24:0] waveCombined = (banks[NUM_BANKS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_BANKS)-24+1));
+
+    always @(posedge clock1MHz)
+    begin
+        Waveform <= waveCombined;
+    end
 
 
     assign saxiReadData = banks[NUM_BANKS-1].readdata_OR;
