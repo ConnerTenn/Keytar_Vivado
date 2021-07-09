@@ -2,7 +2,7 @@
 module DigitalFilter #
 (
     parameter ADDRESS=0,
-    parameter DEPTH = 1//50//2**8
+    parameter DEPTH = 50//2**8
 )
 (
     input Clock100MHz,
@@ -69,8 +69,11 @@ module DigitalFilter #
 
     //== Sequence ==
     // wire signed [23:0] mul = delayMem[incr];//(delayMem[incr] * coeff[incr]);//>>>24;
+    (* keep = "true" *)
     reg signed [23:0] delaySample = 0;
+    (* keep = "true" *)
     reg signed [23:0] coeffSample = 0;
+    (* keep = "true" *)
     reg signed [23:0] mul = 0;
     // reg signed [23:0] sum = 0;
 
