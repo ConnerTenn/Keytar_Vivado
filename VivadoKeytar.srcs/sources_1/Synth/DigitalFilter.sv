@@ -80,7 +80,7 @@ module DigitalFilter #
     always @(posedge Clock100MHz)
     begin
         delaySample <= delayMem[incr];
-        coeffSample <= coeff[incr];
+        coeffSample <= 24'hFFFFFF; //coeff[incr];
         mul <= (delaySample * coeffSample) >>> 24;
         // sum <= mul + accum;
 
@@ -150,4 +150,71 @@ module DigitalFilter #
     end
 
 endmodule
+
+
+`timescale 1ns/1ns
+
+module DigitalFilterTestbench;
+
+    reg clock100MHz = 0;
+    reg clock1MHz = 0;
+    reg [23:0] waveIn = 0;
+
+    `define CLK_PERIOD 10
+
+    always #(`CLK_PERIOD/2) clock100MHz <= ~clock100MHz;
+
+    reg [7:0] clkdiv = 0;
+
+    always @(posedge clock100MHz)
+    begin
+        if (clkdiv < 100/2-1)
+        begin
+            clkdiv <= clkdiv + 1;
+        end
+        else
+        begin
+            clkdiv <= 0;
+            clock1MHz <= !clock1MHz;
+        end
+    end
+
+    DigitalFilter filter
+    (
+        .Clock100MHz(clock100MHz),
+        .Clock1MHz(clock1MHz),
+        .InWaveform(waveIn),
+        .OutWaveform(),
+
+        //== AXI Clock ==
+        .BusClock(clock100MHz),
+        //== AXI Read ==
+        .ReadAddress(0),
+        .ReadData(),
+        .ReadEN(1'b0),
+        //== AXI Write ==
+        .WriteAddress(0),
+        .WriteData(0),
+        .WriteEN(1'b0)
+    );
+
+
+    initial
+    begin
+        $dumpfile("DigitalFilter.lxt2");
+        $dumpvars(0, DigitalFilterTestbench);
+
+        $display("== Begin Testbench ==");
+
+        waveIn <= 24'h001000;
+
+        repeat(3) @(posedge clock1MHz);
+
+        $display("== Done Testbench ==");
+
+        $finish();
+    end
+
+endmodule
+
 
