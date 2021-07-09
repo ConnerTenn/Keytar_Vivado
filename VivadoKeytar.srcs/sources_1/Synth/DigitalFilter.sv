@@ -89,7 +89,7 @@ module DigitalFilter #
     always @(posedge Clock100MHz)
     begin
         delaySample <= { 24'h000000, delayMem[incr]};
-        coeffSample <= { 24'h000000, 24'hFFFFFF}; //coeff[incr];
+        coeffSample <= { 24'h000000, coeff[incr]}; //coeff[incr];
         mul <= ((delaySample * coeffSample) >>> 24);
         // sum <= mul + accum;
 
@@ -169,6 +169,10 @@ module DigitalFilterTestbench;
     reg clock1MHz = 0;
     reg [23:0] waveIn = 0;
 
+    reg [31:0] writeAddress = 0;
+    reg [31:0] writeData = 0;
+    reg writeEN = 0;
+
     `define CLK_PERIOD 10
 
     always #(`CLK_PERIOD/2) clock100MHz <= ~clock100MHz;
@@ -188,6 +192,7 @@ module DigitalFilterTestbench;
         end
     end
 
+
     DigitalFilter filter
     (
         .Clock100MHz(clock100MHz),
@@ -202,23 +207,45 @@ module DigitalFilterTestbench;
         .ReadData(),
         .ReadEN(1'b0),
         //== AXI Write ==
-        .WriteAddress(0),
-        .WriteData(0),
-        .WriteEN(1'b0)
+        .WriteAddress(writeAddress),
+        .WriteData(writeData),
+        .WriteEN(writeEN)
     );
 
+
+    integer seed = 10;
 
     initial
     begin
         $dumpfile("DigitalFilter.lxt2");
         $dumpvars(0, DigitalFilterTestbench);
 
+        $urandom(seed);
+
         $display("== Begin Testbench ==");
+
+
+        @(posedge clock100MHz);
+        writeData <= 24'hFFFFFF;
+        writeAddress <= 0;
+        writeEN <= 1;
+        @(posedge clock100MHz);
+        writeEN <= 0;
+        @(posedge clock100MHz);
+        // for (int i=0; i<DEPTH; i++)
+        // begin
+        //     writeAddress <= i;
+        //     writeData <= 0;
+        //     @(posedge clock100MHz);
+        // end
+
+        $display("== Memory Initalized ==");
 
 
         repeat(5)
         begin
-            waveIn <= $random(); //24'h001000;
+            @(negedge clock1MHz);
+            waveIn <= $urandom; //24'h001000;
             @(posedge clock1MHz);
         end
 
