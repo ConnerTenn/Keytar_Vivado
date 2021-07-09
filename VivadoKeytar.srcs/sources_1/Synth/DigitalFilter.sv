@@ -8,13 +8,13 @@ module DigitalFilter #
     input Clock100MHz,
     input Clock1MHz,
     input signed [23:0] InWaveform,
-    output reg signed [23:0] OutWaveform,
+    output reg signed [23:0] OutWaveform = 24'h000000,
 
     //== AXI Clock ==
     input BusClock,
     //== AXI Read ==
     input [31:0] ReadAddress,
-    output reg [31:0] ReadData,
+    output reg [31:0] ReadData = 32'h00000000,
     input ReadEN,
     //== AXI Write ==
     input [31:0] WriteAddress,
@@ -25,6 +25,15 @@ module DigitalFilter #
 
     reg signed [23:0] delayMem [DEPTH];
     reg signed [23:0] coeff [DEPTH];
+
+    initial
+    begin
+        for (int i=0; i<DEPTH; i=i+1)
+        begin
+            delayMem[i] <= 0;
+            coeff[i] <= 0;
+        end
+    end
 
     reg signed [23:0] accum = 0;
     reg [7:0] incr = 0;
@@ -70,18 +79,18 @@ module DigitalFilter #
     //== Sequence ==
     // wire signed [23:0] mul = delayMem[incr];//(delayMem[incr] * coeff[incr]);//>>>24;
     (* keep = "true" *)
-    reg signed [23:0] delaySample = 0;
+    reg signed [47:0] delaySample = 0;
     (* keep = "true" *)
-    reg signed [23:0] coeffSample = 0;
+    reg signed [47:0] coeffSample = 0;
     (* keep = "true" *)
     reg signed [23:0] mul = 0;
     // reg signed [23:0] sum = 0;
 
     always @(posedge Clock100MHz)
     begin
-        delaySample <= delayMem[incr];
-        coeffSample <= 24'hFFFFFF; //coeff[incr];
-        mul <= (delaySample * coeffSample) >>> 24;
+        delaySample <= { 24'h000000, delayMem[incr]};
+        coeffSample <= { 24'h000000, 24'hFFFFFF}; //coeff[incr];
+        mul <= ((delaySample * coeffSample) >>> 24);
         // sum <= mul + accum;
 
         //Initalize Sequence
@@ -206,9 +215,12 @@ module DigitalFilterTestbench;
 
         $display("== Begin Testbench ==");
 
-        waveIn <= 24'h001000;
 
-        repeat(3) @(posedge clock1MHz);
+        repeat(5)
+        begin
+            waveIn <= $random(); //24'h001000;
+            @(posedge clock1MHz);
+        end
 
         $display("== Done Testbench ==");
 

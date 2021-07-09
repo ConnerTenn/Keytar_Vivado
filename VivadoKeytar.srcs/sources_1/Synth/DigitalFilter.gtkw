@@ -1,0 +1,42 @@
+[*]
+[*] GTKWave Analyzer v3.3.108 (w)1999-2020 BSI
+[*] Fri Jul  9 03:41:48 2021
+[*]
+[dumpfile] "/NetDrive/Personal/Projects/Keytar/VivadoKeytar/VivadoKeytar.srcs/sources_1/Synth/DigitalFilter.lxt2"
+[dumpfile_mtime] "Fri Jul  9 03:41:03 2021"
+[dumpfile_size] 3215
+[savefile] "/NetDrive/Personal/Projects/Keytar/VivadoKeytar/VivadoKeytar.srcs/sources_1/Synth/DigitalFilter.gtkw"
+[timestart] 0
+[size] 1918 825
+[pos] -1 -1
+*-9.000000 516 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] DigitalFilterTestbench.
+[sst_width] 207
+[signals_width] 180
+[sst_expanded] 1
+[sst_vpaned_height] 213
+@28
+DigitalFilterTestbench.filter.Clock100MHz[0]
+DigitalFilterTestbench.filter.Clock1MHz[0]
+@200
+-
+@22
+DigitalFilterTestbench.filter.InWaveform[23:0]
+DigitalFilterTestbench.filter.OutWaveform[23:0]
+@200
+-
+@28
+DigitalFilterTestbench.filter.state[1:0]
+@22
+DigitalFilterTestbench.filter.incr[7:0]
+@200
+-
+@22
+DigitalFilterTestbench.filter.coeffSample[47:0]
+@23
+DigitalFilterTestbench.filter.delaySample[47:0]
+@22
+DigitalFilterTestbench.filter.mul[23:0]
+DigitalFilterTestbench.filter.accum[23:0]
+[pattern_trace] 1
+[pattern_trace] 0
