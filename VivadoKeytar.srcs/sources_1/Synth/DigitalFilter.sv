@@ -2,7 +2,7 @@
 module DigitalFilter #
 (
     parameter ADDRESS=0,
-    parameter DEPTH = 50//2**8
+    parameter DEPTH = 4//2**8
 )
 (
     input Clock100MHz,
@@ -22,6 +22,26 @@ module DigitalFilter #
     input WriteEN
 );
     `include "Math.v"
+
+    reg clock10MHz = 0;
+
+    reg [7:0] clkdiv = 0;
+
+    always @(posedge Clock100MHz)
+    begin
+        if (clkdiv < 10/2-1)
+        begin
+            clkdiv <= clkdiv + 1;
+        end
+        else
+        begin
+            clkdiv <= 0;
+            clock10MHz <= !clock10MHz;
+        end
+    end
+
+
+
 
     reg signed [23:0] delayMem [DEPTH];
     reg signed [23:0] coeff [DEPTH];
@@ -86,7 +106,7 @@ module DigitalFilter #
     reg signed [23:0] mul = 0;
     // reg signed [23:0] sum = 0;
 
-    always @(posedge Clock100MHz)
+    always @(posedge clock10MHz)
     begin
         delaySample <= { 24'h000000, delayMem[incr]};
         coeffSample <= { 24'h000000, coeff[incr]}; //coeff[incr];
