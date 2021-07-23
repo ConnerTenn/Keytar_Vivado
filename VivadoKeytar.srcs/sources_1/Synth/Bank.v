@@ -5,6 +5,7 @@ module Bank #
 )
 (
     input Clock100MHz,
+    input Clock10MHz,
     input Clock1MHz,
     output signed [23:0] Waveform,
 
@@ -21,7 +22,7 @@ module Bank #
 );
     `include "Math.v"
 
-    localparam USE_FILTER = 0;
+    localparam USE_FILTER = 1;
 
     reg signed [23:0] pulsewidth = 0, pulsewidthTmp = 0;
     reg [23:0] attack = 0, decay = 0, sustain = 0, releas = 0;
@@ -83,7 +84,12 @@ module Bank #
     end
 
     //Rescale output
-    wire signed [23:0] channelSumWaveform = (channels[NUM_CHANNELS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_CHANNELS)-24+1));
+    wire signed [23:0] channelSumWaveformTmp = (channels[NUM_CHANNELS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_CHANNELS)-24+1));
+    reg signed [23:0] channelSumWaveform = 0;
+    always @(posedge Clock1MHz)
+    begin
+        channelSumWaveform <= channelSumWaveformTmp;
+    end
 
 
     wire [31:0] filterReadData;
@@ -93,6 +99,7 @@ module Bank #
         DigitalFilter #(.ADDRESS(ADDRESS + 32'h1000)) filter
         (
             .Clock100MHz(Clock100MHz),
+            .Clock10MHz(Clock10MHz),
             .Clock1MHz(Clock1MHz),
             .InWaveform(channelSumWaveform),
             .OutWaveform(Waveform),

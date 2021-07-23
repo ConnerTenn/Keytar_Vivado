@@ -6,6 +6,7 @@ module DigitalFilter #
 )
 (
     input Clock100MHz,
+    input Clock10MHz,
     input Clock1MHz,
     input signed [23:0] InWaveform,
     output reg signed [23:0] OutWaveform = 24'h000000,
@@ -22,25 +23,6 @@ module DigitalFilter #
     input WriteEN
 );
     `include "Math.v"
-
-    reg clock10MHz = 0;
-
-    reg [7:0] clkdiv = 0;
-
-    always @(posedge Clock100MHz)
-    begin
-        if (clkdiv < 10/2-1)
-        begin
-            clkdiv <= clkdiv + 1;
-        end
-        else
-        begin
-            clkdiv <= 0;
-            clock10MHz <= !clock10MHz;
-        end
-    end
-
-
 
 
     reg signed [23:0] delayMem [DEPTH];
@@ -106,7 +88,7 @@ module DigitalFilter #
     reg signed [23:0] mul = 0;
     // reg signed [23:0] sum = 0;
 
-    always @(posedge clock10MHz)
+    always @(posedge Clock10MHz)
     begin
         delaySample <= { 24'h000000, delayMem[incr]};
         coeffSample <= { 24'h000000, coeff[incr]}; //coeff[incr];
