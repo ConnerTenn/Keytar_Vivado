@@ -21,14 +21,15 @@ module Bank #
 );
     `include "Math.v"
 
-    localparam USE_FILTER = 1;
+    localparam USE_FILTER = 0;
 
-    reg signed [23:0] pulsewidth = 0;
+    reg signed [23:0] pulsewidth = 0, pulsewidthTmp = 0;
     reg [23:0] attack = 0, decay = 0, sustain = 0, releas = 0;
-    reg [1:0] wavetype = 0;
+    reg [23:0] attackTmp = 0, decayTmp = 0, sustainTmp = 0, releasTmp = 0;
+    reg [1:0] wavetype = 0, wavetypeTmp = 0;
 
-    wire signed [23:0] lfoWaveform;
-    reg [1:0] lfoSelection = 0;
+    reg signed [23:0] lfoWaveform = 0;
+    reg [1:0] lfoSelection = 0, lfoSelectionTmp = 0;
 
 
     localparam NUM_CHANNELS = 8;
@@ -114,11 +115,11 @@ module Bank #
     end
 
 
-    reg lfoRunning = 0;
-    reg [23:0] lfoIncrement = 0;
-    reg [23:0] lfoAmplitude = 0;
+    reg lfoRunning = 0, lfoRunningTmp = 0;
+    reg [23:0] lfoIncrement = 0, lfoIncrementTmp = 0;
+    reg [23:0] lfoAmplitude = 0, lfoAmplitudeTmp = 0;
     wire signed [23:0] lfoWavegenout;
-    reg [1:0] lfoWaveType = 0;
+    reg [1:0] lfoWaveType = 0, lfoWaveTypeTmp = 0;
 
     WaveGen lfo(
         .Clock1MHz(Clock1MHz),
@@ -132,11 +133,30 @@ module Bank #
     wire signed [47:0] mulArg1 = { {24{lfoWavegenout[23]}}, lfoWavegenout};
     wire signed [47:0] mulArg2 = {24'd0, lfoAmplitude};
     wire signed [47:0] lfomul = mulArg1 * mulArg2;
-    assign lfoWaveform = (lfomul>>>24);
+    always @(posedge Clock1MHz)
+    begin
+        lfoWaveform <= (lfomul>>>24);
+    end
 
 
     reg [31:0] readData = 0;
     assign ReadData = channels[NUM_CHANNELS-1].readdata_OR | readData | filterReadData;
+
+    always @(posedge Clock1MHz)
+    begin
+        wavetype <= wavetypeTmp;
+        pulsewidth <= pulsewidthTmp;
+        attack <= attackTmp;
+        decay <= decayTmp;
+        sustain <= sustainTmp;
+        releas <= releasTmp;
+
+        lfoRunning <= lfoRunningTmp;
+        lfoIncrement <= lfoIncrementTmp;
+        lfoAmplitude <= lfoAmplitudeTmp;
+        lfoWaveType <= lfoWaveTypeTmp;
+        lfoSelection <= lfoSelectionTmp;
+    end
 
     always @(posedge BusClock)
     begin
@@ -160,17 +180,17 @@ module Bank #
         if (WriteEN)
         begin
             case (WriteAddress)
-                ADDRESS+4*0: wavetype <= WriteData[1:0];
-                ADDRESS+4*1: pulsewidth <= WriteData[23:0];
-                ADDRESS+4*2: attack <= WriteData[23:0];
-                ADDRESS+4*3: decay <= WriteData[23:0];
-                ADDRESS+4*4: sustain <= WriteData[23:0];
-                ADDRESS+4*5: releas <= WriteData[23:0];
-                ADDRESS+4*6: lfoRunning <= WriteData[0:0];
-                ADDRESS+4*7: lfoIncrement <= WriteData[23:0];
-                ADDRESS+4*8: lfoAmplitude <= WriteData[23:0];
-                ADDRESS+4*9: lfoWaveType <= WriteData[1:0];
-                ADDRESS+4*10: lfoSelection <= WriteData[1:0];
+                ADDRESS+4*0: wavetypeTmp <= WriteData[1:0];
+                ADDRESS+4*1: pulsewidthTmp <= WriteData[23:0];
+                ADDRESS+4*2: attackTmp <= WriteData[23:0];
+                ADDRESS+4*3: decayTmp <= WriteData[23:0];
+                ADDRESS+4*4: sustainTmp <= WriteData[23:0];
+                ADDRESS+4*5: releasTmp <= WriteData[23:0];
+                ADDRESS+4*6: lfoRunningTmp <= WriteData[0:0];
+                ADDRESS+4*7: lfoIncrementTmp <= WriteData[23:0];
+                ADDRESS+4*8: lfoAmplitudeTmp <= WriteData[23:0];
+                ADDRESS+4*9: lfoWaveTypeTmp <= WriteData[1:0];
+                ADDRESS+4*10: lfoSelectionTmp <= WriteData[1:0];
                 default:;
             endcase
         end

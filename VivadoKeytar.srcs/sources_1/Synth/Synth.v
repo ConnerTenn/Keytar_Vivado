@@ -6,6 +6,8 @@ module Synth #
     parameter SAXI_SLAVE_BASE_ADDR = 32'h00000000
 )
 (
+    (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK100MHz, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000" *)
+    (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK100MHz CLK" *)
     input Clock100MHz,
     output reg signed [23:0] Waveform,
 
