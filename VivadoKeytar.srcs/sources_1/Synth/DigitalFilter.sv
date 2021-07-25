@@ -2,11 +2,11 @@
 module DigitalFilter #
 (
     parameter ADDRESS=0,
-    parameter DEPTH = 4//2**8
+    parameter DEPTH = 80//2**8
 )
 (
     input Clock100MHz,
-    input Clock10MHz,
+    // input Clock50MHz,
     input Clock1MHz,
     input signed [23:0] InWaveform,
     output reg signed [23:0] OutWaveform = 24'h000000,
@@ -81,18 +81,23 @@ module DigitalFilter #
     //== Sequence ==
     // wire signed [23:0] mul = delayMem[incr];//(delayMem[incr] * coeff[incr]);//>>>24;
     (* keep = "true" *)
-    reg signed [47:0] delaySample = 0;
+    // reg signed [47:0] delaySample = 0;
+    reg signed [23:0] delaySample = 0;
     (* keep = "true" *)
-    reg signed [47:0] coeffSample = 0;
+    // reg signed [47:0] coeffSample = 0;
+    reg signed [23:0] coeffSample = 0;
     (* keep = "true" *)
     reg signed [23:0] mul = 0;
     // reg signed [23:0] sum = 0;
 
-    always @(posedge Clock10MHz)
+    always @(posedge Clock100MHz)
     begin
-        delaySample <= { 24'h000000, delayMem[incr]};
-        coeffSample <= { 24'h000000, coeff[incr]}; //coeff[incr];
-        mul <= ((delaySample * coeffSample) >>> 24);
+        // delaySample <= { 24'h000000, delayMem[incr] };
+        // coeffSample <= { 24'h000000, coeff[incr] };
+        // mul <= ((delaySample * coeffSample) >>> 24);
+        delaySample <= delayMem[incr];
+        coeffSample <= coeff[incr];
+        mul <= (delaySample & coeffSample);
         // sum <= mul + accum;
 
         //Initalize Sequence
@@ -142,9 +147,9 @@ module DigitalFilter #
     begin
         if (ReadEN)
         begin
-            if (ADDRESS<=ReadAddress && ReadAddress<ADDRESS+DEPTH)
+            if ((ADDRESS<=ReadAddress) && (ReadAddress<(ADDRESS+DEPTH*4)))
             begin
-                ReadData <= {8'h0, coeff[ReadAddress-ADDRESS]};
+                ReadData <= {8'h0, coeff[(ReadAddress-ADDRESS)>>2]};
             end
             else
             begin
@@ -153,9 +158,9 @@ module DigitalFilter #
         end
         if (WriteEN)
         begin
-            if (ADDRESS<=ReadAddress && ReadAddress<ADDRESS+DEPTH)
+            if ((ADDRESS<=WriteAddress) && (WriteAddress<(ADDRESS+DEPTH*4)))
             begin
-                coeff[ReadAddress-ADDRESS] <= WriteData[23:0];
+                coeff[(WriteAddress-ADDRESS)>>2] <= WriteData[23:0];
             end
         end
     end

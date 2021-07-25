@@ -70,7 +70,7 @@ module Synth #
 
 
     reg clock1MHz = 0;
-    reg clock10MHz = 0;
+    // reg clock50MHz = 0;
 
 
     localparam NUM_BANKS = 4;
@@ -87,7 +87,7 @@ module Synth #
         Bank #(.ADDRESS(SAXI_SLAVE_BASE_ADDR + 32'h2000 * gi)) banki
         (
             .Clock100MHz(Clock100MHz),
-            .Clock10MHz(clock10MHz),
+            // .Clock50MHz(clock50MHz),
             .Clock1MHz(clock1MHz),
             .Waveform(waveform),
             //== AXI Clock ==
@@ -182,19 +182,9 @@ module Synth #
     end
 
 
-    reg [7:0] clk10MHzdiv = 0;
-
-    always @(posedge Clock100MHz)
-    begin
-        if (clk10MHzdiv < 10/2-1)
-        begin
-            clk10MHzdiv <= clk10MHzdiv + 1;
-        end
-        else
-        begin
-            clk10MHzdiv <= 0;
-            clock10MHz <= !clock10MHz;
-        end
-    end
+    // always @(posedge Clock100MHz)
+    // begin
+    //     clock50MHz <= !clock50MHz;
+    // end
 
 endmodule

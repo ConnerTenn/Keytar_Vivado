@@ -5,7 +5,7 @@ module Bank #
 )
 (
     input Clock100MHz,
-    input Clock10MHz,
+    // input Clock50MHz,
     input Clock1MHz,
     output signed [23:0] Waveform,
 
@@ -99,7 +99,7 @@ module Bank #
         DigitalFilter #(.ADDRESS(ADDRESS + 32'h1000)) filter
         (
             .Clock100MHz(Clock100MHz),
-            .Clock10MHz(Clock10MHz),
+            // .Clock50MHz(Clock50MHz),
             .Clock1MHz(Clock1MHz),
             .InWaveform(channelSumWaveform),
             .OutWaveform(Waveform),
