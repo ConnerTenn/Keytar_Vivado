@@ -81,23 +81,23 @@ module DigitalFilter #
     //== Sequence ==
     // wire signed [23:0] mul = delayMem[incr];//(delayMem[incr] * coeff[incr]);//>>>24;
     (* keep = "true" *)
-    // reg signed [47:0] delaySample = 0;
-    reg signed [23:0] delaySample = 0;
+    reg signed [47:0] delaySample = 0;
+    // reg signed [23:0] delaySample = 0;
     (* keep = "true" *)
-    // reg signed [47:0] coeffSample = 0;
-    reg signed [23:0] coeffSample = 0;
+    reg signed [47:0] coeffSample = 0;
+    // reg signed [23:0] coeffSample = 0;
     (* keep = "true" *)
     reg signed [23:0] mul = 0;
     // reg signed [23:0] sum = 0;
 
     always @(posedge Clock100MHz)
     begin
-        // delaySample <= { 24'h000000, delayMem[incr] };
-        // coeffSample <= { 24'h000000, coeff[incr] };
-        // mul <= ((delaySample * coeffSample) >>> 24);
-        delaySample <= delayMem[incr];
-        coeffSample <= coeff[incr];
-        mul <= (delaySample & coeffSample);
+        delaySample <= { {24{delayMem[incr][23]}}, delayMem[incr] };
+        coeffSample <= { {24{coeff[incr][23]}}, coeff[incr] };
+        mul <= ((delaySample * coeffSample) >>> 20);
+        // delaySample <= delayMem[incr];
+        // coeffSample <= coeff[incr];
+        // mul <= (delaySample & coeffSample);
         // sum <= mul + accum;
 
         //Initalize Sequence
