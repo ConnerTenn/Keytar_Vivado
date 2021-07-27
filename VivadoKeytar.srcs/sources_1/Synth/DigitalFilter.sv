@@ -81,24 +81,22 @@ module DigitalFilter #
     //== Sequence ==
     // wire signed [23:0] mul = delayMem[incr];//(delayMem[incr] * coeff[incr]);//>>>24;
     (* keep = "true" *)
-    reg signed [47:0] delaySample = 0;
-    // reg signed [23:0] delaySample = 0;
+    reg signed [23:0] delaySampleReg = 0;
     (* keep = "true" *)
-    reg signed [47:0] coeffSample = 0;
-    // reg signed [23:0] coeffSample = 0;
+    reg signed [23:0] coeffSampleReg = 0;
     (* keep = "true" *)
-    reg signed [23:0] mul = 0;
+    reg signed [23:0] mulReg = 0;
     // reg signed [23:0] sum = 0;
+
+    wire signed [47:0] delaySample = { {24{delaySampleReg[23]}}, delaySampleReg }; //Sign extend to 48 bits
+    wire signed [47:0] coeffSample = { {24{coeffSampleReg[23]}}, coeffSampleReg }; //Sign extend to 48 bits
+    wire signed [47:0] mul = (delaySample * coeffSample); //48 bit multiply
 
     always @(posedge Clock100MHz)
     begin
-        delaySample <= { {24{delayMem[incr][23]}}, delayMem[incr] };
-        coeffSample <= { {24{coeff[incr][23]}}, coeff[incr] };
-        mul <= ((delaySample * coeffSample) >>> 20);
-        // delaySample <= delayMem[incr];
-        // coeffSample <= coeff[incr];
-        // mul <= (delaySample & coeffSample);
-        // sum <= mul + accum;
+        delaySampleReg <= delayMem[incr];
+        coeffSampleReg <= coeff[incr];
+        mulReg <= (mul >>> 20); //Rescale output
 
         //Initalize Sequence
         case (state)
@@ -116,7 +114,7 @@ module DigitalFilter #
             begin
                 if (incr >= 2)
                 begin
-                    accum <= mul + accum;//sum;
+                    accum <= mulReg + accum;
                 end
 
                 if (incr == DEPTH-1 + 2)
