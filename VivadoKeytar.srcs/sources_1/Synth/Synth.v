@@ -6,16 +6,13 @@ module Synth #
     parameter SAXI_SLAVE_BASE_ADDR = 32'h00000000
 )
 (
-    (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK100MHz, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000" *)
+    (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_aclk, ASSOCIATED_RESET SAXI_resetn, ASSOCIATED_BUSIF SAXI_ControlInterface, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, INSERT_VIP 0" *)
     (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK100MHz CLK" *)
     input Clock100MHz,
     output reg signed [23:0] Waveform,
 
 
     //== AXI Slave ==
-    (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_aclk, ASSOCIATED_RESET SAXI_resetn, ASSOCIATED_BUSIF SAXI_ControlInterface, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, INSERT_VIP 0" *)
-    (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 SAXI_aclk CLK" *)
-    input SAXI_aclk, 
     (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_resetn, POLARITY ACTIVE_LOW, INSERT_VIP 0" *)
     (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 SAXI_resetn RST" *)
     input SAXI_resetn,
@@ -91,7 +88,7 @@ module Synth #
             .Clock1MHz(clock1MHz),
             .Waveform(waveform),
             //== AXI Clock ==
-            .BusClock(SAXI_aclk),
+            .BusClock(Clock100MHz),
             //== AXI Read ==
             .ReadAddress(saxiReadAddress),
             .ReadData(readdata),
@@ -132,7 +129,7 @@ module Synth #
 
     AxiSlaveController AxiSlave (
         //== Global Signals ==
-        .AxiAClk(SAXI_aclk),
+        .AxiAClk(Clock100MHz),
         .AxiAResetN(SAXI_resetn),
 
         //== External Control Signals ==

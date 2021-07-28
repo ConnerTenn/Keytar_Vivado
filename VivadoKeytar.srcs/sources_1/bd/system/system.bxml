@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="39">
   <CompositeFile CompositeFileTopName="system" CanBeSetAsTop="true" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1627278663"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1627278663"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1627278663"/>
-    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1627278663"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1627452378"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1627452378"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1627452378"/>
+    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1627452378"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip/system_processing_system7_0_0/system_processing_system7_0_0.xci" Type="IP">
         <Instance HierarchyPath="processing_system7_0"/>
@@ -101,7 +101,7 @@
         <UsedIn Val="SIMULATION"/>
       </File>
       <File Name="ip/system_AnalogController_0_0/system_AnalogController_0_0.xci" Type="IP">
-        <Instance HierarchyPath="AnalogController_0"/>
+        <Instance HierarchyPath="AnalogController"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>

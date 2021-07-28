@@ -9,33 +9,6 @@ set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN Y17} [get_ports {RGB[0]}]
 set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN P18} [get_ports Buzzer]
 
 
-#Waveform
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[23]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[22]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[21]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[20]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[19]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[18]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[17]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[16]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[15]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[14]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[13]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[12]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[11]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[10]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[9]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[8]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[7]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[6]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[5]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[4]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[3]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[2]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[1]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {Waveform[0]}]
-
-
 
 #HDMI
 set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN U20} [get_ports {Red[0]}]

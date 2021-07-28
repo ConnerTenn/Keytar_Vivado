@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Mon Jul 26 01:51:03 2021" VIVADOVERSION="2020.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jul 28 02:06:18 2021" VIVADOVERSION="2020.2">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z020" NAME="system" PACKAGE="clg400" SPEEDGRADE="-2"/>
 
@@ -49,35 +49,30 @@
         <CONNECTION INSTANCE="const_0_2" PORT="dout"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" LEFT="23" NAME="Waveform" RIGHT="0" SIGIS="data" SIGNAME="Synth_Waveform">
+    <PORT DIR="O" NAME="I2S_DOut" SIGIS="data" SIGNAME="AnalogController_I2SDout">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="Synth" PORT="Waveform"/>
+        <CONNECTION INSTANCE="AnalogController" PORT="I2SDout"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" NAME="I2S_DOut" SIGIS="data" SIGNAME="AnalogController_0_I2SDout">
+    <PORT DIR="O" NAME="I2S_LR" SIGIS="data" SIGNAME="AnalogController_I2SLRSel">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="AnalogController_0" PORT="I2SDout"/>
+        <CONNECTION INSTANCE="AnalogController" PORT="I2SLRSel"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" NAME="I2S_LR" SIGIS="data" SIGNAME="AnalogController_0_I2SLRSel">
+    <PORT DIR="O" NAME="I2S_Clk" SIGIS="data" SIGNAME="AnalogController_I2SClk">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="AnalogController_0" PORT="I2SLRSel"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="O" NAME="I2S_Clk" SIGIS="data" SIGNAME="AnalogController_0_I2SClk">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="AnalogController_0" PORT="I2SClk"/>
+        <CONNECTION INSTANCE="AnalogController" PORT="I2SClk"/>
       </CONNECTIONS>
     </PORT>
     <PORT CLKFREQUENCY="12000000" DIR="I" NAME="Clk12MHz" SIGIS="clk"/>
-    <PORT DIR="O" NAME="DAC_Reset" POLARITY="ACTIVE_LOW" SIGIS="undef" SIGNAME="AnalogController_0_DAC_Reset">
+    <PORT DIR="O" NAME="DAC_Reset" POLARITY="ACTIVE_LOW" SIGIS="undef" SIGNAME="AnalogController_DAC_Reset">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="AnalogController_0" PORT="DAC_Reset"/>
+        <CONNECTION INSTANCE="AnalogController" PORT="DAC_Reset"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" NAME="DAC_MClk" SIGIS="undef" SIGNAME="AnalogController_0_DAC_MClk">
+    <PORT DIR="O" NAME="DAC_MClk" SIGIS="undef" SIGNAME="AnalogController_DAC_MClk">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="AnalogController_0" PORT="DAC_MClk"/>
+        <CONNECTION INSTANCE="AnalogController" PORT="DAC_MClk"/>
       </CONNECTIONS>
     </PORT>
     <PORT DIR="I" LEFT="7" NAME="KeyRibbonSense" RIGHT="0" SIGIS="undef" SIGNAME="External_Ports_KeyRibbonSense">
@@ -92,22 +87,52 @@
     </PORT>
     <PORT DIR="I" NAME="I2S_DIn" SIGIS="data" SIGNAME="External_Ports_I2S_DIn">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="AnalogController_0" PORT="I2SDin"/>
+        <CONNECTION INSTANCE="AnalogController" PORT="I2SDin"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" NAME="Analog_CClk" SIGIS="undef" SIGNAME="AnalogController_0_CClk">
+    <PORT DIR="O" NAME="Analog_CClk" SIGIS="undef" SIGNAME="AnalogController_CClk">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="AnalogController_0" PORT="CClk"/>
+        <CONNECTION INSTANCE="AnalogController" PORT="CClk"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" NAME="Analog_MoSi" SIGIS="undef" SIGNAME="AnalogController_0_MoSi">
+    <PORT DIR="O" NAME="Analog_MoSi" SIGIS="undef" SIGNAME="AnalogController_MoSi">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="AnalogController_0" PORT="MoSi"/>
+        <CONNECTION INSTANCE="AnalogController" PORT="MoSi"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="O" NAME="Analog_CS_n" SIGIS="undef" SIGNAME="AnalogController_0_CS_n">
+    <PORT DIR="O" NAME="Analog_CS_n" SIGIS="undef" SIGNAME="AnalogController_CS_n">
       <CONNECTIONS>
-        <CONNECTION INSTANCE="AnalogController_0" PORT="CS_n"/>
+        <CONNECTION INSTANCE="AnalogController" PORT="CS_n"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="I2C_sda_i" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SDA_I">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SDA_I"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="I2C_sda_o" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SDA_O">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SDA_O"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="I2C_sda_t" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SDA_T">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SDA_T"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="I2C_scl_i" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SCL_I">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SCL_I"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="I2C_scl_o" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SCL_O">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SCL_O"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="I2C_scl_t" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SCL_T">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SCL_T"/>
       </CONNECTIONS>
     </PORT>
     <PORT DIR="IO" NAME="DDR_cas_n" SIGIS="undef" SIGNAME="processing_system7_0_DDR_CAS_n">
@@ -215,36 +240,6 @@
         <CONNECTION INSTANCE="processing_system7_0" PORT="PS_PORB"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="I" NAME="I2C_sda_i" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SDA_I">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SDA_I"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="O" NAME="I2C_sda_o" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SDA_O">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SDA_O"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="O" NAME="I2C_sda_t" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SDA_T">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SDA_T"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="I" NAME="I2C_scl_i" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SCL_I">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SCL_I"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="O" NAME="I2C_scl_o" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SCL_O">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SCL_O"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="O" NAME="I2C_scl_t" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SCL_T">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SCL_T"/>
-      </CONNECTIONS>
-    </PORT>
   </EXTERNALPORTS>
 
   <EXTERNALINTERFACES>
@@ -305,7 +300,7 @@
   </EXTERNALINTERFACES>
 
   <MODULES>
-    <MODULE COREREVISION="1" FULLNAME="/AnalogController_0" HWVERSION="1.0" INSTANCE="AnalogController_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="AnalogController" VLNV="xilinx.com:module_ref:AnalogController:1.0">
+    <MODULE COREREVISION="1" FULLNAME="/AnalogController" HWVERSION="1.0" INSTANCE="AnalogController" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="AnalogController" VLNV="xilinx.com:module_ref:AnalogController:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
         <PARAMETER NAME="Component_Name" VALUE="system_AnalogController_0_0"/>
@@ -327,27 +322,27 @@
             <CONNECTION INSTANCE="Synth" PORT="Waveform"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="23" NAME="LeftIn" RIGHT="0" SIGIS="undef" SIGNAME="AnalogController_0_LeftIn">
+        <PORT DIR="O" LEFT="23" NAME="LeftIn" RIGHT="0" SIGIS="undef" SIGNAME="AnalogController_LeftIn">
           <CONNECTIONS>
             <CONNECTION INSTANCE="IOController_0" PORT="StripPosition"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="23" NAME="RightIn" RIGHT="0" SIGIS="undef" SIGNAME="AnalogController_0_RightIn">
+        <PORT DIR="O" LEFT="23" NAME="RightIn" RIGHT="0" SIGIS="undef" SIGNAME="AnalogController_RightIn">
           <CONNECTIONS>
             <CONNECTION INSTANCE="IOController_0" PORT="StripPressure"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="I2SClk" SIGIS="undef" SIGNAME="AnalogController_0_I2SClk">
+        <PORT DIR="O" NAME="I2SClk" SIGIS="undef" SIGNAME="AnalogController_I2SClk">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="I2S_Clk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="I2SLRSel" SIGIS="undef" SIGNAME="AnalogController_0_I2SLRSel">
+        <PORT DIR="O" NAME="I2SLRSel" SIGIS="undef" SIGNAME="AnalogController_I2SLRSel">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="I2S_LR"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="I2SDout" SIGIS="undef" SIGNAME="AnalogController_0_I2SDout">
+        <PORT DIR="O" NAME="I2SDout" SIGIS="undef" SIGNAME="AnalogController_I2SDout">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="I2S_DOut"/>
           </CONNECTIONS>
@@ -357,12 +352,12 @@
             <CONNECTION INSTANCE="External_Ports" PORT="I2S_DIn"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="DAC_Reset" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="AnalogController_0_DAC_Reset">
+        <PORT DIR="O" NAME="DAC_Reset" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="AnalogController_DAC_Reset">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="DAC_Reset"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="DAC_MClk" SIGIS="undef" SIGNAME="AnalogController_0_DAC_MClk">
+        <PORT DIR="O" NAME="DAC_MClk" SIGIS="undef" SIGNAME="AnalogController_DAC_MClk">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="DAC_MClk"/>
           </CONNECTIONS>
@@ -382,7 +377,7 @@
             <CONNECTION INSTANCE="IOController_0" PORT="CtrlPortTrigger"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="CtrlPortRunning" SIGIS="undef" SIGNAME="AnalogController_0_CtrlPortRunning">
+        <PORT DIR="O" NAME="CtrlPortRunning" SIGIS="undef" SIGNAME="AnalogController_CtrlPortRunning">
           <CONNECTIONS>
             <CONNECTION INSTANCE="IOController_0" PORT="CtrlPortRunning"/>
           </CONNECTIONS>
@@ -392,17 +387,17 @@
             <CONNECTION INSTANCE="IOController_0" PORT="CtrlPortReset"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="CClk" SIGIS="undef" SIGNAME="AnalogController_0_CClk">
+        <PORT DIR="O" NAME="CClk" SIGIS="undef" SIGNAME="AnalogController_CClk">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="Analog_CClk"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="MoSi" SIGIS="undef" SIGNAME="AnalogController_0_MoSi">
+        <PORT DIR="O" NAME="MoSi" SIGIS="undef" SIGNAME="AnalogController_MoSi">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="Analog_MoSi"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" NAME="CS_n" SIGIS="undef" SIGNAME="AnalogController_0_CS_n">
+        <PORT DIR="O" NAME="CS_n" SIGIS="undef" SIGNAME="AnalogController_CS_n">
           <CONNECTIONS>
             <CONNECTION INSTANCE="External_Ports" PORT="Analog_CS_n"/>
           </CONNECTIONS>
@@ -433,39 +428,39 @@
             <CONNECTION INSTANCE="External_Ports" PORT="KeyRibbonSense"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="23" NAME="StripPosition" RIGHT="0" SIGIS="undef" SIGNAME="AnalogController_0_LeftIn">
+        <PORT DIR="I" LEFT="23" NAME="StripPosition" RIGHT="0" SIGIS="undef" SIGNAME="AnalogController_LeftIn">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="AnalogController_0" PORT="LeftIn"/>
+            <CONNECTION INSTANCE="AnalogController" PORT="LeftIn"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" LEFT="23" NAME="StripPressure" RIGHT="0" SIGIS="undef" SIGNAME="AnalogController_0_RightIn">
+        <PORT DIR="I" LEFT="23" NAME="StripPressure" RIGHT="0" SIGIS="undef" SIGNAME="AnalogController_RightIn">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="AnalogController_0" PORT="RightIn"/>
+            <CONNECTION INSTANCE="AnalogController" PORT="RightIn"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="3" NAME="CtrlPortAddr" RIGHT="0" SIGIS="undef" SIGNAME="IOController_0_CtrlPortAddr">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="AnalogController_0" PORT="CtrlPortAddr"/>
+            <CONNECTION INSTANCE="AnalogController" PORT="CtrlPortAddr"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" LEFT="7" NAME="CtrlPortData" RIGHT="0" SIGIS="undef" SIGNAME="IOController_0_CtrlPortData">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="AnalogController_0" PORT="CtrlPortData"/>
+            <CONNECTION INSTANCE="AnalogController" PORT="CtrlPortData"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="CtrlPortTrigger" SIGIS="undef" SIGNAME="IOController_0_CtrlPortTrigger">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="AnalogController_0" PORT="CtrlPortTrigger"/>
+            <CONNECTION INSTANCE="AnalogController" PORT="CtrlPortTrigger"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="I" NAME="CtrlPortRunning" SIGIS="undef" SIGNAME="AnalogController_0_CtrlPortRunning">
+        <PORT DIR="I" NAME="CtrlPortRunning" SIGIS="undef" SIGNAME="AnalogController_CtrlPortRunning">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="AnalogController_0" PORT="CtrlPortRunning"/>
+            <CONNECTION INSTANCE="AnalogController" PORT="CtrlPortRunning"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="CtrlPortReset" SIGIS="undef" SIGNAME="IOController_0_CtrlPortReset">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="AnalogController_0" PORT="CtrlPortReset"/>
+            <CONNECTION INSTANCE="AnalogController" PORT="CtrlPortReset"/>
           </CONNECTIONS>
         </PORT>
         <PORT CLKFREQUENCY="100000000" DIR="I" NAME="SAXI_aclk" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
@@ -641,14 +636,8 @@
         </PORT>
         <PORT DIR="O" LEFT="23" NAME="Waveform" RIGHT="0" SIGIS="undef" SIGNAME="Synth_Waveform">
           <CONNECTIONS>
-            <CONNECTION INSTANCE="External_Ports" PORT="Waveform"/>
-            <CONNECTION INSTANCE="AnalogController_0" PORT="LeftOut"/>
-            <CONNECTION INSTANCE="AnalogController_0" PORT="RightOut"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="SAXI_aclk" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
+            <CONNECTION INSTANCE="AnalogController" PORT="LeftOut"/>
+            <CONNECTION INSTANCE="AnalogController" PORT="RightOut"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="I" NAME="SAXI_resetn" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="proc_sys_reset_0_peripheral_aresetn">
@@ -2455,156 +2444,6 @@
             <CONNECTION INSTANCE="proc_sys_reset_0" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M00_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="IOController_0_SAXI_awaddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_awaddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M00_AXI_awprot" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M00_AXI_awvalid" SIGIS="undef" SIGNAME="IOController_0_SAXI_awvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_awvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M00_AXI_awready" SIGIS="undef" SIGNAME="IOController_0_SAXI_awready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_awready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="IOController_0_SAXI_wdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_wdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M00_AXI_wstrb" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M00_AXI_wvalid" SIGIS="undef" SIGNAME="IOController_0_SAXI_wvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_wvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M00_AXI_wready" SIGIS="undef" SIGNAME="IOController_0_SAXI_wready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_wready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M00_AXI_bresp" SIGIS="undef"/>
-        <PORT DIR="I" NAME="M00_AXI_bvalid" SIGIS="undef" SIGNAME="IOController_0_SAXI_bvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_bvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M00_AXI_bready" SIGIS="undef" SIGNAME="IOController_0_SAXI_bready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_bready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M00_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="IOController_0_SAXI_araddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_araddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M00_AXI_arprot" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M00_AXI_arvalid" SIGIS="undef" SIGNAME="IOController_0_SAXI_arvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_arvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M00_AXI_arready" SIGIS="undef" SIGNAME="IOController_0_SAXI_arready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_arready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="M00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="IOController_0_SAXI_rdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_rdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M00_AXI_rresp" SIGIS="undef"/>
-        <PORT DIR="I" NAME="M00_AXI_rvalid" SIGIS="undef" SIGNAME="IOController_0_SAXI_rvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_rvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M00_AXI_rready" SIGIS="undef" SIGNAME="IOController_0_SAXI_rready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_rready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M01_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_awaddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_awaddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_awprot" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M01_AXI_awvalid" SIGIS="undef" SIGNAME="Synth_SAXI_awvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_awvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_awready" SIGIS="undef" SIGNAME="Synth_SAXI_awready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_awready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M01_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_wdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_wdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_wstrb" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M01_AXI_wvalid" SIGIS="undef" SIGNAME="Synth_SAXI_wvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_wvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_wready" SIGIS="undef" SIGNAME="Synth_SAXI_wready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_wready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_bresp" SIGIS="undef"/>
-        <PORT DIR="I" NAME="M01_AXI_bvalid" SIGIS="undef" SIGNAME="Synth_SAXI_bvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_bvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_bready" SIGIS="undef" SIGNAME="Synth_SAXI_bready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_bready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M01_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_araddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_araddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_arprot" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M01_AXI_arvalid" SIGIS="undef" SIGNAME="Synth_SAXI_arvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_arvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_arready" SIGIS="undef" SIGNAME="Synth_SAXI_arready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_arready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="M01_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_rdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_rdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_rresp" SIGIS="undef"/>
-        <PORT DIR="I" NAME="M01_AXI_rvalid" SIGIS="undef" SIGNAME="Synth_SAXI_rvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_rvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_rready" SIGIS="undef" SIGNAME="Synth_SAXI_rready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_rready"/>
-          </CONNECTIONS>
-        </PORT>
         <PORT DIR="I" LEFT="11" NAME="S00_AXI_awid" RIGHT="0" SIGIS="undef" SIGNAME="axi_interconnect_synth_S00_AXI_awid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP0_AWID"/>
@@ -2793,6 +2632,156 @@
         <PORT DIR="I" NAME="S00_AXI_rready" SIGIS="undef" SIGNAME="axi_interconnect_synth_S00_AXI_rready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP0_RREADY"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M01_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_awaddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_awaddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_awprot" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M01_AXI_awvalid" SIGIS="undef" SIGNAME="Synth_SAXI_awvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_awvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_awready" SIGIS="undef" SIGNAME="Synth_SAXI_awready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_awready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M01_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_wdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_wstrb" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M01_AXI_wvalid" SIGIS="undef" SIGNAME="Synth_SAXI_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_wvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_wready" SIGIS="undef" SIGNAME="Synth_SAXI_wready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_wready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_bresp" SIGIS="undef"/>
+        <PORT DIR="I" NAME="M01_AXI_bvalid" SIGIS="undef" SIGNAME="Synth_SAXI_bvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_bvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_bready" SIGIS="undef" SIGNAME="Synth_SAXI_bready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_bready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M01_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_araddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_araddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_arprot" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M01_AXI_arvalid" SIGIS="undef" SIGNAME="Synth_SAXI_arvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_arvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_arready" SIGIS="undef" SIGNAME="Synth_SAXI_arready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_arready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="M01_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_rdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_rdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_rresp" SIGIS="undef"/>
+        <PORT DIR="I" NAME="M01_AXI_rvalid" SIGIS="undef" SIGNAME="Synth_SAXI_rvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_rvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_rready" SIGIS="undef" SIGNAME="Synth_SAXI_rready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_rready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M00_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="IOController_0_SAXI_awaddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_awaddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M00_AXI_awprot" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M00_AXI_awvalid" SIGIS="undef" SIGNAME="IOController_0_SAXI_awvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_awvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M00_AXI_awready" SIGIS="undef" SIGNAME="IOController_0_SAXI_awready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_awready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="IOController_0_SAXI_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_wdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M00_AXI_wstrb" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M00_AXI_wvalid" SIGIS="undef" SIGNAME="IOController_0_SAXI_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_wvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M00_AXI_wready" SIGIS="undef" SIGNAME="IOController_0_SAXI_wready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_wready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M00_AXI_bresp" SIGIS="undef"/>
+        <PORT DIR="I" NAME="M00_AXI_bvalid" SIGIS="undef" SIGNAME="IOController_0_SAXI_bvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_bvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M00_AXI_bready" SIGIS="undef" SIGNAME="IOController_0_SAXI_bready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_bready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M00_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="IOController_0_SAXI_araddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_araddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M00_AXI_arprot" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M00_AXI_arvalid" SIGIS="undef" SIGNAME="IOController_0_SAXI_arvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_arvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M00_AXI_arready" SIGIS="undef" SIGNAME="IOController_0_SAXI_arready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_arready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="M00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="IOController_0_SAXI_rdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_rdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M00_AXI_rresp" SIGIS="undef"/>
+        <PORT DIR="I" NAME="M00_AXI_rvalid" SIGIS="undef" SIGNAME="IOController_0_SAXI_rvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_rvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M00_AXI_rready" SIGIS="undef" SIGNAME="IOController_0_SAXI_rready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="IOController_0" PORT="SAXI_rready"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -5356,10 +5345,9 @@
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="S00_ACLK"/>
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M00_ACLK"/>
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="M01_ACLK"/>
-            <CONNECTION INSTANCE="AnalogController_0" PORT="Clock"/>
+            <CONNECTION INSTANCE="AnalogController" PORT="Clock"/>
             <CONNECTION INSTANCE="IOController_0" PORT="SAXI_aclk"/>
             <CONNECTION INSTANCE="Synth" PORT="Clock100MHz"/>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_aclk"/>
           </CONNECTIONS>
         </PORT>
         <PORT CLKFREQUENCY="1.5e+08" DIR="O" NAME="FCLK_CLK1" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK1">

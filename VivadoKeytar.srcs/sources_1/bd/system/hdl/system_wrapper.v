@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
-//Date        : Mon Jul 26 01:51:02 2021
+//Date        : Wed Jul 28 02:06:17 2021
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -53,8 +53,7 @@ module system_wrapper
     PClk,
     RGB,
     Red,
-    VSync,
-    Waveform);
+    VSync);
   output Analog_CClk;
   output Analog_CS_n;
   output Analog_MoSi;
@@ -99,7 +98,6 @@ module system_wrapper
   output [2:0]RGB;
   output [4:0]Red;
   output [0:0]VSync;
-  output [23:0]Waveform;
 
   wire Analog_CClk;
   wire Analog_CS_n;
@@ -151,7 +149,6 @@ module system_wrapper
   wire [2:0]RGB;
   wire [4:0]Red;
   wire [0:0]VSync;
-  wire [23:0]Waveform;
 
   IOBUF I2C_scl_iobuf
        (.I(I2C_scl_o),
@@ -211,6 +208,5 @@ module system_wrapper
         .PClk(PClk),
         .RGB(RGB),
         .Red(Red),
-        .VSync(VSync),
-        .Waveform(Waveform));
+        .VSync(VSync));
 endmodule

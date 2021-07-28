@@ -41,7 +41,6 @@
     <Option Name="IPRepoPath" Val="$PSRCDIR/sources_1/AXI_SlaveExample/AXI_SlaveExample_1.0"/>
     <Option Name="IPRepoPath" Val="$PSRCDIR/sources_1/AXI_MasterExample/AXI_MasterExample_1.0"/>
     <Option Name="IPRepoPath" Val="$PSRCDIR/sources_1/APB_SlaveBreakout"/>
-    <Option Name="IPRepoPath" Val="$PSRCDIR/sources_1/IO/IOController"/>
     <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>
     <Option Name="IPDefaultOutputPath" Val="$PSRCDIR/sources_1"/>
     <Option Name="IPCachePermission" Val="read"/>

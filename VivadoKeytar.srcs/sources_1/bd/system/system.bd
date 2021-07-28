@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xBA6C2BB3AA997E62",
+      "boundary_crc": "0xC4D38BEF5928457",
       "device": "xc7z020clg400-2",
       "name": "system",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
@@ -36,7 +36,7 @@
         "m01_couplers": {}
       },
       "VideoController_0": "",
-      "AnalogController_0": "",
+      "AnalogController": "",
       "IOController_0": "",
       "Synth": ""
     },
@@ -223,18 +223,6 @@
         "direction": "O",
         "left": "0",
         "right": "0"
-      },
-      "Waveform": {
-        "type": "data",
-        "direction": "O",
-        "left": "23",
-        "right": "0",
-        "parameters": {
-          "LAYERED_METADATA": {
-            "value": "undef",
-            "value_src": "default"
-          }
-        }
       },
       "I2S_DOut": {
         "type": "data",
@@ -2336,16 +2324,16 @@
           }
         },
         "interface_nets": {
-          "s00_couplers_to_axi_interconnect_video_ctl": {
-            "interface_ports": [
-              "M00_AXI",
-              "s00_couplers/M_AXI"
-            ]
-          },
           "axi_interconnect_video_ctl_to_s00_couplers": {
             "interface_ports": [
               "S00_AXI",
               "s00_couplers/S_AXI"
+            ]
+          },
+          "s00_couplers_to_axi_interconnect_video_ctl": {
+            "interface_ports": [
+              "M00_AXI",
+              "s00_couplers/M_AXI"
             ]
           }
         },
@@ -2516,16 +2504,16 @@
               }
             },
             "interface_nets": {
-              "s00_couplers_to_auto_pc": {
-                "interface_ports": [
-                  "S_AXI",
-                  "auto_pc/S_AXI"
-                ]
-              },
               "auto_pc_to_s00_couplers": {
                 "interface_ports": [
                   "M_AXI",
                   "auto_pc/M_AXI"
+                ]
+              },
+              "s00_couplers_to_auto_pc": {
+                "interface_ports": [
+                  "S_AXI",
+                  "auto_pc/S_AXI"
                 ]
               }
             },
@@ -2546,16 +2534,16 @@
           }
         },
         "interface_nets": {
-          "s00_couplers_to_axi_interconnect_0": {
-            "interface_ports": [
-              "M00_AXI",
-              "s00_couplers/M_AXI"
-            ]
-          },
           "axi_interconnect_0_to_s00_couplers": {
             "interface_ports": [
               "S00_AXI",
               "s00_couplers/S_AXI"
+            ]
+          },
+          "s00_couplers_to_axi_interconnect_0": {
+            "interface_ports": [
+              "M00_AXI",
+              "s00_couplers/M_AXI"
             ]
           }
         },
@@ -2905,18 +2893,6 @@
           }
         },
         "interface_nets": {
-          "xbar_to_m00_couplers": {
-            "interface_ports": [
-              "xbar/M00_AXI",
-              "m00_couplers/S_AXI"
-            ]
-          },
-          "m00_couplers_to_axi_interconnect_synth": {
-            "interface_ports": [
-              "M00_AXI",
-              "m00_couplers/M_AXI"
-            ]
-          },
           "axi_interconnect_synth_to_s00_couplers": {
             "interface_ports": [
               "S00_AXI",
@@ -2929,16 +2905,28 @@
               "m01_couplers/S_AXI"
             ]
           },
-          "m01_couplers_to_axi_interconnect_synth": {
-            "interface_ports": [
-              "M01_AXI",
-              "m01_couplers/M_AXI"
-            ]
-          },
           "s00_couplers_to_xbar": {
             "interface_ports": [
               "s00_couplers/M_AXI",
               "xbar/S00_AXI"
+            ]
+          },
+          "m00_couplers_to_axi_interconnect_synth": {
+            "interface_ports": [
+              "M00_AXI",
+              "m00_couplers/M_AXI"
+            ]
+          },
+          "xbar_to_m00_couplers": {
+            "interface_ports": [
+              "xbar/M00_AXI",
+              "m00_couplers/S_AXI"
+            ]
+          },
+          "m01_couplers_to_axi_interconnect_synth": {
+            "interface_ports": [
+              "M01_AXI",
+              "m01_couplers/M_AXI"
             ]
           }
         },
@@ -3030,7 +3018,7 @@
           }
         }
       },
-      "AnalogController_0": {
+      "AnalogController": {
         "vlnv": "xilinx.com:module_ref:AnalogController:1.0",
         "xci_name": "system_AnalogController_0_0",
         "reference_info": {
@@ -3649,6 +3637,10 @@
                 "value": "SAXI_ControlInterface",
                 "value_src": "constant"
               },
+              "ASSOCIATED_RESET": {
+                "value": "SAXI_resetn",
+                "value_src": "constant"
+              },
               "FREQ_HZ": {
                 "value": "100000000",
                 "value_src": "constant"
@@ -3661,13 +3653,13 @@
                 "value": "0.000",
                 "value_src": "constant"
               },
-              "CLK_DOMAIN": {
-                "value": "system_processing_system7_0_0_FCLK_CLK0",
-                "value_src": "default_prop"
-              },
               "INSERT_VIP": {
                 "value": "0",
                 "value_src": "constant"
+              },
+              "CLK_DOMAIN": {
+                "value": "system_processing_system7_0_0_FCLK_CLK0",
+                "value_src": "default_prop"
               }
             }
           },
@@ -3675,40 +3667,6 @@
             "direction": "O",
             "left": "23",
             "right": "0"
-          },
-          "SAXI_aclk": {
-            "type": "clk",
-            "direction": "I",
-            "parameters": {
-              "ASSOCIATED_RESET": {
-                "value": "SAXI_resetn",
-                "value_src": "constant"
-              },
-              "ASSOCIATED_BUSIF": {
-                "value": "SAXI_ControlInterface",
-                "value_src": "constant"
-              },
-              "FREQ_HZ": {
-                "value": "100000000",
-                "value_src": "constant"
-              },
-              "FREQ_TOLERANCE_HZ": {
-                "value": "0",
-                "value_src": "constant"
-              },
-              "PHASE": {
-                "value": "0.000",
-                "value_src": "constant"
-              },
-              "INSERT_VIP": {
-                "value": "0",
-                "value_src": "constant"
-              },
-              "CLK_DOMAIN": {
-                "value": "system_processing_system7_0_0_FCLK_CLK0",
-                "value_src": "default_prop"
-              }
-            }
           },
           "SAXI_resetn": {
             "type": "rst",
@@ -3734,22 +3692,22 @@
           "processing_system7_0/IIC_0"
         ]
       },
-      "processing_system7_0_M_AXI_GP1": {
-        "interface_ports": [
-          "processing_system7_0/M_AXI_GP1",
-          "axi_interconnect_video_ctl/S00_AXI"
-        ]
-      },
       "axi_interconnect_0_M00_AXI1": {
         "interface_ports": [
           "axi_interconnect_0/M00_AXI",
           "processing_system7_0/S_AXI_HP0"
         ]
       },
-      "processing_system7_0_FIXED_IO": {
+      "processing_system7_0_DDR": {
         "interface_ports": [
-          "FIXED_IO",
-          "processing_system7_0/FIXED_IO"
+          "DDR",
+          "processing_system7_0/DDR"
+        ]
+      },
+      "axi_interconnect_synth_M01_AXI": {
+        "interface_ports": [
+          "Synth/SAXI_ControlInterface",
+          "axi_interconnect_synth/M01_AXI"
         ]
       },
       "axi_interconnect_video_ctl_M00_AXI": {
@@ -3758,16 +3716,16 @@
           "VideoController_0/SAXI_ControlInterface"
         ]
       },
-      "axi_interconnect_synth_M00_AXI": {
+      "processing_system7_0_FIXED_IO": {
         "interface_ports": [
-          "IOController_0/SAXI_Interface",
-          "axi_interconnect_synth/M00_AXI"
+          "FIXED_IO",
+          "processing_system7_0/FIXED_IO"
         ]
       },
-      "axi_interconnect_synth_M01_AXI": {
+      "processing_system7_0_M_AXI_GP1": {
         "interface_ports": [
-          "Synth/SAXI_ControlInterface",
-          "axi_interconnect_synth/M01_AXI"
+          "processing_system7_0/M_AXI_GP1",
+          "axi_interconnect_video_ctl/S00_AXI"
         ]
       },
       "processing_system7_0_M_AXI_GP0": {
@@ -3782,10 +3740,10 @@
           "axi_interconnect_0/S00_AXI"
         ]
       },
-      "processing_system7_0_DDR": {
+      "axi_interconnect_synth_M00_AXI": {
         "interface_ports": [
-          "DDR",
-          "processing_system7_0/DDR"
+          "IOController_0/SAXI_Interface",
+          "axi_interconnect_synth/M00_AXI"
         ]
       }
     },
@@ -3868,10 +3826,9 @@
           "axi_interconnect_synth/S00_ACLK",
           "axi_interconnect_synth/M00_ACLK",
           "axi_interconnect_synth/M01_ACLK",
-          "AnalogController_0/Clock",
+          "AnalogController/Clock",
           "IOController_0/SAXI_aclk",
-          "Synth/Clock100MHz",
-          "Synth/SAXI_aclk"
+          "Synth/Clock100MHz"
         ]
       },
       "processing_system7_0_FCLK_RESET0_N": {
@@ -3899,9 +3856,8 @@
       "Synth_0_Waveform": {
         "ports": [
           "Synth/Waveform",
-          "Waveform",
-          "AnalogController_0/LeftOut",
-          "AnalogController_0/RightOut"
+          "AnalogController/LeftOut",
+          "AnalogController/RightOut"
         ]
       },
       "KeyboarRibbon_1": {
@@ -3959,97 +3915,97 @@
       },
       "AnalogController_0_DAC_Reset": {
         "ports": [
-          "AnalogController_0/DAC_Reset",
+          "AnalogController/DAC_Reset",
           "DAC_Reset"
         ]
       },
       "AnalogController_0_DAC_MClk": {
         "ports": [
-          "AnalogController_0/DAC_MClk",
+          "AnalogController/DAC_MClk",
           "DAC_MClk"
         ]
       },
       "AnalogController_0_I2SData": {
         "ports": [
-          "AnalogController_0/I2SDout",
+          "AnalogController/I2SDout",
           "I2S_DOut"
         ]
       },
       "AnalogController_0_I2SLRSel": {
         "ports": [
-          "AnalogController_0/I2SLRSel",
+          "AnalogController/I2SLRSel",
           "I2S_LR"
         ]
       },
       "AnalogController_0_I2SClk": {
         "ports": [
-          "AnalogController_0/I2SClk",
+          "AnalogController/I2SClk",
           "I2S_Clk"
         ]
       },
       "I2S_DIn_1": {
         "ports": [
           "I2S_DIn",
-          "AnalogController_0/I2SDin"
+          "AnalogController/I2SDin"
         ]
       },
       "AnalogController_0_CClk": {
         "ports": [
-          "AnalogController_0/CClk",
+          "AnalogController/CClk",
           "Analog_CClk"
         ]
       },
       "AnalogController_0_MoSi": {
         "ports": [
-          "AnalogController_0/MoSi",
+          "AnalogController/MoSi",
           "Analog_MoSi"
         ]
       },
       "AnalogController_0_CS_n": {
         "ports": [
-          "AnalogController_0/CS_n",
+          "AnalogController/CS_n",
           "Analog_CS_n"
         ]
       },
       "IOController_0_CtrlPortReset": {
         "ports": [
           "IOController_0/CtrlPortReset",
-          "AnalogController_0/CtrlPortReset"
+          "AnalogController/CtrlPortReset"
         ]
       },
       "IOController_0_CtrlPortTrigger": {
         "ports": [
           "IOController_0/CtrlPortTrigger",
-          "AnalogController_0/CtrlPortTrigger"
+          "AnalogController/CtrlPortTrigger"
         ]
       },
       "IOController_0_CtrlPortData": {
         "ports": [
           "IOController_0/CtrlPortData",
-          "AnalogController_0/CtrlPortData"
+          "AnalogController/CtrlPortData"
         ]
       },
       "IOController_0_CtrlPortAddr": {
         "ports": [
           "IOController_0/CtrlPortAddr",
-          "AnalogController_0/CtrlPortAddr"
+          "AnalogController/CtrlPortAddr"
         ]
       },
       "AnalogController_0_LeftIn": {
         "ports": [
-          "AnalogController_0/LeftIn",
+          "AnalogController/LeftIn",
           "IOController_0/StripPosition"
         ]
       },
       "AnalogController_0_RightIn": {
         "ports": [
-          "AnalogController_0/RightIn",
+          "AnalogController/RightIn",
           "IOController_0/StripPressure"
         ]
       },
       "AnalogController_0_CtrlPortRunning": {
         "ports": [
-          "AnalogController_0/CtrlPortRunning",
+          "AnalogController/CtrlPortRunning",
           "IOController_0/CtrlPortRunning"
         ]
       },

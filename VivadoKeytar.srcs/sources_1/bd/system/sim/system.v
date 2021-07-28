@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
-//Date        : Mon Jul 26 01:51:01 2021
+//Date        : Wed Jul 28 02:06:16 2021
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -1282,8 +1282,7 @@ module system
     PClk,
     RGB,
     Red,
-    VSync,
-    Waveform);
+    VSync);
   output Analog_CClk;
   output Analog_CS_n;
   output Analog_MoSi;
@@ -1332,7 +1331,6 @@ module system
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.RGB DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.RGB, LAYERED_METADATA undef" *) output [2:0]RGB;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.RED DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.RED, LAYERED_METADATA undef" *) output [4:0]Red;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.VSYNC DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.VSYNC, LAYERED_METADATA undef" *) output [0:0]VSync;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.WAVEFORM DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.WAVEFORM, LAYERED_METADATA undef" *) output [23:0]Waveform;
 
   wire [0:0]ARESETN_1;
   wire AnalogController_0_CClk;
@@ -1622,10 +1620,9 @@ module system
   assign RGB[2:0] = RGBTest_0_RGB;
   assign Red[4:0] = VideoController_0_Red;
   assign VSync[0] = VideoController_0_VSync;
-  assign Waveform[23:0] = Synth_0_Waveform;
   assign processing_system7_0_IIC_0_SCL_I = I2C_scl_i;
   assign processing_system7_0_IIC_0_SDA_I = I2C_sda_i;
-  system_AnalogController_0_0 AnalogController_0
+  system_AnalogController_0_0 AnalogController
        (.CClk(AnalogController_0_CClk),
         .CS_n(AnalogController_0_CS_n),
         .Clock(processing_system7_0_FCLK_CLK0),
@@ -1676,7 +1673,6 @@ module system
         .RGB(RGBTest_0_RGB));
   system_Synth_0_1 Synth
        (.Clock100MHz(processing_system7_0_FCLK_CLK0),
-        .SAXI_aclk(processing_system7_0_FCLK_CLK0),
         .SAXI_araddr(axi_interconnect_synth_M01_AXI_ARADDR),
         .SAXI_arready(axi_interconnect_synth_M01_AXI_ARREADY),
         .SAXI_arvalid(axi_interconnect_synth_M01_AXI_ARVALID),

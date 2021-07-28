@@ -29,6 +29,7 @@
 					"ports": {
 						"ACLK": { "actual": "Clock100MHz"},
 						"ARADDR": { "actual": "SAXI_araddr"},
+						"ARESETN": { "actual": "SAXI_resetn"},
 						"ARREADY": { "actual": "SAXI_arready"},
 						"ARVALID": { "actual": "SAXI_arvalid"},
 						"AWADDR": { "actual": "SAXI_awaddr"},
