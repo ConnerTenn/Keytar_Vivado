@@ -66,7 +66,7 @@ module Synth #
     wire saxiWriteEN;
 
 
-    reg clock1MHz = 0;
+    reg clock100KHz = 0;
     // reg clock50MHz = 0;
 
 
@@ -85,7 +85,7 @@ module Synth #
         (
             .Clock100MHz(Clock100MHz),
             // .Clock50MHz(clock50MHz),
-            .Clock1MHz(clock1MHz),
+            .Clock100KHz(clock100KHz),
             .Waveform(waveform),
             //== AXI Clock ==
             .BusClock(Clock100MHz),
@@ -118,7 +118,7 @@ module Synth #
     //Rescale output
     wire signed [24:0] waveCombined = (banks[NUM_BANKS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_BANKS)-24+1));
 
-    always @(posedge clock1MHz)
+    always @(posedge clock100KHz)
     begin
         Waveform <= waveCombined;
     end
@@ -163,18 +163,18 @@ module Synth #
     );
 
 
-    reg [7:0] clk1MHzdiv = 0;
+    reg [8:0] clk100KHzdiv = 0;
 
     always @(posedge Clock100MHz)
     begin
-        if (clk1MHzdiv < 100/2-1)
+        if (clk100KHzdiv < 1000/2-1)
         begin
-            clk1MHzdiv <= clk1MHzdiv + 1;
+            clk100KHzdiv <= clk100KHzdiv + 1;
         end
         else
         begin
-            clk1MHzdiv <= 0;
-            clock1MHz <= !clock1MHz;
+            clk100KHzdiv <= 0;
+            clock100KHz <= !clock100KHz;
         end
     end
 

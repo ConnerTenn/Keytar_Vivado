@@ -7,7 +7,7 @@ module DigitalFilter #
 (
     input Clock100MHz,
     // input Clock50MHz,
-    input Clock1MHz,
+    input Clock100KHz,
     input signed [23:0] InWaveform,
     output reg signed [23:0] OutWaveform = 24'h000000,
 
@@ -46,14 +46,14 @@ module DigitalFilter #
     //== Shift Process ==
     for (genvar gi=0; gi<DEPTH-1; gi=gi+1)
     begin:shifts
-        always @(posedge Clock1MHz)
+        always @(posedge Clock100KHz)
         begin
             delayMem[gi+1] <= delayMem[gi];
         end
     end
 
     //== Sample Process ==
-    always @(posedge Clock1MHz)
+    always @(posedge Clock100KHz)
     begin
         delayMem[0] <= InWaveform;
         OutWaveform <= accum;
@@ -102,7 +102,7 @@ module DigitalFilter #
         case (state)
         IDLE:
             begin
-                if (Clock1MHz)
+                if (Clock100KHz)
                 begin
                     accum <= 0;
                     incr <= 0;
@@ -130,7 +130,7 @@ module DigitalFilter #
         WAIT:
             begin
                 incr <= 0;
-                if (!Clock1MHz)
+                if (!Clock100KHz)
                 begin
                     state = IDLE;
                 end
@@ -171,7 +171,7 @@ endmodule
 module DigitalFilterTestbench;
 
     reg clock100MHz = 0;
-    reg clock1MHz = 0;
+    reg Clock100KHz = 0;
     reg [23:0] waveIn = 0;
 
     reg [31:0] writeAddress = 0;
@@ -182,18 +182,18 @@ module DigitalFilterTestbench;
 
     always #(`CLK_PERIOD/2) clock100MHz <= ~clock100MHz;
 
-    reg [7:0] clkdiv = 0;
+    reg [8:0] clkdiv = 0;
 
     always @(posedge clock100MHz)
     begin
-        if (clkdiv < 100/2-1)
+        if (clkdiv < 1000/2-1)
         begin
             clkdiv <= clkdiv + 1;
         end
         else
         begin
             clkdiv <= 0;
-            clock1MHz <= !clock1MHz;
+            Clock100KHz <= !Clock100KHz;
         end
     end
 
@@ -201,7 +201,7 @@ module DigitalFilterTestbench;
     DigitalFilter filter
     (
         .Clock100MHz(clock100MHz),
-        .Clock1MHz(clock1MHz),
+        .Clock100KHz(Clock100KHz),
         .InWaveform(waveIn),
         .OutWaveform(),
 
@@ -249,9 +249,9 @@ module DigitalFilterTestbench;
 
         repeat(5)
         begin
-            @(negedge clock1MHz);
+            @(negedge Clock100KHz);
             waveIn <= $urandom; //24'h001000;
-            @(posedge clock1MHz);
+            @(posedge Clock100KHz);
         end
 
         $display("== Done Testbench ==");

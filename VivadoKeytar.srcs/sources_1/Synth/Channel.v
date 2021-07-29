@@ -5,7 +5,7 @@ module Channel #
     parameter ADDRESS=0
 )
 (
-    input Clock1MHz,
+    input Clock100KHz,
     output reg signed [23:0] Waveform = 0,
 
     //== Control ==
@@ -43,7 +43,7 @@ module Channel #
     wire signed [23:0] wavepulsewidth = PulseWidth + (LfoSelection[1] ? Lfo : 0);
 
     WaveGen wavegen(
-        .Clock1MHz(Clock1MHz),
+        .Clock100KHz(Clock100KHz),
         .Run(running),
         .Increment(waveincrement),
         .WaveType(WaveType),
@@ -56,7 +56,7 @@ module Channel #
     wire [1:0] adsrState;
 
     ADSR adsr(
-        .Clock1MHz(Clock1MHz),
+        .Clock100KHz(Clock100KHz),
         .Gate(gate),
         .Running(running),
         .ADSRstate(adsrState),
@@ -72,12 +72,12 @@ module Channel #
     wire signed [47:0] mulArg1 = {{24{wavegenout[23]}}, wavegenout};
     wire signed [47:0] mulArg2 = {24'd0, envelope};
     wire signed [47:0] wavemul = mulArg1 * mulArg2;
-    always @(posedge Clock1MHz)
+    always @(posedge Clock100KHz)
     begin
         Waveform <= (wavemul>>>24);
     end
 
-    always @(posedge Clock1MHz)
+    always @(posedge Clock100KHz)
     begin
         gate <= gatetmp;
     end

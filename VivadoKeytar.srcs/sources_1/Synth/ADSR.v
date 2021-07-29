@@ -1,7 +1,7 @@
 
 module ADSR
 (
-    Clock1MHz,
+    Clock100KHz,
     Gate,
     Running,
     ADSRstate,
@@ -10,7 +10,7 @@ module ADSR
 );
     parameter WAVE_MAX = 24'hFFFFFF;
 
-    input Clock1MHz;
+    input Clock100KHz;
     input Gate;
     output reg Running = 0;
     output reg [1:0] ADSRstate = 2'b00;
@@ -40,7 +40,7 @@ module ADSR
 
     reg gateprev = 0;
 
-    always @(posedge Clock1MHz)
+    always @(posedge Clock100KHz)
     begin
         //Gate Triggered
         if (gateprev==0 && Gate==1)

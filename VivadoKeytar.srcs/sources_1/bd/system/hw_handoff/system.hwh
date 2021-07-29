@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jul 28 02:06:18 2021" VIVADOVERSION="2020.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jul 28 23:41:22 2021" VIVADOVERSION="2020.2">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z020" NAME="system" PACKAGE="clg400" SPEEDGRADE="-2"/>
 
@@ -1615,6 +1615,193 @@
             <CONNECTION INSTANCE="proc_sys_reset_1" PORT="interconnect_aresetn"/>
           </CONNECTIONS>
         </PORT>
+        <PORT DIR="I" LEFT="0" NAME="S00_AXI_awid" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="S00_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awaddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awaddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="7" NAME="S00_AXI_awlen" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awlen">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awlen"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="2" NAME="S00_AXI_awsize" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awsize">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awsize"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="1" NAME="S00_AXI_awburst" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awburst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awburst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="S00_AXI_awlock" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awlock">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awlock"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="3" NAME="S00_AXI_awcache" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awcache">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awcache"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="2" NAME="S00_AXI_awprot" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awprot">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awprot"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="S00_AXI_awregion" SIGIS="undef"/>
+        <PORT DIR="I" LEFT="3" NAME="S00_AXI_awqos" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awqos">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awqos"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="S00_AXI_awvalid" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="S00_AXI_awready" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="63" NAME="S00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_wdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="7" NAME="S00_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_wstrb">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_wstrb"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="S00_AXI_wlast" SIGIS="undef" SIGNAME="VideoController_0_MAXI_wlast">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_wlast"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="S00_AXI_wvalid" SIGIS="undef" SIGNAME="VideoController_0_MAXI_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_wvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="S00_AXI_wready" SIGIS="undef" SIGNAME="VideoController_0_MAXI_wready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_wready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="S00_AXI_bid" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_bid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_bid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="1" NAME="S00_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_bresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_bresp"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="S00_AXI_bvalid" SIGIS="undef" SIGNAME="VideoController_0_MAXI_bvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_bvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="S00_AXI_bready" SIGIS="undef" SIGNAME="VideoController_0_MAXI_bready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_bready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="S00_AXI_arid" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="S00_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_araddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_araddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="7" NAME="S00_AXI_arlen" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arlen">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arlen"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="2" NAME="S00_AXI_arsize" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arsize">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arsize"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="1" NAME="S00_AXI_arburst" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arburst">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arburst"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="S00_AXI_arlock" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arlock">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arlock"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="3" NAME="S00_AXI_arcache" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arcache">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arcache"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="2" NAME="S00_AXI_arprot" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arprot">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arprot"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="S00_AXI_arregion" SIGIS="undef"/>
+        <PORT DIR="I" LEFT="3" NAME="S00_AXI_arqos" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arqos">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arqos"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="S00_AXI_arvalid" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="S00_AXI_arready" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="S00_AXI_rid" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_rid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_rid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="63" NAME="S00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_rdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_rdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="1" NAME="S00_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_rresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_rresp"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="S00_AXI_rlast" SIGIS="undef" SIGNAME="VideoController_0_MAXI_rlast">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_rlast"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="S00_AXI_rvalid" SIGIS="undef" SIGNAME="VideoController_0_MAXI_rvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_rvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="S00_AXI_rready" SIGIS="undef" SIGNAME="VideoController_0_MAXI_rready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_rready"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="O" LEFT="0" NAME="M00_AXI_awid" RIGHT="0" SIGIS="undef" SIGNAME="axi_interconnect_0_M00_AXI_awid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="S_AXI_HP0_AWID"/>
@@ -1803,193 +1990,6 @@
         <PORT DIR="O" NAME="M00_AXI_rready" SIGIS="undef" SIGNAME="axi_interconnect_0_M00_AXI_rready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="S_AXI_HP0_RREADY"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="0" NAME="S00_AXI_awid" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="S00_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awaddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awaddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="7" NAME="S00_AXI_awlen" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awlen">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awlen"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="2" NAME="S00_AXI_awsize" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awsize">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awsize"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="1" NAME="S00_AXI_awburst" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awburst">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awburst"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S00_AXI_awlock" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awlock">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awlock"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="3" NAME="S00_AXI_awcache" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awcache">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awcache"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="2" NAME="S00_AXI_awprot" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awprot">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awprot"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S00_AXI_awregion" SIGIS="undef"/>
-        <PORT DIR="I" LEFT="3" NAME="S00_AXI_awqos" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awqos">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awqos"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S00_AXI_awvalid" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S00_AXI_awready" SIGIS="undef" SIGNAME="VideoController_0_MAXI_awready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_awready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="63" NAME="S00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_wdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_wdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="7" NAME="S00_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_wstrb">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_wstrb"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S00_AXI_wlast" SIGIS="undef" SIGNAME="VideoController_0_MAXI_wlast">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_wlast"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S00_AXI_wvalid" SIGIS="undef" SIGNAME="VideoController_0_MAXI_wvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_wvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S00_AXI_wready" SIGIS="undef" SIGNAME="VideoController_0_MAXI_wready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_wready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="0" NAME="S00_AXI_bid" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_bid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_bid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="1" NAME="S00_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_bresp">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_bresp"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S00_AXI_bvalid" SIGIS="undef" SIGNAME="VideoController_0_MAXI_bvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_bvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S00_AXI_bready" SIGIS="undef" SIGNAME="VideoController_0_MAXI_bready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_bready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="0" NAME="S00_AXI_arid" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="S00_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_araddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_araddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="7" NAME="S00_AXI_arlen" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arlen">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arlen"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="2" NAME="S00_AXI_arsize" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arsize">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arsize"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="1" NAME="S00_AXI_arburst" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arburst">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arburst"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S00_AXI_arlock" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arlock">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arlock"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="3" NAME="S00_AXI_arcache" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arcache">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arcache"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="2" NAME="S00_AXI_arprot" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arprot">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arprot"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S00_AXI_arregion" SIGIS="undef"/>
-        <PORT DIR="I" LEFT="3" NAME="S00_AXI_arqos" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arqos">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arqos"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S00_AXI_arvalid" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S00_AXI_arready" SIGIS="undef" SIGNAME="VideoController_0_MAXI_arready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_arready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="0" NAME="S00_AXI_rid" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_rid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_rid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="63" NAME="S00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_rdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_rdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="1" NAME="S00_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_MAXI_rresp">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_rresp"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S00_AXI_rlast" SIGIS="undef" SIGNAME="VideoController_0_MAXI_rlast">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_rlast"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="S00_AXI_rvalid" SIGIS="undef" SIGNAME="VideoController_0_MAXI_rvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_rvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="S00_AXI_rready" SIGIS="undef" SIGNAME="VideoController_0_MAXI_rready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="MAXI_rready"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -2634,81 +2634,6 @@
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP0_RREADY"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M01_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_awaddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_awaddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_awprot" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M01_AXI_awvalid" SIGIS="undef" SIGNAME="Synth_SAXI_awvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_awvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_awready" SIGIS="undef" SIGNAME="Synth_SAXI_awready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_awready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M01_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_wdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_wdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_wstrb" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M01_AXI_wvalid" SIGIS="undef" SIGNAME="Synth_SAXI_wvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_wvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_wready" SIGIS="undef" SIGNAME="Synth_SAXI_wready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_wready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_bresp" SIGIS="undef"/>
-        <PORT DIR="I" NAME="M01_AXI_bvalid" SIGIS="undef" SIGNAME="Synth_SAXI_bvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_bvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_bready" SIGIS="undef" SIGNAME="Synth_SAXI_bready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_bready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M01_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_araddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_araddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_arprot" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M01_AXI_arvalid" SIGIS="undef" SIGNAME="Synth_SAXI_arvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_arvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_arready" SIGIS="undef" SIGNAME="Synth_SAXI_arready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_arready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="M01_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_rdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_rdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_rresp" SIGIS="undef"/>
-        <PORT DIR="I" NAME="M01_AXI_rvalid" SIGIS="undef" SIGNAME="Synth_SAXI_rvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_rvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_rready" SIGIS="undef" SIGNAME="Synth_SAXI_rready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_rready"/>
-          </CONNECTIONS>
-        </PORT>
         <PORT DIR="O" LEFT="31" NAME="M00_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="IOController_0_SAXI_awaddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="IOController_0" PORT="SAXI_awaddr"/>
@@ -2782,6 +2707,81 @@
         <PORT DIR="O" NAME="M00_AXI_rready" SIGIS="undef" SIGNAME="IOController_0_SAXI_rready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="IOController_0" PORT="SAXI_rready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M01_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_awaddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_awaddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_awprot" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M01_AXI_awvalid" SIGIS="undef" SIGNAME="Synth_SAXI_awvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_awvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_awready" SIGIS="undef" SIGNAME="Synth_SAXI_awready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_awready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M01_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_wdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_wstrb" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M01_AXI_wvalid" SIGIS="undef" SIGNAME="Synth_SAXI_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_wvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_wready" SIGIS="undef" SIGNAME="Synth_SAXI_wready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_wready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_bresp" SIGIS="undef"/>
+        <PORT DIR="I" NAME="M01_AXI_bvalid" SIGIS="undef" SIGNAME="Synth_SAXI_bvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_bvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_bready" SIGIS="undef" SIGNAME="Synth_SAXI_bready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_bready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M01_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_araddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_araddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_arprot" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M01_AXI_arvalid" SIGIS="undef" SIGNAME="Synth_SAXI_arvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_arvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_arready" SIGIS="undef" SIGNAME="Synth_SAXI_arready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_arready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="M01_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_rdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_rdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_rresp" SIGIS="undef"/>
+        <PORT DIR="I" NAME="M01_AXI_rvalid" SIGIS="undef" SIGNAME="Synth_SAXI_rvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_rvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_rready" SIGIS="undef" SIGNAME="Synth_SAXI_rready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_rready"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
