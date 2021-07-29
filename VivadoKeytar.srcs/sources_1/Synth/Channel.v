@@ -6,7 +6,7 @@ module Channel #
 )
 (
     input Clock1MHz,
-    output signed [23:0] Waveform,
+    output reg signed [23:0] Waveform = 0,
 
     //== Control ==
     input [1:0] WaveType,
@@ -72,7 +72,10 @@ module Channel #
     wire signed [47:0] mulArg1 = {{24{wavegenout[23]}}, wavegenout};
     wire signed [47:0] mulArg2 = {24'd0, envelope};
     wire signed [47:0] wavemul = mulArg1 * mulArg2;
-    assign Waveform = (wavemul>>>24);
+    always @(posedge Clock1MHz)
+    begin
+        Waveform <= (wavemul>>>24);
+    end
 
     always @(posedge Clock1MHz)
     begin

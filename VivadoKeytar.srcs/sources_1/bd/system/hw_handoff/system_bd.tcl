@@ -191,15 +191,14 @@ proc create_root_design { parentCell } {
   set RGB [ create_bd_port -dir O -from 2 -to 0 -type data RGB ]
   set Red [ create_bd_port -dir O -from 4 -to 0 -type data Red ]
   set VSync [ create_bd_port -dir O -from 0 -to 0 -type data VSync ]
-  set Waveform [ create_bd_port -dir O -from 23 -to 0 -type data Waveform ]
 
-  # Create instance: AnalogController_0, and set properties
+  # Create instance: AnalogController, and set properties
   set block_name AnalogController
-  set block_cell_name AnalogController_0
-  if { [catch {set AnalogController_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+  set block_cell_name AnalogController
+  if { [catch {set AnalogController [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
      catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
-   } elseif { $AnalogController_0 eq "" } {
+   } elseif { $AnalogController eq "" } {
      catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
    }
@@ -1107,26 +1106,26 @@ proc create_root_design { parentCell } {
 
   # Create port connections
   connect_bd_net -net ARESETN_1 [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/S00_ARESETN] [get_bd_pins axi_interconnect_video_ctl/ARESETN] [get_bd_pins proc_sys_reset_1/interconnect_aresetn]
-  connect_bd_net -net AnalogController_0_CClk [get_bd_ports Analog_CClk] [get_bd_pins AnalogController_0/CClk]
-  connect_bd_net -net AnalogController_0_CS_n [get_bd_ports Analog_CS_n] [get_bd_pins AnalogController_0/CS_n]
-  connect_bd_net -net AnalogController_0_CtrlPortRunning [get_bd_pins AnalogController_0/CtrlPortRunning] [get_bd_pins IOController_0/CtrlPortRunning]
-  connect_bd_net -net AnalogController_0_DAC_MClk [get_bd_ports DAC_MClk] [get_bd_pins AnalogController_0/DAC_MClk]
-  connect_bd_net -net AnalogController_0_DAC_Reset [get_bd_ports DAC_Reset] [get_bd_pins AnalogController_0/DAC_Reset]
-  connect_bd_net -net AnalogController_0_I2SClk [get_bd_ports I2S_Clk] [get_bd_pins AnalogController_0/I2SClk]
-  connect_bd_net -net AnalogController_0_I2SData [get_bd_ports I2S_DOut] [get_bd_pins AnalogController_0/I2SDout]
-  connect_bd_net -net AnalogController_0_I2SLRSel [get_bd_ports I2S_LR] [get_bd_pins AnalogController_0/I2SLRSel]
-  connect_bd_net -net AnalogController_0_LeftIn [get_bd_pins AnalogController_0/LeftIn] [get_bd_pins IOController_0/StripPosition]
-  connect_bd_net -net AnalogController_0_MoSi [get_bd_ports Analog_MoSi] [get_bd_pins AnalogController_0/MoSi]
-  connect_bd_net -net AnalogController_0_RightIn [get_bd_pins AnalogController_0/RightIn] [get_bd_pins IOController_0/StripPressure]
-  connect_bd_net -net I2S_DIn_1 [get_bd_ports I2S_DIn] [get_bd_pins AnalogController_0/I2SDin]
-  connect_bd_net -net IOController_0_CtrlPortAddr [get_bd_pins AnalogController_0/CtrlPortAddr] [get_bd_pins IOController_0/CtrlPortAddr]
-  connect_bd_net -net IOController_0_CtrlPortData [get_bd_pins AnalogController_0/CtrlPortData] [get_bd_pins IOController_0/CtrlPortData]
-  connect_bd_net -net IOController_0_CtrlPortReset [get_bd_pins AnalogController_0/CtrlPortReset] [get_bd_pins IOController_0/CtrlPortReset]
-  connect_bd_net -net IOController_0_CtrlPortTrigger [get_bd_pins AnalogController_0/CtrlPortTrigger] [get_bd_pins IOController_0/CtrlPortTrigger]
+  connect_bd_net -net AnalogController_0_CClk [get_bd_ports Analog_CClk] [get_bd_pins AnalogController/CClk]
+  connect_bd_net -net AnalogController_0_CS_n [get_bd_ports Analog_CS_n] [get_bd_pins AnalogController/CS_n]
+  connect_bd_net -net AnalogController_0_CtrlPortRunning [get_bd_pins AnalogController/CtrlPortRunning] [get_bd_pins IOController_0/CtrlPortRunning]
+  connect_bd_net -net AnalogController_0_DAC_MClk [get_bd_ports DAC_MClk] [get_bd_pins AnalogController/DAC_MClk]
+  connect_bd_net -net AnalogController_0_DAC_Reset [get_bd_ports DAC_Reset] [get_bd_pins AnalogController/DAC_Reset]
+  connect_bd_net -net AnalogController_0_I2SClk [get_bd_ports I2S_Clk] [get_bd_pins AnalogController/I2SClk]
+  connect_bd_net -net AnalogController_0_I2SData [get_bd_ports I2S_DOut] [get_bd_pins AnalogController/I2SDout]
+  connect_bd_net -net AnalogController_0_I2SLRSel [get_bd_ports I2S_LR] [get_bd_pins AnalogController/I2SLRSel]
+  connect_bd_net -net AnalogController_0_LeftIn [get_bd_pins AnalogController/LeftIn] [get_bd_pins IOController_0/StripPosition]
+  connect_bd_net -net AnalogController_0_MoSi [get_bd_ports Analog_MoSi] [get_bd_pins AnalogController/MoSi]
+  connect_bd_net -net AnalogController_0_RightIn [get_bd_pins AnalogController/RightIn] [get_bd_pins IOController_0/StripPressure]
+  connect_bd_net -net I2S_DIn_1 [get_bd_ports I2S_DIn] [get_bd_pins AnalogController/I2SDin]
+  connect_bd_net -net IOController_0_CtrlPortAddr [get_bd_pins AnalogController/CtrlPortAddr] [get_bd_pins IOController_0/CtrlPortAddr]
+  connect_bd_net -net IOController_0_CtrlPortData [get_bd_pins AnalogController/CtrlPortData] [get_bd_pins IOController_0/CtrlPortData]
+  connect_bd_net -net IOController_0_CtrlPortReset [get_bd_pins AnalogController/CtrlPortReset] [get_bd_pins IOController_0/CtrlPortReset]
+  connect_bd_net -net IOController_0_CtrlPortTrigger [get_bd_pins AnalogController/CtrlPortTrigger] [get_bd_pins IOController_0/CtrlPortTrigger]
   connect_bd_net -net IOController_0_KeyRibbonDrive [get_bd_ports KeyRibbonDrive] [get_bd_pins IOController_0/KeyRibbonDrive]
   connect_bd_net -net KeyboarRibbon_1 [get_bd_ports KeyRibbonSense] [get_bd_pins IOController_0/KeyRibbonSense]
   connect_bd_net -net RGBTest_0_RGB [get_bd_ports RGB] [get_bd_pins RGBTest_0/RGB]
-  connect_bd_net -net Synth_0_Waveform [get_bd_ports Waveform] [get_bd_pins AnalogController_0/LeftOut] [get_bd_pins AnalogController_0/RightOut] [get_bd_pins Synth/Waveform]
+  connect_bd_net -net Synth_0_Waveform [get_bd_pins AnalogController/LeftOut] [get_bd_pins AnalogController/RightOut] [get_bd_pins Synth/Waveform]
   connect_bd_net -net VideoController_0_Blue [get_bd_ports Blue] [get_bd_pins VideoController_0/Blue]
   connect_bd_net -net VideoController_0_De [get_bd_ports De] [get_bd_pins VideoController_0/De]
   connect_bd_net -net VideoController_0_Green [get_bd_ports Green] [get_bd_pins VideoController_0/Green]
@@ -1139,7 +1138,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins IOController_0/SAXI_resetn] [get_bd_pins Synth/SAXI_resetn] [get_bd_pins axi_interconnect_synth/M00_ARESETN] [get_bd_pins axi_interconnect_synth/M01_ARESETN] [get_bd_pins axi_interconnect_synth/S00_ARESETN] [get_bd_pins proc_sys_reset_0/peripheral_aresetn]
   connect_bd_net -net proc_sys_reset_1_peripheral_aresetn [get_bd_pins VideoController_0/MAXI_resetn] [get_bd_pins VideoController_0/SAXI_resetn] [get_bd_pins axi_interconnect_video_ctl/M00_ARESETN] [get_bd_pins axi_interconnect_video_ctl/S00_ARESETN] [get_bd_pins proc_sys_reset_1/peripheral_aresetn]
   connect_bd_net -net proc_sys_reset_1_peripheral_reset [get_bd_pins proc_sys_reset_1/peripheral_reset]
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins AnalogController_0/Clock] [get_bd_pins IOController_0/SAXI_aclk] [get_bd_pins Synth/Clock100MHz] [get_bd_pins Synth/SAXI_aclk] [get_bd_pins axi_interconnect_synth/ACLK] [get_bd_pins axi_interconnect_synth/M00_ACLK] [get_bd_pins axi_interconnect_synth/M01_ACLK] [get_bd_pins axi_interconnect_synth/S00_ACLK] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins AnalogController/Clock] [get_bd_pins IOController_0/SAXI_aclk] [get_bd_pins Synth/Clock100MHz] [get_bd_pins axi_interconnect_synth/ACLK] [get_bd_pins axi_interconnect_synth/M00_ACLK] [get_bd_pins axi_interconnect_synth/M01_ACLK] [get_bd_pins axi_interconnect_synth/S00_ACLK] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK]
   connect_bd_net -net processing_system7_0_FCLK_CLK1 [get_bd_pins RGBTest_0/Clock] [get_bd_pins VideoController_0/MAXI_aclk] [get_bd_pins VideoController_0/SAXI_aclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/S00_ACLK] [get_bd_pins axi_interconnect_video_ctl/ACLK] [get_bd_pins axi_interconnect_video_ctl/M00_ACLK] [get_bd_pins axi_interconnect_video_ctl/S00_ACLK] [get_bd_pins proc_sys_reset_1/slowest_sync_clk] [get_bd_pins processing_system7_0/FCLK_CLK1] [get_bd_pins processing_system7_0/M_AXI_GP1_ACLK] [get_bd_pins processing_system7_0/S_AXI_HP0_ACLK]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET0_N]
   connect_bd_net -net processing_system7_0_FCLK_RESET1_N [get_bd_pins proc_sys_reset_1/ext_reset_in] [get_bd_pins processing_system7_0/FCLK_RESET1_N]

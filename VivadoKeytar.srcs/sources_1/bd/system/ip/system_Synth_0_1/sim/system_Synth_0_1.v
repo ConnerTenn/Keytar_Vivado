@@ -57,7 +57,6 @@
 module system_Synth_0_1 (
   Clock100MHz,
   Waveform,
-  SAXI_aclk,
   SAXI_resetn,
   SAXI_arready,
   SAXI_arvalid,
@@ -75,11 +74,10 @@ module system_Synth_0_1 (
   SAXI_bvalid
 );
 
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME CLK100MHz, ASSOCIATED_BUSIF SAXI_ControlInterface, ASSOCIATED_RESET SAXI_resetn, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, INSERT_VIP 0, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK100MHz CLK" *)
 input wire Clock100MHz;
 output wire [23 : 0] Waveform;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_aclk, ASSOCIATED_RESET SAXI_resetn, ASSOCIATED_BUSIF SAXI_ControlInterface, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, INSERT_VIP 0, CLK_DOMAIN system_processing_system7_0_0_FCLK_CLK0" *)
-(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 SAXI_aclk CLK" *)
-input wire SAXI_aclk;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_resetn, POLARITY ACTIVE_LOW, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 SAXI_resetn RST" *)
 input wire SAXI_resetn;
@@ -119,7 +117,6 @@ output wire SAXI_bvalid;
   ) inst (
     .Clock100MHz(Clock100MHz),
     .Waveform(Waveform),
-    .SAXI_aclk(SAXI_aclk),
     .SAXI_resetn(SAXI_resetn),
     .SAXI_arready(SAXI_arready),
     .SAXI_arvalid(SAXI_arvalid),

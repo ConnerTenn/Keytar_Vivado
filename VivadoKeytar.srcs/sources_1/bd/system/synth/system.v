@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
-//Date        : Wed Jun 30 03:10:10 2021
+//Date        : Wed Jul 28 02:06:16 2021
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -1282,8 +1282,7 @@ module system
     PClk,
     RGB,
     Red,
-    VSync,
-    Waveform);
+    VSync);
   output Analog_CClk;
   output Analog_CS_n;
   output Analog_MoSi;
@@ -1332,7 +1331,6 @@ module system
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.RGB DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.RGB, LAYERED_METADATA undef" *) output [2:0]RGB;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.RED DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.RED, LAYERED_METADATA undef" *) output [4:0]Red;
   (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.VSYNC DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.VSYNC, LAYERED_METADATA undef" *) output [0:0]VSync;
-  (* X_INTERFACE_INFO = "xilinx.com:signal:data:1.0 DATA.WAVEFORM DATA" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME DATA.WAVEFORM, LAYERED_METADATA undef" *) output [23:0]Waveform;
 
   wire [0:0]ARESETN_1;
   wire AnalogController_0_CClk;
@@ -1439,18 +1437,18 @@ module system
   wire axi_interconnect_0_M00_AXI1_WVALID;
   wire [31:0]axi_interconnect_synth_M00_AXI_ARADDR;
   wire axi_interconnect_synth_M00_AXI_ARREADY;
-  wire [0:0]axi_interconnect_synth_M00_AXI_ARVALID;
+  wire axi_interconnect_synth_M00_AXI_ARVALID;
   wire [31:0]axi_interconnect_synth_M00_AXI_AWADDR;
   wire axi_interconnect_synth_M00_AXI_AWREADY;
-  wire [0:0]axi_interconnect_synth_M00_AXI_AWVALID;
-  wire [0:0]axi_interconnect_synth_M00_AXI_BREADY;
+  wire axi_interconnect_synth_M00_AXI_AWVALID;
+  wire axi_interconnect_synth_M00_AXI_BREADY;
   wire axi_interconnect_synth_M00_AXI_BVALID;
   wire [31:0]axi_interconnect_synth_M00_AXI_RDATA;
-  wire [0:0]axi_interconnect_synth_M00_AXI_RREADY;
+  wire axi_interconnect_synth_M00_AXI_RREADY;
   wire axi_interconnect_synth_M00_AXI_RVALID;
   wire [31:0]axi_interconnect_synth_M00_AXI_WDATA;
   wire axi_interconnect_synth_M00_AXI_WREADY;
-  wire [0:0]axi_interconnect_synth_M00_AXI_WVALID;
+  wire axi_interconnect_synth_M00_AXI_WVALID;
   wire [31:0]axi_interconnect_synth_M01_AXI_ARADDR;
   wire axi_interconnect_synth_M01_AXI_ARREADY;
   wire axi_interconnect_synth_M01_AXI_ARVALID;
@@ -1622,10 +1620,9 @@ module system
   assign RGB[2:0] = RGBTest_0_RGB;
   assign Red[4:0] = VideoController_0_Red;
   assign VSync[0] = VideoController_0_VSync;
-  assign Waveform[23:0] = Synth_0_Waveform;
   assign processing_system7_0_IIC_0_SCL_I = I2C_scl_i;
   assign processing_system7_0_IIC_0_SDA_I = I2C_sda_i;
-  system_AnalogController_0_0 AnalogController_0
+  system_AnalogController_0_0 AnalogController
        (.CClk(AnalogController_0_CClk),
         .CS_n(AnalogController_0_CS_n),
         .Clock(processing_system7_0_FCLK_CLK0),
@@ -1676,7 +1673,6 @@ module system
         .RGB(RGBTest_0_RGB));
   system_Synth_0_1 Synth
        (.Clock100MHz(processing_system7_0_FCLK_CLK0),
-        .SAXI_aclk(processing_system7_0_FCLK_CLK0),
         .SAXI_araddr(axi_interconnect_synth_M01_AXI_ARADDR),
         .SAXI_arready(axi_interconnect_synth_M01_AXI_ARREADY),
         .SAXI_arvalid(axi_interconnect_synth_M01_AXI_ARVALID),
@@ -2957,19 +2953,19 @@ module system_axi_interconnect_2_0
   input M00_ACLK;
   input M00_ARESETN;
   output [31:0]M00_AXI_araddr;
-  input [0:0]M00_AXI_arready;
-  output [0:0]M00_AXI_arvalid;
+  input M00_AXI_arready;
+  output M00_AXI_arvalid;
   output [31:0]M00_AXI_awaddr;
-  input [0:0]M00_AXI_awready;
-  output [0:0]M00_AXI_awvalid;
-  output [0:0]M00_AXI_bready;
-  input [0:0]M00_AXI_bvalid;
+  input M00_AXI_awready;
+  output M00_AXI_awvalid;
+  output M00_AXI_bready;
+  input M00_AXI_bvalid;
   input [31:0]M00_AXI_rdata;
-  output [0:0]M00_AXI_rready;
-  input [0:0]M00_AXI_rvalid;
+  output M00_AXI_rready;
+  input M00_AXI_rvalid;
   output [31:0]M00_AXI_wdata;
-  input [0:0]M00_AXI_wready;
-  output [0:0]M00_AXI_wvalid;
+  input M00_AXI_wready;
+  output M00_AXI_wvalid;
   input M01_ACLK;
   input M01_ARESETN;
   output [31:0]M01_AXI_araddr;
@@ -3074,18 +3070,18 @@ module system_axi_interconnect_2_0
   wire [3:0]axi_interconnect_synth_to_s00_couplers_WSTRB;
   wire axi_interconnect_synth_to_s00_couplers_WVALID;
   wire [31:0]m00_couplers_to_axi_interconnect_synth_ARADDR;
-  wire [0:0]m00_couplers_to_axi_interconnect_synth_ARREADY;
+  wire m00_couplers_to_axi_interconnect_synth_ARREADY;
   wire m00_couplers_to_axi_interconnect_synth_ARVALID;
   wire [31:0]m00_couplers_to_axi_interconnect_synth_AWADDR;
-  wire [0:0]m00_couplers_to_axi_interconnect_synth_AWREADY;
+  wire m00_couplers_to_axi_interconnect_synth_AWREADY;
   wire m00_couplers_to_axi_interconnect_synth_AWVALID;
   wire m00_couplers_to_axi_interconnect_synth_BREADY;
-  wire [0:0]m00_couplers_to_axi_interconnect_synth_BVALID;
+  wire m00_couplers_to_axi_interconnect_synth_BVALID;
   wire [31:0]m00_couplers_to_axi_interconnect_synth_RDATA;
   wire m00_couplers_to_axi_interconnect_synth_RREADY;
-  wire [0:0]m00_couplers_to_axi_interconnect_synth_RVALID;
+  wire m00_couplers_to_axi_interconnect_synth_RVALID;
   wire [31:0]m00_couplers_to_axi_interconnect_synth_WDATA;
-  wire [0:0]m00_couplers_to_axi_interconnect_synth_WREADY;
+  wire m00_couplers_to_axi_interconnect_synth_WREADY;
   wire m00_couplers_to_axi_interconnect_synth_WVALID;
   wire [31:0]m01_couplers_to_axi_interconnect_synth_ARADDR;
   wire m01_couplers_to_axi_interconnect_synth_ARREADY;
@@ -3152,13 +3148,13 @@ module system_axi_interconnect_2_0
   assign M00_ACLK_1 = M00_ACLK;
   assign M00_ARESETN_1 = M00_ARESETN;
   assign M00_AXI_araddr[31:0] = m00_couplers_to_axi_interconnect_synth_ARADDR;
-  assign M00_AXI_arvalid[0] = m00_couplers_to_axi_interconnect_synth_ARVALID;
+  assign M00_AXI_arvalid = m00_couplers_to_axi_interconnect_synth_ARVALID;
   assign M00_AXI_awaddr[31:0] = m00_couplers_to_axi_interconnect_synth_AWADDR;
-  assign M00_AXI_awvalid[0] = m00_couplers_to_axi_interconnect_synth_AWVALID;
-  assign M00_AXI_bready[0] = m00_couplers_to_axi_interconnect_synth_BREADY;
-  assign M00_AXI_rready[0] = m00_couplers_to_axi_interconnect_synth_RREADY;
+  assign M00_AXI_awvalid = m00_couplers_to_axi_interconnect_synth_AWVALID;
+  assign M00_AXI_bready = m00_couplers_to_axi_interconnect_synth_BREADY;
+  assign M00_AXI_rready = m00_couplers_to_axi_interconnect_synth_RREADY;
   assign M00_AXI_wdata[31:0] = m00_couplers_to_axi_interconnect_synth_WDATA;
-  assign M00_AXI_wvalid[0] = m00_couplers_to_axi_interconnect_synth_WVALID;
+  assign M00_AXI_wvalid = m00_couplers_to_axi_interconnect_synth_WVALID;
   assign M01_ACLK_1 = M01_ACLK;
   assign M01_ARESETN_1 = M01_ARESETN;
   assign M01_AXI_araddr[31:0] = m01_couplers_to_axi_interconnect_synth_ARADDR;
@@ -3211,12 +3207,12 @@ module system_axi_interconnect_2_0
   assign axi_interconnect_synth_to_s00_couplers_WLAST = S00_AXI_wlast;
   assign axi_interconnect_synth_to_s00_couplers_WSTRB = S00_AXI_wstrb[3:0];
   assign axi_interconnect_synth_to_s00_couplers_WVALID = S00_AXI_wvalid;
-  assign m00_couplers_to_axi_interconnect_synth_ARREADY = M00_AXI_arready[0];
-  assign m00_couplers_to_axi_interconnect_synth_AWREADY = M00_AXI_awready[0];
-  assign m00_couplers_to_axi_interconnect_synth_BVALID = M00_AXI_bvalid[0];
+  assign m00_couplers_to_axi_interconnect_synth_ARREADY = M00_AXI_arready;
+  assign m00_couplers_to_axi_interconnect_synth_AWREADY = M00_AXI_awready;
+  assign m00_couplers_to_axi_interconnect_synth_BVALID = M00_AXI_bvalid;
   assign m00_couplers_to_axi_interconnect_synth_RDATA = M00_AXI_rdata[31:0];
-  assign m00_couplers_to_axi_interconnect_synth_RVALID = M00_AXI_rvalid[0];
-  assign m00_couplers_to_axi_interconnect_synth_WREADY = M00_AXI_wready[0];
+  assign m00_couplers_to_axi_interconnect_synth_RVALID = M00_AXI_rvalid;
+  assign m00_couplers_to_axi_interconnect_synth_WREADY = M00_AXI_wready;
   assign m01_couplers_to_axi_interconnect_synth_ARREADY = M01_AXI_arready;
   assign m01_couplers_to_axi_interconnect_synth_AWREADY = M01_AXI_awready;
   assign m01_couplers_to_axi_interconnect_synth_BVALID = M01_AXI_bvalid;

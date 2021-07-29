@@ -6,7 +6,7 @@ module WaveGen(
     input signed [23:0] Increment,
     input [1:0] WaveType,
     input signed [23:0] PulseWidth,
-    output signed [23:0] Waveform
+    output reg signed [23:0] Waveform
 );
     parameter WAVE_MAX = 24'hFFFFFF;
     parameter WAVE_HIGH = 24'h7FFFFF;
@@ -18,7 +18,7 @@ module WaveGen(
 
     wire signed [23:0] triangleCompHigh = (24'hFFFFFF*1/4);
     wire signed [23:0] triangleCompLow = (24'hFFFFFF*3/4);
-    assign Waveform = WaveTypeSelect(Run, WaveType, counter, PulseWidth);
+    wire signed [23:0] waveformTmp = WaveTypeSelect(Run, WaveType, counter, PulseWidth);
     function automatic [23:0] WaveTypeSelect(
         input run,
         input [1:0] wavetype,
@@ -48,6 +48,8 @@ module WaveGen(
 
     always @(posedge Clock1MHz)
     begin
+        Waveform <= waveformTmp;
+
         if (Run)
         begin
             counter <= counter + Increment;

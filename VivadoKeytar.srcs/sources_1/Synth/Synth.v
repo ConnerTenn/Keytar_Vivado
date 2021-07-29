@@ -6,14 +6,13 @@ module Synth #
     parameter SAXI_SLAVE_BASE_ADDR = 32'h00000000
 )
 (
+    (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_aclk, ASSOCIATED_RESET SAXI_resetn, ASSOCIATED_BUSIF SAXI_ControlInterface, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, INSERT_VIP 0" *)
+    (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 CLK100MHz CLK" *)
     input Clock100MHz,
-    output signed [23:0] Waveform,
+    output reg signed [23:0] Waveform,
 
 
     //== AXI Slave ==
-    (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_aclk, ASSOCIATED_RESET SAXI_resetn, ASSOCIATED_BUSIF SAXI_ControlInterface, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.000, INSERT_VIP 0" *)
-    (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 SAXI_aclk CLK" *)
-    input SAXI_aclk, 
     (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME SAXI_resetn, POLARITY ACTIVE_LOW, INSERT_VIP 0" *)
     (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 SAXI_resetn RST" *)
     input SAXI_resetn,
@@ -68,6 +67,7 @@ module Synth #
 
 
     reg clock1MHz = 0;
+    // reg clock50MHz = 0;
 
 
     localparam NUM_BANKS = 4;
@@ -81,13 +81,14 @@ module Synth #
         wire [31:0] readdata;
         wire [31:0] readdata_OR;
 
-        Bank #(.ADDRESS(SAXI_SLAVE_BASE_ADDR + 32'h1000 * gi)) banki
+        Bank #(.ADDRESS(SAXI_SLAVE_BASE_ADDR + 32'h2000 * gi)) banki
         (
             .Clock100MHz(Clock100MHz),
+            // .Clock50MHz(clock50MHz),
             .Clock1MHz(clock1MHz),
             .Waveform(waveform),
             //== AXI Clock ==
-            .BusClock(SAXI_aclk),
+            .BusClock(Clock100MHz),
             //== AXI Read ==
             .ReadAddress(saxiReadAddress),
             .ReadData(readdata),
@@ -115,7 +116,12 @@ module Synth #
     end
 
     //Rescale output
-    assign Waveform = (banks[NUM_BANKS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_BANKS)-24+1));
+    wire signed [24:0] waveCombined = (banks[NUM_BANKS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_BANKS)-24+1));
+
+    always @(posedge clock1MHz)
+    begin
+        Waveform <= waveCombined;
+    end
 
 
     assign saxiReadData = banks[NUM_BANKS-1].readdata_OR;
@@ -123,7 +129,7 @@ module Synth #
 
     AxiSlaveController AxiSlave (
         //== Global Signals ==
-        .AxiAClk(SAXI_aclk),
+        .AxiAClk(Clock100MHz),
         .AxiAResetN(SAXI_resetn),
 
         //== External Control Signals ==
@@ -157,19 +163,25 @@ module Synth #
     );
 
 
-    reg [7:0] clkdiv = 0;
+    reg [7:0] clk1MHzdiv = 0;
 
     always @(posedge Clock100MHz)
     begin
-        if (clkdiv < 100/2-1)
+        if (clk1MHzdiv < 100/2-1)
         begin
-            clkdiv <= clkdiv + 1;
+            clk1MHzdiv <= clk1MHzdiv + 1;
         end
         else
         begin
-            clkdiv <= 0;
+            clk1MHzdiv <= 0;
             clock1MHz <= !clock1MHz;
         end
     end
+
+
+    // always @(posedge Clock100MHz)
+    // begin
+    //     clock50MHz <= !clock50MHz;
+    // end
 
 endmodule

@@ -27,7 +27,7 @@
 				"/Synth/SAXI_ControlInterface": {
 					"interface": "xilinx.com:interface:aximm:1.0",
 					"ports": {
-						"ACLK": { "actual": "SAXI_aclk"},
+						"ACLK": { "actual": "Clock100MHz"},
 						"ARADDR": { "actual": "SAXI_araddr"},
 						"ARESETN": { "actual": "SAXI_resetn"},
 						"ARREADY": { "actual": "SAXI_arready"},
@@ -396,19 +396,19 @@
 						"ACLK": { "actual": "M00_ACLK"},
 						"ARADDR": { "actual": "M00_AXI_araddr[31:0]"},
 						"ARESETN": { "actual": "ARESETN"},
-						"ARREADY": { "actual": "M00_AXI_arready[0:0]"},
-						"ARVALID": { "actual": "M00_AXI_arvalid[0:0]"},
+						"ARREADY": { "actual": "M00_AXI_arready"},
+						"ARVALID": { "actual": "M00_AXI_arvalid"},
 						"AWADDR": { "actual": "M00_AXI_awaddr[31:0]"},
-						"AWREADY": { "actual": "M00_AXI_awready[0:0]"},
-						"AWVALID": { "actual": "M00_AXI_awvalid[0:0]"},
-						"BREADY": { "actual": "M00_AXI_bready[0:0]"},
-						"BVALID": { "actual": "M00_AXI_bvalid[0:0]"},
+						"AWREADY": { "actual": "M00_AXI_awready"},
+						"AWVALID": { "actual": "M00_AXI_awvalid"},
+						"BREADY": { "actual": "M00_AXI_bready"},
+						"BVALID": { "actual": "M00_AXI_bvalid"},
 						"RDATA": { "actual": "M00_AXI_rdata[31:0]"},
-						"RREADY": { "actual": "M00_AXI_rready[0:0]"},
-						"RVALID": { "actual": "M00_AXI_rvalid[0:0]"},
+						"RREADY": { "actual": "M00_AXI_rready"},
+						"RVALID": { "actual": "M00_AXI_rvalid"},
 						"WDATA": { "actual": "M00_AXI_wdata[31:0]"},
-						"WREADY": { "actual": "M00_AXI_wready[0:0]"},
-						"WVALID": { "actual": "M00_AXI_wvalid[0:0]"}
+						"WREADY": { "actual": "M00_AXI_wready"},
+						"WVALID": { "actual": "M00_AXI_wvalid"}
 					}
 				},
 				"/axi_interconnect_synth/M01_AXI": {
