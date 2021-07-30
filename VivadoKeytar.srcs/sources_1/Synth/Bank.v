@@ -9,8 +9,6 @@ module Bank #
     input Clock100KHz,
     output signed [23:0] Waveform,
 
-    //== AXI Clock ==
-    input BusClock,
     //== AXI Read ==
     input [31:0] ReadAddress,
     output [31:0] ReadData,
@@ -46,6 +44,7 @@ module Bank #
 
         Channel #(.ADDRESS(ADDRESS + 32'h100 * gi + 32'h100)) channel
         (
+            .Clock100MHz(Clock100MHz),
             .Clock100KHz(Clock100KHz),
             .Waveform(waveform),
             //== Control ==
@@ -55,8 +54,6 @@ module Bank #
             .LfoSelection(lfoSelection),
             //== ADSR ==
             .Attack(attack), .Decay(decay), .Sustain(sustain), .Release(releas),
-            //== AXI Clock ==
-            .BusClock(BusClock),
             //== AXI Read ==
             .ReadAddress(ReadAddress),
             .ReadData(readdata),
@@ -103,8 +100,6 @@ module Bank #
             .Clock100KHz(Clock100KHz),
             .InWaveform(channelSumWaveform),
             .OutWaveform(Waveform),
-            //== AXI Clock ==
-            .BusClock(BusClock),
             //== AXI Read ==
             .ReadAddress(ReadAddress),
             .ReadData(filterReadData),
@@ -165,7 +160,7 @@ module Bank #
         lfoSelection <= lfoSelectionTmp;
     end
 
-    always @(posedge BusClock)
+    always @(posedge Clock100MHz)
     begin
         if (ReadEN)
         begin

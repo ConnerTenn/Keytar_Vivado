@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Jul 28 23:41:22 2021" VIVADOVERSION="2020.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Fri Jul 30 03:52:02 2021" VIVADOVERSION="2020.2">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z020" NAME="system" PACKAGE="clg400" SPEEDGRADE="-2"/>
 
@@ -2444,6 +2444,81 @@
             <CONNECTION INSTANCE="proc_sys_reset_0" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M01_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_awaddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_awaddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_awprot" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M01_AXI_awvalid" SIGIS="undef" SIGNAME="Synth_SAXI_awvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_awvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_awready" SIGIS="undef" SIGNAME="Synth_SAXI_awready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_awready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M01_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_wdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_wstrb" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M01_AXI_wvalid" SIGIS="undef" SIGNAME="Synth_SAXI_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_wvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_wready" SIGIS="undef" SIGNAME="Synth_SAXI_wready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_wready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_bresp" SIGIS="undef"/>
+        <PORT DIR="I" NAME="M01_AXI_bvalid" SIGIS="undef" SIGNAME="Synth_SAXI_bvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_bvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_bready" SIGIS="undef" SIGNAME="Synth_SAXI_bready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_bready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M01_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_araddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_araddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_arprot" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M01_AXI_arvalid" SIGIS="undef" SIGNAME="Synth_SAXI_arvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_arvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_arready" SIGIS="undef" SIGNAME="Synth_SAXI_arready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_arready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="M01_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_rdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_rdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_rresp" SIGIS="undef"/>
+        <PORT DIR="I" NAME="M01_AXI_rvalid" SIGIS="undef" SIGNAME="Synth_SAXI_rvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_rvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_rready" SIGIS="undef" SIGNAME="Synth_SAXI_rready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_rready"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="I" LEFT="11" NAME="S00_AXI_awid" RIGHT="0" SIGIS="undef" SIGNAME="axi_interconnect_synth_S00_AXI_awid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP0_AWID"/>
@@ -2707,81 +2782,6 @@
         <PORT DIR="O" NAME="M00_AXI_rready" SIGIS="undef" SIGNAME="IOController_0_SAXI_rready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="IOController_0" PORT="SAXI_rready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M01_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_awaddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_awaddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_awprot" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M01_AXI_awvalid" SIGIS="undef" SIGNAME="Synth_SAXI_awvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_awvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_awready" SIGIS="undef" SIGNAME="Synth_SAXI_awready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_awready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M01_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_wdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_wdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_wstrb" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M01_AXI_wvalid" SIGIS="undef" SIGNAME="Synth_SAXI_wvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_wvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_wready" SIGIS="undef" SIGNAME="Synth_SAXI_wready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_wready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_bresp" SIGIS="undef"/>
-        <PORT DIR="I" NAME="M01_AXI_bvalid" SIGIS="undef" SIGNAME="Synth_SAXI_bvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_bvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_bready" SIGIS="undef" SIGNAME="Synth_SAXI_bready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_bready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M01_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_araddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_araddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_arprot" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M01_AXI_arvalid" SIGIS="undef" SIGNAME="Synth_SAXI_arvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_arvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_arready" SIGIS="undef" SIGNAME="Synth_SAXI_arready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_arready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="M01_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_rdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_rdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_rresp" SIGIS="undef"/>
-        <PORT DIR="I" NAME="M01_AXI_rvalid" SIGIS="undef" SIGNAME="Synth_SAXI_rvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_rvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_rready" SIGIS="undef" SIGNAME="Synth_SAXI_rready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_rready"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>

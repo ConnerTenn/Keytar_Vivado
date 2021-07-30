@@ -87,8 +87,6 @@ module Synth #
             // .Clock50MHz(clock50MHz),
             .Clock100KHz(clock100KHz),
             .Waveform(waveform),
-            //== AXI Clock ==
-            .BusClock(Clock100MHz),
             //== AXI Read ==
             .ReadAddress(saxiReadAddress),
             .ReadData(readdata),

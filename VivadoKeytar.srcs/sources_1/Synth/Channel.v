@@ -5,6 +5,7 @@ module Channel #
     parameter ADDRESS=0
 )
 (
+    input Clock100MHz,
     input Clock100KHz,
     output reg signed [23:0] Waveform = 0,
 
@@ -20,8 +21,6 @@ module Channel #
     input [23:0] Sustain, 
     input [23:0] Release,
 
-    //== AXI Clock ==
-    input BusClock,
     //== AXI Read ==
     input [31:0] ReadAddress,
     output reg [31:0] ReadData,
@@ -83,7 +82,7 @@ module Channel #
     end
 
 
-    always @(posedge BusClock)
+    always @(posedge Clock100MHz)
     begin
         if (ReadEN)
         begin

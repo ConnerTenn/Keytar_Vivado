@@ -2,7 +2,7 @@
 module DigitalFilter #
 (
     parameter ADDRESS=0,
-    parameter DEPTH = 80//2**8
+    parameter DEPTH = 980//2**8
 )
 (
     input Clock100MHz,
@@ -11,8 +11,6 @@ module DigitalFilter #
     input signed [23:0] InWaveform,
     output reg signed [23:0] OutWaveform = 24'h000000,
 
-    //== AXI Clock ==
-    input BusClock,
     //== AXI Read ==
     input [31:0] ReadAddress,
     output reg [31:0] ReadData = 32'h00000000,
@@ -24,23 +22,39 @@ module DigitalFilter #
 );
     `include "Math.v"
 
-
+    //== Delay stages ==
     reg signed [23:0] delayMem [DEPTH];
-    reg signed [23:0] coeff [DEPTH];
-
     initial
     begin
         for (int i=0; i<DEPTH; i=i+1)
         begin
             delayMem[i] <= 0;
-            coeff[i] <= 0;
         end
     end
 
+    //== State Signals ==
     reg signed [23:0] accum = 0;
-    reg [7:0] incr = 0;
+    reg [9:0] incr = 0;
     localparam [1:0] IDLE=0, RUN=1, WAIT=2;
     reg [1:0] state = IDLE;
+
+
+
+    //== Coeff memory ==
+    (* ram_style = "block" *)
+    reg signed [23:0] coeffCpy1 [DEPTH];
+    (* ram_style = "block" *)
+    reg signed [23:0] coeffCpy2 [DEPTH];
+
+    initial
+    begin
+        for (int i=0; i<DEPTH; i=i+1)
+        begin
+            coeffCpy1[i] <= 'h0;
+            coeffCpy2[i] <= 'h0;
+        end
+    end
+
 
 
     //== Shift Process ==
@@ -78,11 +92,12 @@ module DigitalFilter #
     // end
 
 
+
     //== Sequence ==
     // wire signed [23:0] mul = delayMem[incr];//(delayMem[incr] * coeff[incr]);//>>>24;
     (* keep = "true" *)
     reg signed [23:0] delaySampleReg = 0;
-    (* keep = "true" *)
+    //No Keep for coeffSampleReg because it gets merged into the BRAM (since it has a synchronous output).
     reg signed [23:0] coeffSampleReg = 0;
     (* keep = "true" *)
     reg signed [23:0] mulReg = 0;
@@ -95,7 +110,7 @@ module DigitalFilter #
     always @(posedge Clock100MHz)
     begin
         delaySampleReg <= delayMem[incr];
-        coeffSampleReg <= coeff[incr];
+        coeffSampleReg <= coeffCpy1[incr];
         mulReg <= (mul >>> 20); //Rescale output
 
         //Initalize Sequence
@@ -140,14 +155,17 @@ module DigitalFilter #
 
 
 
+    //== Bus Interface ==
+    wire [31:0] readAddr = (ReadAddress-ADDRESS)>>2;
+    wire [31:0] writeAddr = (WriteAddress-ADDRESS)>>2;
 
-    always @(posedge BusClock)
+    always @(posedge Clock100MHz)
     begin
         if (ReadEN)
         begin
             if ((ADDRESS<=ReadAddress) && (ReadAddress<(ADDRESS+DEPTH*4)))
             begin
-                ReadData <= {8'h0, coeff[(ReadAddress-ADDRESS)>>2]};
+                ReadData <= {8'h0, coeffCpy2[readAddr]};
             end
             else
             begin
@@ -158,12 +176,16 @@ module DigitalFilter #
         begin
             if ((ADDRESS<=WriteAddress) && (WriteAddress<(ADDRESS+DEPTH*4)))
             begin
-                coeff[(WriteAddress-ADDRESS)>>2] <= WriteData[23:0];
+                coeffCpy1[writeAddr] <= WriteData[23:0];
+                coeffCpy2[writeAddr] <= WriteData[23:0];
             end
         end
     end
 
 endmodule
+
+
+
 
 
 `timescale 1ns/1ns
