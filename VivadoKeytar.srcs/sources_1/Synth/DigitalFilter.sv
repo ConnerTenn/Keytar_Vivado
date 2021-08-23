@@ -13,7 +13,7 @@ module DigitalFilter #
 
     //== AXI Read ==
     input [31:0] ReadAddress,
-    output reg [31:0] ReadData = 32'h00000000,
+    output logic [31:0] ReadData,
     input ReadEN,
     //== AXI Write ==
     input [31:0] WriteAddress,
@@ -37,21 +37,136 @@ module DigitalFilter #
     reg [9:0] incr = 0;
     localparam [1:0] IDLE=0, RUN=1, WAIT=2;
     reg [1:0] state = IDLE;
+    reg queueSwap = 0;
+    reg swapState = 0;
 
 
 
     //== Coeff memory ==
-    (* ram_style = "block" *)
-    reg signed [23:0] coeffCpy1 [DEPTH];
-    (* ram_style = "block" *)
-    reg signed [23:0] coeffCpy2 [DEPTH];
+    module CoeffRam #
+    (
+        parameter DEPTH
+    )
+    (
+        input Clk,
 
-    initial
-    begin
-        for (int i=0; i<DEPTH; i=i+1)
+        //Port A
+        input [31:0] AddrA,
+        output reg [23:0] DataA,
+        input RenA,
+
+        //Port B
+        input [31:0] AddrB,
+        output reg [23:0] DataB,
+        input RenB,
+
+        //Write Port
+        input [31:0] WAddr,
+        input [23:0] WData,
+        input Wen
+    );
+        (* ram_style = "block" *)
+        reg signed [23:0] ram1 [DEPTH];
+        (* ram_style = "block" *)
+        reg signed [23:0] ram2 [DEPTH];
+
+        initial
         begin
-            coeffCpy1[i] <= 'h0;
-            coeffCpy2[i] <= 'h0;
+            for (int i=0; i<DEPTH; i=i+1)
+            begin
+                ram1[i] <= 'h0;
+                ram2[i] <= 'h0;
+            end
+        end
+
+        always @(posedge Clk)
+        begin
+            if (RenA) begin DataA <= ram1[AddrA]; end
+            else begin DataA <= 'h0; end
+
+            if (RenB) begin DataB <= ram2[AddrB]; end
+            else begin DataB <= 'h0; end
+
+
+            if (Wen)
+            begin
+                ram1[WAddr] <= WData;
+                ram2[WAddr] <= WData;
+            end
+        end
+    endmodule
+
+
+    wire [31:0] readAddr = (ReadAddress-ADDRESS)>>2;
+    wire [31:0] writeAddr = (WriteAddress-ADDRESS)>>2;
+
+    logic [31:0] coeffAddrA, coeffAddrB;
+    logic coeffRenA, coeffRenB;
+    wire [23:0] coeffOutA, coeffOutB;
+
+    logic [23:0] coeffAtIncr;
+
+    CoeffRam #(.DEPTH(DEPTH)) coeff
+    (
+        .Clk(Clock100MHz),
+
+        //Port A
+        .AddrA(coeffAddrA),
+        .DataA(coeffOutA),
+        .RenA(coeffRenA),
+
+        //Port B
+        .AddrB(coeffAddrB),
+        .DataB(coeffOutB),
+        .RenB(coeffRenB),
+
+        //Write Port
+        .WAddr(writeAddr),
+        .WData(WriteData),
+        .Wen(WriteEN)
+    );
+
+    logic [31:0] readcoeff = (ADDRESS<=ReadAddress) && (ReadAddress<(ADDRESS+DEPTH*4));
+
+    always_comb
+    begin
+        if (swapState=='b0)
+        begin
+            coeffAddrA = incr;
+            coeffAddrB = readAddr;
+
+            coeffAtIncr = coeffOutA;
+            ReadData = {8'h0, coeffOutB};
+
+            coeffRenB = '1;
+
+            if (ReadEN && readcoeff)
+            begin
+                coeffRenA = '1;
+            end
+            else
+            begin
+                coeffRenA = '0;
+            end
+        end
+        else
+        begin
+            coeffAddrA = readAddr;
+            coeffAddrB = incr;
+
+            ReadData = {8'h0, coeffOutA};
+            coeffAtIncr = coeffOutB;
+
+            coeffRenA = '1;
+
+            if (ReadEN && readcoeff)
+            begin
+                coeffRenB = '1;
+            end
+            else
+            begin
+                coeffRenB = '0;
+            end
         end
     end
 
@@ -73,24 +188,6 @@ module DigitalFilter #
         OutWaveform <= accum;
     end
 
-    //== Cascade Calculate ==
-    // for (genvar gi=0; gi<DEPTH; gi=gi+1)
-    // begin:stages
-    //     wire signed [23*2+1:0] mul;
-    //     wire signed [clog2(24'hFFFFFF*DEPTH):0] sum;
-
-    //     assign mul = (gi * delayMem[gi])>>>25;
-
-    //     if (gi==0)
-    //     begin
-    //         assign sum = mul;
-    //     end
-    //     else if (gi > 0)
-    //     begin
-    //         assign sum = stages[gi-1].sum + mul;
-    //     end
-    // end
-
 
 
     //== Sequence ==
@@ -98,19 +195,18 @@ module DigitalFilter #
     (* keep = "true" *)
     reg signed [23:0] delaySampleReg = 0;
     //No Keep for coeffSampleReg because it gets merged into the BRAM (since it has a synchronous output).
-    reg signed [23:0] coeffSampleReg = 0;
+    // reg signed [23:0] coeffSampleReg = 0;
     (* keep = "true" *)
     reg signed [23:0] mulReg = 0;
     // reg signed [23:0] sum = 0;
 
     wire signed [47:0] delaySample = { {24{delaySampleReg[23]}}, delaySampleReg }; //Sign extend to 48 bits
-    wire signed [47:0] coeffSample = { {24{coeffSampleReg[23]}}, coeffSampleReg }; //Sign extend to 48 bits
+    wire signed [47:0] coeffSample = { {24{coeffAtIncr[23]}}, coeffAtIncr }; //Sign extend to 48 bits
     wire signed [47:0] mul = (delaySample * coeffSample); //48 bit multiply
 
     always @(posedge Clock100MHz)
     begin
         delaySampleReg <= delayMem[incr];
-        coeffSampleReg <= coeffCpy1[incr];
         mulReg <= (mul >>> 20); //Rescale output
 
         //Initalize Sequence
@@ -148,36 +244,22 @@ module DigitalFilter #
                 if (!Clock100KHz)
                 begin
                     state = IDLE;
+                    if (queueSwap)
+                    begin
+                        swapState <= !swapState;
+                        queueSwap <= 1'b0;
+                    end
                 end
             end
         endcase
-    end
 
 
-
-    //== Bus Interface ==
-    wire [31:0] readAddr = (ReadAddress-ADDRESS)>>2;
-    wire [31:0] writeAddr = (WriteAddress-ADDRESS)>>2;
-
-    always @(posedge Clock100MHz)
-    begin
-        if (ReadEN)
-        begin
-            if ((ADDRESS<=ReadAddress) && (ReadAddress<(ADDRESS+DEPTH*4)))
-            begin
-                ReadData <= {8'h0, coeffCpy2[readAddr]};
-            end
-            else
-            begin
-                ReadData <= 32'h00000000;
-            end
-        end
+        //== Bus Interface ==
         if (WriteEN)
         begin
-            if ((ADDRESS<=WriteAddress) && (WriteAddress<(ADDRESS+DEPTH*4)))
+            if (WriteAddress==ADDRESS+32'h0FFF)
             begin
-                coeffCpy1[writeAddr] <= WriteData[23:0];
-                coeffCpy2[writeAddr] <= WriteData[23:0];
+                queueSwap <= 1'b1;
             end
         end
     end
