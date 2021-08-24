@@ -35,7 +35,9 @@ module Channel #
 
     wire running;
 
+    (* ASYNC_REG = "TRUE" *)
     reg [23:0] increment = 0;
+    reg [23:0] incrementTmp = 0;
     wire signed [23:0] wavegenout;
 
     wire [23:0] waveincrement = increment + (LfoSelection[0] ? Lfo : 0);
@@ -50,7 +52,9 @@ module Channel #
         .Waveform(wavegenout)
     );
 
-    reg gate = 0, gatetmp = 0;
+    (* ASYNC_REG = "TRUE" *)
+    reg gate = 0;
+    reg gateTmp = 0;
     wire [23:0] envelope;
     wire [1:0] adsrState;
 
@@ -78,7 +82,8 @@ module Channel #
 
     always @(posedge Clock100KHz)
     begin
-        gate <= gatetmp;
+        gate <= gateTmp;
+        increment <= incrementTmp;
     end
 
 
@@ -98,8 +103,8 @@ module Channel #
         if (WriteEN)
         begin
             case (WriteAddress)
-                ADDRESS+4*0: gatetmp <= WriteData[0:0];
-                ADDRESS+4*1: increment <= WriteData[23:0];
+                ADDRESS+4*0: gateTmp <= WriteData[0:0];
+                ADDRESS+4*1: incrementTmp <= WriteData[23:0];
                 // ADDRESS+4*2:
                 // ADDRESS+4*3:
                 // ADDRESS+4*4:

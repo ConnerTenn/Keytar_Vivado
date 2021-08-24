@@ -22,13 +22,23 @@ module Bank #
 
     localparam USE_FILTER = 1;
 
-    reg signed [23:0] pulsewidth = 0, pulsewidthTmp = 0;
+    (* ASYNC_REG = "TRUE" *)
+    reg signed [23:0] pulsewidth = 0;
+    (* ASYNC_REG = "TRUE" *)
     reg [23:0] attack = 0, decay = 0, sustain = 0, releas = 0;
+    (* ASYNC_REG = "TRUE" *)
+    reg [1:0] wavetype = 0;
+
+    (* ASYNC_REG = "TRUE" *)
+    reg [1:0] lfoSelection = 0;
+
+    reg signed [23:0] pulsewidthTmp = 0;
     reg [23:0] attackTmp = 0, decayTmp = 0, sustainTmp = 0, releasTmp = 0;
-    reg [1:0] wavetype = 0, wavetypeTmp = 0;
+    reg [1:0] wavetypeTmp = 0;
+
+    reg [1:0] lfoSelectionTmp = 0;
 
     reg signed [23:0] lfoWaveform = 0;
-    reg [1:0] lfoSelection = 0, lfoSelectionTmp = 0;
 
 
     localparam NUM_CHANNELS = 8;
@@ -117,11 +127,21 @@ module Bank #
     end
 
 
-    reg lfoRunning = 0, lfoRunningTmp = 0;
-    reg [23:0] lfoIncrement = 0, lfoIncrementTmp = 0;
-    reg [23:0] lfoAmplitude = 0, lfoAmplitudeTmp = 0;
+    (* ASYNC_REG = "TRUE" *)
+    reg lfoRunning = 0;
+    (* ASYNC_REG = "TRUE" *)
+    reg [23:0] lfoIncrement = 0;
+    (* ASYNC_REG = "TRUE" *)
+    reg [23:0] lfoAmplitude = 0;
+    (* ASYNC_REG = "TRUE" *)
+    reg [1:0] lfoWaveType = 0;
+
+    reg lfoRunningTmp = 0;
+    reg [23:0] lfoIncrementTmp = 0;
+    reg [23:0] lfoAmplitudeTmp = 0;
+    reg [1:0] lfoWaveTypeTmp = 0;
+
     wire signed [23:0] lfoWavegenout;
-    reg [1:0] lfoWaveType = 0, lfoWaveTypeTmp = 0;
 
     WaveGen lfo(
         .Clock100KHz(Clock100KHz),

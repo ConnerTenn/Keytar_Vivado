@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
-//Date        : Mon Aug 23 02:06:33 2021
+//Date        : Mon Aug 23 03:06:24 2021
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
