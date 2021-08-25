@@ -4,7 +4,7 @@
 #== Synth ==
 #===========
 # create_clock -name CLK100MHz -period 10.000 [get_pins system_i/Synth/Clock100MHz]
-create_generated_clock -name CLK1MHz -source [get_pins system_i/Synth/Clock100MHz] -divide_by 100 [get_pins system_i/Synth/inst/clock1MHz_reg/Q]
+create_generated_clock -name CLK100KHz -source [get_pins system_i/Synth/Clock100MHz] -divide_by 1000 [get_pins system_i/Synth/inst/clock100KHz_reg/Q]
 # create_generated_clock -name CLK10MHz -source [get_ports system_i/Synth/Clock100MHz] -divide_by 2 [get_pins system_i/Synth/inst/clock50MHz_reg/Q]
 
 #======================

@@ -6,11 +6,9 @@ module Bank #
 (
     input Clock100MHz,
     // input Clock50MHz,
-    input Clock1MHz,
+    input Clock100KHz,
     output signed [23:0] Waveform,
 
-    //== AXI Clock ==
-    input BusClock,
     //== AXI Read ==
     input [31:0] ReadAddress,
     output [31:0] ReadData,
@@ -24,13 +22,23 @@ module Bank #
 
     localparam USE_FILTER = 1;
 
-    reg signed [23:0] pulsewidth = 0, pulsewidthTmp = 0;
+    (* ASYNC_REG = "TRUE" *)
+    reg signed [23:0] pulsewidth = 0;
+    (* ASYNC_REG = "TRUE" *)
     reg [23:0] attack = 0, decay = 0, sustain = 0, releas = 0;
+    (* ASYNC_REG = "TRUE" *)
+    reg [1:0] wavetype = 0;
+
+    (* ASYNC_REG = "TRUE" *)
+    reg [1:0] lfoSelection = 0;
+
+    reg signed [23:0] pulsewidthTmp = 0;
     reg [23:0] attackTmp = 0, decayTmp = 0, sustainTmp = 0, releasTmp = 0;
-    reg [1:0] wavetype = 0, wavetypeTmp = 0;
+    reg [1:0] wavetypeTmp = 0;
+
+    reg [1:0] lfoSelectionTmp = 0;
 
     reg signed [23:0] lfoWaveform = 0;
-    reg [1:0] lfoSelection = 0, lfoSelectionTmp = 0;
 
 
     localparam NUM_CHANNELS = 8;
@@ -46,7 +54,8 @@ module Bank #
 
         Channel #(.ADDRESS(ADDRESS + 32'h100 * gi + 32'h100)) channel
         (
-            .Clock1MHz(Clock1MHz),
+            .Clock100MHz(Clock100MHz),
+            .Clock100KHz(Clock100KHz),
             .Waveform(waveform),
             //== Control ==
             .WaveType(wavetype),
@@ -55,8 +64,6 @@ module Bank #
             .LfoSelection(lfoSelection),
             //== ADSR ==
             .Attack(attack), .Decay(decay), .Sustain(sustain), .Release(releas),
-            //== AXI Clock ==
-            .BusClock(BusClock),
             //== AXI Read ==
             .ReadAddress(ReadAddress),
             .ReadData(readdata),
@@ -86,7 +93,7 @@ module Bank #
     //Rescale output
     wire signed [23:0] channelSumWaveformTmp = (channels[NUM_CHANNELS-1].wavesum >>> (clog2(24'hFFFFFF*NUM_CHANNELS)-24+1));
     reg signed [23:0] channelSumWaveform = 0;
-    always @(posedge Clock1MHz)
+    always @(posedge Clock100KHz)
     begin
         channelSumWaveform <= channelSumWaveformTmp;
     end
@@ -100,11 +107,9 @@ module Bank #
         (
             .Clock100MHz(Clock100MHz),
             // .Clock50MHz(Clock50MHz),
-            .Clock1MHz(Clock1MHz),
+            .Clock100KHz(Clock100KHz),
             .InWaveform(channelSumWaveform),
             .OutWaveform(Waveform),
-            //== AXI Clock ==
-            .BusClock(BusClock),
             //== AXI Read ==
             .ReadAddress(ReadAddress),
             .ReadData(filterReadData),
@@ -122,14 +127,24 @@ module Bank #
     end
 
 
-    reg lfoRunning = 0, lfoRunningTmp = 0;
-    reg [23:0] lfoIncrement = 0, lfoIncrementTmp = 0;
-    reg [23:0] lfoAmplitude = 0, lfoAmplitudeTmp = 0;
+    (* ASYNC_REG = "TRUE" *)
+    reg lfoRunning = 0;
+    (* ASYNC_REG = "TRUE" *)
+    reg [23:0] lfoIncrement = 0;
+    (* ASYNC_REG = "TRUE" *)
+    reg [23:0] lfoAmplitude = 0;
+    (* ASYNC_REG = "TRUE" *)
+    reg [1:0] lfoWaveType = 0;
+
+    reg lfoRunningTmp = 0;
+    reg [23:0] lfoIncrementTmp = 0;
+    reg [23:0] lfoAmplitudeTmp = 0;
+    reg [1:0] lfoWaveTypeTmp = 0;
+
     wire signed [23:0] lfoWavegenout;
-    reg [1:0] lfoWaveType = 0, lfoWaveTypeTmp = 0;
 
     WaveGen lfo(
-        .Clock1MHz(Clock1MHz),
+        .Clock100KHz(Clock100KHz),
         .Run(lfoRunning),
         .Increment(lfoIncrement),
         .WaveType(lfoWaveType),
@@ -140,7 +155,7 @@ module Bank #
     wire signed [47:0] mulArg1 = { {24{lfoWavegenout[23]}}, lfoWavegenout};
     wire signed [47:0] mulArg2 = {24'd0, lfoAmplitude};
     wire signed [47:0] lfomul = mulArg1 * mulArg2;
-    always @(posedge Clock1MHz)
+    always @(posedge Clock100KHz)
     begin
         lfoWaveform <= (lfomul>>>24);
     end
@@ -149,7 +164,7 @@ module Bank #
     reg [31:0] readData = 0;
     assign ReadData = channels[NUM_CHANNELS-1].readdata_OR | readData | filterReadData;
 
-    always @(posedge Clock1MHz)
+    always @(posedge Clock100KHz)
     begin
         wavetype <= wavetypeTmp;
         pulsewidth <= pulsewidthTmp;
@@ -165,7 +180,7 @@ module Bank #
         lfoSelection <= lfoSelectionTmp;
     end
 
-    always @(posedge BusClock)
+    always @(posedge Clock100MHz)
     begin
         if (ReadEN)
         begin
