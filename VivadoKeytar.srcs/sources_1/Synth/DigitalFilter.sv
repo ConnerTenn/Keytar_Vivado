@@ -51,19 +51,20 @@ module DigitalFilter #
         input Clk,
 
         //Port A
-        input [31:0] AddrA,
-        output reg [23:0] DataA,
+        input [31:0] RaddrA,
+        output reg [23:0] RdataA,
         input RenA,
+        input [31:0] WaddrA,
+        input [23:0] WdataA,
+        input WenA,
 
         //Port B
-        input [31:0] AddrB,
-        output reg [23:0] DataB,
+        input [31:0] RaddrB,
+        output reg [23:0] RdataB,
         input RenB,
-
-        //Write Port
-        input [31:0] WAddr,
-        input [23:0] WData,
-        input Wen
+        input [31:0] WaddrB,
+        input [23:0] WdataB,
+        input WenB
     );
         (* ram_style = "block" *)
         reg signed [23:0] ram1 [DEPTH];
@@ -81,18 +82,16 @@ module DigitalFilter #
 
         always @(posedge Clk)
         begin
-            if (RenA) begin DataA <= ram1[AddrA]; end
-            else begin DataA <= 'h0; end
+            if (RenA) begin RdataA <= ram1[RaddrA]; end
+            else begin RdataA <= 'h0; end
 
-            if (RenB) begin DataB <= ram2[AddrB]; end
-            else begin DataB <= 'h0; end
+            if (WenA) begin ram1[WaddrA] <= WdataA; end
 
 
-            if (Wen)
-            begin
-                ram1[WAddr] <= WData;
-                ram2[WAddr] <= WData;
-            end
+            if (RenB) begin RdataB <= ram2[RaddrB]; end
+            else begin RdataB <= 'h0; end
+
+            if (WenB) begin ram2[WaddrB] <= WdataB; end
         end
     endmodule
 
@@ -100,9 +99,13 @@ module DigitalFilter #
     wire [31:0] readAddr = (ReadAddress-ADDRESS)>>2;
     wire [31:0] writeAddr = (WriteAddress-ADDRESS)>>2;
 
-    logic [31:0] coeffAddrA, coeffAddrB;
+    logic [31:0] coeffRaddrA, coeffRaddrB;
+    wire [23:0] coeffRdataA, coeffRdataB;
     logic coeffRenA, coeffRenB;
-    wire [23:0] coeffOutA, coeffOutB;
+
+    logic [31:0] coeffWaddrA, coeffWaddrB;
+    // wire [23:0] coeffWdataA, coeffWdataB;
+    logic coeffWenA, coeffWenB;
 
     logic [23:0] coeffAtIncr;
 
@@ -111,51 +114,33 @@ module DigitalFilter #
         .Clk(Clock100MHz),
 
         //Port A
-        .AddrA(coeffAddrA),
-        .DataA(coeffOutA),
+        .RaddrA(coeffRaddrA),
+        .RdataA(coeffRdataA),
         .RenA(coeffRenA),
+        .WaddrA(writeAddr),
+        .WdataA(WriteData),
+        .WenA(coeffWenA),
 
         //Port B
-        .AddrB(coeffAddrB),
-        .DataB(coeffOutB),
+        .RaddrB(coeffRaddrB),
+        .RdataB(coeffRdataB),
         .RenB(coeffRenB),
-
-        //Write Port
-        .WAddr(writeAddr),
-        .WData(WriteData),
-        .Wen(WriteEN)
+        .WaddrB(writeAddr),
+        .WdataB(WriteData),
+        .WenB(coeffWenB)
     );
 
-    logic [31:0] readcoeff = (ADDRESS<=ReadAddress) && (ReadAddress<(ADDRESS+DEPTH*4));
+    wire readcoeff = (ADDRESS<=ReadAddress) && (ReadAddress<(ADDRESS+DEPTH*4));
 
     always_comb
     begin
         if (swapState=='b0)
         begin
-            coeffAddrA = incr;
-            coeffAddrB = readAddr;
+            coeffRaddrA = incr;
+            coeffRaddrB = readAddr;
 
-            coeffAtIncr = coeffOutA;
-            ReadData = {8'h0, coeffOutB};
-
-            coeffRenB = '1;
-
-            if (ReadEN && readcoeff)
-            begin
-                coeffRenA = '1;
-            end
-            else
-            begin
-                coeffRenA = '0;
-            end
-        end
-        else
-        begin
-            coeffAddrA = readAddr;
-            coeffAddrB = incr;
-
-            ReadData = {8'h0, coeffOutA};
-            coeffAtIncr = coeffOutB;
+            coeffAtIncr = coeffRdataA;
+            ReadData = {8'h0, coeffRdataB};
 
             coeffRenA = '1;
 
@@ -167,6 +152,31 @@ module DigitalFilter #
             begin
                 coeffRenB = '0;
             end
+
+            coeffWenA = 1'b0;
+            coeffWenB = WriteEN;
+        end
+        else
+        begin
+            coeffRaddrA = readAddr;
+            coeffRaddrB = incr;
+
+            ReadData = {8'h0, coeffRdataA};
+            coeffAtIncr = coeffRdataB;
+
+            coeffRenB = '1;
+
+            if (ReadEN && readcoeff)
+            begin
+                coeffRenA = '1;
+            end
+            else
+            begin
+                coeffRenA = '0;
+            end
+
+            coeffWenA = WriteEN;
+            coeffWenB = 1'b0;
         end
     end
 
@@ -243,7 +253,7 @@ module DigitalFilter #
                 incr <= 0;
                 if (!Clock100KHz)
                 begin
-                    state = IDLE;
+                    state <= IDLE;
                     if (queueSwap)
                     begin
                         swapState <= !swapState;
@@ -257,7 +267,7 @@ module DigitalFilter #
         //== Bus Interface ==
         if (WriteEN)
         begin
-            if (WriteAddress==ADDRESS+32'h0FFF)
+            if (WriteAddress==ADDRESS+32'h0FF0)
             begin
                 queueSwap <= 1'b1;
             end
