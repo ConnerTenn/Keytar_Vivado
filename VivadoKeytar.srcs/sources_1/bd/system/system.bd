@@ -336,7 +336,7 @@
             "direction": "I",
             "parameters": {
               "FREQ_HZ": {
-                "value": "1.5e+08",
+                "value": "150000000",
                 "value_src": "user_prop"
               },
               "CLK_DOMAIN": {
@@ -742,7 +742,7 @@
             "value": "1"
           },
           "PCW_EN_USB0": {
-            "value": "0"
+            "value": "1"
           },
           "PCW_EN_USB1": {
             "value": "0"
@@ -1336,10 +1336,10 @@
             "value": "54"
           },
           "PCW_MIO_TREE_PERIPHERALS": {
-            "value": "GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#SD 0#SD 0#SD 0#SD 0#SD 0#SD 0#SD 0#SD 0#UART 1#UART 1#GPIO#GPIO#GPIO#GPIO"
+            "value": "GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#SD 0#SD 0#SD 0#SD 0#SD 0#SD 0#SD 0#SD 0#UART 1#UART 1#GPIO#GPIO#GPIO#GPIO"
           },
           "PCW_MIO_TREE_SIGNALS": {
-            "value": "gpio[0]#gpio[1]#gpio[2]#gpio[3]#gpio[4]#gpio[5]#gpio[6]#gpio[7]#gpio[8]#gpio[9]#gpio[10]#gpio[11]#gpio[12]#gpio[13]#gpio[14]#gpio[15]#gpio[16]#gpio[17]#gpio[18]#gpio[19]#gpio[20]#gpio[21]#gpio[22]#gpio[23]#gpio[24]#gpio[25]#gpio[26]#gpio[27]#gpio[28]#gpio[29]#gpio[30]#gpio[31]#gpio[32]#gpio[33]#gpio[34]#gpio[35]#gpio[36]#gpio[37]#gpio[38]#gpio[39]#clk#cmd#data[0]#data[1]#data[2]#data[3]#cd#wp#tx#rx#gpio[50]#gpio[51]#gpio[52]#gpio[53]"
+            "value": "gpio[0]#gpio[1]#gpio[2]#gpio[3]#gpio[4]#gpio[5]#gpio[6]#gpio[7]#gpio[8]#gpio[9]#gpio[10]#gpio[11]#gpio[12]#gpio[13]#gpio[14]#gpio[15]#gpio[16]#gpio[17]#gpio[18]#gpio[19]#gpio[20]#gpio[21]#gpio[22]#gpio[23]#gpio[24]#gpio[25]#gpio[26]#gpio[27]#data[4]#dir#stp#nxt#data[0]#data[1]#data[2]#data[3]#clk#data[5]#data[6]#data[7]#clk#cmd#data[0]#data[1]#data[2]#data[3]#cd#wp#tx#rx#gpio[50]#gpio[51]#gpio[52]#gpio[53]"
           },
           "PCW_M_AXI_GP0_ENABLE_STATIC_REMAP": {
             "value": "0"
@@ -1893,8 +1893,20 @@
           "PCW_UIPARAM_GENERATE_SUMMARY": {
             "value": "NA"
           },
+          "PCW_USB0_BASEADDR": {
+            "value": "0xE0102000"
+          },
+          "PCW_USB0_HIGHADDR": {
+            "value": "0xE0102fff"
+          },
           "PCW_USB0_PERIPHERAL_ENABLE": {
+            "value": "1"
+          },
+          "PCW_USB0_RESET_ENABLE": {
             "value": "0"
+          },
+          "PCW_USB0_USB0_IO": {
+            "value": "MIO 28 .. 39"
           },
           "PCW_USB1_PERIPHERAL_ENABLE": {
             "value": "0"
@@ -1904,6 +1916,9 @@
           },
           "PCW_USB_RESET_POLARITY": {
             "value": "Active Low"
+          },
+          "PCW_USB_RESET_SELECT": {
+            "value": "Share reset pin"
           },
           "PCW_USE_AXI_FABRIC_IDLE": {
             "value": "0"
@@ -2294,16 +2309,16 @@
               }
             },
             "interface_nets": {
-              "s00_couplers_to_auto_pc": {
-                "interface_ports": [
-                  "S_AXI",
-                  "auto_pc/S_AXI"
-                ]
-              },
               "auto_pc_to_s00_couplers": {
                 "interface_ports": [
                   "M_AXI",
                   "auto_pc/M_AXI"
+                ]
+              },
+              "s00_couplers_to_auto_pc": {
+                "interface_ports": [
+                  "S_AXI",
+                  "auto_pc/S_AXI"
                 ]
               }
             },
@@ -2324,16 +2339,16 @@
           }
         },
         "interface_nets": {
-          "s00_couplers_to_axi_interconnect_video_ctl": {
-            "interface_ports": [
-              "M00_AXI",
-              "s00_couplers/M_AXI"
-            ]
-          },
           "axi_interconnect_video_ctl_to_s00_couplers": {
             "interface_ports": [
               "S00_AXI",
               "s00_couplers/S_AXI"
+            ]
+          },
+          "s00_couplers_to_axi_interconnect_video_ctl": {
+            "interface_ports": [
+              "M00_AXI",
+              "s00_couplers/M_AXI"
             ]
           }
         },
@@ -2504,16 +2519,16 @@
               }
             },
             "interface_nets": {
-              "auto_pc_to_s00_couplers": {
-                "interface_ports": [
-                  "M_AXI",
-                  "auto_pc/M_AXI"
-                ]
-              },
               "s00_couplers_to_auto_pc": {
                 "interface_ports": [
                   "S_AXI",
                   "auto_pc/S_AXI"
+                ]
+              },
+              "auto_pc_to_s00_couplers": {
+                "interface_ports": [
+                  "M_AXI",
+                  "auto_pc/M_AXI"
                 ]
               }
             },
@@ -2893,6 +2908,12 @@
           }
         },
         "interface_nets": {
+          "xbar_to_m01_couplers": {
+            "interface_ports": [
+              "xbar/M01_AXI",
+              "m01_couplers/S_AXI"
+            ]
+          },
           "s00_couplers_to_xbar": {
             "interface_ports": [
               "s00_couplers/M_AXI",
@@ -2905,10 +2926,10 @@
               "m00_couplers/M_AXI"
             ]
           },
-          "axi_interconnect_synth_to_s00_couplers": {
+          "m01_couplers_to_axi_interconnect_synth": {
             "interface_ports": [
-              "S00_AXI",
-              "s00_couplers/S_AXI"
+              "M01_AXI",
+              "m01_couplers/M_AXI"
             ]
           },
           "xbar_to_m00_couplers": {
@@ -2917,16 +2938,10 @@
               "m00_couplers/S_AXI"
             ]
           },
-          "m01_couplers_to_axi_interconnect_synth": {
+          "axi_interconnect_synth_to_s00_couplers": {
             "interface_ports": [
-              "M01_AXI",
-              "m01_couplers/M_AXI"
-            ]
-          },
-          "xbar_to_m01_couplers": {
-            "interface_ports": [
-              "xbar/M01_AXI",
-              "m01_couplers/S_AXI"
+              "S00_AXI",
+              "s00_couplers/S_AXI"
             ]
           }
         },
@@ -3032,7 +3047,7 @@
             "direction": "I",
             "parameters": {
               "FREQ_HZ": {
-                "value": "1e+08",
+                "value": "100000000",
                 "value_src": "user_prop"
               },
               "CLK_DOMAIN": {
@@ -3692,22 +3707,10 @@
           "processing_system7_0/DDR"
         ]
       },
-      "processing_system7_0_FIXED_IO": {
-        "interface_ports": [
-          "FIXED_IO",
-          "processing_system7_0/FIXED_IO"
-        ]
-      },
       "axi_interconnect_synth_M00_AXI": {
         "interface_ports": [
           "IOController_0/SAXI_Interface",
           "axi_interconnect_synth/M00_AXI"
-        ]
-      },
-      "processing_system7_0_IIC_0": {
-        "interface_ports": [
-          "I2C",
-          "processing_system7_0/IIC_0"
         ]
       },
       "axi_interconnect_synth_M01_AXI": {
@@ -3716,10 +3719,10 @@
           "axi_interconnect_synth/M01_AXI"
         ]
       },
-      "processing_system7_0_M_AXI_GP0": {
+      "processing_system7_0_IIC_0": {
         "interface_ports": [
-          "processing_system7_0/M_AXI_GP0",
-          "axi_interconnect_synth/S00_AXI"
+          "I2C",
+          "processing_system7_0/IIC_0"
         ]
       },
       "VideoController_0_MAXI_FrameBufferReader": {
@@ -3728,10 +3731,10 @@
           "axi_interconnect_0/S00_AXI"
         ]
       },
-      "axi_interconnect_video_ctl_M00_AXI": {
+      "axi_interconnect_0_M00_AXI1": {
         "interface_ports": [
-          "axi_interconnect_video_ctl/M00_AXI",
-          "VideoController_0/SAXI_ControlInterface"
+          "axi_interconnect_0/M00_AXI",
+          "processing_system7_0/S_AXI_HP0"
         ]
       },
       "processing_system7_0_M_AXI_GP1": {
@@ -3740,10 +3743,22 @@
           "axi_interconnect_video_ctl/S00_AXI"
         ]
       },
-      "axi_interconnect_0_M00_AXI1": {
+      "processing_system7_0_M_AXI_GP0": {
         "interface_ports": [
-          "axi_interconnect_0/M00_AXI",
-          "processing_system7_0/S_AXI_HP0"
+          "processing_system7_0/M_AXI_GP0",
+          "axi_interconnect_synth/S00_AXI"
+        ]
+      },
+      "processing_system7_0_FIXED_IO": {
+        "interface_ports": [
+          "FIXED_IO",
+          "processing_system7_0/FIXED_IO"
+        ]
+      },
+      "axi_interconnect_video_ctl_M00_AXI": {
+        "interface_ports": [
+          "axi_interconnect_video_ctl/M00_AXI",
+          "VideoController_0/SAXI_ControlInterface"
         ]
       }
     },

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Aug 25 01:58:24 2021" VIVADOVERSION="2020.2">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Aug 25 22:18:12 2021" VIVADOVERSION="2020.2">
 
   <SYSTEMINFO ARCH="zynq" DEVICE="7z020" NAME="system" PACKAGE="clg400" SPEEDGRADE="-2"/>
 
@@ -103,36 +103,6 @@
     <PORT DIR="O" NAME="Analog_CS_n" SIGIS="undef" SIGNAME="AnalogController_CS_n">
       <CONNECTIONS>
         <CONNECTION INSTANCE="AnalogController" PORT="CS_n"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="I" NAME="I2C_sda_i" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SDA_I">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SDA_I"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="O" NAME="I2C_sda_o" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SDA_O">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SDA_O"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="O" NAME="I2C_sda_t" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SDA_T">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SDA_T"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="I" NAME="I2C_scl_i" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SCL_I">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SCL_I"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="O" NAME="I2C_scl_o" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SCL_O">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SCL_O"/>
-      </CONNECTIONS>
-    </PORT>
-    <PORT DIR="O" NAME="I2C_scl_t" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SCL_T">
-      <CONNECTIONS>
-        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SCL_T"/>
       </CONNECTIONS>
     </PORT>
     <PORT DIR="IO" NAME="DDR_cas_n" SIGIS="undef" SIGNAME="processing_system7_0_DDR_CAS_n">
@@ -240,6 +210,36 @@
         <CONNECTION INSTANCE="processing_system7_0" PORT="PS_PORB"/>
       </CONNECTIONS>
     </PORT>
+    <PORT DIR="I" NAME="I2C_sda_i" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SDA_I">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SDA_I"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="I2C_sda_o" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SDA_O">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SDA_O"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="I2C_sda_t" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SDA_T">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SDA_T"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="I2C_scl_i" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SCL_I">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SCL_I"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="I2C_scl_o" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SCL_O">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SCL_O"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="O" NAME="I2C_scl_t" SIGIS="undef" SIGNAME="processing_system7_0_I2C0_SCL_T">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="processing_system7_0" PORT="I2C0_SCL_T"/>
+      </CONNECTIONS>
+    </PORT>
   </EXTERNALPORTS>
 
   <EXTERNALINTERFACES>
@@ -307,7 +307,7 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT CLKFREQUENCY="1e+08" DIR="I" NAME="Clock" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="Clock" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
           </CONNECTIONS>
@@ -603,7 +603,7 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT CLKFREQUENCY="1.5e+08" DIR="I" NAME="Clock" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK1">
+        <PORT CLKFREQUENCY="150000000" DIR="I" NAME="Clock" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK1">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK1"/>
           </CONNECTIONS>
@@ -2634,81 +2634,6 @@
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP0_RREADY"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M01_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_awaddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_awaddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_awprot" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M01_AXI_awvalid" SIGIS="undef" SIGNAME="Synth_SAXI_awvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_awvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_awready" SIGIS="undef" SIGNAME="Synth_SAXI_awready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_awready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M01_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_wdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_wdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_wstrb" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M01_AXI_wvalid" SIGIS="undef" SIGNAME="Synth_SAXI_wvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_wvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_wready" SIGIS="undef" SIGNAME="Synth_SAXI_wready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_wready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_bresp" SIGIS="undef"/>
-        <PORT DIR="I" NAME="M01_AXI_bvalid" SIGIS="undef" SIGNAME="Synth_SAXI_bvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_bvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_bready" SIGIS="undef" SIGNAME="Synth_SAXI_bready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_bready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M01_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_araddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_araddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_arprot" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M01_AXI_arvalid" SIGIS="undef" SIGNAME="Synth_SAXI_arvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_arvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_arready" SIGIS="undef" SIGNAME="Synth_SAXI_arready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_arready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="M01_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_rdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_rdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M01_AXI_rresp" SIGIS="undef"/>
-        <PORT DIR="I" NAME="M01_AXI_rvalid" SIGIS="undef" SIGNAME="Synth_SAXI_rvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_rvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M01_AXI_rready" SIGIS="undef" SIGNAME="Synth_SAXI_rready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="Synth" PORT="SAXI_rready"/>
-          </CONNECTIONS>
-        </PORT>
         <PORT DIR="O" LEFT="31" NAME="M00_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="IOController_0_SAXI_awaddr">
           <CONNECTIONS>
             <CONNECTION INSTANCE="IOController_0" PORT="SAXI_awaddr"/>
@@ -2782,6 +2707,81 @@
         <PORT DIR="O" NAME="M00_AXI_rready" SIGIS="undef" SIGNAME="IOController_0_SAXI_rready">
           <CONNECTIONS>
             <CONNECTION INSTANCE="IOController_0" PORT="SAXI_rready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M01_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_awaddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_awaddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_awprot" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M01_AXI_awvalid" SIGIS="undef" SIGNAME="Synth_SAXI_awvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_awvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_awready" SIGIS="undef" SIGNAME="Synth_SAXI_awready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_awready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M01_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_wdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_wstrb" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M01_AXI_wvalid" SIGIS="undef" SIGNAME="Synth_SAXI_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_wvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_wready" SIGIS="undef" SIGNAME="Synth_SAXI_wready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_wready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_bresp" SIGIS="undef"/>
+        <PORT DIR="I" NAME="M01_AXI_bvalid" SIGIS="undef" SIGNAME="Synth_SAXI_bvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_bvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_bready" SIGIS="undef" SIGNAME="Synth_SAXI_bready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_bready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M01_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_araddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_araddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_arprot" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M01_AXI_arvalid" SIGIS="undef" SIGNAME="Synth_SAXI_arvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_arvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_arready" SIGIS="undef" SIGNAME="Synth_SAXI_arready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_arready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="M01_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="Synth_SAXI_rdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_rdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M01_AXI_rresp" SIGIS="undef"/>
+        <PORT DIR="I" NAME="M01_AXI_rvalid" SIGIS="undef" SIGNAME="Synth_SAXI_rvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_rvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M01_AXI_rready" SIGIS="undef" SIGNAME="Synth_SAXI_rready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="Synth" PORT="SAXI_rready"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -3229,6 +3229,97 @@
             <CONNECTION INSTANCE="proc_sys_reset_1" PORT="peripheral_aresetn"/>
           </CONNECTIONS>
         </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M00_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_awaddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_awaddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M00_AXI_awprot" SIGIS="undef"/>
+        <PORT DIR="O" NAME="M00_AXI_awvalid" SIGIS="undef" SIGNAME="VideoController_0_SAXI_awvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_awvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M00_AXI_awready" SIGIS="undef" SIGNAME="VideoController_0_SAXI_awready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_awready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_wdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_wdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="3" NAME="M00_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_wstrb">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_wstrb"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M00_AXI_wvalid" SIGIS="undef" SIGNAME="VideoController_0_SAXI_wvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_wvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M00_AXI_wready" SIGIS="undef" SIGNAME="VideoController_0_SAXI_wready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_wready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="1" NAME="M00_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_bresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_bresp"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M00_AXI_bvalid" SIGIS="undef" SIGNAME="VideoController_0_SAXI_bvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_bvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M00_AXI_bready" SIGIS="undef" SIGNAME="VideoController_0_SAXI_bready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_bready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="31" NAME="M00_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_araddr">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_araddr"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="2" NAME="M00_AXI_arprot" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_arprot">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_arprot"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M00_AXI_arvalid" SIGIS="undef" SIGNAME="VideoController_0_SAXI_arvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_arvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M00_AXI_arready" SIGIS="undef" SIGNAME="VideoController_0_SAXI_arready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_arready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="31" NAME="M00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_rdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_rdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="1" NAME="M00_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_rresp">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_rresp"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="M00_AXI_rvalid" SIGIS="undef" SIGNAME="VideoController_0_SAXI_rvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_rvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="M00_AXI_rready" SIGIS="undef" SIGNAME="VideoController_0_SAXI_rready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_rready"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="I" LEFT="11" NAME="S00_AXI_awid" RIGHT="0" SIGIS="undef" SIGNAME="axi_interconnect_video_ctl_S00_AXI_awid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP1_AWID"/>
@@ -3419,97 +3510,6 @@
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP1_RREADY"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M00_AXI_awaddr" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_awaddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_awaddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M00_AXI_awprot" SIGIS="undef"/>
-        <PORT DIR="O" NAME="M00_AXI_awvalid" SIGIS="undef" SIGNAME="VideoController_0_SAXI_awvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_awvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M00_AXI_awready" SIGIS="undef" SIGNAME="VideoController_0_SAXI_awready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_awready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M00_AXI_wdata" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_wdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_wdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="3" NAME="M00_AXI_wstrb" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_wstrb">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_wstrb"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M00_AXI_wvalid" SIGIS="undef" SIGNAME="VideoController_0_SAXI_wvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_wvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M00_AXI_wready" SIGIS="undef" SIGNAME="VideoController_0_SAXI_wready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_wready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M00_AXI_bresp" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_bresp">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_bresp"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M00_AXI_bvalid" SIGIS="undef" SIGNAME="VideoController_0_SAXI_bvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_bvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M00_AXI_bready" SIGIS="undef" SIGNAME="VideoController_0_SAXI_bready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_bready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="31" NAME="M00_AXI_araddr" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_araddr">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_araddr"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" LEFT="2" NAME="M00_AXI_arprot" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_arprot">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_arprot"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M00_AXI_arvalid" SIGIS="undef" SIGNAME="VideoController_0_SAXI_arvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_arvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M00_AXI_arready" SIGIS="undef" SIGNAME="VideoController_0_SAXI_arready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_arready"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="31" NAME="M00_AXI_rdata" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_rdata">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_rdata"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" LEFT="1" NAME="M00_AXI_rresp" RIGHT="0" SIGIS="undef" SIGNAME="VideoController_0_SAXI_rresp">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_rresp"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="I" NAME="M00_AXI_rvalid" SIGIS="undef" SIGNAME="VideoController_0_SAXI_rvalid">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_rvalid"/>
-          </CONNECTIONS>
-        </PORT>
-        <PORT DIR="O" NAME="M00_AXI_rready" SIGIS="undef" SIGNAME="VideoController_0_SAXI_rready">
-          <CONNECTIONS>
-            <CONNECTION INSTANCE="VideoController_0" PORT="SAXI_rready"/>
-          </CONNECTIONS>
-        </PORT>
       </PORTS>
       <BUSINTERFACES>
         <BUSINTERFACE BUSNAME="processing_system7_0_M_AXI_GP1" DATAWIDTH="32" NAME="S00_AXI" TYPE="SLAVE" VLNV="xilinx.com:interface:aximm:1.0">
@@ -3654,7 +3654,7 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT CLKFREQUENCY="1e+08" DIR="I" NAME="slowest_sync_clk" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="slowest_sync_clk" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
           </CONNECTIONS>
@@ -3719,7 +3719,7 @@
         <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
       </PARAMETERS>
       <PORTS>
-        <PORT CLKFREQUENCY="1.5e+08" DIR="I" NAME="slowest_sync_clk" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK1">
+        <PORT CLKFREQUENCY="150000000" DIR="I" NAME="slowest_sync_clk" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK1">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK1"/>
           </CONNECTIONS>
@@ -4077,12 +4077,12 @@
         <PARAMETER NAME="PCW_USE_S_AXI_HP1" VALUE="0"/>
         <PARAMETER NAME="PCW_USE_S_AXI_HP2" VALUE="0"/>
         <PARAMETER NAME="PCW_USE_S_AXI_HP3" VALUE="0"/>
-        <PARAMETER NAME="PCW_M_AXI_GP0_FREQMHZ" VALUE="100.0"/>
-        <PARAMETER NAME="PCW_M_AXI_GP1_FREQMHZ" VALUE="150.0"/>
+        <PARAMETER NAME="PCW_M_AXI_GP0_FREQMHZ" VALUE="100"/>
+        <PARAMETER NAME="PCW_M_AXI_GP1_FREQMHZ" VALUE="150"/>
         <PARAMETER NAME="PCW_S_AXI_GP0_FREQMHZ" VALUE="150"/>
         <PARAMETER NAME="PCW_S_AXI_GP1_FREQMHZ" VALUE="10"/>
         <PARAMETER NAME="PCW_S_AXI_ACP_FREQMHZ" VALUE="10"/>
-        <PARAMETER NAME="PCW_S_AXI_HP0_FREQMHZ" VALUE="150.0"/>
+        <PARAMETER NAME="PCW_S_AXI_HP0_FREQMHZ" VALUE="150"/>
         <PARAMETER NAME="PCW_S_AXI_HP1_FREQMHZ" VALUE="10"/>
         <PARAMETER NAME="PCW_S_AXI_HP2_FREQMHZ" VALUE="10"/>
         <PARAMETER NAME="PCW_S_AXI_HP3_FREQMHZ" VALUE="10"/>
@@ -4172,7 +4172,7 @@
         <PARAMETER NAME="PCW_EN_TTC1" VALUE="0"/>
         <PARAMETER NAME="PCW_EN_WDT" VALUE="0"/>
         <PARAMETER NAME="PCW_EN_TRACE" VALUE="0"/>
-        <PARAMETER NAME="PCW_EN_USB0" VALUE="0"/>
+        <PARAMETER NAME="PCW_EN_USB0" VALUE="1"/>
         <PARAMETER NAME="PCW_EN_USB1" VALUE="0"/>
         <PARAMETER NAME="PCW_DQ_WIDTH" VALUE="32"/>
         <PARAMETER NAME="PCW_DQS_WIDTH" VALUE="4"/>
@@ -4377,10 +4377,10 @@
         <PARAMETER NAME="PCW_TTC1_TTC1_IO" VALUE="&lt;Select>"/>
         <PARAMETER NAME="PCW_PJTAG_PERIPHERAL_ENABLE" VALUE="0"/>
         <PARAMETER NAME="PCW_PJTAG_PJTAG_IO" VALUE="&lt;Select>"/>
-        <PARAMETER NAME="PCW_USB0_PERIPHERAL_ENABLE" VALUE="0"/>
-        <PARAMETER NAME="PCW_USB0_USB0_IO" VALUE="&lt;Select>"/>
+        <PARAMETER NAME="PCW_USB0_PERIPHERAL_ENABLE" VALUE="1"/>
+        <PARAMETER NAME="PCW_USB0_USB0_IO" VALUE="MIO 28 .. 39"/>
         <PARAMETER NAME="PCW_USB_RESET_ENABLE" VALUE="1"/>
-        <PARAMETER NAME="PCW_USB_RESET_SELECT" VALUE="&lt;Select>"/>
+        <PARAMETER NAME="PCW_USB_RESET_SELECT" VALUE="Share reset pin"/>
         <PARAMETER NAME="PCW_USB0_RESET_ENABLE" VALUE="0"/>
         <PARAMETER NAME="PCW_USB0_RESET_IO" VALUE="&lt;Select>"/>
         <PARAMETER NAME="PCW_USB1_PERIPHERAL_ENABLE" VALUE="0"/>
@@ -4556,15 +4556,15 @@
         <PARAMETER NAME="PCW_MIO_28_SLEW" VALUE="slow"/>
         <PARAMETER NAME="PCW_MIO_29_PULLUP" VALUE="enabled"/>
         <PARAMETER NAME="PCW_MIO_29_IOTYPE" VALUE="LVCMOS 1.8V"/>
-        <PARAMETER NAME="PCW_MIO_29_DIRECTION" VALUE="inout"/>
+        <PARAMETER NAME="PCW_MIO_29_DIRECTION" VALUE="in"/>
         <PARAMETER NAME="PCW_MIO_29_SLEW" VALUE="slow"/>
         <PARAMETER NAME="PCW_MIO_30_PULLUP" VALUE="enabled"/>
         <PARAMETER NAME="PCW_MIO_30_IOTYPE" VALUE="LVCMOS 1.8V"/>
-        <PARAMETER NAME="PCW_MIO_30_DIRECTION" VALUE="inout"/>
+        <PARAMETER NAME="PCW_MIO_30_DIRECTION" VALUE="out"/>
         <PARAMETER NAME="PCW_MIO_30_SLEW" VALUE="slow"/>
         <PARAMETER NAME="PCW_MIO_31_PULLUP" VALUE="enabled"/>
         <PARAMETER NAME="PCW_MIO_31_IOTYPE" VALUE="LVCMOS 1.8V"/>
-        <PARAMETER NAME="PCW_MIO_31_DIRECTION" VALUE="inout"/>
+        <PARAMETER NAME="PCW_MIO_31_DIRECTION" VALUE="in"/>
         <PARAMETER NAME="PCW_MIO_31_SLEW" VALUE="slow"/>
         <PARAMETER NAME="PCW_MIO_32_PULLUP" VALUE="enabled"/>
         <PARAMETER NAME="PCW_MIO_32_IOTYPE" VALUE="LVCMOS 1.8V"/>
@@ -4584,7 +4584,7 @@
         <PARAMETER NAME="PCW_MIO_35_SLEW" VALUE="slow"/>
         <PARAMETER NAME="PCW_MIO_36_PULLUP" VALUE="enabled"/>
         <PARAMETER NAME="PCW_MIO_36_IOTYPE" VALUE="LVCMOS 1.8V"/>
-        <PARAMETER NAME="PCW_MIO_36_DIRECTION" VALUE="inout"/>
+        <PARAMETER NAME="PCW_MIO_36_DIRECTION" VALUE="in"/>
         <PARAMETER NAME="PCW_MIO_36_SLEW" VALUE="slow"/>
         <PARAMETER NAME="PCW_MIO_37_PULLUP" VALUE="enabled"/>
         <PARAMETER NAME="PCW_MIO_37_IOTYPE" VALUE="LVCMOS 1.8V"/>
@@ -4656,8 +4656,8 @@
         <PARAMETER NAME="PCW_MIO_53_SLEW" VALUE="slow"/>
         <PARAMETER NAME="preset" VALUE="None"/>
         <PARAMETER NAME="PCW_UIPARAM_GENERATE_SUMMARY" VALUE="NA"/>
-        <PARAMETER NAME="PCW_MIO_TREE_PERIPHERALS" VALUE="GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#SD 0#SD 0#SD 0#SD 0#SD 0#SD 0#SD 0#SD 0#UART 1#UART 1#GPIO#GPIO#GPIO#GPIO"/>
-        <PARAMETER NAME="PCW_MIO_TREE_SIGNALS" VALUE="gpio[0]#gpio[1]#gpio[2]#gpio[3]#gpio[4]#gpio[5]#gpio[6]#gpio[7]#gpio[8]#gpio[9]#gpio[10]#gpio[11]#gpio[12]#gpio[13]#gpio[14]#gpio[15]#gpio[16]#gpio[17]#gpio[18]#gpio[19]#gpio[20]#gpio[21]#gpio[22]#gpio[23]#gpio[24]#gpio[25]#gpio[26]#gpio[27]#gpio[28]#gpio[29]#gpio[30]#gpio[31]#gpio[32]#gpio[33]#gpio[34]#gpio[35]#gpio[36]#gpio[37]#gpio[38]#gpio[39]#clk#cmd#data[0]#data[1]#data[2]#data[3]#cd#wp#tx#rx#gpio[50]#gpio[51]#gpio[52]#gpio[53]"/>
+        <PARAMETER NAME="PCW_MIO_TREE_PERIPHERALS" VALUE="GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#GPIO#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#USB 0#SD 0#SD 0#SD 0#SD 0#SD 0#SD 0#SD 0#SD 0#UART 1#UART 1#GPIO#GPIO#GPIO#GPIO"/>
+        <PARAMETER NAME="PCW_MIO_TREE_SIGNALS" VALUE="gpio[0]#gpio[1]#gpio[2]#gpio[3]#gpio[4]#gpio[5]#gpio[6]#gpio[7]#gpio[8]#gpio[9]#gpio[10]#gpio[11]#gpio[12]#gpio[13]#gpio[14]#gpio[15]#gpio[16]#gpio[17]#gpio[18]#gpio[19]#gpio[20]#gpio[21]#gpio[22]#gpio[23]#gpio[24]#gpio[25]#gpio[26]#gpio[27]#data[4]#dir#stp#nxt#data[0]#data[1]#data[2]#data[3]#clk#data[5]#data[6]#data[7]#clk#cmd#data[0]#data[1]#data[2]#data[3]#cd#wp#tx#rx#gpio[50]#gpio[51]#gpio[52]#gpio[53]"/>
         <PARAMETER NAME="PCW_PS7_SI_REV" VALUE="PRODUCTION"/>
         <PARAMETER NAME="PCW_FPGA_FCLK0_ENABLE" VALUE="1"/>
         <PARAMETER NAME="PCW_FPGA_FCLK1_ENABLE" VALUE="1"/>
@@ -4746,6 +4746,9 @@
             <CONNECTION INSTANCE="system_imp" PORT="I2C_scl_t"/>
           </CONNECTIONS>
         </PORT>
+        <PORT DIR="O" LEFT="1" NAME="USB0_PORT_INDCTL" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="O" NAME="USB0_VBUS_PWRSELECT" SIGIS="undef"/>
+        <PORT DIR="I" NAME="USB0_VBUS_PWRFAULT" SIGIS="undef"/>
         <PORT DIR="O" NAME="M_AXI_GP0_ARVALID" SIGIS="undef" SIGNAME="axi_interconnect_synth_S00_AXI_arvalid">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="S00_AXI_arvalid"/>
@@ -4881,7 +4884,7 @@
             <CONNECTION INSTANCE="axi_interconnect_synth" PORT="S00_AXI_wstrb"/>
           </CONNECTIONS>
         </PORT>
-        <PORT CLKFREQUENCY="1e+08" DIR="I" NAME="M_AXI_GP0_ACLK" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
+        <PORT CLKFREQUENCY="100000000" DIR="I" NAME="M_AXI_GP0_ACLK" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
           </CONNECTIONS>
@@ -5076,7 +5079,7 @@
             <CONNECTION INSTANCE="axi_interconnect_video_ctl" PORT="S00_AXI_wstrb"/>
           </CONNECTIONS>
         </PORT>
-        <PORT CLKFREQUENCY="1.5e+08" DIR="I" NAME="M_AXI_GP1_ACLK" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK1">
+        <PORT CLKFREQUENCY="150000000" DIR="I" NAME="M_AXI_GP1_ACLK" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK1">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK1"/>
           </CONNECTIONS>
@@ -5195,7 +5198,7 @@
         <PORT DIR="O" LEFT="7" NAME="S_AXI_HP0_WCOUNT" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="O" LEFT="2" NAME="S_AXI_HP0_RACOUNT" RIGHT="0" SIGIS="undef"/>
         <PORT DIR="O" LEFT="5" NAME="S_AXI_HP0_WACOUNT" RIGHT="0" SIGIS="undef"/>
-        <PORT CLKFREQUENCY="1.5e+08" DIR="I" NAME="S_AXI_HP0_ACLK" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK1">
+        <PORT CLKFREQUENCY="150000000" DIR="I" NAME="S_AXI_HP0_ACLK" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK1">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK1"/>
           </CONNECTIONS>
@@ -5337,7 +5340,7 @@
             <CONNECTION INSTANCE="axi_interconnect_0" PORT="M00_AXI_wstrb"/>
           </CONNECTIONS>
         </PORT>
-        <PORT CLKFREQUENCY="1e+08" DIR="O" NAME="FCLK_CLK0" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
+        <PORT CLKFREQUENCY="100000000" DIR="O" NAME="FCLK_CLK0" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="proc_sys_reset_0" PORT="slowest_sync_clk"/>
             <CONNECTION INSTANCE="processing_system7_0" PORT="M_AXI_GP0_ACLK"/>
@@ -5350,7 +5353,7 @@
             <CONNECTION INSTANCE="Synth" PORT="Clock100MHz"/>
           </CONNECTIONS>
         </PORT>
-        <PORT CLKFREQUENCY="1.5e+08" DIR="O" NAME="FCLK_CLK1" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK1">
+        <PORT CLKFREQUENCY="150000000" DIR="O" NAME="FCLK_CLK1" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK1">
           <CONNECTIONS>
             <CONNECTION INSTANCE="RGBTest_0" PORT="Clock"/>
             <CONNECTION INSTANCE="proc_sys_reset_1" PORT="slowest_sync_clk"/>
@@ -5544,6 +5547,13 @@
             <PORTMAP LOGICAL="SCL_T" PHYSICAL="I2C0_SCL_T"/>
           </PORTMAPS>
         </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="__NOC__" NAME="USBIND_0" TYPE="INITIATOR" VLNV="xilinx.com:display_processing_system7:usbctrl:1.0">
+          <PORTMAPS>
+            <PORTMAP LOGICAL="PORT_INDCTL" PHYSICAL="USB0_PORT_INDCTL"/>
+            <PORTMAP LOGICAL="VBUS_PWRSELECT" PHYSICAL="USB0_VBUS_PWRSELECT"/>
+            <PORTMAP LOGICAL="VBUS_PWRFAULT" PHYSICAL="USB0_VBUS_PWRFAULT"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
         <BUSINTERFACE BUSNAME="__NOC__" NAME="S_AXI_HP0_FIFO_CTRL" TYPE="TARGET" VLNV="xilinx.com:display_processing_system7:hpstatusctrl:1.0">
           <PORTMAPS>
             <PORTMAP LOGICAL="RCOUNT" PHYSICAL="S_AXI_HP0_RCOUNT"/>
@@ -5560,7 +5570,7 @@
           <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="8"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
           <PARAMETER NAME="PROTOCOL" VALUE="AXI3"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="1e+08"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="100000000"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="12"/>
           <PARAMETER NAME="ADDR_WIDTH" VALUE="32"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
@@ -5633,7 +5643,7 @@
           <PARAMETER NAME="SUPPORTS_NARROW_BURST" VALUE="0"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="32"/>
           <PARAMETER NAME="PROTOCOL" VALUE="AXI3"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="1.5e+08"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="150000000"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="12"/>
           <PARAMETER NAME="ADDR_WIDTH" VALUE="32"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>
@@ -5705,7 +5715,7 @@
           <PARAMETER NAME="NUM_READ_OUTSTANDING" VALUE="8"/>
           <PARAMETER NAME="DATA_WIDTH" VALUE="64"/>
           <PARAMETER NAME="PROTOCOL" VALUE="AXI3"/>
-          <PARAMETER NAME="FREQ_HZ" VALUE="1.5e+08"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="150000000"/>
           <PARAMETER NAME="ID_WIDTH" VALUE="6"/>
           <PARAMETER NAME="ADDR_WIDTH" VALUE="32"/>
           <PARAMETER NAME="AWUSER_WIDTH" VALUE="0"/>

@@ -143,6 +143,9 @@ class processing_system7_v5_5_tlm : public sc_core::sc_module   {
     sc_core::sc_in<bool> I2C0_SCL_I;
     sc_core::sc_out<bool> I2C0_SCL_O;
     sc_core::sc_out<bool> I2C0_SCL_T;
+    sc_core::sc_out<sc_dt::sc_bv<2> >  USB0_PORT_INDCTL;
+    sc_core::sc_out<bool> USB0_VBUS_PWRSELECT;
+    sc_core::sc_in<bool> USB0_VBUS_PWRFAULT;
     sc_core::sc_in<bool> M_AXI_GP0_ACLK;
     sc_core::sc_in<bool> M_AXI_GP1_ACLK;
     sc_core::sc_out<sc_dt::sc_bv<8> >  S_AXI_HP0_RCOUNT;

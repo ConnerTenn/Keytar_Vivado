@@ -1,7 +1,7 @@
 //Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
-//Date        : Wed Aug 25 01:58:20 2021
+//Date        : Wed Aug 25 22:17:30 2021
 //Host        : ConnerServer running 64-bit Manjaro Linux
 //Command     : generate_target system.bd
 //Design      : system
@@ -2155,7 +2155,8 @@ module system
         .S_AXI_HP0_WREADY(axi_interconnect_0_M00_AXI1_WREADY),
         .S_AXI_HP0_WRISSUECAP1_EN(1'b0),
         .S_AXI_HP0_WSTRB(axi_interconnect_0_M00_AXI1_WSTRB),
-        .S_AXI_HP0_WVALID(axi_interconnect_0_M00_AXI1_WVALID));
+        .S_AXI_HP0_WVALID(axi_interconnect_0_M00_AXI1_WVALID),
+        .USB0_VBUS_PWRFAULT(1'b0));
 endmodule
 
 module system_axi_interconnect_0_0
