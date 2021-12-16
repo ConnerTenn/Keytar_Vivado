@@ -14,6 +14,11 @@ create_generated_clock -name CLK100KHz -source [get_pins system_i/Synth/Clock100
 create_generated_clock -name DAC_MClk -source [get_pins system_i/AnalogController/Clock] -divide_by 4 [get_pins system_i/AnalogController/inst/DAC_MClk_reg/Q]
 create_generated_clock -name I2S_Clk -source [get_pins system_i/AnalogController/inst/DAC_MClk_reg/Q] -divide_by 4 [get_pins system_i/AnalogController/inst/I2SClk_reg/Q]
 
+#===============
+#== Midi_UART ==
+#===============
+create_generated_clock -name MIDI_CLK -source [get_pins system_i/Midi_UART_Wrapper/SAXI_aclk] -divide_by 3200 [get_pins system_i/Midi_UART_Wrapper/inst/Midi_UART/rx_clk/Q]
+
 
 #====================
 #== Inputs/Outputs ==
