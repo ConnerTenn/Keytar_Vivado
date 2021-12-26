@@ -104,3 +104,6 @@ set_property PULLDOWN true [get_ports {KeyRibbonSense[6]}]
 set_property PULLDOWN true [get_ports {KeyRibbonSense[7]}]
 
 
+
+#MIDI
+set_property -dict {IOSTANDARD LVCMOS33 PACKAGE_PIN J14} [get_ports {MidiRx}]
