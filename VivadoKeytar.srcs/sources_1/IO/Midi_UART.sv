@@ -1,4 +1,68 @@
 
+module Fifo_9x2k
+(
+    input Clk,
+    input Rst,
+
+    //Read
+    output reg [7:0] ReadData,
+    input ReadEN,
+
+    //Write
+    input [7:0] WriteData,
+    input WriteEN,
+
+    //Status
+    output Empty,
+    output AlmostEmpty,
+    output Full,
+    output AlmostFull
+);
+
+    FIFO18E1 #(
+        .ALMOST_EMPTY_OFFSET(13'h0010),
+        .ALMOST_FULL_OFFSET(13'h0080),
+        .DATA_WIDTH(9), //8bits + 1 parity
+        .DO_REG(1),
+        .EN_SYN("FALSE"),
+        .FIFO_MODE("FIFO18"),
+        .FIRST_WORD_FALL_THROUGH("FALSE"),
+        .INIT(36'h0),
+        .SIM_DEVICE("7SERIES"),
+        .SRVAL(36'h0)
+    )
+    fifo (
+        .RST(Rst),
+        .RSTREG(Rst),
+        .REGCE('b1),
+
+        //Read
+        .RDCLK(Clk),
+        .DO(ReadData),
+        .RDEN(ReadEN),
+
+        //Write
+        .WRCLK(Clk),
+        .DI(WriteData),
+        .WREN(WriteEN),
+
+        //Status
+        .EMPTY(Empty),
+        .ALMOSTEMPTY(AlmostEmpty),
+        .FULL(Full),
+        .ALMOSTFULL(AlmostFull),
+
+        //Unused
+        .RDCOUNT(),
+        .WRCOUNT(),
+        .DIP(4'h0),
+        .DOP(),
+        .RDERR(),
+        .WRERR()
+    );
+
+endmodule
+
 module Midi_UART # 
 (
     parameter SAXI_SLAVE_BASE_ADDR = 32'h00000000
@@ -47,12 +111,17 @@ module Midi_UART #
     assign SAXI_bresp = 2'b00;
     //Read Interface
     wire [31:0] saxiReadAddress;
-    reg [31:0] saxiReadData;
+    reg [31:0] saxiReadAddress_dly1;
+    reg [31:0] saxiReadData; //Not actually a register; Used in always_comb
     wire saxiReadEN;
+    reg saxiReadEN_dly1;
     //Write Interface
     wire [31:0] saxiWriteAddress;
     wire [31:0] saxiWriteData;
     wire saxiWriteEN;
+
+    reg AXIreg_FifoHasData;
+    reg AXIreg_FifoFull;
 
 
     //== MIDI UART ==
@@ -62,36 +131,55 @@ module Midi_UART #
     (* ASYNC_REG = "TRUE" *)
     reg rx_dly2;
 
-
-    (* ram_style = "block" *)
-    reg [7:0] rxFIFO [RX_FIFO_SIZE];
-    reg [$clog2(RX_FIFO_SIZE)-1:0] fifoHead;
-    reg [$clog2(RX_FIFO_SIZE)-1:0] fifoTail;
-    wire fifoHasData = fifoHead != fifoTail;
-    wire fifoFull = fifoHead+1 == fifoTail;
-    reg [8:0] rxStaging;
-
     reg [11:0] rx_clkDiv;
     reg rx_clk, rx_clk_dly1;
+
+    reg [8:0] rxStaging;
     reg capture;
 
 
-    assign Intr = fifoHasData;
+    //== rxFIFO ==
+    wire [7:0] fifoReadData;
+    wire fifoRead;
+    wire [7:0] fifoWriteData;
+    wire fifoWrite;
 
-    //Clock Divider
+    wire fifoEmpty;
+    wire fifoAlmostFull;
+
+    Fifo_9x2k fifo(
+        .Clk(SAXI_aclk),
+        .Rst(SAXI_resetn),
+
+        //Read
+        .ReadData(fifoReadData),
+        .ReadEN(fifoRead),
+
+        //Write
+        .WriteData(fifoWriteData),
+        .WriteEN(fifoWrite),
+
+        //Status
+        .Empty(fifoEmpty),
+        .AlmostEmpty(),
+        .Full(),
+        .AlmostFull(fifoAlmostFull)
+    );
+
+    assign fifoWriteData = rxStaging[8:1];
+    assign fifoWrite = (rx_clk && !rx_clk_dly1) && (rxStaging[0] == 'b1);
+    assign fifoRead = saxiReadEN && (saxiReadAddress==SAXI_SLAVE_BASE_ADDR+4*0);
+
+
+    assign Intr = !fifoEmpty;
+
+
     always @(posedge SAXI_aclk, negedge SAXI_resetn)
     begin
 
         if (SAXI_resetn=='b0)
         begin
-            //FIFO
-            for (int i=0; i<RX_FIFO_SIZE; i++)
-            begin
-                rxFIFO[i] <= 'h0;
-            end
-            fifoHead <= 'h0;
-            fifoTail <= 'h0;
-
+            //UART
             rx_dly1 <= 'b0;
             rx_dly2 <= 'b0;
             
@@ -99,6 +187,12 @@ module Midi_UART #
             rx_clk <= 'b0;
             rx_clk_dly1 <= 'b0;
             capture <= 'b0;
+
+            //AXI
+            saxiReadAddress_dly1 <= 'h0;
+            saxiReadEN_dly1 <= 'b0;
+            AXIreg_FifoHasData <= 'b0;
+            AXIreg_FifoFull <= 'b0;
         end
         else
         begin
@@ -150,50 +244,39 @@ module Midi_UART #
                 if (rxStaging[0] == 'b1)
                 begin
                     capture <= 'b0;
-
-                    rxFIFO[fifoHead] <= rxStaging[8:1];
-                    fifoHead <= fifoHead + 'h1;
-
-                    //Fifo Full
-                    if (fifoFull)
-                    begin
-                        fifoTail <= fifoTail + 'h1;
-                    end
                 end
             end
 
 
+            //== AXI Registers ==
+            saxiReadAddress_dly1 <= saxiReadAddress;
+            saxiReadEN_dly1 <= saxiReadEN;
 
-            //AXI Registers
-            if (saxiReadEN)
-            begin
-                case (saxiReadAddress)
-                    //== Read FIFO ==
-                    SAXI_SLAVE_BASE_ADDR+4*0: 
-                    begin
-                        saxiReadData <= {24'h0, rxFIFO[fifoTail]};
-                        if (fifoHasData)
-                        begin
-                            fifoTail <= fifoTail+1;
-                        end
-                    end
-                    //== FIFO Status ==
-                    SAXI_SLAVE_BASE_ADDR+4*1: saxiReadData <= { 31'h0, fifoHasData };
-                    SAXI_SLAVE_BASE_ADDR+4*2: saxiReadData <= { 31'h0, fifoFull };
-                    default: saxiReadData <= 32'h00000000;
-                endcase
-            end
-            if (saxiWriteEN)
-            begin
-                case (saxiWriteAddress)
-                    // SAXI_SLAVE_BASE_ADDR+4*0: //Do something
-                    default:;
-                endcase
-            end
+            AXIreg_FifoHasData <= !fifoEmpty;
+            AXIreg_FifoFull <= fifoAlmostFull;
+
         end //if (SAXI_resetn=='b0) else 
     end //always
 
 
+    always_comb
+    begin
+        //Default
+        saxiReadData <= 32'h0;
+
+        //AXI Registers
+        if (saxiReadEN_dly1)
+        begin
+            case (saxiReadAddress_dly1)
+                //== Read FIFO ==
+                SAXI_SLAVE_BASE_ADDR+4*0: saxiReadData <= fifoReadData;
+                //== FIFO Status ==
+                SAXI_SLAVE_BASE_ADDR+4*1: saxiReadData <= { 31'h0, AXIreg_FifoHasData};
+                SAXI_SLAVE_BASE_ADDR+4*2: saxiReadData <= { 31'h0, AXIreg_FifoFull};
+                // default: saxiReadData <= 32'h00000000;
+            endcase
+        end
+    end
 
     AxiSlaveController AxiSlave (
         //== Global Signals ==
@@ -231,3 +314,4 @@ module Midi_UART #
     );
 
 endmodule
+
